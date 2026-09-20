@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.svg" width="156" height="156" alt="PCB Design to Bring-up logo">
+  <img src="assets/logo.svg?v=2" width="156" height="156" alt="PCB Design to Bring-up logo">
 </p>
 
 <h1 align="center">pcb-design-to-bringup-skill</h1>
