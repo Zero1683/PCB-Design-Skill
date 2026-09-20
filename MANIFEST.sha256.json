@@ -1,0 +1,1781 @@
+{
+  "schema": 1,
+  "revision": "v1.1.1",
+  "baseline_id": "bilingual-public-release",
+  "generated_utc": "2026-09-20T07:37:02+00:00",
+  "scope": "file-byte-integrity-only",
+  "files": {
+    ".gitignore": {
+      "bytes": 144,
+      "sha256": "a2dcb8927f1430ffd1082a3d5d9d123f5304c6a3669c7daf5e8287a16f04b860"
+    },
+    "LICENSE": {
+      "bytes": 1065,
+      "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
+    },
+    "README.md": {
+      "bytes": 12583,
+      "sha256": "56d6d7a64c55a94b50e31d8b851fcf303410170dde37c2051a191c0e41413ed0"
+    },
+    "SKILL.md": {
+      "bytes": 7928,
+      "sha256": "a3863f8842bacd274f5cb74a95954b807e37ba371dc4ae28868eaf475a083b10"
+    },
+    "START_HERE.md": {
+      "bytes": 2073,
+      "sha256": "0f55bef42f3ad01d390bed1f3fcd034e0fd358906492a72490b0c58485c8b1ba"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 2030,
+      "sha256": "023d68caacea4ae88c3ac7d8d113cf3f07da97e0491fbe6eeea77902e2d71265"
+    },
+    "agents/openai.yaml": {
+      "bytes": 346,
+      "sha256": "61aa47bc4b6c3ce9c5ebb4c4983e1193f63b692e5833e3d8a028a666a0dd6dee"
+    },
+    "assets/CHECKS.template.csv": {
+      "bytes": 1878,
+      "sha256": "85b4c31d7f3b2205b6eef518e5566291596b56dd410798e1c44db6f439492027"
+    },
+    "assets/HANDOFF.template.md": {
+      "bytes": 1172,
+      "sha256": "4c66f60e1f5baafb5dd71a1a5270cb26fe7a8b6be4d0ed42ee270e48d4c997da"
+    },
+    "assets/PROJECT.template.md": {
+      "bytes": 3116,
+      "sha256": "c9ad82ffb185ab8200576ea4ef0fd6980b928e8747ad889a620ded9c515f15a6"
+    },
+    "references/01-intake-and-recovery.md": {
+      "bytes": 4796,
+      "sha256": "2377f70033121308ded11c61f07b992b4bf08a9167773fce940af17d7b540203"
+    },
+    "references/02-circuit-and-library.md": {
+      "bytes": 6409,
+      "sha256": "15b8046b407e5521cf33d3ecccca0c23ff2ee86ccb5cb0394829e48a3567f04d"
+    },
+    "references/03-layout-routing.md": {
+      "bytes": 6827,
+      "sha256": "76d858db220ddbe385d1f55c5281848fe555c5d76c13a12b8fb3c3bbcbaf72ed"
+    },
+    "references/04-release-assembly.md": {
+      "bytes": 5155,
+      "sha256": "81f25df5147fd5c7265a14728456332ad6223a21484aefaac5d7786a03ee4feb"
+    },
+    "references/05-bringup-debug.md": {
+      "bytes": 6852,
+      "sha256": "3800cea3c40d298d86fb88aa3fc9a6429ee8b767071315770b7d83315df3480e"
+    },
+    "references/06-easyeda-execution.md": {
+      "bytes": 5039,
+      "sha256": "2e72664c56f3b94d6129d5f7be417510ed371a93b75a3231c0e2dee57c185221"
+    },
+    "references/07-case-lessons.md": {
+      "bytes": 5570,
+      "sha256": "d2f4ec0ad9a70db2ac477f9638efbe31fc3be93362e296f954a6942c67016687"
+    },
+    "references/08-evidence-and-handoff.md": {
+      "bytes": 5148,
+      "sha256": "b663c151d23a3b66ef3970b0169f33f1500b6b5f9c12956fd16064bb232faf2f"
+    },
+    "scripts/easyeda_bridge.mjs": {
+      "bytes": 3354,
+      "sha256": "b855cf8f4cf169d210921164de63ea7790f130983809159b7fc1722c79658500"
+    },
+    "scripts/init_project.py": {
+      "bytes": 1924,
+      "sha256": "76d87426d864a64afc74266494c21e20d4bcc9167576eae9c76fe027e4f55440"
+    },
+    "scripts/release_manifest.py": {
+      "bytes": 6348,
+      "sha256": "b0a365bdd481545a5024e55cbe31c61d0b400fb91d37f96c2b1df2c9253d1ca7"
+    },
+    "scripts/test_helpers.py": {
+      "bytes": 5122,
+      "sha256": "1cc3cf96020a35b166280692d776701e7830665f5214c6e83dbe815a2b8a4204"
+    },
+    "start-easyeda.cmd": {
+      "bytes": 303,
+      "sha256": "2aa3e95b3a61ebfd6697030bcbecfc3cebd946d02de94d854f00513ed1cc6b69"
+    },
+    "vendor/easyeda-api/README.md": {
+      "bytes": 4807,
+      "sha256": "aa2edd1de828a01a02d1bd3a6029f9ac3329811ce12827a6d6144602886672df"
+    },
+    "vendor/easyeda-api/README.zh-Hans.md": {
+      "bytes": 4454,
+      "sha256": "4269fc1d2283fcb0285a1fa76365f36926e7cc359abfaa5aed448dbcbd66de3d"
+    },
+    "vendor/easyeda-api/SKILL.md": {
+      "bytes": 31547,
+      "sha256": "6c4f6e8e3252296075a74c4f87a95455d0f4b01a8d4d6c1d4f5921727fd1b2b1"
+    },
+    "vendor/easyeda-api/format/index.md": {
+      "bytes": 7050,
+      "sha256": "c77941769faf75730eecd5a99c37b87a86ff68bd6bc4bea317d8b8b14f3ba0e1"
+    },
+    "vendor/easyeda-api/format/pcb/3d.md": {
+      "bytes": 4645,
+      "sha256": "0be99874019a2307153bec6372d5b9c6f3f993467036a1ce26b530383c43564a"
+    },
+    "vendor/easyeda-api/format/pcb/attr.md": {
+      "bytes": 2064,
+      "sha256": "f387337689d46326f6cd8f478ae3f7e87d0d0e3b03744a7c6f982bd9bd118b31"
+    },
+    "vendor/easyeda-api/format/pcb/common.md": {
+      "bytes": 9692,
+      "sha256": "d6410b1f9e4abb3165f56cecefc687b54a635b00e0c975595c5ae03212b46085"
+    },
+    "vendor/easyeda-api/format/pcb/component.md": {
+      "bytes": 3692,
+      "sha256": "4986f17f101cbd76890764d7d3c8e5b9b64cea6442e3981f4fd6e6dd6890c7ee"
+    },
+    "vendor/easyeda-api/format/pcb/dimension.md": {
+      "bytes": 2047,
+      "sha256": "aba1168835398023ca135fc3a56bb4b7352a194abee43a19a62a5c2d9e915cd4"
+    },
+    "vendor/easyeda-api/format/pcb/index.md": {
+      "bytes": 1219,
+      "sha256": "abbbf2fba1a1270fd63915cf84fcbb60bcdff974d76f4222cd619cb335ca2950"
+    },
+    "vendor/easyeda-api/format/pcb/obj.md": {
+      "bytes": 1436,
+      "sha256": "e3f13910ba505078d1c84fda9c9cffee2560f644531a45800d69304a163aa240"
+    },
+    "vendor/easyeda-api/format/pcb/pad_via.md": {
+      "bytes": 4795,
+      "sha256": "81f6deaa2cfa9f933718b3331d0fab966608c3765d87da676830b1b90d83579b"
+    },
+    "vendor/easyeda-api/format/pcb/panel.md": {
+      "bytes": 1598,
+      "sha256": "3882cefa6ac62bccf1314051adb3752528b0ec09d5cd632efc2745d4688fa38c"
+    },
+    "vendor/easyeda-api/format/pcb/partition.md": {
+      "bytes": 1030,
+      "sha256": "740973a79f376fc6669a81fda92fa48a025936e0948cfdb33bea23c921995605"
+    },
+    "vendor/easyeda-api/format/pcb/primitive.md": {
+      "bytes": 4993,
+      "sha256": "1b9987a6c080f41e0a0ae668981d05e1a7bdc600571a4dbd561eb4dca52a1c33"
+    },
+    "vendor/easyeda-api/format/pcb/rule.md": {
+      "bytes": 2334,
+      "sha256": "8a8f7ed33b117fc3196d9da9bf41e13617f097a104ede6c5d401db54ef45b8fd"
+    },
+    "vendor/easyeda-api/format/pcb/shape.md": {
+      "bytes": 12240,
+      "sha256": "f2dbd18727203a69fedf091a8e9dfc852a8c12c94f3255c465f81a8bde773856"
+    },
+    "vendor/easyeda-api/format/pcb/text.md": {
+      "bytes": 1963,
+      "sha256": "4b7960e893627234b8788fd23a1b95eac481ada3d19b0518a5356938f69d5984"
+    },
+    "vendor/easyeda-api/format/project/blob.md": {
+      "bytes": 1349,
+      "sha256": "c7250e4817120d93a0ab9a8f5fc73e2a899f3e5c107b649b79eef465969123d2"
+    },
+    "vendor/easyeda-api/format/project/common.md": {
+      "bytes": 935,
+      "sha256": "3cb8a06fc19aa7336f0150e307a5ef8bf2afd55da7968b178411eff35b8f206f"
+    },
+    "vendor/easyeda-api/format/project/group.md": {
+      "bytes": 1644,
+      "sha256": "0737c4f67676a7a9103cb38fa79b458f6d8cf07562f6aa1ac5d68892eb774a22"
+    },
+    "vendor/easyeda-api/format/project/index.md": {
+      "bytes": 808,
+      "sha256": "f5b3443bcd0f2b4edf5299865175ebc337b6dbd8e5e96fb2868bcacbf06aba30"
+    },
+    "vendor/easyeda-api/format/project/instance.md": {
+      "bytes": 1329,
+      "sha256": "1884a20416247615c2200ad9c8e3dbd333a543c6c6d2e28608580a0988e810f2"
+    },
+    "vendor/easyeda-api/format/project/meta.md": {
+      "bytes": 3551,
+      "sha256": "318d7bc68c2f6e7486df451b847e2d848d774fbb9fd83f71dab26816769021e2"
+    },
+    "vendor/easyeda-api/format/project/variant.md": {
+      "bytes": 611,
+      "sha256": "c05da478f1eeb4e6db0b9d73d93ff6f5c79339cf0dd5faae263068f1f0a4d2eb"
+    },
+    "vendor/easyeda-api/format/schematic/attr.md": {
+      "bytes": 2105,
+      "sha256": "25be147cc907198e2d368937d3206a68cee42552c81104f5d144911fbf45a29f"
+    },
+    "vendor/easyeda-api/format/schematic/common.md": {
+      "bytes": 1445,
+      "sha256": "e9cebc4f3a24cdf96c2bf91b3219a701522a2e75b1fcd1a7cae1611aaa259395"
+    },
+    "vendor/easyeda-api/format/schematic/component.md": {
+      "bytes": 6838,
+      "sha256": "760fc7d491e4fc9cdb9eaf4dca81028fa8c323d9e8aac8ad9da077e760d2a247"
+    },
+    "vendor/easyeda-api/format/schematic/index.md": {
+      "bytes": 940,
+      "sha256": "162048941858a6fbf3c0456cc350f7d0c7bcb711e1cc761d87581850c36e5c1e"
+    },
+    "vendor/easyeda-api/format/schematic/obj.md": {
+      "bytes": 1249,
+      "sha256": "3b119b1845b007ce38fe4ca844c84f4eeda51c6a457d3c20f9e81317dbe41b0e"
+    },
+    "vendor/easyeda-api/format/schematic/pin.md": {
+      "bytes": 2308,
+      "sha256": "da057715b7bbe7eca7058219e628e52bb428d33256d1d95f22d7354197fb59e9"
+    },
+    "vendor/easyeda-api/format/schematic/shape.md": {
+      "bytes": 6973,
+      "sha256": "97a0f44564e8fe78e0057206ff23f8658decf0739d02396b3025b59a69a4ff81"
+    },
+    "vendor/easyeda-api/format/schematic/structure.md": {
+      "bytes": 1553,
+      "sha256": "5a842c91fb9a83301cdb12414b90d821cdcf5ff19fe8036769382e1fc88a1f0d"
+    },
+    "vendor/easyeda-api/format/schematic/table.md": {
+      "bytes": 2449,
+      "sha256": "c38bd177c61a00ad838e01024f647e3967faeb3fa09e06bf7b6964cb983aada4"
+    },
+    "vendor/easyeda-api/format/schematic/text.md": {
+      "bytes": 1295,
+      "sha256": "01bcff7279e455347728bf266d0b63717a3b59aef39acde623f792be924b1e5f"
+    },
+    "vendor/easyeda-api/format/schematic/wire.md": {
+      "bytes": 4953,
+      "sha256": "d0ac1f9508caacde048c4b0481a78582bdb03ca6d339c353767ece3c3731ea92"
+    },
+    "vendor/easyeda-api/guide/ancillary-projects.md": {
+      "bytes": 4311,
+      "sha256": "6da9a75fdf0730839f6c7bf66d1a60433449c989fb6a86986b0f41e3185b5b53"
+    },
+    "vendor/easyeda-api/guide/ancillary-projects/pro-api-sdk.md": {
+      "bytes": 56,
+      "sha256": "eb5a3e3e021abbb1c81be74ffad73f8a8cf72f64f7e8100259695bc5cb3ecf35"
+    },
+    "vendor/easyeda-api/guide/ancillary-projects/pro-api-types.md": {
+      "bytes": 92,
+      "sha256": "6dd75ea90bbf3a2708ff12e038a18702cb2cdeeb55a5cf7022a500e4afeb5993"
+    },
+    "vendor/easyeda-api/guide/error-handling.md": {
+      "bytes": 1238,
+      "sha256": "ffb216d4b8972b92da78d955c42d8e6ce93258dc1cbb75a4be211a0a96f45966"
+    },
+    "vendor/easyeda-api/guide/extension-json.md": {
+      "bytes": 4928,
+      "sha256": "896c5b0ccb4ec5f0c11f2baa8f235967e82fa4c22fd0118b1f8692c6dda5e01e"
+    },
+    "vendor/easyeda-api/guide/extensions-marketplace.md": {
+      "bytes": 4227,
+      "sha256": "d7b81d4683b7714a3d46b6c1e353436bc4f8df03bace1d09f89e44bb9ce05509"
+    },
+    "vendor/easyeda-api/guide/how-to-start.md": {
+      "bytes": 15377,
+      "sha256": "dc211abfc1f54a3e3c0913509762f376d6b459eb4b4f4363c649aece0b9ed637"
+    },
+    "vendor/easyeda-api/guide/i18n.md": {
+      "bytes": 3049,
+      "sha256": "59997feb3bf7f91fb1ae2bf15d141d8c027e18c1ddf830af958e4e93cd28ecd4"
+    },
+    "vendor/easyeda-api/guide/index.md": {
+      "bytes": 951,
+      "sha256": "91caa193c32791095d0a41b4b94c569cfd4677a700d4eabc649e0b2274c1b91a"
+    },
+    "vendor/easyeda-api/guide/inline-frame.md": {
+      "bytes": 1390,
+      "sha256": "1d183f3c3150b023ba8aebb063e5c11ce96b538108424bdb8e966242ecbfc58a"
+    },
+    "vendor/easyeda-api/guide/invoke-apis.md": {
+      "bytes": 4110,
+      "sha256": "4fcdacdb40a35eb53c83706a36963bc1d04f288e6f3de5811fcd246dc82065bf"
+    },
+    "vendor/easyeda-api/guide/stability.md": {
+      "bytes": 3198,
+      "sha256": "db41216129c0681f809f5842d6b8f918bce663064e511c299ab1269b1bd75234"
+    },
+    "vendor/easyeda-api/node_modules/ws/LICENSE": {
+      "bytes": 1183,
+      "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef"
+    },
+    "vendor/easyeda-api/node_modules/ws/README.md": {
+      "bytes": 15306,
+      "sha256": "bb979132f3cbff08ce47f36d041e18071f8f534d01f591c0b129ba7abf1e480e"
+    },
+    "vendor/easyeda-api/node_modules/ws/browser.js": {
+      "bytes": 176,
+      "sha256": "010da44addea1d88b2b732540c3f1fd0cbcb28926b96623d4c64222e0ead2d0e"
+    },
+    "vendor/easyeda-api/node_modules/ws/index.js": {
+      "bytes": 796,
+      "sha256": "924564d5be26d59b9682c4263f68320e48dde7240bd2d1ad17ec305537429dd2"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/buffer-util.js": {
+      "bytes": 3056,
+      "sha256": "8b0a45739132f82e25ea13163780abf547ccfe989267f3eb7abb475beec92da3"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/constants.js": {
+      "bytes": 503,
+      "sha256": "391e823142b8b370e55a2fd32b022deaf03b8415c56000009674ebc86a0b4f86"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/event-target.js": {
+      "bytes": 7321,
+      "sha256": "c45d3c6e12d170c860c0c3f1a050aa0f864d9806632b609a1e607d675aba128c"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/extension.js": {
+      "bytes": 6183,
+      "sha256": "852564f0f6b460287043803eae732666fb5610f676874354fc89f06aa4e986ed"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/limiter.js": {
+      "bytes": 1034,
+      "sha256": "e0469d4b83f6ba764b15f80e1766b75c136fbff68f048f4c050f0b1c7f065f69"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/permessage-deflate.js": {
+      "bytes": 14669,
+      "sha256": "16a91536988a53c23047ee5882392068728a839a244178c3b09b8c54982f58b0"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/receiver.js": {
+      "bytes": 17439,
+      "sha256": "a6ada33c9a2d54eaf595824b821ea89ca2c6395f89aa06755c52142148274884"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/sender.js": {
+      "bytes": 16886,
+      "sha256": "d0791d30c3defd44dcabbddb879a901c757993fea2c00a7ffea01d53b23b4b77"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/stream.js": {
+      "bytes": 4204,
+      "sha256": "a56fcb6e2b152097ee820b6f5410b1f71e59819b45d08d9f8bda588fe39070ec"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/subprotocol.js": {
+      "bytes": 1498,
+      "sha256": "be3f6323d6f549568577dcba9004c1479d95c65a7abb0fe0c582875b9fac0b7c"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/validation.js": {
+      "bytes": 3903,
+      "sha256": "41ce8e83d0d434132e1704895fedb91f6703a701b42d91c80954ab29b2845593"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/websocket-server.js": {
+      "bytes": 17022,
+      "sha256": "6d8dd89a841748c80445fd5fcdb5ba8005369b53cc3525135e11304c8b9c55e5"
+    },
+    "vendor/easyeda-api/node_modules/ws/lib/websocket.js": {
+      "bytes": 37367,
+      "sha256": "de5add831db49e159d3ee0adb1c5e042eba3af13166374c5584f4fc520d1e734"
+    },
+    "vendor/easyeda-api/node_modules/ws/package.json": {
+      "bytes": 1829,
+      "sha256": "a56a3fd55945a3ce177e3ca165dafae6f7eb03b7aefd58c092ac723d5741a6fb"
+    },
+    "vendor/easyeda-api/node_modules/ws/wrapper.mjs": {
+      "bytes": 554,
+      "sha256": "fe154662301fd558f935f9c217fccbe7a7dac02ff39e648a000589403ff27c7f"
+    },
+    "vendor/easyeda-api/package-lock.json": {
+      "bytes": 1967,
+      "sha256": "245f9bd55f20f308ae7cbbb604737aed2f923c32cbbe7e5c8050db973b495d50"
+    },
+    "vendor/easyeda-api/package.json": {
+      "bytes": 262,
+      "sha256": "e56a8e3d5c69ca0a5acc9638650ddc91ce917cdd8f07a387ee908a69d8776c52"
+    },
+    "vendor/easyeda-api/references/_index.md": {
+      "bytes": 34050,
+      "sha256": "01021170d3082c2efb4ceda8de53caddd4636085616bbd6153251231d6ba14bb"
+    },
+    "vendor/easyeda-api/references/_quick-reference.md": {
+      "bytes": 186195,
+      "sha256": "24c84268cb5967ce538be2c03e85fb1440f6bd1a98adcfbf9781be3940d09a3e"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Board.md": {
+      "bytes": 8459,
+      "sha256": "7e13516b967dc9c8f868545eea00b1b39809f2af8584cc1b759a8c9c29be1d77"
+    },
+    "vendor/easyeda-api/references/classes/DMT_EditorControl.md": {
+      "bytes": 33440,
+      "sha256": "4a8aafd79b77485cc7710592a86df7c864bf00fa593669ef087fc4f0eb6a3d9c"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Event.md": {
+      "bytes": 6139,
+      "sha256": "741be34d61575b5df099683ab98fbbe38efe3be381c984bcf247610d3ca9cdb2"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Folder.md": {
+      "bytes": 12495,
+      "sha256": "b33619643242f3d720f4c01486ed3cbfe036f417a5933abe0ede5b44680013d9"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Panel.md": {
+      "bytes": 9807,
+      "sha256": "d71fd5570df39b567679aac2aec5c3e02e19d59ded158d9a09e8d7a18492a205"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Pcb.md": {
+      "bytes": 10269,
+      "sha256": "fe4ef5d8b2472d154c8c8a8ed8caca272677211704da2111155d005d06508439"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Project.md": {
+      "bytes": 9458,
+      "sha256": "c62edbc57709ae40634df61a0732c7da65038d8b63d33d0aa703cfb691c997ba"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Schematic.md": {
+      "bytes": 35338,
+      "sha256": "015e1cfa2c3b338a5e7b2076e41d7b307a462ef35f3597946da961c1a1c752a2"
+    },
+    "vendor/easyeda-api/references/classes/DMT_SelectControl.md": {
+      "bytes": 2512,
+      "sha256": "eed90fb83ee8cc0d89dd12bfdf0a472ba74f7a66a8921e438f86fab705b614f8"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Team.md": {
+      "bytes": 3322,
+      "sha256": "bfe76f9eeaf0546d94fb5d2028a82b9196ee5e1c48ec4f93538f1e0d593af57b"
+    },
+    "vendor/easyeda-api/references/classes/DMT_Workspace.md": {
+      "bytes": 3732,
+      "sha256": "9da1542e3bf061d257c049534c47a416111b85a3cc1f89aec4876ada0bfdb35d"
+    },
+    "vendor/easyeda-api/references/classes/EDA.md": {
+      "bytes": 12162,
+      "sha256": "0cfc23c399eb6deb24dbb356bfc76d0632e0a637f15aa3d5ad8194c2a824bd28"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_ComplexPolygon.md": {
+      "bytes": 6044,
+      "sha256": "e0364f22e9a5a74d39ff2cd45aec207f82bfdbd9a3df18e43cbe3050ee9ffde9"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_Polygon.md": {
+      "bytes": 3090,
+      "sha256": "cacc5a141e690f488f0cd2bd80ee90f2e200ee0abdf7ea0341e1d60233e8bb0f"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveArc.md": {
+      "bytes": 37653,
+      "sha256": "435652e00f93a9272709d90c1baf8bb5589cde42c15e67e8fb50ff9dbf7c76ce"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveAttribute.md": {
+      "bytes": 64926,
+      "sha256": "26578900362ca37e229e3a875fcc35fd0ef5343a9cd2398f662ce7991922659d"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveComponent.md": {
+      "bytes": 52383,
+      "sha256": "62022e0e84d42e15f48186661e48c6649f9389b0759e73805bd4f309072000b5"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveComponentPad.md": {
+      "bytes": 8772,
+      "sha256": "6bc9d17c55216675c48579146a272e9525b451644a434e60210aa0d979aa402c"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveDimension.md": {
+      "bytes": 27831,
+      "sha256": "174b03f4d276bdbaf5d9ed718c629b144237599c4451acd770262aaec6067b54"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveFill.md": {
+      "bytes": 28795,
+      "sha256": "c6719ffe6a9e00e105b57b63b033e9dc43293fa4725c2ab9e90515efe6b264bf"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveImage.md": {
+      "bytes": 31889,
+      "sha256": "e15614ff04971ed3b4392abe6d65c2d5e3ffc44fb98a7bca6e96bd33dcb4a015"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveLine.md": {
+      "bytes": 32186,
+      "sha256": "7d42e4ece46df64987c6ca6d15f4cee937a6795aaa3088e0485236bcb96a37c5"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveObject.md": {
+      "bytes": 39835,
+      "sha256": "297957beda63cf53e13578cb87e3bb7e9d9c3656d31d1a4fe6beadee54d2e8d4"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitivePad.md": {
+      "bytes": 61154,
+      "sha256": "90913ca44c0c622ef5b092b3801eecf388931bd04b9a49f20250ff741b4d247e"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitivePolyline.md": {
+      "bytes": 26817,
+      "sha256": "6f53caf614f335b5be8ae057d2dfa54eb07ebd2d78d0152a4931c8db3938912e"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitivePour.md": {
+      "bytes": 42693,
+      "sha256": "15106206e50c896874998159c2c919c072545670dd0518b24a963071ed3c632d"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitivePoured.md": {
+      "bytes": 12285,
+      "sha256": "704a8b747597da767e5d84eccfa9e773d9b1c8fa4eb9b8fa6d0dd6e9836890f6"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveRegion.md": {
+      "bytes": 29858,
+      "sha256": "c2c0216d9f78d0187492d44fcc451fdab548a0eded24cf0cbc806dc27c69e9ec"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveString.md": {
+      "bytes": 44413,
+      "sha256": "ae0ccfbba412e048aad25bcd09deadba06a8e306940e2b6fdddfd316f12d71d8"
+    },
+    "vendor/easyeda-api/references/classes/IPCB_PrimitiveVia.md": {
+      "bytes": 32128,
+      "sha256": "61519751b3ab671e89f9a81af3974d2b1217dfb8ef771cb00fd2faf06b28ee37"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveArc.md": {
+      "bytes": 32988,
+      "sha256": "caa892528dd6c4ac315949b9f4a5c48a181ab0d109ff510a3de87439e8011430"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveAttribute.md": {
+      "bytes": 59093,
+      "sha256": "011d97ca0320374caff64a1d50822b19e8408787508729ef2f6baa005d4fc889"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveBus.md": {
+      "bytes": 19561,
+      "sha256": "de413ede8dc2e6d223618f7d062068b6d0c8c387ce824f29428c22d1c5aa27f3"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveCbbSymbolComponent.md": {
+      "bytes": 6037,
+      "sha256": "1b867ce755d25188ed2036df8cb0cb39a91a5177f5eb01aaebdf996c2dd54804"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveCircle.md": {
+      "bytes": 27562,
+      "sha256": "1faef52285002589da27798efdd5d2e9c18d4b275f68caf02fd38959413f8de9"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveComponent.md": {
+      "bytes": 56786,
+      "sha256": "cf05a78003cf19c791db6562f16e46bd38274400115981b7e924c2639c60582c"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveComponentPin.md": {
+      "bytes": 3071,
+      "sha256": "db044b2843447cd04837578decbbbfbe6dc8c147d6a8f3403c72e061d95a43c9"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveObject.md": {
+      "bytes": 13035,
+      "sha256": "0e832b9535b541aaef34ad3f36dcb592789510fdff39d8decc65c1acc70ffa61"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitivePin.md": {
+      "bytes": 52066,
+      "sha256": "a3d491e207a080baca9fd3ad61a8694db505d558aeb6041a69b51d02be8dd812"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitivePolygon.md": {
+      "bytes": 21724,
+      "sha256": "5ae3517c6a2fbd295b7e565c8b93a27594825e3c3b2656d2505a5bf4a01edaba"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveRectangle.md": {
+      "bytes": 35403,
+      "sha256": "c932a2d6d4fd539a565f4ca6db744a690e86e2278d09949684c1887f10d82e9d"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveText.md": {
+      "bytes": 34636,
+      "sha256": "4a03528a26082181697cede239288d03496f03cbe662047dffb082ef8a352a2c"
+    },
+    "vendor/easyeda-api/references/classes/ISCH_PrimitiveWire.md": {
+      "bytes": 19491,
+      "sha256": "c1d65155f8897ba8d7fdf59852005fdf80236dd8a00c36563b82bf1e2698dcf5"
+    },
+    "vendor/easyeda-api/references/classes/LIB_3DModel.md": {
+      "bytes": 11670,
+      "sha256": "14ebb11fe2a6eeb5f5802c1545bdeb78f4fa38caca40aa9e13688efce068d361"
+    },
+    "vendor/easyeda-api/references/classes/LIB_Cbb.md": {
+      "bytes": 15728,
+      "sha256": "d7bae9f9fba5da14f49186a9a22d641f10b837b554c5f303634064868d4364a4"
+    },
+    "vendor/easyeda-api/references/classes/LIB_Classification.md": {
+      "bytes": 18180,
+      "sha256": "8364ed4e2142661ac564372f8a5339abc6dcfd8d2aed1b9e2981b4193410e8f0"
+    },
+    "vendor/easyeda-api/references/classes/LIB_Device.md": {
+      "bytes": 21443,
+      "sha256": "23f9ec85caa3f7cf8bd8c602a193f1ecad6e29bcadc45cb4a5ab377a0386bc88"
+    },
+    "vendor/easyeda-api/references/classes/LIB_Footprint.md": {
+      "bytes": 18514,
+      "sha256": "7e6832ddfb76f3894b2ef1cc337e8efebfd4b7c49ae7b4c662914b998e535412"
+    },
+    "vendor/easyeda-api/references/classes/LIB_LibrariesList.md": {
+      "bytes": 6693,
+      "sha256": "83f9d8d8eb438d28782ab7c994b0387af7da69f7b9c642d0a07f222e2f34742d"
+    },
+    "vendor/easyeda-api/references/classes/LIB_PanelLibrary.md": {
+      "bytes": 13491,
+      "sha256": "52605c3d562b8fc1e0d834e80c59240b60ec848918a60c3f7771a01f2391485c"
+    },
+    "vendor/easyeda-api/references/classes/LIB_SelectControl.md": {
+      "bytes": 1849,
+      "sha256": "6ed28f5c4e07854ffff4a95ed4c694a568e7a9b3c23ed602a4640e3f1e01a755"
+    },
+    "vendor/easyeda-api/references/classes/LIB_SimulationModel.md": {
+      "bytes": 13077,
+      "sha256": "2703c2156e02eec8e89044997be6494b7532004ab9b24334fe6139fd2d526621"
+    },
+    "vendor/easyeda-api/references/classes/LIB_Symbol.md": {
+      "bytes": 19466,
+      "sha256": "00207e823536abe703b1ea7edbda13bece4bf9e88c5cadfc7b70c2c8ca8d0694"
+    },
+    "vendor/easyeda-api/references/classes/PCB_Document.md": {
+      "bytes": 33143,
+      "sha256": "9f9334125270f0ec7f92d9d1882a21981a83126adae00e668927288fae18e4ba"
+    },
+    "vendor/easyeda-api/references/classes/PCB_Drc.md": {
+      "bytes": 61291,
+      "sha256": "4507b6fe7defb65178e28a213c7e3d9189ca06e8bede9109967da1fc4b8e15b6"
+    },
+    "vendor/easyeda-api/references/classes/PCB_Event.md": {
+      "bytes": 19206,
+      "sha256": "210bbc3ed1befae1845af51d2ef413cfe86df754dbec026c8a8958a6d52bcb55"
+    },
+    "vendor/easyeda-api/references/classes/PCB_Layer.md": {
+      "bytes": 35704,
+      "sha256": "3344611b7ba3511df405fda3c15728c7b1e655426b7bea522f253f298b027f20"
+    },
+    "vendor/easyeda-api/references/classes/PCB_ManufactureData.md": {
+      "bytes": 52341,
+      "sha256": "d2b4c7ae6205ce72a7daf2f8df3ae49deea9c54e06a64732777c3b536fa2b6c5"
+    },
+    "vendor/easyeda-api/references/classes/PCB_MathPolygon.md": {
+      "bytes": 13680,
+      "sha256": "26238519503da84224c573ba5203ed3c00b970c167796ebd6f83390685b0e3b5"
+    },
+    "vendor/easyeda-api/references/classes/PCB_Net.md": {
+      "bytes": 18944,
+      "sha256": "d8bd261544070ec112fe1ae9054ed6f356a1f579eee128f6ee8cf3a3d126e3ba"
+    },
+    "vendor/easyeda-api/references/classes/PCB_Primitive.md": {
+      "bytes": 4651,
+      "sha256": "53560758cb7231c0b5ca5837ea4977d0ecabef6d1b800a524d28be4860bc4eda"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveArc.md": {
+      "bytes": 21243,
+      "sha256": "31245b20f47fe01ad053f07896588fa1ac2e54d5a4a2831b3be62c347f5d2966"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveAttribute.md": {
+      "bytes": 21987,
+      "sha256": "c1be641bfb592eb07c748a7b118965ff4a349704321b9d7614697b28c3617a30"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveComponent.md": {
+      "bytes": 23670,
+      "sha256": "442f9f53f7ee20842fac0a2488ff68552d5705892c49fd049efa4dbec8670889"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveDimension.md": {
+      "bytes": 18687,
+      "sha256": "9dff4257abad50207f09e88da9ab4ccf483704556af974d0cc6c1ea04874dc23"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveFill.md": {
+      "bytes": 21159,
+      "sha256": "171513f9f30630e12b3d6d0a4db1cdb97df1b0b47d5fc3c0c452e67e10e2da8c"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveImage.md": {
+      "bytes": 21335,
+      "sha256": "aef355e4b9091e195a82182bea8e740217a47f6ed058ba4f79400676d343cfa6"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveLine.md": {
+      "bytes": 20200,
+      "sha256": "d5f6226b5cbd78df598e3e2014fe76c7e6bd3f8be82b3d357256d5ab6d037c27"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveObject.md": {
+      "bytes": 16753,
+      "sha256": "c72a826ed8b475444f0b17d90cf832b41a14aa13993002547560af6c5e0b4560"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitivePad.md": {
+      "bytes": 17658,
+      "sha256": "eba9e49a3ddbe688d4342656490b3933f24ec0568224d749f5237abe39eb5029"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitivePolyline.md": {
+      "bytes": 20981,
+      "sha256": "11d5186ba379ed29562309f8421703f6ab80e5774fe84441e259615890831a94"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitivePour.md": {
+      "bytes": 19143,
+      "sha256": "09059f1df6c431d9d5b2050b66d98dd6a5b293d63658c45fbddbf44997811b58"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitivePoured.md": {
+      "bytes": 7775,
+      "sha256": "996d1943ed317d72c9bda83b0684aed6d1fc244760b388a207d2f7cd5141a353"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveRegion.md": {
+      "bytes": 18746,
+      "sha256": "c8f7e804570c6bb9c27a99737c59edfbe308afc7a445a8475c824c1efc68330d"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveString.md": {
+      "bytes": 22482,
+      "sha256": "7978052dc0e51518cb3aea4aef33dc9eb7c878f151bb3f23d57f45f2a7cde876"
+    },
+    "vendor/easyeda-api/references/classes/PCB_PrimitiveVia.md": {
+      "bytes": 14547,
+      "sha256": "13a3e1f5cc251a19ea9cd82b496bbf1db469410a3a0239b0a4fe04e5884e77ad"
+    },
+    "vendor/easyeda-api/references/classes/PCB_RayTracerEngine.md": {
+      "bytes": 3959,
+      "sha256": "f0eda53acfe86c567cf1918b64b58a5921e31ce0bd513accf41bd34f840a70c5"
+    },
+    "vendor/easyeda-api/references/classes/PCB_SelectControl.md": {
+      "bytes": 10542,
+      "sha256": "2b5cd9a7c9a34e763cdc2b7f294cd7c2b72c4307a9641ca264a2784fdafefb84"
+    },
+    "vendor/easyeda-api/references/classes/PNL_Document.md": {
+      "bytes": 1417,
+      "sha256": "3c1165a890d778ffa2a497a5c2561f0dbb32c9554544349ee9067ab4791a61c6"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Document.md": {
+      "bytes": 15004,
+      "sha256": "245f540f50cb9c08d4e69f5708a943ff67933a8ed80b022c085fe985d8ed6e30"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Drc.md": {
+      "bytes": 3708,
+      "sha256": "2b29d19c18462fdc2b9b4257e1cc4db2eb104828f5472ca0a5579a44a4bcf250"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Event.md": {
+      "bytes": 9412,
+      "sha256": "19b8dd806bf764227bfb096180db8ebecba4320e5e546c57e982e8a884e9a65e"
+    },
+    "vendor/easyeda-api/references/classes/SCH_ManufactureData.md": {
+      "bytes": 22848,
+      "sha256": "efbb2d7a641cb71d5847127ef4c550b0c19a2f00e659f58d5deda2ee4028887a"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Net.md": {
+      "bytes": 3060,
+      "sha256": "d46850d065e8e849e7ea0e0dea2e6fc82a73ed195f92e764fb28771e5ba8adfc"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Netlist.md": {
+      "bytes": 2639,
+      "sha256": "b431773c7fa80e3981cc79bf7ff57f032c4f089e6d05155c8c471ee556f3e427"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Primitive.md": {
+      "bytes": 6084,
+      "sha256": "749a8ea862a96248fcc5631e5269f7eb1576d8a111c7fa6ff5919494b3b324c4"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveArc.md": {
+      "bytes": 13807,
+      "sha256": "304edf78dd4b54c7bc4646ec45e57a435f1110223da6dc241fd1dd2e866299e4"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveAttribute.md": {
+      "bytes": 13125,
+      "sha256": "26085121716fcb77308cf041ca73a6f09d3ef9a3ca84e5a68462569d61c36904"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveBus.md": {
+      "bytes": 14127,
+      "sha256": "6aff5e95129345e0df51db877a1ab7e00ff156404e6ed7dd1f7d4404a35fab53"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveCircle.md": {
+      "bytes": 15195,
+      "sha256": "241ee46024e5f4e8f7967d7e209160c26eb5f1c1ab3049f44475adbcafd36889"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveComponent.md": {
+      "bytes": 41899,
+      "sha256": "e19a60df8c8b7dc86dfdca27b152e2fb98bd37fb159686bf5163c31a5f4607f4"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveObject.md": {
+      "bytes": 14685,
+      "sha256": "f78e31699cfd8352d68b81896e4531b9de8f7f68e3ad918dfb52e3f62c53c707"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitivePin.md": {
+      "bytes": 19401,
+      "sha256": "410f69851cc6bd3e5db4a94ded931ee30e4d3fa70a78b2a77979333ea3347ced"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitivePolygon.md": {
+      "bytes": 14217,
+      "sha256": "4445816e947e556fab8641f8e1b44c5dfef470a4f2682c1eeace51a0691da2dd"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveRectangle.md": {
+      "bytes": 15972,
+      "sha256": "a7ca928e8c4c84c2c873785a46fc62bc640005f75abbf43d211dae37ac3e628c"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveText.md": {
+      "bytes": 15860,
+      "sha256": "fbd463318cc94f6ba240ce73e1b5ca2811984ca03acb06eccb5f15091bb24ecf"
+    },
+    "vendor/easyeda-api/references/classes/SCH_PrimitiveWire.md": {
+      "bytes": 16517,
+      "sha256": "f80554740b4e86299139afd3776055b8f5648fccc616c3fbe9f64f8208983b7f"
+    },
+    "vendor/easyeda-api/references/classes/SCH_SelectControl.md": {
+      "bytes": 10210,
+      "sha256": "eb14f04f4d49954f866c3f8c23519f70c9431c7c6d757a7be3a81f4649f1e278"
+    },
+    "vendor/easyeda-api/references/classes/SCH_SimulationEngine.md": {
+      "bytes": 2022,
+      "sha256": "041faac61e5457af48ae6e77cc7c8832b2ff3cb63d8258f87ea81608f82dc9fd"
+    },
+    "vendor/easyeda-api/references/classes/SCH_Utils.md": {
+      "bytes": 2721,
+      "sha256": "563284a6d67218d2e5543269bc55cddc2a7630bf6b6be8458798a790aff35628"
+    },
+    "vendor/easyeda-api/references/classes/SYS_ClientUrl.md": {
+      "bytes": 2850,
+      "sha256": "a6ee3762f75f4e4614899f78da81c5246235e55d56bd8683a9b1cc6e5a83e597"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Dialog.md": {
+      "bytes": 12994,
+      "sha256": "6d418572f9d3f588895ddd2ff7b65a60f027f60723ec7d57f2c1cc21fae72872"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Environment.md": {
+      "bytes": 8027,
+      "sha256": "fd0b5061a98f8715a05a80bbb508e0c49e90cd936cac157ade9153344e33ebf2"
+    },
+    "vendor/easyeda-api/references/classes/SYS_FileManager.md": {
+      "bytes": 34276,
+      "sha256": "b72433df00d045948e30b2fed1f17770c71fd9a7d73e0c2991ca3d8be085332f"
+    },
+    "vendor/easyeda-api/references/classes/SYS_FileSystem.md": {
+      "bytes": 18825,
+      "sha256": "13a358327aea7cc6de1b5b01982a08803b560c30ede036ae92e09329879dd245"
+    },
+    "vendor/easyeda-api/references/classes/SYS_FontManager.md": {
+      "bytes": 3130,
+      "sha256": "fe32e2bd5d27f9ddfacc69cba303ec2cc657c78c210e62117a6e53fb43a11bf0"
+    },
+    "vendor/easyeda-api/references/classes/SYS_FormatConversion.md": {
+      "bytes": 7275,
+      "sha256": "e137b1ad28871993b813682d2c03775abb754cf0caf5422257b1c48c17a5d432"
+    },
+    "vendor/easyeda-api/references/classes/SYS_HeaderMenu.md": {
+      "bytes": 10945,
+      "sha256": "7294516d6d18a53949fd2a9e824523efa7f75a6b2b60802f97fd42ef0743df93"
+    },
+    "vendor/easyeda-api/references/classes/SYS_I18n.md": {
+      "bytes": 13410,
+      "sha256": "cfb3fc72b923adab7f7eb821257941ce79aafa278599a1ca7ba8b38f58779983"
+    },
+    "vendor/easyeda-api/references/classes/SYS_IFrame.md": {
+      "bytes": 11469,
+      "sha256": "f2b0b6c45ca2930223456fa9e8f38e93493e3f717de155f0f7720804b1dc1eb3"
+    },
+    "vendor/easyeda-api/references/classes/SYS_LoadingAndProgressBar.md": {
+      "bytes": 4336,
+      "sha256": "7010eb68eff733fcb7ad416a1fc15d30cab09338cf285030fadebc7f36cf76f6"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Log.md": {
+      "bytes": 7250,
+      "sha256": "719d5d4f443e4b0f0a13488b4716015703f697121ba4238cbd67bb8a4505f56d"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Math.md": {
+      "bytes": 28771,
+      "sha256": "734fe126189faa6d04809d9d3b11736f44f9d6ca42cf45ea7c024705ac8f4562"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Message.md": {
+      "bytes": 6210,
+      "sha256": "a3d528d98d47e537448ed038b6dcba9a44bd9afad668ba5da1bfb39fabd315af"
+    },
+    "vendor/easyeda-api/references/classes/SYS_MessageBox.md": {
+      "bytes": 3835,
+      "sha256": "2a75448a858c64aa9b84a1925042a82ccc8fdf2c41c4d5fde179522b64b39ac9"
+    },
+    "vendor/easyeda-api/references/classes/SYS_MessageBus.md": {
+      "bytes": 24151,
+      "sha256": "9a5eb5a0f425d21861c883a1e0859fcd9fd981f5a1fafc0f0a4c7de0c65a304a"
+    },
+    "vendor/easyeda-api/references/classes/SYS_PanelControl.md": {
+      "bytes": 11158,
+      "sha256": "f276aa39b487b3b65285d0f046f5904b4fb1389e126d3b9f9f1da284abed1f59"
+    },
+    "vendor/easyeda-api/references/classes/SYS_RightClickMenu.md": {
+      "bytes": 4087,
+      "sha256": "8bf0ea14dd7106b571fa480745459e31c7160fa6315a502fefca6482ee4b3d0b"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Setting.md": {
+      "bytes": 1916,
+      "sha256": "d126607a30be3522a31078a18d89f599ab6e1c2335d782dee20b00ca7accc53d"
+    },
+    "vendor/easyeda-api/references/classes/SYS_ShortcutKey.md": {
+      "bytes": 11985,
+      "sha256": "0e48f9701aa101c08f757e47d1b7cbae24e3b0fda444d595cb98e77135c72cb2"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Storage.md": {
+      "bytes": 8972,
+      "sha256": "02d0834e0cb13388fbcc0a405268de33798dd96c73b32aa47dafc69aa99ac6fa"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Timer.md": {
+      "bytes": 6397,
+      "sha256": "89eb6aaa4423bae2c3af615a8d1c80a35329b268d4cc8b8f8eb6cedac60562b9"
+    },
+    "vendor/easyeda-api/references/classes/SYS_ToastMessage.md": {
+      "bytes": 2921,
+      "sha256": "caa7b03e8ab51c3fc5a1880734fc451f387269ce461083d6c7fe45b6da80ec7f"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Tool.md": {
+      "bytes": 4904,
+      "sha256": "240fa5b332c717f9ad5481851f595af749202540fe353d02e095d113246e7d0d"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Unit.md": {
+      "bytes": 8657,
+      "sha256": "3ec683b9684645eebd0df90e10c122019f18453c741ff904f5184666e4952a81"
+    },
+    "vendor/easyeda-api/references/classes/SYS_WebSocket.md": {
+      "bytes": 6462,
+      "sha256": "853236bf66c34dc67e586f2728e285bb122dcd00774610c1ed2f7d5a2070c5dc"
+    },
+    "vendor/easyeda-api/references/classes/SYS_Window.md": {
+      "bytes": 13420,
+      "sha256": "6a1fc8209076df6b957aaa76107fd4a0dcc628a53abe94a60eb00659c8c2bcf7"
+    },
+    "vendor/easyeda-api/references/enums/EDMT_EditorDocumentType.md": {
+      "bytes": 1845,
+      "sha256": "e392b67db357ad82f1399361764d11f849afeaa4ff2d3b174f4e5c2ac4bfd95c"
+    },
+    "vendor/easyeda-api/references/enums/EDMT_EditorSplitScreenDirection.md": {
+      "bytes": 420,
+      "sha256": "4972a264577f0a041a32cc99f17822816e347f261644635e66ae141f08f04ec8"
+    },
+    "vendor/easyeda-api/references/enums/EDMT_EditorTabEventType.md": {
+      "bytes": 630,
+      "sha256": "15eab002e00fba8b8e568aa38268f6246ae370001a49e020cb7fc2245339cce9"
+    },
+    "vendor/easyeda-api/references/enums/EDMT_IndicatorMarkerType.md": {
+      "bytes": 569,
+      "sha256": "e80afa96647ac1ddf6e3d7ecd3ea7f8175f75186147e0330095b1d2fdd207a6f"
+    },
+    "vendor/easyeda-api/references/enums/EDMT_ItemType.md": {
+      "bytes": 1045,
+      "sha256": "c00f0b59cd9e2ed4d12f59474b9208e2b5852a15aa378937002dd4694debeee8"
+    },
+    "vendor/easyeda-api/references/enums/EDMT_ProjectCollaborationMode.md": {
+      "bytes": 385,
+      "sha256": "8fd6040577b9f59b316ceab675e3b39e557a0209582e877d06916a771c7f2f41"
+    },
+    "vendor/easyeda-api/references/enums/ELIB_DeviceJlcLibraryCategory.md": {
+      "bytes": 407,
+      "sha256": "84c8e6987e3ae02b33110d42f536953bf7a12b841c5229ef80068cda22b8f19c"
+    },
+    "vendor/easyeda-api/references/enums/ELIB_LibraryType.md": {
+      "bytes": 772,
+      "sha256": "511c6d3ec9003fcab349f6f980c25c1e50d42eef16085eb5a9645a6943137509"
+    },
+    "vendor/easyeda-api/references/enums/ELIB_PreviewType.md": {
+      "bytes": 480,
+      "sha256": "e27858b330e01ea4468603029b552a82dbc43b9bc52042b04e6e4e9e08359bc4"
+    },
+    "vendor/easyeda-api/references/enums/ELIB_SimulationModelType.md": {
+      "bytes": 392,
+      "sha256": "2322da102d54419e3c47826aeff3e3345f583cc7367f72f88981a5eb7592e85a"
+    },
+    "vendor/easyeda-api/references/enums/ELIB_SymbolType.md": {
+      "bytes": 815,
+      "sha256": "6206a36fee073167001907b1e5c05f018e71383393e0f27ee3f0313e7592b948"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_AutoRoutingCornerStyle.md": {
+      "bytes": 390,
+      "sha256": "51cc3c3e03727bc4f1bb05774ad07f54c0e1ada0232787f4ead80b16c852112b"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_AutoRoutingExistingPrimitiveMode.md": {
+      "bytes": 431,
+      "sha256": "5f2327119bfaae2bd3c9df0ecccff43e76f71ad0b9bef3a2b2eb03177a7c924b"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_AutoRoutingOptimization.md": {
+      "bytes": 397,
+      "sha256": "580afa9f5dd439fb0eea921946206e520f98e8c42721883eaac54a4fbe597595"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_DocumentCanvasUpdateCalculationActiveStatus.md": {
+      "bytes": 458,
+      "sha256": "d5c17d1e0c638cbfcd99695d24fcd1396bbb939cb64a406f215eb751f88f565c"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_DocumentRatlineCalculatingActiveStatus.md": {
+      "bytes": 508,
+      "sha256": "3c88d31101ed42fe136ae735e19600b48c617caebfb52cb3c0c1dc2c84826730"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_InactiveLayerDisplayMode.md": {
+      "bytes": 458,
+      "sha256": "9ddd18281a68a0c4528627e68464066a42cfcc53999566325b11cbc9df0e1bff"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_LayerColorConfiguration.md": {
+      "bytes": 560,
+      "sha256": "2be3d63596386de660c9871b9fc3cfdbab9c2eba3d1e37f3de82761fec92b1a2"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_LayerId.md": {
+      "bytes": 5294,
+      "sha256": "c080c67b5cdf0be77749bf846d1accf36dc564644f8a5ceec9e575755973b2dc"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_LayerStatus.md": {
+      "bytes": 404,
+      "sha256": "d9765465edf49afbceae3b4c4f8b169b7dd62d3a4dc397430ed1748eda76dc5a"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_LayerType.md": {
+      "bytes": 776,
+      "sha256": "072e8689a92d94682f6a2e17d579c44deb03831e2f5013baa958ee62aa3b0869"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_MouseEventType.md": {
+      "bytes": 450,
+      "sha256": "c448cbccbbfa37b5afe20eb01bb157ca7e23e614fcca400e62aa41e56bcff3b3"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_NetEventType.md": {
+      "bytes": 426,
+      "sha256": "405a5a5c34f10e331bfb27c9e483934495a440e4f8b85385fdac4e286ef029ed"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PcbPlateType.md": {
+      "bytes": 348,
+      "sha256": "b2f5ae3c61da3c3b98aa291ba5423d05435469e68f2b9e4fce3ba7bd7bba61b8"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PdfOutputMethod.md": {
+      "bytes": 481,
+      "sha256": "de7358b53095c6d7b2e4cdf1e8f16fcdc69a6735894626c5dba9b2b1e910023d"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveArcInteractiveMode.md": {
+      "bytes": 401,
+      "sha256": "f0e919749053919114ad0bc6c5c84156d0f3bf465b8401909f7820533e9ed6c7"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveDimensionType.md": {
+      "bytes": 481,
+      "sha256": "8b5d3c4ee8c584d5461ed13222c654e3971e8d563c7f26e15f7732f88e6bdca2"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveEventType.md": {
+      "bytes": 443,
+      "sha256": "da736708f25a5bf16807fed100bbe3d1bfda19c0c16794d28030733cf7473285"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveFillMode.md": {
+      "bytes": 514,
+      "sha256": "8a6a202c2a527a21a0c45e741d73689e77d01448283ef0ee02d1b66b203e39ab"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitivePadHeatWeldingConnectionMethod.md": {
+      "bytes": 544,
+      "sha256": "28fffa5fd154a69989caacb43390dacb2963adfd7f45052b0c52912d7997e16a"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitivePadHoleType.md": {
+      "bytes": 442,
+      "sha256": "15805855827a9d03ae4359cbeff68798f34f2414e518477b3ded24ade24b011b"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitivePadShapeType.md": {
+      "bytes": 602,
+      "sha256": "55f6d2f9afabcca7275214d3aaf032d92c3529f1c2a020c3f2a9a52748127a2c"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitivePadType.md": {
+      "bytes": 412,
+      "sha256": "4b1a6a60b642f1f864dee96e1747a2fdebcfde8b18edcb1099ceaccdc16669d5"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitivePourFillMethod.md": {
+      "bytes": 450,
+      "sha256": "8b7c7d6ff6679e2e2008f1048d9807669c10c2f24b3c4b6fcedf7fb583c3d10e"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveRegionRuleType.md": {
+      "bytes": 767,
+      "sha256": "83df13dedfe25a06ceea294ad8596cb149bee7027682701fc20b8c1e73bf5217"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveStringAlignMode.md": {
+      "bytes": 818,
+      "sha256": "1a4ac074eea88679ad434a4fe6afb9c5bd4d9d1566850c9c89f329f34fd0d716"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveType.md": {
+      "bytes": 1253,
+      "sha256": "27127736620d71ac408ae8c3bbd4f4d2f63cbb5471f492188e437fc7454ba895"
+    },
+    "vendor/easyeda-api/references/enums/EPCB_PrimitiveViaType.md": {
+      "bytes": 405,
+      "sha256": "83e8bf1b09ea949bd2cbd60904a91c41dd22627caa7a524c2dda2df6eb88472f"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_DynamicSimulationEnginePullEventType.md": {
+      "bytes": 871,
+      "sha256": "5893bc033c89161eeeeb42768edee6b4f7215d9b5b6d4dfad2fb4b1dcb4a4f74"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_DynamicSimulationEnginePushEventType.md": {
+      "bytes": 696,
+      "sha256": "fd88937ec2bcc2e515477fe0b6464c99cde75eef77fced41a7784fe898684202"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_ExportDocumentFileType.md": {
+      "bytes": 441,
+      "sha256": "d0a69fabeff71680696413e2bc9b77624576f9d997ef456375dfc3fbcfd3e2a4"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_MouseEventType.md": {
+      "bytes": 391,
+      "sha256": "53d39116c8ea8587d8c9a5ee46b109c546f55614ce07304dcbdb744d42e2e2bb"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitiveComponentType.md": {
+      "bytes": 942,
+      "sha256": "83bfc341124369f6484f31e68b4838e171bb907246d4ce1187a40403b7083cf7"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitiveEventType.md": {
+      "bytes": 505,
+      "sha256": "17e95f4d806239cc024810ba92d5c6f7269f62ce244f8ea33577953e79cecb96"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitiveFillStyle.md": {
+      "bytes": 830,
+      "sha256": "bec7d16a58c875ce6f0a8ee4f089511d68c7afb33bb4db61a196eb82d4b0a875"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitiveLineType.md": {
+      "bytes": 472,
+      "sha256": "65f410c18d4cbb0a09b8f8d21bb020780e574d3b951c628dd2b02241ce9953b3"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitivePinShape.md": {
+      "bytes": 511,
+      "sha256": "dd901b9be96752a4a64800c59fa00c2544ef13ef7c64cbda8057d264ab1def98"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitivePinType.md": {
+      "bytes": 950,
+      "sha256": "fce0e843170e63a8b4dfed51cb800e8011370e98ff9a3494e5b4fe7398dd749d"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitiveTextAlignMode.md": {
+      "bytes": 814,
+      "sha256": "2f78ba0e160926dc2c80d0e87e128bc48e700934ea4c98bbe9e89c472098a7fd"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_PrimitiveType.md": {
+      "bytes": 1133,
+      "sha256": "c52a583c0b3cdec0709ce785d98d1036f3d97850d2c8bed7f1ade802356ef3fa"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_SimulationNetlistType.md": {
+      "bytes": 331,
+      "sha256": "0d28d0a4fc1621d13ee564023e6990abb7b8d53e9d1d75a7daead8662eedff77"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_SpiceSimulationEnginePullEventType.md": {
+      "bytes": 476,
+      "sha256": "32295e3703dd123cb0f149d8d9277b261cce2624b2382e262bd344bf71379c69"
+    },
+    "vendor/easyeda-api/references/enums/ESCH_SpiceSimulationEnginePushEventType.md": {
+      "bytes": 628,
+      "sha256": "ad8ebfd3a19af258e03f92c8462b5736593f2195a643da9fd88869b1516b582e"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_BottomPanelTab.md": {
+      "bytes": 577,
+      "sha256": "8f48eaf6218ac28fa1282b634ba097567e4ed8294eef8d110435350c6ec1a0e2"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_HeaderMenuEnvironment.md": {
+      "bytes": 1130,
+      "sha256": "05bd77ed4c57a31193d6ea16c985857c4bcd2f2880d40a762fe0cde94c534072"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ImportProjectBoardOutlineSource.md": {
+      "bytes": 599,
+      "sha256": "4b3d02f8a5ddaeea4db3879e5322c2181b31da5525603b67fd4894dbacd8247e"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ImportProjectImportOption.md": {
+      "bytes": 562,
+      "sha256": "dd215e93685d635739f6f7a9dc31dd61f446e191f4eb009d0d88bacd05d4cf9f"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ImportProjectSchematicObjectStyle.md": {
+      "bytes": 463,
+      "sha256": "8d2b87af520123a6a19e77c0ab15ea758da98d4c9adb29e9443262a73aa94d95"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ImportProjectViaSolderMaskExpansion.md": {
+      "bytes": 600,
+      "sha256": "93ae511dd17ac5d662209a11823f294db0f544e3adb0c1bcec995a6627514869"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_LeftPanelTab.md": {
+      "bytes": 638,
+      "sha256": "8c3cad787687477672d1e43aeb5823eee155f8fca8507dae1af058a0a6f200ae"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_LogType.md": {
+      "bytes": 677,
+      "sha256": "4f8d0d9e5505ee2d5176f2d56d880a377efb4698ea87f8a3de1369fe21ddf6c2"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_NetlistType.md": {
+      "bytes": 767,
+      "sha256": "3bfefa461b554bf24c1d9761a3301816c63a165c11213eb6c1b3351c68d36349"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_RightPanelTab.md": {
+      "bytes": 1475,
+      "sha256": "e399ab322493dd7dbd156f63d54eecabee8deb47d9ec35d8fcfd3e9392c4f099"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ShortcutKeyEffectiveEditorRange.md": {
+      "bytes": 1279,
+      "sha256": "b754383bff6f8606089c960a21a41225c96a01c7e46d3e0303635f6a42e98d36"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ShortcutKeyEffectiveEditorScene.md": {
+      "bytes": 664,
+      "sha256": "a800cf69784ddcb8c287a4f30918684136da4a6fa6e65de4e215f707de7b243c"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_StartPageQuickStartItem.md": {
+      "bytes": 1580,
+      "sha256": "63755faf280fd4bd5cb635115dae92fd1d145708adfd546d85a24577497386ff"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_Theme.md": {
+      "bytes": 336,
+      "sha256": "f096af04df3f785f22869ae6d5b2634a42fd0663463bd276e2fba9a7d2b2d5a5"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_ToastMessageType.md": {
+      "bytes": 560,
+      "sha256": "90d52f851ed4edabac009a7259047bb2489faf8fc7b9197c286848797c9dd32d"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_Unit.md": {
+      "bytes": 629,
+      "sha256": "72979aa708ac2891469b629668fb6b1fb090cab96040a194b514a025364e907a"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_WindowEventType.md": {
+      "bytes": 368,
+      "sha256": "754ab894ea5a313dc672ffe1907af146a3f47177e4f658ab13676c2faec95dfa"
+    },
+    "vendor/easyeda-api/references/enums/ESYS_WindowOpenTarget.md": {
+      "bytes": 381,
+      "sha256": "84f7ebf997dbbf2df836b2f04826944c4f0d6702464d2c6859ac1e1e6da68fee"
+    },
+    "vendor/easyeda-api/references/enums/NetportDeviceName.md": {
+      "bytes": 1056,
+      "sha256": "6351a5ebd503986879abb38700fa3d20f28a2772e8d882df86361177527cad12"
+    },
+    "vendor/easyeda-api/references/enums/SchToolBarDeviceName.md": {
+      "bytes": 1945,
+      "sha256": "3083d90f2cb9726b2874be32ad0ee3da0437bb4f869b33ffcecd64065dd701d5"
+    },
+    "vendor/easyeda-api/references/interfaces/BoardProps.md": {
+      "bytes": 1597,
+      "sha256": "72f83c84e9e6e13b0e70df13e8df32706d78e2b026776e13965bdb9df7620213"
+    },
+    "vendor/easyeda-api/references/interfaces/ButtonProps.md": {
+      "bytes": 1718,
+      "sha256": "426961034a386663aa66be2ad85d95de5984dfc9dc43ae9c189c8f0fef9218a7"
+    },
+    "vendor/easyeda-api/references/interfaces/CheckBoxProps.md": {
+      "bytes": 2080,
+      "sha256": "379053ff0de9c65b9d2faca88ff6a5918454ff9b00abf7ae8623c46a4fce76ec"
+    },
+    "vendor/easyeda-api/references/interfaces/ComponentPropsMap.md": {
+      "bytes": 4412,
+      "sha256": "d517d4fb2abf49004d5ab25bc14bade01d65a67c65f2e96a874125500f930561"
+    },
+    "vendor/easyeda-api/references/interfaces/DialogProps.md": {
+      "bytes": 3645,
+      "sha256": "5dbbbde8b4a19158ef4a6dd89cb74200142e8f1302f26c629e35f48994ab7bcd"
+    },
+    "vendor/easyeda-api/references/interfaces/FlexItemProps.md": {
+      "bytes": 1135,
+      "sha256": "5612774f3ef80f20ae8994ea1d1694e5b39e91aeb86746b9714f120443b7a4bf"
+    },
+    "vendor/easyeda-api/references/interfaces/FlexProps.md": {
+      "bytes": 2449,
+      "sha256": "5da9db8aeaf62119be9919de8189e6f4708e2f2c04e1ffb37e61443139f45f06"
+    },
+    "vendor/easyeda-api/references/interfaces/GridItemProps.md": {
+      "bytes": 1367,
+      "sha256": "ebeb5d6cfc8f2f4bf3062e1025e1b07fd4d68cc9bdf628253742f9f1b367fddc"
+    },
+    "vendor/easyeda-api/references/interfaces/GridProps.md": {
+      "bytes": 1290,
+      "sha256": "90a2ce876bf6da9027ea347f677b059df08bce7daaec90db0a664258e63ec8a7"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_BoardItem.md": {
+      "bytes": 1634,
+      "sha256": "5ecf40bc864d250d28c95365f931a32c69754c92026c6a8020452d62b8af6ba6"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_BriefProjectItem.md": {
+      "bytes": 1785,
+      "sha256": "cefe66cc41dd4c883769b1546c32282651558a298ef977979657f8502b6d5621"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_EditorDocumentItem.md": {
+      "bytes": 1845,
+      "sha256": "9c1ec429b028ecf9a9fa62ac69a09524e677b290436ed7539bd59a7c76d3453c"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_EditorSplitScreenItem.md": {
+      "bytes": 2231,
+      "sha256": "e5ea958626546b7ac3946bd0b4296425d9f9964c9599d68a9bda992f3b3ae0b5"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_EditorTabItem.md": {
+      "bytes": 1589,
+      "sha256": "51b97e4e2dd8921a72e95062f997f005311fbc424889408117316f1280c65471"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_FolderItem.md": {
+      "bytes": 2141,
+      "sha256": "af2147b9876cbeb08b90bc347b8080fbe635edeaf465a7d05b2b4c87677470d4"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_IndicatorMarkerShape.md": {
+      "bytes": 3802,
+      "sha256": "dbb381a36cf77c7c7ebe2e320f47160a508a9a0bfb6f52e5b00399e4f2910d4b"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_PanelItem.md": {
+      "bytes": 1295,
+      "sha256": "a0da2a4ea914680f25b9a94a9bfab36b2420b4a4b01598dbff8e1ad06b8c49ca"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_PcbItem.md": {
+      "bytes": 1643,
+      "sha256": "96f985e99ce12a8bb6d0a3c626e45082aa28f798a02bb08f6bb209a5c395fa4b"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_ProjectItem.md": {
+      "bytes": 1747,
+      "sha256": "0a63c4f928a697f383199d1d2cc251526d32895754b4840064a7c4234ad3b904"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_SchematicItem.md": {
+      "bytes": 2497,
+      "sha256": "f49073d296981d9b1e2b0725a3278eded3b08801bfab09d314d31b4dae1072fd"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_SchematicPageItem.md": {
+      "bytes": 2168,
+      "sha256": "23c88d367783bd123e70c8f2a9b00d0f1bf4f96b2a1fddead55def236792d8f6"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_TeamItem.md": {
+      "bytes": 1306,
+      "sha256": "8fe11b8d75b3c4d74664c8709f64aa518bdb8fbc5e87355aa12fc9588da5fac6"
+    },
+    "vendor/easyeda-api/references/interfaces/IDMT_WorkspaceItem.md": {
+      "bytes": 1054,
+      "sha256": "aa2d3f7a8703aa20f86ab6a7b21a84af88151834e077bd86d06ce0ca1eb3dc26"
+    },
+    "vendor/easyeda-api/references/interfaces/IDesignPortal.md": {
+      "bytes": 1549,
+      "sha256": "ba291f5ccd6dab3caeac61a5ee8c98a18f1d1c3db407f00e3d6d5c4da7473176"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_3DModelItem.md": {
+      "bytes": 1962,
+      "sha256": "9906b47713c6e0687d41a809907b8ff5e8aae048c202963239b2e01e20dd6b5d"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_3DModelSearchItem.md": {
+      "bytes": 2732,
+      "sha256": "189990e4a0cf27c521c44eee1c4a608e72257317daec2cda0ac3d440ceab142f"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_CbbItem.md": {
+      "bytes": 2210,
+      "sha256": "b822d849002c7d968474c7bcc8056c6d6ad395b49b0c384dd5069940a2c58c65"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_CbbSearchItem.md": {
+      "bytes": 2667,
+      "sha256": "9386b471672ea86807f456d1c5d4ffac73ff37ba746178b76fe7f8161856e10c"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ClassificationIndex.md": {
+      "bytes": 1943,
+      "sha256": "9cf482ad1bff3da454c1c5092ea9357130faf607bf41bbbabdee93a8915bc46d"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_DeviceAssociationItem.md": {
+      "bytes": 2409,
+      "sha256": "0acffdb63c9e127c5ed19d460f6573484ffc548a8bc67eef3d5fad4ff6b467db"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_DeviceExtendPropertyItem.md": {
+      "bytes": 3148,
+      "sha256": "2e76e40eb59f7b05465d94fa7f6725669c1a5c5efc458cc1636ef7daa4257b04"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_DeviceItem.md": {
+      "bytes": 2838,
+      "sha256": "d0d0ebb9198246e5cf272e6b2457f901e99b3ebcff9e86e6707bf717aba45a14"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_DevicePropertiesForSearch.md": {
+      "bytes": 2619,
+      "sha256": "8cff09851150cff6b06e1a275f3a27f56ce232530de42cc7a0cdba1a0f522838"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_DeviceSearchItem.md": {
+      "bytes": 5879,
+      "sha256": "5b72ae41e14739208c7938e2d88e10781ac6539314e02b5970c3ca9487eb830f"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibrary3DModelFunctions.md": {
+      "bytes": 1268,
+      "sha256": "928634660c440c2da056e2a3fdbdb0734c8037d5b29534e028cd0657cb6ffaaa"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryCbbFunctions.md": {
+      "bytes": 3011,
+      "sha256": "e380b37b5706bda95369ec794e5aa25b2fa023e58d23df9629914c98add3ad36"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryClassificationIndex.md": {
+      "bytes": 2091,
+      "sha256": "ea9d9896183d6475dfef9ccee5dde5d8c1819df83db3cf2300ecfd8d65ec7faf"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryDeviceFunctions.md": {
+      "bytes": 5417,
+      "sha256": "0328b3fac8f33b154dbee10c06468a5675f7af24ecdc776f8ac377e0b284461e"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryFootprintFunctions.md": {
+      "bytes": 1215,
+      "sha256": "c44078847f88f189c7ba1cb96464cb9c212466892f1e1ae35b8613c866326032"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryFunctions.md": {
+      "bytes": 1792,
+      "sha256": "d1aae497bc83004fc45ee4d2b1bbcedd186ab86bf4e42d94d525e170e051ab2d"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryItem.md": {
+      "bytes": 1223,
+      "sha256": "3f20dca3fd218d381532561a54e532fd8230f45e230d6678a19079212f8b60d6"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryItemIndex.md": {
+      "bytes": 1281,
+      "sha256": "fd63eb7cec58bf9e85e83250a8a15f5e855a1715615b202a851409e1067464e2"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibrarySearchProperty.md": {
+      "bytes": 1493,
+      "sha256": "d66fc3117b8744b2dac051e264c70142a97dd2adea94ffbf977800221390c4fc"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibrarySearchResult.md": {
+      "bytes": 1644,
+      "sha256": "38c9742c508a0dd3fabd8ed822ff9422481fb0d78b6650cb9fca250ed53eed32"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibrarySearchResultDataLine.md": {
+      "bytes": 2859,
+      "sha256": "1b76c75fc05dc905bc22700ee513fc1751537a9ea5830242c3a45bed4666d11f"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibrarySymbolFunctions.md": {
+      "bytes": 2736,
+      "sha256": "42068fcba578214f776ba349e43d1587b3b4a0e62a1021c5c8e463428a075b6b"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_ExtendLibraryUserIndex.md": {
+      "bytes": 1216,
+      "sha256": "b11496fd50b1a6403890fd946603b8c3715616a02f7dcfecd305f2443639392b"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_FootprintItem.md": {
+      "bytes": 2003,
+      "sha256": "44997795de728455ac7c7cda57a06222089e46c9d8eade2802a9568d082ce7a4"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_FootprintPropertiesForSearch.md": {
+      "bytes": 626,
+      "sha256": "1c89e67e0411dcc8834c725294579a3c7d67d4dd9591808aa402f06ecccbda20"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_FootprintSearchItem.md": {
+      "bytes": 2777,
+      "sha256": "4f4c998adc6fa75e22af23eb61221347f65638c79c65b9d7b9566641e19b8b00"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_LibraryInfo.md": {
+      "bytes": 774,
+      "sha256": "d1e621f307db4118e510c89ceef9ba473cb8b3be9fd0c5d19c35b0a98ebf5b97"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_LibraryItem.md": {
+      "bytes": 1075,
+      "sha256": "420eb0daa7cc39869850c0d1f298907b4d68938524eba15756c84859531c62a1"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_PanelLibraryItem.md": {
+      "bytes": 2074,
+      "sha256": "57d61b3a1b4e0c491de96308e20a46bcf352f613db2eaabfccb5e0fd0bcdeeb5"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_PanelLibrarySearchItem.md": {
+      "bytes": 2857,
+      "sha256": "d9217ed21a8543988db1460ebc8d57fab8143bcf81fc9c92eb4a2f8be2babd30"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_SimulationModelItem.md": {
+      "bytes": 3336,
+      "sha256": "76515f53ea661a50fef833dc034fca65907ab7ce27a472fbabe0f6ee4735278d"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_SimulationModelSearchItem.md": {
+      "bytes": 3179,
+      "sha256": "95fcecb239eb452cf139c2e5ea04e339d7b494a94272993b77e0d6207276a884"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_SymbolItem.md": {
+      "bytes": 2832,
+      "sha256": "81f5033d883d7021cc33adf9fffd8645678d258a67282bc7deee033cb4f53733"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_SymbolPropertiesForSearch.md": {
+      "bytes": 605,
+      "sha256": "aa448c42dd550d5341e2a307c9ac744b8da055037c30c4edad3d3dab268eda6e"
+    },
+    "vendor/easyeda-api/references/interfaces/ILIB_SymbolSearchItem.md": {
+      "bytes": 2973,
+      "sha256": "d7acd37acae77af6fe25ecdc01cbcf323462548592f17290948bde11d7b31325"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_AutoLayoutResult.md": {
+      "bytes": 1989,
+      "sha256": "c988ad408db484550fc87f9b7a5163af06d39d0cee10b5bf25624e9e86c61878"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_AutoRoutingProps.md": {
+      "bytes": 3093,
+      "sha256": "5701ef9278023ec247c025cdf1baaec668f5263e566157a32074439445aaa5d2"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_AutoRoutingResult.md": {
+      "bytes": 1894,
+      "sha256": "60d296451ec03df264b1317c17e799e91821bfb12cd0907b4d99df9dfbe5b98d"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_BomPropertiesTableColumns.md": {
+      "bytes": 1832,
+      "sha256": "4b58f6f46c0a8e03ef15aafe8d80da261474dca1baff5f6776539289baaad7a4"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_DifferentialPairItem.md": {
+      "bytes": 1085,
+      "sha256": "e76a2e60070dc703269299d7649591b0e6c1c4d75fa7bc923464fc03e7add75a"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_DiscretizeOptions.md": {
+      "bytes": 829,
+      "sha256": "2115bb8d4fbe18e2f33e8178196d04eba12517f1b241a41441e8deb7fd1733f6"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_DiscretizedPoint.md": {
+      "bytes": 719,
+      "sha256": "f7bc1c1fca3dd7540168b26b5a8f7718b1eaaa6a89c75de40440710d3b14f8dd"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_EqualLengthNetGroupItem.md": {
+      "bytes": 1231,
+      "sha256": "99024b387660a6eca18df000238c421fb5e9130cfd40a98266ccb9779009d605"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_LayerItem.md": {
+      "bytes": 2538,
+      "sha256": "6c046b47d729ea769f4932f27edff27065fe1c6b194504cb28e1b3c492796dfd"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_NetClassItem.md": {
+      "bytes": 1076,
+      "sha256": "bae0b8a86c7d748ac1d5cf7957ed610eccdd785bc1595654fcf4c356fb8dd336"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_NetInfo.md": {
+      "bytes": 966,
+      "sha256": "e214b638808e037203449c0bd7fc9fe88c0334c5329cb687ca29af831e0002d2"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PadPairGroupItem.md": {
+      "bytes": 825,
+      "sha256": "1138110b657ff44598530d81da5a4673988e455afadfd8ee6040ac05c4fb99f7"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PadPairMinWireLengthItem.md": {
+      "bytes": 899,
+      "sha256": "b71c8d33a52dfa2df208be163cdc478fdd6e3e031de2f64db14712084937500c"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PhysicalStackingConfiguration.md": {
+      "bytes": 1228,
+      "sha256": "e9f4fe8c8af88a8949126e0e0f4a7c0c22b58df01ce23f138ef8f37acdeb2e19"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_Primitive.md": {
+      "bytes": 2565,
+      "sha256": "c03d0bcd9b76f04673bda982364f41c4393c2091a6a8cdad0bc70d1a0aca4cba"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PrimitiveAPI.md": {
+      "bytes": 3204,
+      "sha256": "c577d209fbde656f9ff04a4f2fa908dad05b933120b3f61fbf251aed00aab7ab"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PrimitivePadHeatWelding.md": {
+      "bytes": 2153,
+      "sha256": "491ebd877aecacd73cf62b15290f0b1452cc135061e87505729339a3eb039e7a"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PrimitivePouredPourFill.md": {
+      "bytes": 1326,
+      "sha256": "023b66c6d7b05eb73234fed07b33a497307f504e887e5506e0e238d0589eb415"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_PrimitiveSolderMaskAndPasteMaskExpansion.md": {
+      "bytes": 2585,
+      "sha256": "21a5b9dbe6fd69e9cbf16da7d53de0cd4956be81438d49ff495cb49849845acb"
+    },
+    "vendor/easyeda-api/references/interfaces/IPCB_SubstratePhysicalProperties.md": {
+      "bytes": 1066,
+      "sha256": "f18314c6c9144470110c3ce4d48f36cd0d0ef9caa1a5480a90434dc34fdc0032"
+    },
+    "vendor/easyeda-api/references/interfaces/IRawNet.md": {
+      "bytes": 887,
+      "sha256": "7e5882dcc1a41411b1f8f861c7a127c0680015932128fe622d4885b2ccca0ae4"
+    },
+    "vendor/easyeda-api/references/interfaces/IRawPureSchematic.md": {
+      "bytes": 915,
+      "sha256": "f488b9679b67dce9201d0a9e591dcbccd16ce0f15ffab3fb7a9663e7850a7f92"
+    },
+    "vendor/easyeda-api/references/interfaces/IRawSchematic.md": {
+      "bytes": 857,
+      "sha256": "be8f9195f066d2f116cb92aa0cb8f3c25f73e1d6e7ace474df6ccf0e453a8552"
+    },
+    "vendor/easyeda-api/references/interfaces/IRawWire.md": {
+      "bytes": 1142,
+      "sha256": "9da1d2f0ba8c10b807ef2b15ab00862ae6723d08292e69086130974480f46554"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_DrcError.md": {
+      "bytes": 1393,
+      "sha256": "ac1d8f5df0e21a8518faec37e8503f9b5aa67af5751f8a89a39813c064a14dbe"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_DrcErrorPrimitive.md": {
+      "bytes": 1554,
+      "sha256": "27029c670ab04b2187e8a07bd49317fd11e1f201bd1f192926c64b94a3410425"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_ExportPngResolution.md": {
+      "bytes": 1284,
+      "sha256": "abf9a655f0e38c627dc8b61d176814a47e37f3e6b93d051c0acbc73390abad0d"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_NetInfo.md": {
+      "bytes": 725,
+      "sha256": "5a0e2e73280bda0bebe5f3c23383b77903bcaf73e6e3ab2a08d5c8e63ac0a7b9"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_Primitive.md": {
+      "bytes": 2705,
+      "sha256": "71e4ae52992c1e8349238f4b1f61a674b6cc5aabe88bb60d9cda37b8efe8c89b"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_PrimitiveAPI.md": {
+      "bytes": 3210,
+      "sha256": "23843313cd362b5dc3944170c6fc152177547bdfd3445ceadda96d9b05a6d4fd"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_ProjectNetInfo.md": {
+      "bytes": 1312,
+      "sha256": "7e7f6af272ff807062a256b0b7bf07c03231ddbfdee425e1dee05e8ce012fee0"
+    },
+    "vendor/easyeda-api/references/interfaces/ISCH_WireInfo.md": {
+      "bytes": 1384,
+      "sha256": "c139b43e96447d55ac80d2af1ac215edf443d77fc25671cb6aba987a2f293725"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_FileSystemFileList.md": {
+      "bytes": 2165,
+      "sha256": "94ad65e049ef55a632cd62ead317922c0726c0930637fb65815f293652393c40"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_HeaderMenuSub1MenuItem.md": {
+      "bytes": 1918,
+      "sha256": "f711cd293c889e49746f7c22978aa97e8b8bf4b81848a27254df3f5880073709"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_HeaderMenuSub2MenuItem.md": {
+      "bytes": 1531,
+      "sha256": "edd582546dcd84e8e524b90d1548658537b6d38ae5fceb1c057b57b3269e8bff"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_HeaderMenuTopMenuItem.md": {
+      "bytes": 1209,
+      "sha256": "94e57281d6da400666c5f645cce7e9f698eec1d833cf598dc09a607f08456131"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_HeaderMenus.md": {
+      "bytes": 5380,
+      "sha256": "2335037be53a688c3bc824481e9f31bbf3f2d0fc44a302fb424ccc3c9398b7b1"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_LogLine.md": {
+      "bytes": 942,
+      "sha256": "73e1f989484da7134b73612864c87663e04ab2c6147ee1a608a44cfd55db5b6b"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_MathBBox.md": {
+      "bytes": 1189,
+      "sha256": "b18c66d13ccd127640b12b0bcb7c30bcaa76eaadc1f41194761b6b0545652abc"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_MathPoint.md": {
+      "bytes": 675,
+      "sha256": "b44345fd67cee8ec68a046f26cd93f3cccb43b9dccaa9d99f5f4b8c30b835f8c"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_MathPolygonWithHoles.md": {
+      "bytes": 1072,
+      "sha256": "f08c413f3eb61fa0f7b95b523046f580685910bcd4a3e0e8e7b30f65309708cf"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_MessageBusTask.md": {
+      "bytes": 1098,
+      "sha256": "6072b3f93c6ef93a7bfcb9a02a81889003a00c6a2b4aa9d8cfadf2c28e809bc0"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_MultilingualLanguagesData.md": {
+      "bytes": 210,
+      "sha256": "26ce0058a723871bf8714e41a7ee5dac0285365ce27893f1ef6f5217a91a3e61"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_PcbComparisonResponse.md": {
+      "bytes": 1372,
+      "sha256": "6022d7507df8ca938e3fc64cfa2f6c4a414744d62d05cc3f3c38f3781cdd32c1"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_RightClickMenuItem.md": {
+      "bytes": 1865,
+      "sha256": "d6c7009b0c7c27e12e06f37994617c07578334ed3d59f0ae175e99e60ab8a789"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_ShortcutKeyData.md": {
+      "bytes": 1891,
+      "sha256": "3020d1c42234532242a14973abffad35e1105bd6a2432aca3b15b175e3c02468"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_ShortcutKeyDataWithCallFn.md": {
+      "bytes": 725,
+      "sha256": "a5c23358b8c01bbadc59b19c4dae71605f3e325f546c1e3a8e33732dd2c04ccd"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_ShortcutKeyDataWithUserDefinedShortcutKey.md": {
+      "bytes": 925,
+      "sha256": "81fe61746c42646c0e224ff3fbe38e7abcd4ef219c48b956e19201a7ca469412"
+    },
+    "vendor/easyeda-api/references/interfaces/ISYS_WindowEventListenerRemovableObject.md": {
+      "bytes": 1460,
+      "sha256": "0c3df4ccf650828961d40aed517eb63ec1b63742f0209e1e335642ee42b6c516"
+    },
+    "vendor/easyeda-api/references/interfaces/IconProps.md": {
+      "bytes": 783,
+      "sha256": "91ca1d598d6936579a92f0406128505f9b8e1f4b0667560dfb54c4bbd1390f70"
+    },
+    "vendor/easyeda-api/references/interfaces/ImageProps.md": {
+      "bytes": 997,
+      "sha256": "019c791792edf8223eb6d7a35c5c212b9b75331350ebc9ba9ccdffdc3b85aeff"
+    },
+    "vendor/easyeda-api/references/interfaces/InputProps.md": {
+      "bytes": 5797,
+      "sha256": "639b1dc36a83dcf73150fb24455684d296e4224298216600d4d48111c69f96c3"
+    },
+    "vendor/easyeda-api/references/interfaces/ListChildren.md": {
+      "bytes": 2174,
+      "sha256": "89642b6941f48a01f5ee44b47c888f841cd35b39e29d33e95bb3c6163508017f"
+    },
+    "vendor/easyeda-api/references/interfaces/ListProps.md": {
+      "bytes": 2532,
+      "sha256": "cc648203ef3f51b52f98e3778398d39b8867bb6044184263eda23e6fcd8b50e0"
+    },
+    "vendor/easyeda-api/references/interfaces/ModalProps.md": {
+      "bytes": 3531,
+      "sha256": "87653d02c37b3d49ba84ec068d06c25842b4042d2d159be25a1747c5c648e634"
+    },
+    "vendor/easyeda-api/references/interfaces/RadioGroupProps.md": {
+      "bytes": 2142,
+      "sha256": "91358d6eceb42ae9aece202886a48cf9e20dc10750183e69eae8002829c4a3a9"
+    },
+    "vendor/easyeda-api/references/interfaces/RadioItem.md": {
+      "bytes": 1007,
+      "sha256": "27df083b98a43a91e887a45b09c438955396d26236d9a8b7fd0d1c80ed4a4e0a"
+    },
+    "vendor/easyeda-api/references/interfaces/ScrollerProps.md": {
+      "bytes": 1881,
+      "sha256": "24257d143e42e36fa3887ac548bf28c3b1f05be8fcca7517504ed9b95b357f81"
+    },
+    "vendor/easyeda-api/references/interfaces/SelectListItem.md": {
+      "bytes": 1400,
+      "sha256": "8c65621d739c075262309eb5d80edf07ef10227b95f0ca3e643c58cc3b7c0aba"
+    },
+    "vendor/easyeda-api/references/interfaces/SelectProps.md": {
+      "bytes": 1714,
+      "sha256": "e42411819b205ed1512653b445cbb554aafe330ecea15ef20b268289e2957eb5"
+    },
+    "vendor/easyeda-api/references/interfaces/SlotProps.md": {
+      "bytes": 767,
+      "sha256": "77384ae8ab0b650eebd34ddcd719f2db22cc4bd7f738f3180758bfd6b2450661"
+    },
+    "vendor/easyeda-api/references/interfaces/StyleProps.md": {
+      "bytes": 4439,
+      "sha256": "599b3de6d62c16e83849e7533597b0cf7d2db74ed397ab9a9b6139a94ba0de84"
+    },
+    "vendor/easyeda-api/references/interfaces/TextAreaProps.md": {
+      "bytes": 2090,
+      "sha256": "5cb8c60d12e7eb43bce2c15b74a3b467cea828af927e6a176fbac4b1772ac49e"
+    },
+    "vendor/easyeda-api/references/interfaces/TextProps.md": {
+      "bytes": 1498,
+      "sha256": "8ec6b25a278bbd95dc12b557e41688afbce7687b9b5542e748dbaabb32f79ea7"
+    },
+    "vendor/easyeda-api/references/types/ISYS_LanguageKeyValuePairs.md": {
+      "bytes": 193,
+      "sha256": "1ef3ab4bf132e55287ca5472c29e3a7b3ff2fa8f977d4305fd56c9059cc6e16c"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayerTypesOfInnerLayer.md": {
+      "bytes": 355,
+      "sha256": "8e9baf62474ebe040a84f401005e93a3f113e1af369def048f35e22ee1d65b3c"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersInTheSelectable.md": {
+      "bytes": 2790,
+      "sha256": "ab31e1a9706c8cb6c4c633e89d741d0c41f71105d590aaa54cf8ad0ca3fdfa71"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfComponent.md": {
+      "bytes": 274,
+      "sha256": "d44f1ad12fb5020a482d99b6a8efa0827fd165267a791f01e5b381b11a52e954"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfCopper.md": {
+      "bytes": 481,
+      "sha256": "715924d9818c8b1fd52edde8c92f1e97691e5891e524d6593454afff96fd3e92"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfCustom.md": {
+      "bytes": 2760,
+      "sha256": "8fd66e8c9305f37d888f4792c1c266c94b76368e562f6eda9071d928146286a1"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfDimension.md": {
+      "bytes": 586,
+      "sha256": "59aa106cc035d1580e64d80bb05f19e2b7c0b52902cb5ead56ce894e4c173f0a"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfFill.md": {
+      "bytes": 1466,
+      "sha256": "e1b57cf72bf04d9dbd3f01230a56beb200a76e4adc2d685a8653cf77f2d2fb0c"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfImage.md": {
+      "bytes": 1192,
+      "sha256": "ce48ec657d19f62bac886eb3fde0373af0cdaa5a04cbd05c15919572beed3213"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfInner.md": {
+      "bytes": 2697,
+      "sha256": "c3b4207a25e4186551f4e6346a27469d57c16aceca70edc037cd593086bbe1ee"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfLine.md": {
+      "bytes": 1459,
+      "sha256": "4a52cb41ea21412abf92e17f141cafdb43936ff7cda3308f912d2381b6ca375b"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfObject.md": {
+      "bytes": 412,
+      "sha256": "048cce1e6595ac262ab1c0bc939fc7ae08624e11fd45ac9971f26d1ea9cd4ac7"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfPad.md": {
+      "bytes": 337,
+      "sha256": "28f70e6054683ec6268ac9e665ecc1b07e37eefcf1c2a455e14ec6bd8654aeb7"
+    },
+    "vendor/easyeda-api/references/types/TPCB_LayersOfRegion.md": {
+      "bytes": 272,
+      "sha256": "58889762c06b5d2049194a921e520a820ee98b15513c88280c6d03f9b4f1b55e"
+    },
+    "vendor/easyeda-api/references/types/TPCB_NumberOfCopperLayers.md": {
+      "bytes": 200,
+      "sha256": "1df991c13de2898bab5c74372ae8358f300e3c6e1dc48180aa64f11c1920ad76"
+    },
+    "vendor/easyeda-api/references/types/TPCB_PolygonSourceArray.md": {
+      "bytes": 1695,
+      "sha256": "728d14f2600fec4ac23f0948bd66658b826f12b382868fb774f8506b290f2c93"
+    },
+    "vendor/easyeda-api/references/types/TPCB_PrimitiveDimensionCoordinateSet.md": {
+      "bytes": 1727,
+      "sha256": "fee177bfa150dd3b3068f2604ae8df47585f65d9a1c5af5c893c346fbf0bbd08"
+    },
+    "vendor/easyeda-api/references/types/TPCB_PrimitivePadHole.md": {
+      "bytes": 807,
+      "sha256": "659e52fc0df0f6fd8d9bcbe998ea81265ca97b183a8746791d5c05b021b7425d"
+    },
+    "vendor/easyeda-api/references/types/TPCB_PrimitivePadShape.md": {
+      "bytes": 1912,
+      "sha256": "a221edb8ce330a61748491188fd61e7c027d04617bb80ef8ce2dab66c60013db"
+    },
+    "vendor/easyeda-api/references/types/TPCB_PrimitiveSpecialPadShape.md": {
+      "bytes": 392,
+      "sha256": "54a22970afa7ce353dedbf213beea5e19d6496dd8909f9b7ab92e92694f8264c"
+    },
+    "vendor/easyeda-api/references/types/TSYS_MathPolygonGroup.md": {
+      "bytes": 379,
+      "sha256": "e5c6e3c8fd20babb5408e79987f18657578f135f74534370acfc08eeb4a9c76f"
+    },
+    "vendor/easyeda-api/references/types/TSYS_MathPolygonInput.md": {
+      "bytes": 961,
+      "sha256": "93d55edd55711e195b7fb4e5065818d8a8a4d5982a7e530e9f96b3d9b09eec3a"
+    },
+    "vendor/easyeda-api/references/types/TSYS_PcbComparisonErrorCode.md": {
+      "bytes": 209,
+      "sha256": "7fb8b7f3872c247b7ae251e75eb5264a379c26d74f366cea773f41e2fd798676"
+    },
+    "vendor/easyeda-api/references/types/TSYS_ShortcutKeys.md": {
+      "bytes": 853,
+      "sha256": "cbb5e02fa51e5fd9ccc75ca4cb4c728d6f4f9806d6a5148bcfae5ce2fefeae3b"
+    },
+    "vendor/easyeda-api/scripts/bridge-server.mjs": {
+      "bytes": 18241,
+      "sha256": "33cbd91c5b36077a3e30aab2fa2df5402637fe612fa9ab8fe2e8473ce2024d96"
+    },
+    "vendor/easyeda-api/user-guide/using-extension.md": {
+      "bytes": 2250,
+      "sha256": "21b12879d081a638a5e86712984d852f4576013442dc4c677b2cb1123338b7c8"
+    }
+  }
+}
