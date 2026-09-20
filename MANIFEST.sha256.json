@@ -14,8 +14,8 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 13453,
-      "sha256": "57075f4d8bd50ccf16330e8392cd15a83cb4ae8f5466a15339c7d72362b9df30"
+      "bytes": 7550,
+      "sha256": "957d3965844fa19f4744c0e409f00aa258993a0c5123bf88ccfa31f4dcad295a"
     },
     "SKILL.md": {
       "bytes": 7928,
@@ -1780,6 +1780,10 @@
     "assets/logo.svg": {
       "bytes": 1005,
       "sha256": "e6f8f5dd1e2554a19688ca7ee3abb515e216a5ef59a0a993a4697ada3051dbae"
+    },
+    "README_EN.md": {
+      "bytes": 8379,
+      "sha256": "f604a0758c5860fc2a25ee682e35bac2979e1b0342cab137dda049f6bfa9891a"
     }
   }
 }
