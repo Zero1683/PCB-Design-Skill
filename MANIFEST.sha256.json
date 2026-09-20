@@ -14,8 +14,8 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 12607,
-      "sha256": "060d80f421401f7e35402639a4896d124ae11cab92d6f4f544b7abee01a61eb5"
+      "bytes": 14072,
+      "sha256": "8c6af3b8e74ba9ea22fa86070bf57179dbf5981b833b17d8bc11b461d65a9128"
     },
     "SKILL.md": {
       "bytes": 7928,
@@ -1776,6 +1776,10 @@
     "vendor/easyeda-api/user-guide/using-extension.md": {
       "bytes": 2250,
       "sha256": "21b12879d081a638a5e86712984d852f4576013442dc4c677b2cb1123338b7c8"
+    },
+    "assets/logo.svg": {
+      "bytes": 729,
+      "sha256": "c348595d02643ad3f1bf28159c6c801c567fc7c57a8b6645304762678836d21c"
     }
   }
 }

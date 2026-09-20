@@ -1,8 +1,32 @@
-# PCB Design to Bring-up
+<p align="center">
+  <img src="assets/logo.svg" width="156" height="156" alt="PCB Design to Bring-up logo">
+</p>
 
-**从需求到实板验证的 AI PCB 工程 Skill · An AI skill for PCB design, manufacturing handoff, and board bring-up**
+<h1 align="center">pcb-design-to-bringup-skill</h1>
 
-[中文](#中文) · [English](#english)
+<p align="center">
+  <strong>Design · Route · Build · Verify</strong><br>
+  从一张原理图，到一块经过验证的电路板。
+</p>
+
+<p align="center">
+  An AI workflow for PCB design, manufacturing handoff &amp; board bring-up.<br>
+  PCB 设计、制造交付与实板验证 · 内置 EasyEDA API 工具
+</p>
+
+<p align="center">
+  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/releases"><img src="https://img.shields.io/github/v/release/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;label=release&amp;color=647d42" alt="Latest release"></a>
+  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/stargazers"><img src="https://img.shields.io/github/stars/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;color=647d42" alt="GitHub stars"></a>
+  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/issues"><img src="https://img.shields.io/github/issues/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;color=647d42" alt="Open issues"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-647d42?style=flat-square" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/EasyEDA-bundled-647d42?style=flat-square" alt="EasyEDA tools bundled">
+</p>
+
+<p align="center">
+  <a href="#中文">中文</a> · <a href="#english">English</a> · <a href="START_HERE.md">Quick start</a> · <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/releases">Download</a>
+</p>
+
+---
 
 ## 中文
 

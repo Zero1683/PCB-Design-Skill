@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">PCB Design to Bring-up</title>
+  <desc id="desc">A geometric circuit trace forms the letter P on an ivory tile, ending in a lime test pad.</desc>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#f1efe7"/>
+  <path d="M80 193V81L103 58H157L184 85V123L157 150H80" fill="none" stroke="#202321" stroke-width="22" stroke-linecap="square" stroke-linejoin="miter"/>
+  <circle cx="80" cy="193" r="17" fill="#202321"/>
+  <circle cx="80" cy="193" r="7" fill="#f1efe7"/>
+  <circle cx="184" cy="104" r="25" fill="#202321"/>
+  <circle cx="184" cy="104" r="13" fill="#c2ed72"/>
+</svg>
