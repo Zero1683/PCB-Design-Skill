@@ -31,7 +31,7 @@ Node.js、EDA 客户端和 Gateway 扩展不包含在下载包中。可在客户
 
 ### 快速开始
 
-1. 从 [Releases](https://github.com/Zero1683/pcb-design-to-bringup/releases) 下载发布 ZIP，解压并保留目录结构。也可克隆整个仓库。
+1. 从 [Releases](https://github.com/Zero1683/pcb-design-to-bringup-skill/releases) 下载发布 ZIP，解压并保留目录结构。也可克隆整个仓库。
 2. 将文件夹注册到 AI 工具的 Skill 目录，或直接让 AI 读取根目录 `SKILL.md`。只需注册本 Skill，无需再安装同名 EasyEDA 工具包。
 3. 打开嘉立创EDA并启用 Gateway。在本目录执行：
 
@@ -112,7 +112,7 @@ python -X utf8 scripts/release_manifest.py verify --root /path/to/pcb-design-to-
 
 ### 许可与反馈
 
-本项目自有流程、模板和脚本采用 [MIT](LICENSE)。第三方内容保留原作者声明及许可，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。问题和改进建议可提交到 [Issues](https://github.com/Zero1683/pcb-design-to-bringup/issues)，请附复现步骤、工具版本及去除敏感信息后的错误输出。
+本项目自有流程、模板和脚本采用 [MIT](LICENSE)。第三方内容保留原作者声明及许可，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。问题和改进建议可提交到 [Issues](https://github.com/Zero1683/pcb-design-to-bringup-skill/issues)，请附复现步骤、工具版本及去除敏感信息后的错误输出。
 
 ## English
 
@@ -141,7 +141,7 @@ Node.js, the desktop client, and the Gateway extension are **not bundled**. Sear
 
 ### Quick start
 
-1. Download and extract the ZIP from [Releases](https://github.com/Zero1683/pcb-design-to-bringup/releases), preserving the folder structure, or clone this repository.
+1. Download and extract the ZIP from [Releases](https://github.com/Zero1683/pcb-design-to-bringup-skill/releases), preserving the folder structure, or clone this repository.
 2. Register the folder in your AI tool's skill directory, or ask the AI to read the root `SKILL.md`. There is no separate EasyEDA skill to install.
 3. Open EasyEDA, enable the Gateway extension, and run this from the skill folder:
 
@@ -212,4 +212,4 @@ Independent extraction, paths containing Chinese characters/spaces, bundled depe
 
 ### License and feedback
 
-Original workflow content, templates, and scripts use the [MIT License](LICENSE). Bundled third-party material retains its original notices and licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Report problems or suggestions through [Issues](https://github.com/Zero1683/pcb-design-to-bringup/issues), with reproduction steps, tool versions, and sanitized error output.
+Original workflow content, templates, and scripts use the [MIT License](LICENSE). Bundled third-party material retains its original notices and licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Report problems or suggestions through [Issues](https://github.com/Zero1683/pcb-design-to-bringup-skill/issues), with reproduction steps, tool versions, and sanitized error output.
