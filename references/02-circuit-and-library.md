@@ -18,7 +18,7 @@ For similarly named diodes, protection arrays, regulators, and compatible parts,
 6. Identify how reverse polarity, overcurrent, charging, overdischarge, and back-powering are handled. IC UVLO is not automatically battery protection. Document the usage boundary for omitted functions instead of claiming they exist.
 7. For ADC dividers, check maximum input, tolerances, ADC limits, source impedance, and RC settling. Record calibration. Voltage alone does not establish an accurate state-of-charge percentage.
 
-Produce the power tree, state table, budget, and reproducible calculations. List measurements separately.
+Produce the power tree, state table, budget, and reproducible calculations. Use [electrical analysis](09-electrical-analysis.md) for corner cases, DC path loss, transient budgets, and calculator handoff. List measurements separately.
 
 ## MCU, boot, and recovery
 

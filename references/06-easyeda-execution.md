@@ -14,6 +14,40 @@ Integrated startup conventions:
 4. The launcher verifies service ID `easyeda-bridge` and reports the actual port and windows; do not assume port 49620. `WAITING_FOR_EDA` means the user should enable Run API Gateway in the desktop client, not that another bridge must be started.
 5. With multiple services/windows, identify the target from the task. Explicitly use the selected service and `windowId` in later calls rather than relying on the active-window default. Connection alone does not identify the intended project.
 
+## Installation completion and routing to tools
+
+The main skill and `vendor/easyeda-api` ship together. Read the vendor entrypoint directly by path; nested discovery as a second installed skill is unnecessary. Missing discovery is not evidence that computer use is the only tool.
+
+Separate three states:
+
+1. **Skill discovered:** if absent from Codex's skill list, first check the complete folder and registration path. Explicitly read `SKILL.md` and its bundled API entrypoint to continue. Codex normally detects skill changes automatically; restart Codex only if discovery still does not update. Do not restart or terminate an active task yourself. Save a short resumption instruction first.
+2. **Bridge healthy:** run `status`, or `start` if absent. `WAITING_FOR_EDA` needs the Gateway extension, not repeated bridge launches or Codex restarts.
+3. **API responsive:** after enabling Gateway, select the reported port/window and run `node scripts/eda_probe.mjs <port> <windowId>`. A reply with no current project is valid before creating one. Check project/document identity before editing. An `EDA_CONNECTED` label alone is insufficient.
+
+If the extension itself requests an EDA restart, have the user save work and restart that client, then rerun status and the probe. Do not prescribe an unconditional Codex or EDA restart. Mac users run the same Node commands in Terminal; `.cmd` is Windows-only. A macOS permission dialog or unsupported extension version is a setup issue, not permission to abandon the API workflow silently.
+
+On package upgrades, inspect `bridgeUpdateRecommended`: existing Node services retain their old code until restarted. Finish active operations and preserve work before restarting the identified bridge; do not kill unrelated processes. Restarting Codex is not a bridge upgrade.
+
+Official Codex discovery reference: [Build skills](https://learn.chatgpt.com/docs/build-skills), checked 2026-09-21.
+
+## Project creation and permitted UI fallback
+
+| Operation | Preferred route | When UI is appropriate |
+|---|---|---|
+| Install client/Gateway, login | Existing installer/extension workflow | Setup UI and login interaction |
+| Discover service/project | Launcher, read-only probe, documented getters | Inspect a connection/permission dialog |
+| Create/open project | `eda.dmt_Project.createProject`, `getProjectInfo`, `openProject` | Specific unsupported, failed, or beta-restricted operation |
+| Add/edit schematic/PCB | Document-specific APIs after identity checks | A documented gap or verified error |
+| Route ordinary nets | Native autorouter via API when supported | Native autorouter UI when API cannot be used |
+| Visual/manufacturing preview | Export API plus viewer | Inspect rendered geometry and dialogs |
+| Ordering/procurement | Deliver files and settings to user | Only if the user explicitly requests ordering work |
+
+Read [DMT_Project](../vendor/easyeda-api/references/classes/DMT_Project.md) for exact arguments. `createProject` returns a UUID or `undefined`; use that UUID with `getProjectInfo` and `openProject`, not a filesystem path. Check existing projects after a timeout before repeating creation. The bundled document marks creation **beta** and warns against production use: validate in a disposable test project first; if the installed client's restriction applies, use the UI for that step and resume API editing afterward. Do not claim method presence proves support for writes.
+
+`openProject` is documented to discard unsaved changes in the previously opened project. Preserve authorized work before switching; if saving unrelated work is outside scope, have its owner save it rather than silently losing it. Use the documented project/document creation APIs for the installed version, then read back actual IDs; do not invent empty-board helper calls.
+
+For a UI fallback, state the operation, observed API limitation/error, and return condition briefly. Capture the resulting project identity through the API afterward. Do not use a fallback as permission for unrelated websites, checkout, account changes, or purchasing.
+
 Operational procedure:
 
 Read-only tasks skip writes, repours, saves, and record initialization. If a check automatically writes locks, caches, or reports, use read-only exports or in-memory analysis instead. Use an isolated working copy only when creating one is allowed, and state its relationship to the original.

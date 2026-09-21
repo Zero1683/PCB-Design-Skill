@@ -6,12 +6,16 @@ from pathlib import Path
 import sys
 
 
-def create_project(output: Path, name: str) -> Path:
+def create_project(output: Path, name: str, lang: str = 'en') -> Path:
+    if lang not in ('en', 'zh'):
+        raise ValueError('Language must be en or zh')
     if not name.strip() or '\n' in name or '\r' in name:
         raise ValueError('Project name must be a nonempty single line')
     if output.exists() or output.is_symlink():
         raise ValueError('Output already exists; use the templates manually without overwriting project records')
     templates = Path(__file__).resolve().parents[1] / 'assets'
+    if lang == 'zh':
+        templates = templates / 'zh'
     mapping = {'PROJECT.template.md': 'PROJECT.md',
                'HANDOFF.template.md': 'HANDOFF.md',
                'CHECKS.template.csv': 'CHECKS.csv'}
@@ -32,9 +36,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--name', required=True)
+    parser.add_argument('--lang', choices=('en', 'zh'), default='en')
     args = parser.parse_args()
     try:
-        created = create_project(args.output, args.name)
+        created = create_project(args.output, args.name, args.lang)
     except (OSError, ValueError) as exc:
         print(f'ERROR: {exc}', file=sys.stderr)
         return 1

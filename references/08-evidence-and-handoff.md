@@ -79,3 +79,7 @@ These sources correspond to the case. Use the actual parts and revisions for eac
 - [ST LSM6DS3TR-C datasheet](https://www.st.com/resource/en/datasheet/lsm6ds3tr-c.pdf): pins, modes, registers, and self-test.
 
 Prefer manufacturer documents and record revision/section/access date. Online “latest” content may change and is not an immutable design baseline.
+
+## Record checker
+
+Run `scripts/check_evidence.py` for the intended stopping stage, normally G5 for design. See [validation tools](10-validation-tools.md). The checker reports missing evidence and unresolved rows without writing statuses or claiming electrical correctness. Model and physical tests remain separate.

@@ -9,6 +9,14 @@ EasyEDA API Skill 1.1.28, API and source-format documentation, the bridge server
 
 Deliver designs that can be manufactured, assembled, measured, and maintained. Resolve known issues before the first prototype, but do not promise first-pass success or describe an unbuilt design as a mature product.
 
+## Default outcome and tool choice
+
+For a request to design a PCB or prepare it for fabrication, finish at **G5: a reviewed, routed, manufacturing-ready engineering prototype package**. Deliver source, Gerber/drills, BOM, assembly information, ordering parameters, and open items for the user to place the order. Do not initiate purchasing, add parts to a cart, submit orders, pay, or contact vendors unless explicitly requested. Reading manufacturer or distributor pages for datasheets, availability, or part selection is allowed; it does not authorize procurement. G6-G9 apply when assembly, hardware testing, or handoff work is requested; absent hardware does not block completing G5.
+
+For EasyEDA, load the **bundled** API skill before choosing an interaction method. Use documented, version-compatible API calls for project creation and editing. Computer use is appropriate for installing/enabling Gateway, login, visual inspection, or a specific API gap/failure. Record that reason and return to API calls when available. Never continue clicking through design simply because installation used the UI. See [connection and operation routing](references/06-easyeda-execution.md).
+
+Use native autorouting for suitable ordinary nets after critical placement, power, and sensitive routes are planned. Preserve completed routes and verify the result. This can reduce per-segment agent work; it does not remove engineering checks or guarantee a particular token saving. Follow [routing strategy](references/03-layout-routing.md).
+
 ## Language
 
 Use the user's language for conversation, explanations, and generated project records unless they request otherwise. Keep API names, commands, file paths, identifiers, status values, and template placeholders unchanged. English instructions do not require English replies.
@@ -18,7 +26,7 @@ Use the user's language for conversation, explanations, and generated project re
 1. Identify the mode: new design, read-only review, local revision, manufacturing preparation, assembly guidance, or hardware troubleshooting. Resume existing projects at the relevant stage without repeating valid completed work.
 2. Read project rules and any `PROJECT.md`, `HANDOFF.md`, and `CHECKS.csv`. Verify the actual project, release revision, and physical board ID. Historical text, screenshots, and files sent to fabrication may describe different revisions.
 3. Read [requirements and context recovery](references/01-intake-and-recovery.md). Extract confirmed parameters first. Ask only for missing information that affects architecture, interfaces, or manufacturing outcomes; do not reconfirm settled requirements.
-4. For tasks permitting writes, save new work in the authorized directory and follow storage preferences. Use `scripts/init_project.py` to initialize templates without overwriting files, or copy them manually if Python is unavailable. For read-only reviews, report in the conversation by default; do not initialize or update project records, and use access methods that leave the original project unchanged.
+4. For tasks permitting writes, save new work in the authorized directory and follow storage preferences. Use `scripts/init_project.py --lang zh` for Chinese records or `--lang en` for English to initialize templates without overwriting files, or copy them manually if Python is unavailable. For read-only reviews, report in the conversation by default; do not initialize or update project records, and use access methods that leave the original project unchanged.
 5. Load references for the relevant stage below. For live EasyEDA work, also read [EDA operations](references/06-easyeda-execution.md). Do not start unrelated services.
 
 ## Execution constraints
@@ -66,11 +74,19 @@ See [evidence and handoff](references/08-evidence-and-handoff.md). When the user
 
 Read [instructions, actions, and failure modes](references/07-case-lessons.md) for the origin of these constraints. Use the lessons to guide decisions, not to copy the old board's electrical values into a new design.
 
+## Electrical review beyond DRC
+
+At G1/G2, calculate supply/load budgets and component operating margins. At G4, update calculations from actual geometry: DC path drop/loss, load-step budget, relevant signal impedance and return paths. Use [electrical analysis](references/09-electrical-analysis.md) and its reproducible calculator. Do arithmetic with available tools; ask the user only for unavailable inputs, inaccessible calculators, or physical measurements, with exact fields and units. Do not ask a beginner to invent stackup values or interpret an unexplained impedance number.
+
 ## Tools and templates
 
-- `python scripts/init_project.py --output <project-directory> --name <project-name>` creates `PROJECT.md`, `CHECKS.csv`, and `HANDOFF.md` only in a directory that does not exist. It refuses overwrite.
+- `python scripts/init_project.py --output <project-directory> --name <project-name> --lang <en|zh>` creates `PROJECT.md`, `CHECKS.csv`, and `HANDOFF.md` only in a directory that does not exist. It refuses overwrite.
 - `python scripts/release_manifest.py create --root <frozen-release-directory> --revision <revision> --baseline <baseline-id>` generates byte counts and SHA-256 hashes for a prepared release package without modifying the PCB.
 - `python scripts/release_manifest.py verify --root <frozen-release-directory>` checks missing, added, and changed files and rejects path traversal and symbolic links. It verifies package integrity, not schematics, impedance, or hardware acceptance.
+- `python scripts/check_evidence.py --root <project-directory> --baseline <baseline-id> --through G5` checks record completeness, evidence files, and baseline identity. It does not certify the circuit.
+- `python scripts/electrical_calcs.py --input <calculations.json>` calculates sourced first-order power, loss, DC path, and transient budgets; see [09](references/09-electrical-analysis.md).
+- `python scripts/audit_design.py compare <schematic.json> <pcb.json>` compares normalized records; `geometry <pcb.json> --clearance-mm <value>` screens body envelopes. See [data contracts](references/10-validation-tools.md); these are not native EDA parsers.
+- Run [behavioral and live validation](references/11-validation-scenarios.md) when changing this skill or its integration. Do not report dry-run scenarios as real EDA validation.
 - Templates start at [assets](assets/PROJECT.template.md). Adapt them to the task; empty tables are not completed work. Leave unperformed checks untested.
 
 Deliver the current conclusion, actual edits, corresponding verification, real limitations, and accessible files. When measurements require user assistance, specify test points, meter mode, power state, expected results, and branches for the next step.

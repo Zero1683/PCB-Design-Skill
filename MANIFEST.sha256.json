@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "main-english-2026-09-21",
-  "baseline_id": "english-skill-translation",
-  "generated_utc": "2026-09-21T02:45:20+00:00",
+  "revision": "v1.2.0",
+  "baseline_id": "api-first-electrical-review",
+  "generated_utc": "2026-09-21T03:12:20+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -14,92 +14,148 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 7576,
-      "sha256": "7cb60b0797c2c8c8b9e3b66c5407b3c1fe8521fbc4131475efd69ebcfae7812e"
+      "bytes": 9348,
+      "sha256": "b011b87902a846acb78a246dbcec5410d240073075b23dac009e8d538bf86695"
     },
     "README_EN.md": {
-      "bytes": 8366,
-      "sha256": "ae82828148544aad54cc7d5446ebbfdd13314314241ef99dd00ab2cd93755a57"
+      "bytes": 10293,
+      "sha256": "f99126e68252da40500d82f90c18faec75e447eed64ef76d3ee57ecfba4053a1"
     },
     "SKILL.md": {
-      "bytes": 9418,
-      "sha256": "8f5b67053c6867751407aef4e7512c2eff8caa0f4ab7a4a7519d2e19aec77e28"
+      "bytes": 12438,
+      "sha256": "6184eec7ac1120e0c59b39286c7994ad30768eec1305a4402454c6506c7da3a9"
     },
     "START_HERE.md": {
-      "bytes": 2569,
-      "sha256": "bd8ec9a03040ae08aa797244ccd173462cb2f41a58029bc086c90209166d4791"
+      "bytes": 4512,
+      "sha256": "c3a1b52a91466a5ab795190439ed88db65ebe3905ba590c1ce370c1e2c623a24"
     },
     "THIRD_PARTY_NOTICES.md": {
-      "bytes": 2030,
-      "sha256": "023d68caacea4ae88c3ac7d8d113cf3f07da97e0491fbe6eeea77902e2d71265"
+      "bytes": 2923,
+      "sha256": "ac51cbf8bff251ef25af73dc58bb9fa28eef3efa980d67a3625cf8d7f9a0f077"
+    },
+    "VALIDATION.md": {
+      "bytes": 3658,
+      "sha256": "b284651b91ea57bcbe45db736f935637e6af9e951cec082ebd1fb371d15cbedd"
     },
     "agents/openai.yaml": {
-      "bytes": 362,
-      "sha256": "085f1f830909a131419fddddd3ee868a641b956344fe8258ebb5b8668a794daa"
+      "bytes": 365,
+      "sha256": "821485e5fb3572cdfe3a0fd1986752cb0fc2e1fdd948f347fff4d4c0c7169c17"
     },
     "assets/CHECKS.template.csv": {
-      "bytes": 2380,
-      "sha256": "061d3df1cc6066cf329f05cfc19a676349687cd2c9d7353cd23aa902747afa08"
+      "bytes": 2998,
+      "sha256": "b04d4fc371a000340331a9da34b16a0dfe4fbebe2003e08a67dbcd86f7830d7b"
     },
     "assets/HANDOFF.template.md": {
       "bytes": 1443,
       "sha256": "aa405f8195406e78350443536b13ec4d7ed458619289e824fb21dcbe9d78733c"
     },
     "assets/PROJECT.template.md": {
-      "bytes": 4126,
-      "sha256": "c5462c983ff123f2c1fb84aff0970f0d38e3505fa20c60cf16890d3691c41078"
+      "bytes": 4421,
+      "sha256": "ede207243d738c894cc3f3a4e558504c17bc529bb1453431be1a61e6e427c8ea"
+    },
+    "assets/electrical.example.json": {
+      "bytes": 1211,
+      "sha256": "60ae9aaf8ca4f009cca478cdb1406f61356678e8c36c3a4547edef77dfe02972"
     },
     "assets/logo.svg": {
       "bytes": 1005,
       "sha256": "e6f8f5dd1e2554a19688ca7ee3abb515e216a5ef59a0a993a4697ada3051dbae"
+    },
+    "assets/zh/CHECKS.template.csv": {
+      "bytes": 2473,
+      "sha256": "3de350c46c0c7ac2f757190777d9e7032c3979fc523e95d14c6d73e3e7d96508"
+    },
+    "assets/zh/HANDOFF.template.md": {
+      "bytes": 1172,
+      "sha256": "4c66f60e1f5baafb5dd71a1a5270cb26fe7a8b6be4d0ed42ee270e48d4c997da"
+    },
+    "assets/zh/PROJECT.template.md": {
+      "bytes": 3388,
+      "sha256": "f202dc0a0bf572fc1ccceb282437bfb67cce382e1b4f94b049634292f019c8a8"
     },
     "references/01-intake-and-recovery.md": {
       "bytes": 5771,
       "sha256": "0e702eec9bf123d5a9ab48222279afda90b7a2d673eb9b8c2e0e645a69e55bfd"
     },
     "references/02-circuit-and-library.md": {
-      "bytes": 7804,
-      "sha256": "643c9950b35fbab408bf9eb80d25e11a95a078807dfeda07733945cf4bfe9dac"
+      "bytes": 7932,
+      "sha256": "73c417201123f9e078e256b2408d3a189b30cdcd36846e58aed11f45b125bf9b"
     },
     "references/03-layout-routing.md": {
-      "bytes": 8617,
-      "sha256": "f030ee6d2feb3fc4794af35b4e68a5594295e17c6875db7dba583a8d7459e7e8"
+      "bytes": 12037,
+      "sha256": "00484aacaaa187141c7686740edb0bceae519a9038fccf4fafdd8f3940f6a483"
     },
     "references/04-release-assembly.md": {
-      "bytes": 6328,
-      "sha256": "4898d86d51aad86a72a4bebee7ca70ed3c60045a8648ef343f0397e98f62030a"
+      "bytes": 6986,
+      "sha256": "3ab46536b2f419f2beba75ec289489b464bca581a298bb2c4f40302afac5be79"
     },
     "references/05-bringup-debug.md": {
       "bytes": 8239,
       "sha256": "9a77d2a6622d70f8bfcf7468767a7c04d35b548d02b8d4d0c5ea68c034eae9a5"
     },
     "references/06-easyeda-execution.md": {
-      "bytes": 5901,
-      "sha256": "8fa6b6990d94bd653aeb424e2e46f14108b23dcd455792878bf3bea3abee2662"
+      "bytes": 9986,
+      "sha256": "a5a624cda9b6cbfdfb8f06b82680ed9c23def916b6556704c4300606b2fdba59"
     },
     "references/07-case-lessons.md": {
       "bytes": 6994,
       "sha256": "f05f08713aeeeddacdaf8667c574eb98e767827622ac57d9fe15df17b54963cb"
     },
     "references/08-evidence-and-handoff.md": {
-      "bytes": 6067,
-      "sha256": "687509445c8be83a472ecceaeb705f49dcc1955bc2e40a806a57ef1565db43a4"
+      "bytes": 6384,
+      "sha256": "f28b3cfa66833996c6472c4b9348d4d14a94d2ab8b538acbdedad6e6cf3b6166"
+    },
+    "references/09-electrical-analysis.md": {
+      "bytes": 7505,
+      "sha256": "998c74466c6f3cf11cc5be075a91a8f7310f5fca0e1b1df4b094ae5d69ebede2"
+    },
+    "references/10-validation-tools.md": {
+      "bytes": 5207,
+      "sha256": "1833072e24008407ae6d79803e4a1fcda04a0264de6418d5783dfd1132457dcb"
+    },
+    "references/11-validation-scenarios.md": {
+      "bytes": 4062,
+      "sha256": "05c5e7ac77e357f7480010dfed6176fb7bf87b87a5232ef21366a7b2353fb5fd"
+    },
+    "scripts/audit_design.py": {
+      "bytes": 5327,
+      "sha256": "9524f108ba08295360fa43125bdb14fbdfc4717d8e5ee3d83ba87fced3128936"
+    },
+    "scripts/check_evidence.py": {
+      "bytes": 4865,
+      "sha256": "b1f50aff503bed615062524c4a5be5da598752327ca95ba8649217e5605eef61"
     },
     "scripts/easyeda_bridge.mjs": {
-      "bytes": 3354,
-      "sha256": "b855cf8f4cf169d210921164de63ea7790f130983809159b7fc1722c79658500"
+      "bytes": 3842,
+      "sha256": "8a35c266e5495395fb146da99be9f3de51db9b3cd3a4e523201d3c7080b7b147"
+    },
+    "scripts/eda_probe.mjs": {
+      "bytes": 2565,
+      "sha256": "d1d405bfe46eb01260eddbbeb58f3254fdd137c9f196c55954a1d52056e1357b"
+    },
+    "scripts/electrical_calcs.py": {
+      "bytes": 4989,
+      "sha256": "ab27f71ae79d477ba70585d48bfcee7397c6d322894ac2133f6d084d33e2baad"
     },
     "scripts/init_project.py": {
-      "bytes": 1924,
-      "sha256": "76d87426d864a64afc74266494c21e20d4bcc9167576eae9c76fe027e4f55440"
+      "bytes": 2168,
+      "sha256": "272909b74bd256fcde20e009e69a6cb1452bd29e1a59e057e8afe494c8b1e01b"
     },
     "scripts/release_manifest.py": {
       "bytes": 6348,
       "sha256": "b0a365bdd481545a5024e55cbe31c61d0b400fb91d37f96c2b1df2c9253d1ca7"
     },
+    "scripts/test_bridge.mjs": {
+      "bytes": 3847,
+      "sha256": "996821e51e7347b2e53b674a49812e1184cfce5bf2a0f081a4c0f1c6b0a647e2"
+    },
     "scripts/test_helpers.py": {
       "bytes": 5122,
       "sha256": "1cc3cf96020a35b166280692d776701e7830665f5214c6e83dbe815a2b8a4204"
+    },
+    "scripts/test_workflow.py": {
+      "bytes": 8977,
+      "sha256": "79b45b7e730afac7f12d77e68d097a3889fc3799326fa8123c9a67e7d74c41fa"
     },
     "start-easyeda.cmd": {
       "bytes": 303,
@@ -115,7 +171,7 @@
     },
     "vendor/easyeda-api/SKILL.md": {
       "bytes": 31547,
-      "sha256": "6c4f6e8e3252296075a74c4f87a95455d0f4b01a8d4d6c1d4f5921727fd1b2b1"
+      "sha256": "3924f7996802192663ec36658fe2f26612ed3f409ec10a006134bcab33cc7691"
     },
     "vendor/easyeda-api/format/index.md": {
       "bytes": 7050,
@@ -1778,8 +1834,8 @@
       "sha256": "cbb5e02fa51e5fd9ccc75ca4cb4c728d6f4f9806d6a5148bcfae5ce2fefeae3b"
     },
     "vendor/easyeda-api/scripts/bridge-server.mjs": {
-      "bytes": 18241,
-      "sha256": "33cbd91c5b36077a3e30aab2fa2df5402637fe612fa9ab8fe2e8473ce2024d96"
+      "bytes": 18313,
+      "sha256": "fbaab01ec248794abf1fdb8a823e5a85027cafa4d0fd135711a4aa140ca76bb1"
     },
     "vendor/easyeda-api/user-guide/using-extension.md": {
       "bytes": 2250,

@@ -63,8 +63,12 @@ if (!bridges.length && mode === 'start') {
 }
 for (const bridge of bridges) bridge.windows = await request(bridge.port, '/eda-windows');
 const connected = bridges.some(b => b.health.edaConnected);
+const expectedBridgeRevision = 'pcb-design-skill-1.2.0';
+const bridgeUpdateRecommended = bridges.some(b => b.health.integrationRevision !== expectedBridgeRevision);
 const status = !bridges.length ? 'BRIDGE_NOT_FOUND' : connected ? 'EDA_CONNECTED' : 'WAITING_FOR_EDA';
 console.log(JSON.stringify({ status, node: process.versions.node, bundledApiVersion: '1.1.28',
+  expectedBridgeRevision, bridgeUpdateRecommended,
+  upgradeNote: bridgeUpdateRecommended ? 'An existing bridge predates this integration patch. It was not terminated. After saving work and finishing active operations, restart that bridge from this package to load the update; do not terminate unrelated services.' : null,
   startedPid, logPath, bridges,
   next: !bridges.length ? 'Run start; inspect the log if startup fails. Ports 49620-49629 must have one free slot.'
     : !connected ? 'Open EasyEDA desktop; install/enable Run API Gateway; then run status.'

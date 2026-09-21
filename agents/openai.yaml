@@ -1,4 +1,4 @@
 interface:
   display_name: "PCB Design and Bring-Up"
   short_description: "PCB design, manufacturing handoff, and physical board validation"
-  default_prompt: "Use $pcb-design-to-bringup to complete PCB design, manufacturing handoff, and staged physical board validation based on my requirements. Keep records sufficient for another agent to continue the work."
+  default_prompt: "Use $pcb-design-to-bringup to deliver a reviewed, routed manufacturing package for me to order, using the bundled EasyEDA API, suitable native autorouting, electrical calculations, and traceable records."

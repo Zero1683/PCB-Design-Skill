@@ -44,6 +44,25 @@ Review the complete power-pin/capacitor/ground decoupling path, not only compone
 
 Treat autorouted traces as candidates requiring power-path, layer-transition, reference-ground, impedance, and assembly checks. Do not claim automatic routing when the available tool does not provide it.
 
+## Choosing native autorouting or explicit routing
+
+Prefer a mixed strategy for ordinary low-voltage boards when native autorouting is available:
+
+1. Finish placement, net classes, widths/clearances, allowed layers, keepouts, and differential requirements first.
+2. Explicitly route or constrain switch-power loops, feedback/sense, decoupling returns, clocks, analog-sensitive nets, and differential pairs as appropriate. Preserve these routes.
+3. Identify a nonempty list of ordinary unrouted nets suitable for the router. Use EasyEDA's native router for them rather than issuing many agent-generated segment calls. For a small local correction, explicit routing can be simpler.
+4. On a backed-up working copy, use the documented `eda.pcb_Document.autoRouting(props)` when supported. Respect its beta status and validate behavior in a disposable project before using it on valuable work. If unavailable/restricted, the native UI is an acceptable fallback for this operation. Do not call `clearRouting('all')` to prepare a routine autoroute.
+5. Read back results, unrouted connections, and actual traces. Rebuild pours and review DRC, power paths, return continuity, via count, layer use, geometry, and affected impedance. A successful start or 100% reported route count is not acceptance.
+6. Fix remaining nets locally. If another attempt is justified by changed placement/rules, explain that change; avoid unchanged retry loops. Capture the before/after diff and stop once the required checks pass.
+
+**Bundled API caveat:** the class example uses `nets`, `routedNets`, and `totalNets`, while the interface documents `RoutingNets`, `successNetsCount`, and `totalNetsCount`. Read [props](../vendor/easyeda-api/references/interfaces/IPCB_AutoRoutingProps.md), [result](../vendor/easyeda-api/references/interfaces/IPCB_AutoRoutingResult.md), and the installed version's behavior. Prefer the documented interface, then verify in a disposable project. Do not silently submit unknown fields. An omitted or empty `RoutingNets` list routes all unrouted nets, so skip the call when the selected ordinary-net list is empty.
+
+Set `existingPrimitiveMode` to the documented `KEEP` value, an explicit ordinary-net `RoutingNets` list, excluded critical `ignoreNets`, and allowed copper `layers`. Read current enum values rather than copying numeric constants. `success` means the router started successfully; check `failedNets`, counts, completion state, and the independent DRC/connection result. Do not fabricate a hard timeout for the algorithm; after a transport timeout, inspect state before invoking it again.
+
+The bundled references do not specify a separate router-status/polling API. Do not invent one. If completion semantics have not been verified for the installed version, inspect the native routing progress/result UI and wait for its explicit finished/idle state before repouring or DRC. If this cannot be observed, report completion unverified and avoid concurrent board mutations. Stable geometry snapshots alone do not prove the router stopped. After a transport timeout, inspect that UI and actual geometry before any retry. Record this lifecycle check in the live validation log; it has not been established by the package's simulated tests.
+
+Autorouting may reduce agent-generated geometry and token use. Do not promise savings without measuring the actual run, or trade electrical quality for route completion.
+
 ## Ground pours and vias
 
 - Assign pours to the intended ground net and preserve manufacturer antenna and other keepouts.

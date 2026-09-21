@@ -39,6 +39,10 @@ After authorized upload, save the uploaded package hash, order ID/preview, and p
 
 Use `scripts/release_manifest.py` on a separate frozen release directory. It cannot validate electrical correctness or semantic consistency across files. Review first, then hash. Later changes require a new revision; do not recompute hashes to conceal unreviewed edits.
 
+## Default design handoff
+
+For design/fabrication-preparation requests, finish at G5 and provide the reviewed files, board parameters, unresolved items, and a brief manual ordering guide for the user's chosen fabricator. Report assembly and hardware validation as future work, without blocking design completion on unavailable boards. Do not launch ordering APIs or supplier checkout: several manufacturing APIs open order pages as a side effect; inspect documentation and use export-only methods. Do not shop at DigiKey, Mouser, LCSC, or another supplier unless procurement was explicitly requested. Read-only sourcing remains part of component selection.
+
 ## Incoming inspection and assembly preparation
 
 Normally complete one testable board before assembling the batch, unless the user already specified a process or batch plan. Check bare-board revision, critical dimensions, damage/contamination, and connector holes. Compare physical part labels with the BOM and record substitutions.

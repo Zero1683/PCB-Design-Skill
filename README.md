@@ -52,6 +52,16 @@ Windows 可直接运行 `start-easyeda.cmd`。桥接所需的 `ws` 已内置，�
 
 Node.js、EDA 客户端和 Gateway 扩展需单独安装。Python 3.10+ 用于记录初始化、文件校验和辅助测试。
 
+## 设计流程
+
+设计任务默认交付完成布线、经过审查的 PCB 和制造文件，用户自行下单。选型可以查询手册、库存和价格；购买器件、加入购物车、提交订单和付款需要单独提出。
+
+- **API 优先：** 内置 EasyEDA Skill 用于支持的工程创建和编辑操作。界面操作用于安装、视觉检查及明确的 API 缺口。
+- **安装后验证：** 分别确认 Skill 已加载、Gateway 已连接、API 已响应。重启用于解决未刷新的技能列表等具体问题，不作为固定安装步骤。macOS 使用同一套 Node 启动器。
+- **混合布线：** 先规划关键电源及敏感网络，合适的普通网络使用原生自动布线，保留已有走线并复查实际结果。
+- **电气复核：** 计算功耗预算、损耗、直流通路压降和简化瞬态目标；受控阻抗使用实际叠层。需要用户操作计算器时，提供具体字段、数值、单位和返回要求。
+- **证据工具：** 校验检查记录、对照规范化原理图/PCB/BOM 数据、筛查器件外形重叠，配合原生 DRC 和视觉检查。
+
 ## 核心能力
 
 | 模块 | 工作内容 |
@@ -115,8 +125,11 @@ USB-C 供电，元件全部放在顶层，采用钢网和加热台装配。
 | [实板调试](references/05-bringup-debug.md) | 上电验证、测量与故障定位 |
 | [EDA 操作](references/06-easyeda-execution.md) | API 调用、单位、状态与结果核对 |
 | [记录模板](assets/) | PROJECT、CHECKS、HANDOFF |
+| [电气计算](references/09-electrical-analysis.md) | 电源、压降、瞬态预算与阻抗复核 |
+| [校验工具](references/10-validation-tools.md) | 证据与规范化导出数据格式 |
+| [验证场景](references/11-validation-scenarios.md) | 行为评估与实际 EDA 操作验收 |
 
-核心 Skill、工程参考和模板采用英文；回复和生成的项目记录跟随用户语言。上游 API 文档保留原文。
+核心 Skill 和工程参考采用英文，项目记录提供中英文模板；回复跟随用户语言。上游文档的集成勘误见第三方声明。
 
 <details>
 <summary><strong>辅助命令与运行配置</strong></summary>
@@ -133,7 +146,7 @@ node scripts/easyeda_bridge.mjs doctor
 初始化项目记录，输出目录需尚未创建：
 
 ```sh
-python scripts/init_project.py --output /path/to/new-project --name MyPCB
+python scripts/init_project.py --output /path/to/new-project --name MyPCB --lang zh
 ```
 
 运行辅助测试，工作目录需存在且可写：
@@ -154,7 +167,9 @@ python -X utf8 scripts/release_manifest.py verify --root /path/to/pcb-design-to-
 
 ## 验证状态
 
-发布测试已覆盖独立解压、中文及空格路径、依赖加载、桥接启动与重复启动，11 项辅助脚本测试通过。桥接已验证至 `WAITING_FOR_EDA`，连接 EDA 后的完整操作流程尚待测试。各 PCB 工程需单独完成电气检查和实板验收。
+原有 11 项辅助测试和新增 16 项流程测试通过，覆盖记录初始化、文件完整性、证据完整性、电气基础计算、规范化数据对照、外形筛查，以及模拟桥接下的 API 探测行为。详见[验证记录](VALIDATION.md)。
+
+实时桥接当前响应为 `WAITING_FOR_EDA`。连接客户端后的工程创建、布线、导出重开，以及 macOS 端到端操作仍未验证。辅助工具不替代实板验收或阻抗求解器。内置 API 文档将部分修改方法标为 beta，需要核实客户端支持情况，必要时只对该操作使用界面回退。
 
 ## 贡献
 

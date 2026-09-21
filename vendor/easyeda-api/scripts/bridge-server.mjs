@@ -149,6 +149,7 @@ const httpServer = createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       service: SERVICE_ID,
+      integrationRevision: 'pcb-design-skill-1.2.0',
       status: 'ok',
       edaConnected: edaClients.size > 0,
       edaWindowCount: edaClients.size,
@@ -192,7 +193,7 @@ const httpServer = createServer(async (req, res) => {
       }
       activeEdaWindowId = windowId;
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, activeWindowId }));
+      res.end(JSON.stringify({ success: true, activeWindowId: activeEdaWindowId }));
     }
     catch {
       res.writeHead(400, { 'Content-Type': 'application/json' });

@@ -52,6 +52,16 @@ On Windows, run `start-easyeda.cmd`. The required `ws` dependency is bundled, so
 
 Node.js, the desktop client, and Gateway require separate installation. Python 3.10+ is used for project initialization, file verification, and helper tests.
 
+## Design workflow
+
+Design requests finish with a reviewed, routed PCB and manufacturing files for the user to order. Component sourcing may include datasheet and stock checks; purchasing, carts, orders and payments require a separate request.
+
+- **API first:** the bundled EasyEDA skill handles supported project/editing operations. UI interaction is limited to setup, visual inspection and specific unsupported operations.
+- **Setup verification:** discover the skill, connect Gateway, then run the read-only API probe. A restart is a recovery option for stale discovery, not a mandatory installation step. macOS uses the same Node launcher.
+- **Mixed routing:** plan critical power and sensitive routes, use native autorouting for suitable ordinary nets, preserve existing routes, and verify actual results.
+- **Electrical review:** calculate power budgets, losses, DC path drop and simplified transient targets; use the actual stackup for controlled impedance. Request missing inputs or user-operated calculator results with exact fields and units.
+- **Evidence tools:** validate check records, compare normalized schematic/PCB/BOM exports, and screen component body envelopes. These tools supplement native DRC and visual review.
+
 ## Capabilities
 
 | Module | Scope |
@@ -115,8 +125,11 @@ Record conditions, results, and open items at each stage. Verify footprints agai
 | [Board bring-up](references/05-bringup-debug.md) | Power-up, measurements, and fault isolation |
 | [EDA operations](references/06-easyeda-execution.md) | API calls, units, state, and result checks |
 | [Project templates](assets/) | PROJECT, CHECKS, and HANDOFF |
+| [Electrical analysis](references/09-electrical-analysis.md) | Power, voltage drop, transient budgets, and impedance handoff |
+| [Validation tools](references/10-validation-tools.md) | Evidence and normalized export contracts |
+| [Validation scenarios](references/11-validation-scenarios.md) | Behavioral evaluation and live EDA acceptance |
 
-The core skill, engineering references, and templates are written in English. Replies and generated project records follow the user’s language. Upstream API documentation retains its original language.
+The core skill and engineering references are in English. Project records have English and Chinese templates; replies follow the user’s language. Integration corrections to upstream material are listed in the third-party notices.
 
 <details>
 <summary><strong>Helper commands and runtime configuration</strong></summary>
@@ -133,7 +146,7 @@ The bridge listens on `127.0.0.1`, using an available port from `49620` to `4962
 Initialize records in a directory that does not yet exist:
 
 ```sh
-python scripts/init_project.py --output /path/to/new-project --name MyPCB
+python scripts/init_project.py --output /path/to/new-project --name MyPCB --lang en
 ```
 
 Run helper tests using an existing writable directory:
@@ -154,7 +167,9 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 ## Validation status
 
-Release testing covered independent extraction, paths containing Chinese characters and spaces, dependency loading, bridge startup, and repeated starts. All 11 helper tests passed. The bridge was verified through `WAITING_FOR_EDA`; the full workflow with a connected EDA client remains untested. Each PCB project requires its own electrical review and hardware acceptance tests.
+The 11 original helper tests and 16 workflow tests pass. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
+
+The live bridge currently responds as `WAITING_FOR_EDA`. Actual connected-client project creation, routing, export/reopen, and macOS end-to-end operation remain unverified. The helpers do not replace physical board acceptance or an impedance solver. Bundled API documentation marks several mutation methods beta; confirm installed-version support and use a scoped UI fallback when required.
 
 ## Contributing
 

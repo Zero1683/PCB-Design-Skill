@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "baseline_id": "DEMONSTRATION-REPLACE",
+  "calculations": [
+    {"id":"INPUT-BURST","kind":"converter","source":"DEMO ONLY: replace with load and regulator datasheets","conditions":"Hypothetical minimum-input burst operating point","vin_V":3.0,"vout_V":3.3,"iout_A":0.3,"efficiency":0.85},
+    {"id":"PATH-DROP","kind":"dc_path","source":"DEMO ONLY: replace with measured layout and resistance sources","conditions":"Hypothetical 20 C copper; forward+return total length; contact term illustrative","current_A":0.3,"allowed_drop_V":0.05,"segments":[{"kind":"trace","rho_ohm_m":1.724e-8,"length_mm":100,"width_mm":0.5,"thickness_um":35},{"kind":"lumped","resistance_ohm":0.02}]},
+    {"id":"LOAD-STEP","kind":"transient_budget","source":"DEMO ONLY: replace with effective capacitor and load/regulator models","conditions":"Simplified constant deficit with assumed response time","step_A":0.2,"allowed_droop_V":0.1,"response_s":0.0001,"esr_ohm":0.05,"esl_H":1e-9,"rise_s":1e-6},
+    {"id":"LDO-LOSS","kind":"ldo","source":"DEMO ONLY: replace with worst-case part specifications","conditions":"Hypothetical steady load","vin_V":5.0,"vout_V":3.3,"iout_A":0.1,"iq_A":0.0001,"dropout_V":0.2}
+  ]
+}

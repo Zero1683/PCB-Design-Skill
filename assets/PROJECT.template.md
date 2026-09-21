@@ -81,3 +81,11 @@ Define these before testing; record details in CHECKS.csv. Checks requiring an u
 - Firmware, programming scripts, and recovery procedure:
 - Checklist: CHECKS.csv
 - Handoff: HANDOFF.md
+
+## 10. Delivery Scope and Calculations
+
+- Requested stopping stage (default for design: G5):
+- Ordering responsibility (default: user):
+- Calculation inputs, sources, output and margins:
+- Native API probe and any operation-specific UI fallback:
+- Routing strategy and preserved critical nets:

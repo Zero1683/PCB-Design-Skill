@@ -607,7 +607,7 @@ await eda.pcb_PrimitiveLine.create(...); // May fail if no PCB document is open
 const project = await eda.dmt_Project.getCurrentProjectInfo();
 if (!project) {
   // If you just created a project, you MUST open it before any operations!
-  return "Error: No project is currently opened. If you just created a project using dmt_Project.createProject(), you MUST call dmt_Project.openProject(projectPath) to open it first. You cannot operate on documents until a project is opened.";
+  return "Error: No project is currently opened. If you just created a project using dmt_Project.createProject(), you MUST call dmt_Project.openProject(projectUuid) to open it first. You cannot operate on documents until a project is opened.";
 }
 
 const doc = await eda.dmt_SelectControl.getCurrentDocumentInfo();
@@ -677,7 +677,7 @@ If only one EDA window is connected, it's automatically selected as active.
 2. **EDA not connected?**: Ensure bridge extension is loaded in EasyEDA. Download: https://jlc-ext.com/item/oshwhub/run-api-gateway
 3. **Timeout errors**: Default 30s timeout. If timeout occurs:
    - Check if the correct project and document are opened (use `dmt_Project.getCurrentProjectInfo()`)
-   - If no project is opened, use `dmt_Project.openProject(projectPath)` to open one
+   - If no project is opened, use `dmt_Project.openProject(projectUuid)` to open one
    - If no document is active, use `dmt_EditorControl.openDocument(docId)` to open the correct document type (PCB/Schematic)
    - If the document type is wrong (e.g., running PCB APIs on Schematic), switch to the correct document first
    - Complex operations may need code splitting
