@@ -316,29 +316,6 @@ Promise&lt;[IPCB\_PrimitiveImage](./IPCB_PrimitiveImage.md)<!-- -->&gt;
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，避免与之前保留的测试图元重合
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-
-// 2. 创建一个 400 x 300 的顶层图像
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Rotation();
-
-// 3. 异步模式下旋转 90 度（此时画布还没变）
-const asyncImage = image.toAsync();
-asyncImage.setState_Rotation(90);
-await asyncImage.done();
-
-// 4. 从画布重新读取，确认修改已生效（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('rotation:', before, '→', refetched.getState_Rotation());
-```
-
 ### getstate_complexpolygon
 
 # IPCB\_PrimitiveImage.getState\_ComplexPolygon() method
@@ -356,24 +333,6 @@ function getState_ComplexPolygon(): TPCB_PolygonSourceArray | Array<TPCB_Polygon
 [TPCB\_PolygonSourceArray](../types/TPCB_PolygonSourceArray.md) \| Array&lt;[TPCB\_PolygonSourceArray](../types/TPCB_PolygonSourceArray.md)<!-- -->&gt;
 
 Image source data ( complex polygon)
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个源轮廓为折线多边形的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取源多边形数据（返回轮廓源数组）
-const source = image.getState_ComplexPolygon();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('polygonSource:', JSON.stringify(source));
-```
 
 ### getstate_height
 
@@ -393,24 +352,6 @@ number
 
 Height
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个 400 x 300 的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取图像高度
-const height = image.getState_Height();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('height:', height);
-```
-
 ### getstate_horizonmirror
 
 # IPCB\_PrimitiveImage.getState\_HorizonMirror() method
@@ -428,24 +369,6 @@ function getState_HorizonMirror(): boolean;
 boolean
 
 Whether it is horizontally mirrored
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未镜像的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取镜像状态
-const horizonMirror = image.getState_HorizonMirror();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('horizonMirror:', horizonMirror);
-```
 
 ### getstate_layer
 
@@ -465,24 +388,6 @@ function getState_Layer(): TPCB_LayersOfImage;
 
 Layer
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层铜层（1）的图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取图像所在层
-const layer = image.getState_Layer();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('layer:', layer);
-```
-
 ### getstate_primitiveid
 
 # IPCB\_PrimitiveImage.getState\_PrimitiveId() method
@@ -500,24 +405,6 @@ function getState_PrimitiveId(): string;
 string
 
 Primitive ID
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取图元 ID
-const primitiveId = image.getState_PrimitiveId();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([primitiveId]);
-
-console.log('primitiveId:', primitiveId);
-```
 
 ### getstate_primitivelock
 
@@ -537,24 +424,6 @@ boolean
 
 Whether it is locked
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未锁定的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取锁定状态
-const primitiveLock = image.getState_PrimitiveLock();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('primitiveLock:', primitiveLock);
-```
-
 ### getstate_primitivetype
 
 # IPCB\_PrimitiveImage.getState\_PrimitiveType() method
@@ -572,24 +441,6 @@ function getState_PrimitiveType(): EPCB_PrimitiveType;
 [EPCB\_PrimitiveType](../enums/EPCB_PrimitiveType.md)
 
 Primitive type
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取图元类型
-const primitiveType = image.getState_PrimitiveType();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('primitiveType:', primitiveType);
-```
 
 ### getstate_rotation
 
@@ -609,24 +460,6 @@ number
 
 Rotation angle
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未旋转的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取旋转角度
-const rotation = image.getState_Rotation();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('rotation:', rotation);
-```
-
 ### getstate_width
 
 # IPCB\_PrimitiveImage.getState\_Width() method
@@ -644,24 +477,6 @@ function getState_Width(): number;
 number
 
 Width
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个 400 x 300 的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取图像宽度
-const width = image.getState_Width();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('width:', width);
-```
 
 ### getstate_x
 
@@ -681,24 +496,6 @@ number
 
 BBox top-left point coordinates X
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，在 (x, y) 处创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取 BBox 左上点坐标 X
-const imageX = image.getState_X();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('x:', imageX);
-```
-
 ### getstate_y
 
 # IPCB\_PrimitiveImage.getState\_Y() method
@@ -717,24 +514,6 @@ number
 
 BBox top-left point coordinates Y
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，在 (x, y) 处创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 读取 BBox 左上点坐标 Y
-const imageY = image.getState_Y();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('y:', imageY);
-```
-
 ### isasync
 
 # IPCB\_PrimitiveImage.isAsync() method
@@ -752,24 +531,6 @@ function isAsync(): boolean;
 boolean
 
 Whether Is async primitive
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 查询异步模式
-const isAsync = image.isAsync();
-
-// 3. 清理测试图元（查询类案例不留测试对象）
-await eda.pcb_PrimitiveImage.delete([image.getState_PrimitiveId()]);
-
-console.log('isAsync:', isAsync);
-```
 
 ### reset
 
@@ -790,29 +551,6 @@ function reset(): Promise<IPCB_PrimitiveImage>;
 Promise&lt;[IPCB\_PrimitiveImage](./IPCB_PrimitiveImage.md)<!-- -->&gt;
 
 Image primitive object
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未旋转的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Rotation();
-
-// 2. 异步模式下把图像旋转 90 度，随后反悔
-const asyncImage = image.toAsync();
-asyncImage.setState_Rotation(90);
-
-// 3. reset 丢弃未提交的修改（保留现场供观察）
-await asyncImage.reset();
-
-// 4. 从画布重新读取，确认旋转没有变
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('rotation:', before, '→', refetched.getState_Rotation());
-```
 
 ### setstate_height
 
@@ -864,27 +602,6 @@ Height
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个 400 x 300 的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Height();
-
-// 2. 异步模式把高度从 300 调到 450
-const asyncImage = image.toAsync();
-asyncImage.setState_Height(450);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认高度已更新（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('height:', before, '→', refetched.getState_Height());
-```
-
 ### setstate_horizonmirror
 
 # IPCB\_PrimitiveImage.setState\_HorizonMirror() method
@@ -934,27 +651,6 @@ Whether it is horizontally mirrored
 [IPCB\_PrimitiveImage](./IPCB_PrimitiveImage.md)
 
 Image primitive object
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未镜像的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_HorizonMirror();
-
-// 2. 异步模式开启水平镜像
-const asyncImage = image.toAsync();
-asyncImage.setState_HorizonMirror(true);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认镜像已生效（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('horizonMirror:', before, '→', refetched.getState_HorizonMirror());
-```
 
 ### setstate_layer
 
@@ -1006,27 +702,6 @@ Layer
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层铜层（1）的图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Layer();
-
-// 2. 异步模式把图像挪到顶层丝印层（3）
-const asyncImage = image.toAsync();
-asyncImage.setState_Layer(3);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认层已切换（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('layer:', before, '→', refetched.getState_Layer());
-```
-
 ### setstate_primitivelock
 
 # IPCB\_PrimitiveImage.setState\_PrimitiveLock() method
@@ -1076,27 +751,6 @@ Whether it is locked
 [IPCB\_PrimitiveImage](./IPCB_PrimitiveImage.md)
 
 Image primitive object
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未锁定的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_PrimitiveLock();
-
-// 2. 异步模式锁定图像
-const asyncImage = image.toAsync();
-asyncImage.setState_PrimitiveLock(true);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认锁定已生效（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('primitiveLock:', before, '→', refetched.getState_PrimitiveLock());
-```
 
 ### setstate_rotation
 
@@ -1148,27 +802,6 @@ Rotation angle
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个未旋转的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Rotation();
-
-// 2. 异步模式旋转 90 度
-const asyncImage = image.toAsync();
-asyncImage.setState_Rotation(90);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认角度已更新（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('rotation:', before, '→', refetched.getState_Rotation());
-```
-
 ### setstate_width
 
 # IPCB\_PrimitiveImage.setState\_Width() method
@@ -1218,27 +851,6 @@ Width
 [IPCB\_PrimitiveImage](./IPCB_PrimitiveImage.md)
 
 Image primitive object
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个 400 x 300 的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Width();
-
-// 2. 异步模式把宽度从 400 调到 600
-const asyncImage = image.toAsync();
-asyncImage.setState_Width(600);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认宽度已更新（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('width:', before, '→', refetched.getState_Width());
-```
 
 ### setstate_x
 
@@ -1290,27 +902,6 @@ BBox top-left point coordinates X
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_X();
-
-// 2. 异步模式把图像右移 500 mil
-const asyncImage = image.toAsync();
-asyncImage.setState_X(before + 500);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认位置已更新（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('x:', before, '→', refetched.getState_X());
-```
-
 ### setstate_y
 
 # IPCB\_PrimitiveImage.setState\_Y() method
@@ -1361,27 +952,6 @@ BBox top-left point coordinates Y
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.getState_Y();
-
-// 2. 异步模式把图像下移 500 mil
-const asyncImage = image.toAsync();
-asyncImage.setState_Y(before + 500);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认位置已更新（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('y:', before, '→', refetched.getState_Y());
-```
-
 ### toasync
 
 # IPCB\_PrimitiveImage.toAsync() method
@@ -1400,28 +970,6 @@ function toAsync(): IPCB_PrimitiveImage;
 
 Image primitive object
 
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个 400 x 300 的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-
-// 2. 切换异步模式后批量修改：放大到 600 x 450
-const asyncImage = image.toAsync();
-asyncImage.setState_Width(600);
-asyncImage.setState_Height(450);
-await asyncImage.done();
-
-// 3. 从画布重新读取，确认批量修改已生效（保留现场供观察）
-const refetched = await eda.pcb_PrimitiveImage.get(image.getState_PrimitiveId());
-
-console.log('width:', refetched.getState_Width());
-console.log('height:', refetched.getState_Height());
-```
-
 ### tosync
 
 # IPCB\_PrimitiveImage.toSync() method
@@ -1439,23 +987,3 @@ function toSync(): IPCB_PrimitiveImage;
 [IPCB\_PrimitiveImage](./IPCB_PrimitiveImage.md)
 
 Image primitive object
-
-## Example
-
-```javascript
-// 1. 生成本次运行专用的坐标，创建一个 400 x 300 的顶层图像
-const x = 2000 + Math.floor(Math.random() * 100000);
-const y = 2000 + Math.floor(Math.random() * 100000);
-const complexPolygon = eda.pcb_MathPolygon.createComplexPolygon([0, 0, 'L', 200, 0, 200, 150, 0, 150]);
-const image = await eda.pcb_PrimitiveImage.create(x, y, complexPolygon, 1, 400, 300, 0, false, false);
-const before = image.isAsync();
-
-// 2. 转换为同步图元（保留现场供观察）
-const syncImage = image.toSync();
-const after = syncImage.isAsync();
-
-// 3. 同步图元直接读取属性，无需提交
-console.log('isAsync:', before, '→', after);
-console.log('primitiveType:', syncImage.getState_PrimitiveType());
-console.log('layer:', syncImage.getState_Layer());
-```

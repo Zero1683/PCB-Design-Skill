@@ -35,7 +35,7 @@ Description
 
 </td><td>
 
-() =&gt; Promise&lt;Array&lt;{ name: string; uuid?: undefined \| string; children?: undefined \| ({ name: string; uuid?: undefined \| string })\[\] }&gt;&gt;
+() =&gt; Promise&lt;Array&lt;{ name: string; uuid?: string; children?: Array&lt;{ name: string; uuid?: string }&gt; \| undefined }&gt;&gt;
 
 </td><td>
 
@@ -91,8 +91,8 @@ getClassificationTree: () =>
 	Promise<
 		Array<{
 			name: string;
-			uuid?: undefined | string;
-			children?: undefined | { name: string; uuid?: undefined | string }[];
+			uuid?: string;
+			children?: Array<{ name: string; uuid?: string }> | undefined;
 		}>
 	>;
 ```

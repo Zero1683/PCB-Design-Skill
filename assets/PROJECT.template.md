@@ -108,3 +108,16 @@ For new schematics or new blocks, SCH-UNWIRED is required before wiring. For an 
 
 | Block/sheet | Signal or power flow | Associated support parts | Ground/return and isolation notes | Review evidence |
 |---|---|---|---|---|
+
+## 12. Critical Constraint Implementation
+
+Group equivalent rules; omit inapplicable specialist checks with a reason. Record
+exact source sections, units, tolerances and per-side/total dimension semantics.
+
+| ID / stage / net or objects | Limit and operating corner | Exact source and revision | Inputs / model / result / margin | Native rule and readback, or external check | Final geometry/export evidence / baseline | Status and unresolved input |
+|---|---|---|---|---|---|---|
+
+- Layer-by-layer construction, reference continuity and fabrication confirmation:
+- Configuration/reset/recovery sequence and applicable clock type:
+- Native rule precedence and affected checks after a constraint change:
+- Specific warning dispositions with physical consequence and supporting evidence:

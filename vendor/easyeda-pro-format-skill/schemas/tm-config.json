@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "defaultSheet": {
+      "description": "默认原理图页 ID：**空串合法**（真机存在 `{\"defaultSheet\":\"\"}`，表示未设置默认图页）",
+      "type": "string",
+      "pattern": "^$|^[0-9a-f]{16}$"
+    }
+  },
+  "required": [
+    "defaultSheet"
+  ],
+  "description": "工程配置 META 类型"
+}

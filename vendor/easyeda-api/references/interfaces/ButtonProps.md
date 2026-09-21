@@ -89,6 +89,21 @@ _(Optional)_ Button show text
 </td></tr>
 <tr><td>
 
+[triggerEnter?](./ButtonProps.md)
+
+</td><td>
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 是否为对话框的 Enter 触发按钮（仅 Dialog 内部生效，按 Enter 会触发该按钮点击）
+
+</td></tr>
+<tr><td>
+
 [type?](./ButtonProps.md)
 
 </td><td>
@@ -154,6 +169,18 @@ Button show text
 
 ```typescript
 text?: string;
+```
+
+### triggerenter
+
+# ButtonProps.triggerEnter property
+
+是否为对话框的 Enter 触发按钮（仅 Dialog 内部生效，按 Enter 会触发该按钮点击）
+
+## Signature
+
+```typescript
+triggerEnter?: boolean;
 ```
 
 ### type

@@ -25,29 +25,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-CANVAS\_NOT\_SELECT
-
-</td><td>
-
-`3`
-
-</td><td>
-
-</td></tr>
-<tr><td>
-
-CANVAS\_SELECTED
-
-</td><td>
-
-`2`
-
-</td><td>
-
-</td></tr>
-<tr><td>
-
-DRAWING
+DRAW
 
 </td><td>
 
@@ -80,11 +58,33 @@ LOCAL
 </td></tr>
 <tr><td>
 
-PLACING
+NOT\_SELECT\_CANVAS
+
+</td><td>
+
+`3`
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+PLACE
 
 </td><td>
 
 `5`
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+SELECT\_CANVAS
+
+</td><td>
+
+`2`
 
 </td><td>
 

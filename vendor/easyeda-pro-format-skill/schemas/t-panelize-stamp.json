@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "on": {
+      "description": "是否启用（不启用则使用 V-CUT）",
+      "type": "boolean"
+    },
+    "stampHoleGroupQuantity": {
+      "description": "邮票孔组数",
+      "type": "number"
+    },
+    "stampHoleDiameter": {
+      "description": "邮票孔直径",
+      "type": "number"
+    },
+    "stampHoleQuantityPerGroup": {
+      "description": "邮票孔每组数量",
+      "type": "number"
+    },
+    "stampHoleSpacing": {
+      "description": "邮票孔间距",
+      "type": "number"
+    },
+    "center_percent": {
+      "description": "邮票孔组位置与板子左侧的距离——**比例值（0~1 的小数，不是百分数）**，\r\n 实际坐标 = 板框左边界 + 比例 × 板框宽度；数组元素对应各组。\r\n 例：`[0.3333, 0.6667]` 表示两组分别位于板宽 1/3、2/3 处。\r\n 不填时按组序均分：第 i 组取 `(i+1)/(组数+1)`。",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "required": [
+    "on",
+    "stampHoleGroupQuantity",
+    "stampHoleDiameter",
+    "stampHoleQuantityPerGroup",
+    "stampHoleSpacing"
+  ],
+  "description": "邮票孔参数"
+}

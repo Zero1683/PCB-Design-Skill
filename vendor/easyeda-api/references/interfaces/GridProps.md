@@ -66,11 +66,11 @@ _(Optional)_ Column gap (pixels)
 
 </td><td>
 
-number
+number \| (number \| string)\[\]
 
 </td><td>
 
-Number of columns (required)
+列数（必填）。 - number：等宽 n 列（repeat(n, 1fr)） - number\[\]：数组长度 = 列数，元素 = 各列宽度（像素） - string\[\]：数组长度 = 列数，元素 = 各列宽度（CSS 值，如 '1fr' / 'auto'）
 
 </td></tr>
 <tr><td>
@@ -122,12 +122,12 @@ colGap?: number;
 
 # GridProps.columns property
 
-Number of columns (required)
+列数（必填）。 - number：等宽 n 列（repeat(n, 1fr)） - number\[\]：数组长度 = 列数，元素 = 各列宽度（像素） - string\[\]：数组长度 = 列数，元素 = 各列宽度（CSS 值，如 '1fr' / 'auto'）
 
 ## Signature
 
 ```typescript
-columns: number;
+columns: number | (number | string)[];
 ```
 
 ### rowgap

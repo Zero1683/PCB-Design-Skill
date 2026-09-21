@@ -1,5 +1,20 @@
 # How to Get Started <Badge type="tip" text="Intro" />
 
+::: tip For AI coding assistants: initializing an extension project
+
+If you are using an AI coding assistant (such as Claude Code, OpenCode, QwenCode, GitHub Copilot, etc.) to help initialize an extension project, ask the AI to follow the [For AI initialization document](./how-to-start-for-ai). That document removes GUI steps and is written for AI-driven execution, while this document is intended for human developers.
+
+You can also copy the prompt below directly to your AI coding assistant:
+
+```text
+Please help me initialize a new EasyEDA Pro extension project as follows:
+1. Strictly follow the steps in https://prodocs.easyeda.com/en/api/guide/how-to-start-for-ai;
+2. Confirm the extension information with me first (name, displayName, description, publisher, license, and project purpose);
+3. Verify the result after each key command, then report the path of the .eext artifact and the follow-up steps required to import it into EasyEDA Pro.
+```
+
+:::
+
 In the EasyEDA Professional extension engine, all extensions are independent JavaScript scripts running under their own scope chains.
 
 Each extension requires a UUID as the uniquely identifiable name of the extension, and this UUID exists in two cases:

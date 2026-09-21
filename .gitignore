@@ -5,4 +5,4 @@ __pycache__/
 Thumbs.db
 .env
 .env.*
-# vendor/easyeda-api/node_modules/ws is intentionally tracked for offline startup.
+# Bundled API and format-validator runtime dependencies are intentionally tracked for offline use.

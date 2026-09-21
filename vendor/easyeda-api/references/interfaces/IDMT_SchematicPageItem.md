@@ -97,7 +97,7 @@ Whether to show the title block
 
 </td><td>
 
-Record&lt;string, { showTitle: boolean; showValue: boolean; value: any }&gt;
+\{ \[key: string\]: \{ showTitle: boolean; showValue: boolean; value: any \} \}
 
 </td><td>
 
@@ -182,7 +182,7 @@ Title block data
 ## Signature
 
 ```typescript
-titleBlockData: Record<string, { showTitle: boolean; showValue: boolean; value: any }>;
+titleBlockData: { [key: string]: { showTitle: boolean; showValue: boolean; value: any } };
 ```
 
 ### uuid

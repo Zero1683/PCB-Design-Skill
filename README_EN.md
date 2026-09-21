@@ -63,6 +63,12 @@ Design requests finish with a reviewed, routed PCB and manufacturing files for t
 - **Circuit reuse and revision checks:** record module interfaces and operating assumptions, check independent pin relationships against actual EDA exports, and list component/connection changes between revisions.
 - **Evidence tools:** validate check records, compare normalized schematic/PCB/BOM exports, and screen component body envelopes. These tools supplement native DRC and visual review.
 
+## EDA operation foundations
+
+Official API Skill 1.1.36, schematic methods and official Format Skill 1.0.0 are bundled. Use the API for supported live operations and explicit document-type validation for native-source work. This project's workflow retains design sequencing, electrical review, drawing standards and delivery criteria.
+
+The community easyeda-agent is an optional typed CLI/Connector backend. easyeda-mcp-pro remains external: the reviewed version uses a noncommercial license and is not included in this project's MIT code package. Neither backend is installed automatically. See [backend selection](references/16-easyeda-operation-backends.md) and [native-format operations](references/17-easyeda-native-format.md).
+
 ## Capabilities
 
 | Module | Scope |
@@ -72,9 +78,24 @@ Design requests finish with a reviewed, routed PCB and manufacturing files for t
 | PCB layout | Component clearance, critical loops, differential signals, return paths, and ground copper |
 | Manufacturing | Gerber, BOM, placement, and stencil consistency checks; release baselines |
 | Board bring-up | Unpowered measurements, current-limited power-up, reset, programming, and functional tests |
-| EDA tools | Bundled EasyEDA API Skill 1.1.28, schematic enhancement methods 1.2.0, bridge server, and `ws` dependency |
+| EDA tools | Bundled EasyEDA API Skill 1.1.36, schematic enhancement methods 1.2.0, Format Skill 1.0.0, and bridge/validation runtime dependencies |
 
 The engineering workflow also applies to other EDA tools through their native interfaces and checks.
+
+## Independent PCB inspection tools
+
+An adapted community toolkit adds native PCB extraction, body/escape-space
+screening, physical connection assertions, Gerber/drill/mask checks and optional
+DSN/SES routing utilities. Run `python scripts/pcb_toolkit.py --help`. Supply actual
+project rules and layers; unsupported semantics and missing objects cannot pass.
+
+The existing workflow and applicability remain unchanged. See [usage and coverage](references/18-pcb-inspection-toolkit.md).
+Most tools require only Python 3.10+; raster and copper-clearance tools additionally
+require NumPy, which is not bundled.
+
+## Engineering constraints and calculations
+
+Track critical sources, calculation conditions, native rules and export checks. Review dense escapes, return paths and thermal design, with reproducible mask opening/web, escape-channel and annular-ring arithmetic. See [engineering constraints](references/19-engineering-constraints.md).
 
 ## Usage
 
@@ -171,9 +192,11 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 ## Validation status
 
-The current run contains 50 Python tests: 49 passed and one was skipped because Windows denied symbolic-link creation. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, pin relationships, revision differences, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
+The v1.5.0 release rerun includes 81 Python cases: 80 passed and one was skipped because Windows denied symbolic-link creation. All 8 Node format cases and isolated simulated bridge checks passed. Integration-time results for 21 toolkit self-tests are listed in [validation records](VALIDATION.md).
 
-The last live bridge check returned `WAITING_FOR_EDA`. Actual connected-client project creation, routing, export/reopen, and macOS end-to-end operation remain unverified. The helpers do not replace physical board acceptance or an impedance solver. Bundled API documentation marks several mutation methods beta; confirm installed-version support and use a scoped UI fallback when required.
+These tests cover scripts and synthetic data. The new toolchain has not completed live EDA end-to-end, macOS, external-router interoperability or physical manufacturing validation. Native extraction has format limits; toolkit board data and normalized snapshots require same-baseline reconciliation. Helpers do not replace an impedance solver or physical acceptance.
+
+See the [v1.5.0 release notes](CHANGELOG.md) for the complete update.
 
 ## Contributing
 

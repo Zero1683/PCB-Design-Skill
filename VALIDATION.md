@@ -123,3 +123,91 @@ Suite totals: helpers 11 (10 passed, one skipped), workflow 16, circuit checks
 tested. Main and enhancement skill structure checks and diff whitespace checks
 passed during integration. The package manifest is regenerated from a clean
 snapshot excluding .git and runtime/cache data, then verified before commit.
+
+## Operation foundations integration, 2026-09-21
+
+Updated official API documentation to 1.1.36 and bundled official native-format
+references, schemas and validator at the commits recorded in UPSTREAM.md. Removed
+17 obsolete API reference pages removed upstream. The API bridge runtime remains
+byte-identical to v1.4.0, retaining the selected-window response and health fixes.
+Community CLI/MCP projects were source-reviewed only, not installed or executed.
+
+The strict primitive wrapper passed all 8 Node regression cases, covering explicit
+document/type dispatch, unsupported pairs, outer metadata, DOCHEAD domain, invalid
+input, schema/native discrepancy preservation and CLI error behavior. Simulated
+bridge tests passed; they use isolated ports and fake EDA clients. Main and format
+skill structure checks passed. No Python implementation changed; the 50-case run
+above retains its original scope. All 114 first-party Markdown file targets exist. Package byte integrity is
+verified against a clean snapshot during final synchronization.
+
+No live EDA project was edited or tested. Full-document import/save/reopen, actual
+backend interoperability, electrical correctness and hardware remain untested by
+this update. Primitive schema success certifies only the stated schema scope.
+
+## Adapted PCB inspection toolkit, 2026-09-21
+
+Bundled the script subset of daishuge/pcb-skill at
+6e939b64907e3c63236c7522c511af5d7d1afaad, preserving MIT attribution. The upstream
+skill, setup/approval automation and purchase workflow are not included. Our
+existing workflow and applicability remain unchanged. Source and local changes
+are recorded in vendor/pcb-skill-toolkit/UPSTREAM.md; reference 18 routes usage.
+
+Regressions first reproduced false assertion passes, ignored Gerber polarity,
+stale-output completion and missing-footprint/multiple-PCB loss on the original
+implementation. The adapted code now rejects these cases. The Windows process
+probe was tested on a spawned disposable child: checking it did not terminate it;
+after explicit test cleanup it was reported gone. No live user process was signaled.
+Unsupported Gerber polarity, transforms, aperture holes and macros fail explicitly;
+this is fail-closed coverage, not an implementation of those formats.
+
+Validation on Python 3.12: all 21 new regression cases passed. The original five
+Python suites were rerun with their documented CLI options: 50 cases, 49 passed,
+one skipped because Windows denied symbolic-link creation (WinError 1314).
+All 21 bundled script self-tests passed, including the two NumPy-dependent tests;
+NumPy was already available and no package was installed. These are synthetic
+fixtures, not 21 real boards. Main skill structure and diff whitespace checks pass.
+Link and package integrity checks accompany final synchronization.
+
+Initial generic unittest discovery omitted an existing suite's required workdir,
+and one suite was then given an unsupported workdir option; these harness invocation
+errors were corrected without changing existing tests. The results above are from
+the successful documented invocations.
+
+No EDA project, live bridge, supplier account or hardware was touched. Native
+export coverage on a new real board, client import/save/reopen, macOS execution,
+external router interoperability and physical manufacturing acceptance remain
+unverified. The Windows process probe has direct local runtime evidence only.
+
+## Engineering constraint review, 2026-09-21
+
+Reviewed the article text supplied by the user against manufacturer/tool references.
+Added reference 19 and links from the entrypoint and G1-G5 instructions, keeping
+the existing EDA backend and schematic formats. English/Chinese project records
+now carry critical-source/calculation/rule/readback fields and four scoped checks:
+STACKUP-RULES, DENSE-ESCAPE, THERMAL-PATH and MFG-APERTURES.
+
+Added sourced first-order mask-pair, straight escape-channel and circular annular-ring
+calculations to the existing helper. Negative margins are preserved as results;
+CALCULATED is not a fabrication or electrical approval. The example values are
+synthetic and include an infeasible channel. No impedance or thermal solver was added.
+
+Executed on Python 3.12: 10 new arithmetic/CLI regression cases passed; workflow
+16 passed; helpers 10 passed with one skipped Windows symlink fixture (WinError 1314);
+design gates 1 passed. Total this run: 38 cases, 37 passed, one skipped. Tests cover
+two-sided expansion, lost mask dams, negative expansion, invalid inputs, unequal
+pads/multiple traces, infeasible clearance, radial offsets, explicit hole basis,
+source requirements and output status. Main skill structure and git diff --check passed.
+First-party links, English/Chinese check IDs and installed package hashes are checked
+during synchronization. Added behavioral scenarios are specifications, not executed
+agent evaluations. Native EDA, real exports and physical hardware were not tested.
+
+## v1.5.0 release rerun, 2026-09-21
+
+All seven first-party Python suites were rerun: helpers 11 (10 passed, one Windows
+symlink-permission skip), workflow 16, circuit checks 14, design gates 1, visual
+geometry 8, inspection toolkit 21 and fabrication arithmetic 10. Total: 81 cases,
+80 passed and one skipped. All 8 Node format-validation cases passed. Simulated
+bridge window selection/isolation/routing passed with --workdir after correcting
+an initial invocation that omitted this required option. No runtime fix was needed.
+Package files, staged Git inventory and archive hashes are checked before publication.
+No live EDA or physical hardware validation is claimed.

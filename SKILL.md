@@ -5,9 +5,17 @@ description: Design manufacturable, assembleable, and testable PCBs from hardwar
 
 # PCB Design to Bring-up
 
-EasyEDA API Skill 1.1.28, API and source-format documentation, the bridge server, and the ws runtime dependency are bundled. The bundled schematic methods library adds block drawing, batch placement and selective net fanout. No separate easyeda-api or schematic enhancement installation is required. See [setup](START_HERE.md) and follow [EDA operations](references/06-easyeda-execution.md) to load the relevant tool documentation and start the bridge. The target machine still needs Node.js, the EDA desktop client, and its Gateway extension. Do not start a service for workflow advice or file-only review.
+EasyEDA API Skill 1.1.36, API and source-format documentation, the bridge server, and the ws runtime dependency are bundled. The bundled schematic methods library adds block drawing, batch placement and selective net fanout. No separate easyeda-api or schematic enhancement installation is required. See [setup](START_HERE.md) and follow [EDA operations](references/06-easyeda-execution.md) to load the relevant tool documentation and start the bridge. The target machine still needs Node.js, the EDA desktop client, and its Gateway extension. Do not start a service for workflow advice or file-only review.
 
 Deliver designs that can be manufactured, assembled, measured, and maintained. Resolve known issues before the first prototype, but do not promise first-pass success or describe an unbuilt design as a mature product.
+
+## Engineering constraint evidence
+
+For external design recipes or stackup, dense escape, timing and thermal decisions,
+read [engineering constraints](references/19-engineering-constraints.md). Resolve
+critical numbers to exact-part/process sources and track calculation, native rule,
+actual geometry and manufacturing readback under one baseline. Do not adopt article
+defaults or reduce rules to force PASS. Classify warnings by physical consequence.
 
 ## Default outcome and tool choice
 
@@ -17,9 +25,15 @@ For EasyEDA, load the **bundled** API skill before choosing an interaction metho
 
 Use native autorouting for suitable ordinary nets after critical placement, power, and sensitive routes are planned. Preserve completed routes and verify the result. This can reduce per-segment agent work; it does not remove engineering checks or guarantee a particular token saving. Follow [routing strategy](references/03-layout-routing.md).
 
+## EasyEDA backend selection
+
+Read [operation backends](references/16-easyeda-operation-backends.md) when selecting or changing an EDA integration. Official API and native-format references are bundled, alongside the schematic methods. Community easyeda-agent is an optional typed CLI/Connector backend; easyeda-mcp-pro is an optional external MCP backend with its own license. Neither is required or installed automatically. Keep one selected writer for an operation scope and retain this skill's full design sequence and acceptance gates.
+
+For native source inspection, generation or repair, read [native format operations](references/17-easyeda-native-format.md) and the bundled official format reference. Use explicit document types and the file-input schema adapter; do not equate schema validation with an importable project or a working circuit.
+
 ## EasyEDA operating foundations
 
-Use two bundled layers: [easyeda-api](vendor/easyeda-api/SKILL.md) for the bridge and exact operation references, and [schematic methods](references/15-easyeda-schematic-methods.md) for drawing blocks, placing parts, selective fanout and controlled revisions. For EasyEDA schematic work, load the methods reference before applying the bundled [upstream recipes](vendor/easyeda-schematic-net-fanout/SKILL.md). This workflow owns staging and acceptance; the adapter identifies which upstream shortcuts require replacement or version verification. Both layers are available by relative path without separate installation or discovery.
+For online schematic operations, use these two bundled layers: [easyeda-api](vendor/easyeda-api/SKILL.md) for the bridge and exact operation references, and [schematic methods](references/15-easyeda-schematic-methods.md) for drawing blocks, placing parts, selective fanout and controlled revisions. For EasyEDA schematic work, load the methods reference before applying the bundled [upstream recipes](vendor/easyeda-schematic-net-fanout/SKILL.md). This workflow owns staging and acceptance; the adapter identifies which upstream shortcuts require replacement or version verification. Both layers are available by relative path without separate installation or discovery.
 
 ## Schematic drafting sequence
 
@@ -32,6 +46,17 @@ Read [visual and geometry checks](references/14-visual-geometry-gates.md) before
 ## Prevent late rework
 
 Before wiring, verify schematic values against independently resolved MPN/supplier specifications (`PART-IDENTITY`, reference 02). Before routing, verify native outline recognition, placement gates and actual routing rules/tool capability (`ROUTING-READY`, reference 03). Before bulk API edits, prove one object's requested change and protected properties survive save/reopen (reference 06). Consolidate defects, repair native source, then freeze and export one reviewed candidate (`RELEASE-FREEZE`, reference 04); later edits invalidate only the relevant checks unless side effects are uncertain.
+
+## Native extraction and independent inspection
+
+At G3-G5, use the [PCB inspection toolkit](references/18-pcb-inspection-toolkit.md)
+when native exports or manufacturing files are available. The bundled adapted tools
+cover PCB/footprint extraction, physical connectivity, placement/via corridors,
+Gerber/drill/mask checks, mesh envelopes and optional DSN/SES routing. Invoke through
+`scripts/pcb_toolkit.py`; supply actual rule/layer inputs and verify extraction
+coverage before trusting geometry. Unsupported formats and missing objects fail
+explicitly. Toolkit board JSON is not the normalized schema in reference 10.
+These tools supplement existing stage gates; script success is not board acceptance.
 
 ## Circuit intent and reuse
 

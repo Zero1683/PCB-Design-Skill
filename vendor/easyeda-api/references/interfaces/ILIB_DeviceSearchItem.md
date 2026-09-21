@@ -215,7 +215,7 @@ Sorting
 
 </td><td>
 
-Record&lt;string, boolean \| number \| string \| undefined&gt;
+\{ \[key: string\]: boolean \| number \| string \| undefined \}
 
 </td><td>
 
@@ -457,7 +457,7 @@ Other property
 ## Signature
 
 ```typescript
-otherProperty?: Record<string, boolean | number | string | undefined>;
+otherProperty?: { [key: string]: boolean | number | string | undefined };
 ```
 
 ### symbol

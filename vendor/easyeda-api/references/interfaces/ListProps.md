@@ -89,6 +89,21 @@ List data ( required)
 </td></tr>
 <tr><td>
 
+[maxHeight?](./ListProps.md)
+
+</td><td>
+
+</td><td>
+
+number
+
+</td><td>
+
+_(Optional)_ 列表最大高度（像素）。提供时列表视口高度取 min(内容高度, 该值)，用于如下拉菜单等父容器无定值高度的场景，使虚拟列表可正常滚动
+
+</td></tr>
+<tr><td>
+
 [onItemClick?](./ListProps.md)
 
 </td><td>
@@ -184,6 +199,18 @@ List data ( required)
 
 ```typescript
 list: ListChildren[];
+```
+
+### maxheight
+
+# ListProps.maxHeight property
+
+列表最大高度（像素）。提供时列表视口高度取 min(内容高度, 该值)，用于如下拉菜单等父容器无定值高度的场景，使虚拟列表可正常滚动
+
+## Signature
+
+```typescript
+maxHeight?: number;
 ```
 
 ### onitemclick

@@ -29,7 +29,7 @@ MULTI\_PAGE\_PDF
 
 </td><td>
 
-`'paged'`
+`'A Multi Page PDF'`
 
 </td><td>
 
@@ -40,7 +40,7 @@ MULTIPLE\_SINGLE\_PAGE\_PDF
 
 </td><td>
 
-`'separated'`
+`'Multiple Single Page PDF'`
 
 </td><td>
 
@@ -51,7 +51,7 @@ SINGLE\_PAGE\_PDF
 
 </td><td>
 
-`'merged'`
+`'A Single Page PDF'`
 
 </td><td>
 

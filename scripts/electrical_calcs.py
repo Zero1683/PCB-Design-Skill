@@ -56,6 +56,40 @@ def calculate(item):
                   'ideal_min_effective_capacitance_F': delta_i*dt/available if available > 0 else None,
                   'budget_feasible_in_model': available > 0}
         limit = 'Simplified step/charge budget, not actual Z(f), loop stability, antiresonance or a capacitor recommendation. Validate effective C and regulator response.'
+    elif kind == 'mask_pair':
+        openings = []
+        for side in ('left', 'right'):
+            pad = n(f'{side}_pad_width_mm')
+            expansion = item[f'{side}_expansion_per_side_mm']
+            if isinstance(expansion, bool) or not isinstance(expansion, (int, float)) or not math.isfinite(expansion):
+                raise ValueError('Mask expansion must be a finite signed number')
+            opening = pad + 2*expansion
+            if opening <= 0 or not math.isfinite(opening):
+                raise ValueError('Mask opening must remain finite and positive; tenting is a different model')
+            openings.append(opening)
+        web = n('pitch_mm') - sum(openings)/2
+        result = {'left_opening_mm': openings[0], 'right_opening_mm': openings[1],
+                  'nominal_web_mm': web, 'web_margin_mm': web-n('required_web_mm')}
+        limit = 'Aligned projected widths, symmetric per-side expansion per pad. No registration/process compensation, paste model, polygon validation or SMD/NSMD approval.'
+    elif kind == 'escape_channel':
+        count = item['trace_count']
+        if type(count) is not int or count < 1:
+            raise ValueError('trace_count must be a positive integer')
+        gap = n('pitch_mm') - (n('left_pad_width_mm')+n('right_pad_width_mm'))/2
+        width, clearance = n('trace_width_mm'), n('clearance_mm')
+        required = count*width + (count+1)*clearance
+        result = {'gap_mm': gap, 'required_gap_mm': required,
+                  'gap_margin_mm': gap-required, 'single_trace_max_width_mm': gap-2*clearance}
+        limit = 'Straight aligned channel only. Account for tolerances in inputs; turns, vias, staggered pads, antipads, layer topology and full escape routability are not assessed.'
+    elif kind == 'annular_ring':
+        basis = item['hole_basis']
+        if basis not in ('drill', 'finished'):
+            raise ValueError('hole_basis must be drill or finished and match the sourced fabrication rule')
+        nominal = (n('land_diameter_mm')-n('hole_diameter_mm'))/2
+        minimum = nominal-n('radial_offset_mm', True)
+        result = {'nominal_ring_mm': nominal, 'offset_adjusted_ring_mm': minimum,
+                  'ring_margin_mm': minimum-n('required_ring_mm')}
+        limit = 'Circular pad/hole screening only. Use matching hole basis and dimensional corners; radial offset is explicit. No plating conversion, slots, inner-layer or fabrication verdict.'
     else: raise ValueError(f'Unknown calculation kind: {kind}')
     return {'id': item['id'], 'kind': kind, 'inputs': item, 'results': result,
             'limitations': limit, 'status': 'CALCULATED', 'hardware_validation': 'NOT_RUN'}

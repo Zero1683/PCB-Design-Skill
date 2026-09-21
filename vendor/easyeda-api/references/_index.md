@@ -173,7 +173,6 @@
 | [EPCB_AutoRoutingCornerStyle](enums/EPCB_AutoRoutingCornerStyle.md) | Auto routing corner style |  |
 | [EPCB_AutoRoutingExistingPrimitiveMode](enums/EPCB_AutoRoutingExistingPrimitiveMode.md) | How auto routing handles existing wires/vias |  |
 | [EPCB_AutoRoutingOptimization](enums/EPCB_AutoRoutingOptimization.md) | Auto routing optimization priority |  |
-| [EPCB_DocumentCanvasUpdateCalculationActiveStatus](enums/EPCB_DocumentCanvasUpdateCalculationActiveStatus.md) | Canvas update calculation function status |  |
 | [EPCB_DocumentRatlineCalculatingActiveStatus](enums/EPCB_DocumentRatlineCalculatingActiveStatus.md) | Document ratline calculation function status |  |
 | [EPCB_InactiveLayerDisplayMode](enums/EPCB_InactiveLayerDisplayMode.md) | Inactive layer display mode |  |
 | [EPCB_LayerColorConfiguration](enums/EPCB_LayerColorConfiguration.md) | Layer color configuration |  |
@@ -222,7 +221,7 @@
 | [ESYS_LogType](enums/ESYS_LogType.md) | Log type |  |
 | [ESYS_NetlistType](enums/ESYS_NetlistType.md) | Netlist type |  |
 | [ESYS_RightPanelTab](enums/ESYS_RightPanelTab.md) | Right panel tab |  |
-| [ESYS_ShortcutKeyEffectiveEditorRange](enums/ESYS_ShortcutKeyEffectiveEditorRange.md) | Effective page range of the shortcut key |  |
+| [ESYS_ShortcutKeyEffectiveEditorDocumentType](enums/ESYS_ShortcutKeyEffectiveEditorDocumentType.md) | 快捷键生效页面范围 |  |
 | [ESYS_ShortcutKeyEffectiveEditorScene](enums/ESYS_ShortcutKeyEffectiveEditorScene.md) | Effective scene range of the shortcut key |  |
 | [ESYS_StartPageQuickStartItem](enums/ESYS_StartPageQuickStartItem.md) | Start page quick start item |  |
 | [ESYS_Theme](enums/ESYS_Theme.md) | Theme |  |
@@ -241,10 +240,27 @@
 | 接口名 | 描述 | 备注 |
 |--------|------|------|
 | [BoardProps](interfaces/BoardProps.md) | 分组面板：带标题的可折叠/分组容器 |  |
+| [BorderConfig](interfaces/BorderConfig.md) | 边框配置 |  |
 | [ButtonProps](interfaces/ButtonProps.md) | 按钮组件：可点击触发的操作按钮 |  |
+| [CellClickInfo](interfaces/CellClickInfo.md) | 单元格点击信息 |  |
+| [CellCoord](interfaces/CellCoord.md) | 单元格坐标（rowKey + colKey 定位一个单元格） |  |
+| [CheckboxEditConfig](interfaces/CheckboxEditConfig.md) |  |  |
 | [CheckBoxProps](interfaces/CheckBoxProps.md) | 复选框组件：可勾选的状态控件 |  |
+| [CheckChangeDetail](interfaces/CheckChangeDetail.md) | 勾选变更详情 |  |
+| [ClipboardCellData](interfaces/ClipboardCellData.md) | 剪贴板单元格数据 |  |
+| [ClipboardConfig](interfaces/ClipboardConfig.md) | 剪贴板配置 |  |
+| [ColorPickerProps](interfaces/ColorPickerProps.md) | 颜色拾取组件：复用 Input color 类型，点击弹出内置固定色板，支持预览/应用/手输/清除/默认/关闭 |  |
+| [ColumnDef](interfaces/ColumnDef.md) | 列定义 |  |
+| [ColumnEditTrigger](interfaces/ColumnEditTrigger.md) | 编辑触发方式 |  |
+| [ColumnGroupDef](interfaces/ColumnGroupDef.md) | 列分组：多级表头 |  |
+| [ColumnResizeConfig](interfaces/ColumnResizeConfig.md) | 列宽拖拽配置 |  |
 | [ComponentPropsMap](interfaces/ComponentPropsMap.md) | Component name → Props type mapping, serving as the sole source of the `createComponent` generic constraint |  |
+| [CustomHeaderConfig](interfaces/CustomHeaderConfig.md) | 自定义表头配置（列可见性管理） |  |
 | [DialogProps](interfaces/DialogProps.md) | 对话框组件：带标题栏、可拖拽缩放的组合弹窗 |  |
+| [DragSortConfig](interfaces/DragSortConfig.md) | 拖拽排序配置 |  |
+| [EditingConfig](interfaces/EditingConfig.md) | 编辑配置 |  |
+| [FilteringConfig](interfaces/FilteringConfig.md) | 筛选配置 |  |
+| [FixedColumnConfig](interfaces/FixedColumnConfig.md) | 固定列配置（也可通过 ColumnDef.fixed 逐列声明） |  |
 | [FlexItemProps](interfaces/FlexItemProps.md) | Flex 子项：Flex 布局中的单个子元素 |  |
 | [FlexProps](interfaces/FlexProps.md) | 布局容器：灵活的 Flex 布局容器 |  |
 | [GridItemProps](interfaces/GridItemProps.md) | Grid 子项：网格中的单个子元素 |  |
@@ -301,6 +317,7 @@
 | [ILIB_SymbolPropertiesForSearch](interfaces/ILIB_SymbolPropertiesForSearch.md) | Symbol parameters that can be used for precise search |  |
 | [ILIB_SymbolSearchItem](interfaces/ILIB_SymbolSearchItem.md) | Searched symbol properties |  |
 | [ImageProps](interfaces/ImageProps.md) | 图片组件：展示单张图片 |  |
+| [InputEditConfig](interfaces/InputEditConfig.md) |  |  |
 | [InputProps](interfaces/InputProps.md) | 输入框组件：支持下拉、搜索、清除、前后缀等多种形态 |  |
 | [IPCB_AutoLayoutResult](interfaces/IPCB_AutoLayoutResult.md) | Auto layout result |  |
 | [IPCB_AutoRoutingProps](interfaces/IPCB_AutoRoutingProps.md) | Auto routing props |  |
@@ -315,20 +332,12 @@
 | [IPCB_NetInfo](interfaces/IPCB_NetInfo.md) | Net property |  |
 | [IPCB_PadPairGroupItem](interfaces/IPCB_PadPairGroupItem.md) | Pad pair group properties |  |
 | [IPCB_PadPairMinWireLengthItem](interfaces/IPCB_PadPairMinWireLengthItem.md) | Pad pair minimum wire length properties |  |
-| [IPCB_PhysicalStackingConfiguration](interfaces/IPCB_PhysicalStackingConfiguration.md) | Physical stacking configuration |  |
 | [IPCB_Primitive](interfaces/IPCB_Primitive.md) | PCB primitive |  |
 | [IPCB_PrimitiveAPI](interfaces/IPCB_PrimitiveAPI.md) | PCB primitive API |  |
 | [IPCB_PrimitivePadHeatWelding](interfaces/IPCB_PrimitivePadHeatWelding.md) | Pad thermal relief optimization parameters |  |
 | [IPCB_PrimitivePouredPourFill](interfaces/IPCB_PrimitivePouredPourFill.md) | Copper fill region |  |
 | [IPCB_PrimitiveSolderMaskAndPasteMaskExpansion](interfaces/IPCB_PrimitiveSolderMaskAndPasteMaskExpansion.md) | Solder mask / paste mask expansion |  |
-| [IPCB_SubstratePhysicalProperties](interfaces/IPCB_SubstratePhysicalProperties.md) | Substrate physical properties |  |
-| [IRawNet](interfaces/IRawNet.md) | Raw data - net |  |
-| [IRawPureSchematic](interfaces/IRawPureSchematic.md) | Raw data - pureSchematic |  |
-| [IRawSchematic](interfaces/IRawSchematic.md) | Raw data - schematic |  |
-| [IRawWire](interfaces/IRawWire.md) | Raw data - wire |  |
-| [ISCH_DrcError](interfaces/ISCH_DrcError.md) | DRC error item |  |
-| [ISCH_DrcErrorPrimitive](interfaces/ISCH_DrcErrorPrimitive.md) | Primitive involved in a DRC error |  |
-| [ISCH_ExportPngResolution](interfaces/ISCH_ExportPngResolution.md) | 原理图导出图片分辨率 |  |
+| [ISCH_ExportPngResolution](interfaces/ISCH_ExportPngResolution.md) | 导出 PNG 分辨率 |  |
 | [ISCH_NetInfo](interfaces/ISCH_NetInfo.md) | Net property |  |
 | [ISCH_Primitive](interfaces/ISCH_Primitive.md) | Schematic primitive |  |
 | [ISCH_PrimitiveAPI](interfaces/ISCH_PrimitiveAPI.md) | Schematic primitive API |  |
@@ -339,30 +348,40 @@
 | [ISYS_HeaderMenuSub1MenuItem](interfaces/ISYS_HeaderMenuSub1MenuItem.md) | Top-level secondary menu item |  |
 | [ISYS_HeaderMenuSub2MenuItem](interfaces/ISYS_HeaderMenuSub2MenuItem.md) | Top-level tertiary menu item |  |
 | [ISYS_HeaderMenuTopMenuItem](interfaces/ISYS_HeaderMenuTopMenuItem.md) | Top-level primary menu item |  |
+| [ISYS_LanguageKeyValuePairs](interfaces/ISYS_LanguageKeyValuePairs.md) | 语言数据键值对 |  |
 | [ISYS_LogLine](interfaces/ISYS_LogLine.md) | Log line |  |
 | [ISYS_MathBBox](interfaces/ISYS_MathBBox.md) | BBox (minimum bounding rectangle) |  |
 | [ISYS_MathPoint](interfaces/ISYS_MathPoint.md) | Discrete points |  |
 | [ISYS_MathPolygonWithHoles](interfaces/ISYS_MathPolygonWithHoles.md) | Polygon with holes |  |
 | [ISYS_MessageBusTask](interfaces/ISYS_MessageBusTask.md) | Message bus task |  |
 | [ISYS_MultilingualLanguagesData](interfaces/ISYS_MultilingualLanguagesData.md) | Multilingual data |  |
-| [ISYS_PcbComparisonResponse](interfaces/ISYS_PcbComparisonResponse.md) | PCB comparison response |  |
 | [ISYS_RightClickMenuItem](interfaces/ISYS_RightClickMenuItem.md) | Right-click menu item |  |
-| [ISYS_ShortcutKeyData](interfaces/ISYS_ShortcutKeyData.md) | Shortcut key data |  |
-| [ISYS_ShortcutKeyDataWithCallFn](interfaces/ISYS_ShortcutKeyDataWithCallFn.md) | Shortcut key data with CallFn |  |
-| [ISYS_ShortcutKeyDataWithUserDefinedShortcutKey](interfaces/ISYS_ShortcutKeyDataWithUserDefinedShortcutKey.md) | Shortcut key data with userDefinedShortcutKey |  |
 | [ISYS_WindowEventListenerRemovableObject](interfaces/ISYS_WindowEventListenerRemovableObject.md) | Window event listener can remove object |  |
+| [KeyboardConfig](interfaces/KeyboardConfig.md) | 键盘导航配置 |  |
 | [ListChildren](interfaces/ListChildren.md) | 列表项：支持多级嵌套分组 |  |
 | [ListProps](interfaces/ListProps.md) | 列表组件：支持多级嵌套、图标、展开的列表 |  |
 | [ModalProps](interfaces/ModalProps.md) | 模态弹窗：可拖拽、可调整大小的顶层弹窗 |  |
+| [NumberEditConfig](interfaces/NumberEditConfig.md) |  |  |
 | [RadioGroupProps](interfaces/RadioGroupProps.md) | 单选组组件：一组互斥的单选选项 |  |
 | [RadioItem](interfaces/RadioItem.md) | 单选组中的单个选项 |  |
+| [RichTableProps](interfaces/RichTableProps.md) | RichTable 组件属性 |  |
+| [RowMetaConfig](interfaces/RowMetaConfig.md) | 行元数据配置，独立于业务数据（挂在 row.rowMeta 上） |  |
 | [ScrollerProps](interfaces/ScrollerProps.md) | 滚动组件：虚拟滚动列表，仅渲染可见行 |  |
+| [SelectEditConfig](interfaces/SelectEditConfig.md) |  |  |
+| [SelectionConfig](interfaces/SelectionConfig.md) | 选择配置 |  |
 | [SelectListItem](interfaces/SelectListItem.md) | 下拉选项：支持多级嵌套分组 |  |
+| [SelectOption](interfaces/SelectOption.md) | 下拉选项 |  |
 | [SelectProps](interfaces/SelectProps.md) | 下拉选择器：基于输入框的下拉选择控件 |  |
+| [SliderProps](interfaces/SliderProps.md) | 滑杆组件：基于浏览器原生 range 输入 |  |
 | [SlotProps](interfaces/SlotProps.md) | 插槽组件：为父组件提供具名内容占位 |  |
+| [SortingConfig](interfaces/SortingConfig.md) | 排序配置 |  |
+| [SortState](interfaces/SortState.md) | 排序状态 |  |
 | [StyleProps](interfaces/StyleProps.md) | 通用样式属性：可被布局容器等组件继承的样式集合 |  |
+| [TextareaEditConfig](interfaces/TextareaEditConfig.md) |  |  |
 | [TextAreaProps](interfaces/TextAreaProps.md) | 多行文本输入组件 |  |
 | [TextProps](interfaces/TextProps.md) | 文本组件：静态文本展示 |  |
+| [ValidationRule](interfaces/ValidationRule.md) | 校验规则（声明式，纯数据，可序列化） |  |
+| [VirtualScrollConfig](interfaces/VirtualScrollConfig.md) | 虚拟滚动配置 |  |
 
 
 ---
@@ -371,7 +390,17 @@
 
 | 类型名 | 描述 | 备注 |
 |--------|------|------|
-| [ISYS_LanguageKeyValuePairs](types/ISYS_LanguageKeyValuePairs.md) | Language data key value for |  |
+| [Align](types/Align.md) | 对齐方式 |  |
+| [CellContentType](types/CellContentType.md) | 剪贴板单元格内容类型（决定粘贴时的解析策略） |  |
+| [ColumnDefOrGroup](types/ColumnDefOrGroup.md) | 列定义（支持普通列和列分组） |  |
+| [ColumnEditConfig](types/ColumnEditConfig.md) | 五种编辑器类型配置 |  |
+| [ColumnType](types/ColumnType.md) | 列数据类型，默认 'text'。决定默认排序类型（sortType）和筛选匹配模式（filterMatchMode） |  |
+| [DataChangeType](types/DataChangeType.md) | 数据变更类型 |  |
+| [FilterMatchMode](types/FilterMatchMode.md) | 筛选匹配模式 |  |
+| [RichTableRow](types/RichTableRow.md) | 行数据：业务数据 + 行元数据（rowMeta） |  |
+| [Serializable](types/Serializable.md) |  |  |
+| [SerializablePrimitive](types/SerializablePrimitive.md) | 可序列化纯数据（可跨 BroadcastChannel 结构化克隆）。 编译期拒绝函数 / Date / React 元素等不可序列化值——slotProps 等跨广播字段必须用它。 |  |
+| [SortOrder](types/SortOrder.md) | 排序方向 |  |
 | [TPCB_LayersInTheSelectable](types/TPCB_LayersInTheSelectable.md) | Selectable layers |  |
 | [TPCB_LayersOfComponent](types/TPCB_LayersOfComponent.md) | Layers of the device |  |
 | [TPCB_LayersOfCopper](types/TPCB_LayersOfCopper.md) | Layers of copper |  |
@@ -385,7 +414,6 @@
 | [TPCB_LayersOfPad](types/TPCB_LayersOfPad.md) | Layers of the pad |  |
 | [TPCB_LayersOfRegion](types/TPCB_LayersOfRegion.md) | Layers of the region |  |
 | [TPCB_LayerTypesOfInnerLayer](types/TPCB_LayerTypesOfInnerLayer.md) | Layer types allowed to be set for inner layers |  |
-| [TPCB_NumberOfCopperLayers](types/TPCB_NumberOfCopperLayers.md) | Number of copper layers |  |
 | [TPCB_PolygonSourceArray](types/TPCB_PolygonSourceArray.md) | Single polygon source array |  |
 | [TPCB_PrimitiveDimensionCoordinateSet](types/TPCB_PrimitiveDimensionCoordinateSet.md) | Dimension coordinate set |  |
 | [TPCB_PrimitivePadHole](types/TPCB_PrimitivePadHole.md) | Pad drilling |  |
@@ -393,6 +421,5 @@
 | [TPCB_PrimitiveSpecialPadShape](types/TPCB_PrimitiveSpecialPadShape.md) | Special pad shape |  |
 | [TSYS_MathPolygonGroup](types/TSYS_MathPolygonGroup.md) | Polygon group |  |
 | [TSYS_MathPolygonInput](types/TSYS_MathPolygonInput.md) | Polygon input type |  |
-| [TSYS_PcbComparisonErrorCode](types/TSYS_PcbComparisonErrorCode.md) | PCB comparison failure error code |  |
 | [TSYS_ShortcutKeys](types/TSYS_ShortcutKeys.md) | Shortcut key |  |
 

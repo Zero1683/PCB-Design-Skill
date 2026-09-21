@@ -121,6 +121,21 @@ Symbol name
 </td></tr>
 <tr><td>
 
+[otherProperty?](./ILIB_SymbolItem.md)
+
+</td><td>
+
+</td><td>
+
+Record&lt;string, boolean \| number \| string \| undefined&gt;
+
+</td><td>
+
+_(Optional)_ 其它属性
+
+</td></tr>
+<tr><td>
+
 [subPartNames](./ILIB_SymbolItem.md)
 
 </td><td>
@@ -240,6 +255,18 @@ Symbol name
 
 ```typescript
 name: string;
+```
+
+### otherproperty
+
+# ILIB\_SymbolItem.otherProperty property
+
+其它属性
+
+## Signature
+
+```typescript
+otherProperty?: Record<string, boolean | number | string | undefined>;
 ```
 
 ### subpartnames

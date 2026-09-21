@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "等长组名称",
+      "type": "string"
+    },
+    "sort": {
+      "description": "排序",
+      "type": "number"
+    },
+    "pads": {
+      "description": "焊盘对数组：**每项是「一对」焊盘**（不是单个焊盘），两个串构成这一对等长关系的两端。\r\n\r\n 每个串的格式是 **`位号:编号`**，例：`[\"U1:1\",\"U2:1\"]` 表示 U1 的 1 脚与 U2 的 1 脚等长。",
+      "type": "array",
+      "items": {
+        "type": "array"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "sort",
+    "pads"
+  ],
+  "description": "等长组"
+}

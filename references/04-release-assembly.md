@@ -1,5 +1,10 @@
 # G5-G6: Manufacturing release and assembly
 
+For native PCB extraction and independent geometry/manufacturing checks, use
+[the bundled inspection toolkit](18-pcb-inspection-toolkit.md). Preserve actual
+input coverage and baseline; its board model is distinct from our normalized
+component snapshots. The existing gates in this reference still apply.
+
 ## Freeze a traceable revision
 
 Before fabrication, save the native project and required libraries, schematics, PCB, netlist, BOM, and check results with a revision/baseline ID. Changed record order with unchanged semantics is not necessarily a design change, but different bytes cannot have an assumed identical hash. Record semantic comparison separately from byte hashes.
@@ -86,3 +91,8 @@ Use this impact map to select rechecks; changed geometry or uncertain side effec
 | Stackup or copper rules | Electrical geometry/impedance/current analysis, routing/rules, repour, complete DRC and exports |
 
 After candidate export, verify source did not change and package files share the same baseline, then hash the frozen package. Stop when required evidence is complete: do not redesign already-passing blocks for cosmetic preference. Report concrete remaining failed gates rather than repeated claims that only a final export remains. An explicit user request to stop or accept a narrower handoff preserves unresolved checks and changes the delivery claim; it does not produce a PASS or authorize manufacturing-ready wording.
+
+For mask/dam geometry, hole rings, drill-file interpretation and item-specific
+DFM findings, follow [engineering constraints](19-engineering-constraints.md).
+Complete MFG-APERTURES against final exports. Report unverified CAM changes as pending;
+a warning's color never establishes whether it is safe to ignore.

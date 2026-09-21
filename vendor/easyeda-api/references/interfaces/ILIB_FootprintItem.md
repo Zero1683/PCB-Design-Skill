@@ -106,6 +106,21 @@ Footprint name
 </td></tr>
 <tr><td>
 
+[otherProperty?](./ILIB_FootprintItem.md)
+
+</td><td>
+
+</td><td>
+
+Record&lt;string, boolean \| number \| string \| undefined&gt;
+
+</td><td>
+
+_(Optional)_ 其它属性
+
+</td></tr>
+<tr><td>
+
 [uuid](./ILIB_FootprintItem.md)
 
 </td><td>
@@ -183,6 +198,18 @@ Footprint name
 
 ```typescript
 name: string;
+```
+
+### otherproperty
+
+# ILIB\_FootprintItem.otherProperty property
+
+其它属性
+
+## Signature
+
+```typescript
+otherProperty?: Record<string, boolean | number | string | undefined>;
 ```
 
 ### uuid

@@ -50,7 +50,7 @@ _(Optional)_ Popup content child nodes
 
 </td><td>
 
-number
+number \| 'auto'
 
 </td><td>
 
@@ -234,7 +234,7 @@ Height ( pixels, required)
 ## Signature
 
 ```typescript
-height: number;
+height: number | 'auto';
 ```
 
 ### hide

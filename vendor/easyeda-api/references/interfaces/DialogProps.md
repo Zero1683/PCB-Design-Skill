@@ -50,7 +50,7 @@ _(Optional)_ Dialog content child nodes
 
 </td><td>
 
-number
+number \| 'auto'
 
 </td><td>
 
@@ -249,7 +249,7 @@ Height ( pixels)
 ## Signature
 
 ```typescript
-height?: number;
+height?: number | 'auto';
 ```
 
 ### hide

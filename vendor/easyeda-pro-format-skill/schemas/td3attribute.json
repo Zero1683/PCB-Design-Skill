@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "materials": {
+      "description": "基板材质",
+      "type": "string"
+    },
+    "silkTechnology": {
+      "description": "丝印工艺",
+      "type": "string"
+    },
+    "backgroundColor": {
+      "description": "背景颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "boardColor": {
+      "description": "板子颜色",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "sprayColor": {
+      "description": "焊盘喷镀",
+      "type": "string",
+      "pattern": "^$|^#[0-9A-Fa-f]{6}$"
+    },
+    "layerExpose": {
+      "description": "层发散",
+      "type": "number"
+    },
+    "substrateHeight": {
+      "description": "PCB 距外壳底面的高度：**单位为 mm**。\r\n\r\n ⚠️ 读写两端都**不做 ×10 / ÷10 换算**（编码 `D3AttributeEncode` 原样返回、\r\n 解码 `D3AttributeDecode` 直接取用），盘上的值就是 mm 值（例 `1.6` = 1.6 mm）。",
+      "type": "number"
+    }
+  },
+  "required": [
+    "materials",
+    "silkTechnology",
+    "backgroundColor",
+    "boardColor",
+    "sprayColor",
+    "layerExpose",
+    "substrateHeight"
+  ],
+  "description": "3d 右侧面板属性"
+}

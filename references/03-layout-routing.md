@@ -1,5 +1,10 @@
 # G3-G4: Placement, routing, ground copper, and signal integrity
 
+For native PCB extraction and independent geometry/manufacturing checks, use
+[the bundled inspection toolkit](18-pcb-inspection-toolkit.md). Preserve actual
+input coverage and baseline; its board model is distinct from our normalized
+component snapshots. The existing gates in this reference still apply.
+
 ## Set manufacturing rules first
 
 Read the selected fabricator's capabilities and tolerances for the intended process. Set trace width/clearance, drill, annular ring, copper-to-edge, solder-mask dam, silkscreen, and stackup rules from project requirements and fabrication capability. Do not relax them merely to clear errors. Nominal board thickness differs from dielectric thickness between signal and reference layers; finished outer copper may differ from base copper.
@@ -134,3 +139,10 @@ Before the first trace batch or autorouter run, pass `ROUTING-READY` with a save
 At intermediate stages classify native findings as geometry/clearance violations, expected unfinished connections, or waived/false-positive findings. A deliberate unrouted placement snapshot may retain connection warnings, but pad shorts, forbidden overlaps and spacing failures remain blockers. Keep the full report; never turn off final connectivity checks to make the placement report look clean. At final G4, required connections must be complete and copper repoured before the full DRC/connection audit.
 
 When the user takes over routing, save and hand off actual settings and exclusions. On resumption read the current PCB first; do not overwrite user routes or assume the pre-handoff state. Only remove existing routing when authorized and preserve a rollback snapshot.
+
+## Constraint implementation and physical feasibility
+
+Use [engineering constraints](19-engineering-constraints.md) to bind stackup,
+edge-rate/timing requirements, escape feasibility and thermal connections to actual
+native rules and final copper. Complete STACKUP-RULES before routing; assess
+DENSE-ESCAPE for fine-pitch escape work. Keep tolerances and model boundaries explicit.

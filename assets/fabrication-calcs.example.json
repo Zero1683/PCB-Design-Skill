@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "baseline_id": "DEMONSTRATION-REPLACE",
+  "calculations": [
+    {
+      "id": "MASK-PAIR",
+      "kind": "mask_pair",
+      "source": "DEMO ONLY: replace with exact land pattern and selected mask process",
+      "conditions": "Aligned equal pads, nominal geometry; no registration compensation",
+      "left_pad_width_mm": 0.45,
+      "right_pad_width_mm": 0.45,
+      "left_expansion_per_side_mm": 0.02,
+      "right_expansion_per_side_mm": 0.02,
+      "pitch_mm": 0.6,
+      "required_web_mm": 0.1
+    },
+    {
+      "id": "ESCAPE-REJECT",
+      "kind": "escape_channel",
+      "source": "DEMO ONLY: replace with actual package and process constraints",
+      "conditions": "Straight equal-pad channel; deliberately infeasible single-trace example",
+      "pitch_mm": 0.8,
+      "left_pad_width_mm": 0.45,
+      "right_pad_width_mm": 0.45,
+      "clearance_mm": 0.18,
+      "trace_width_mm": 0.15,
+      "trace_count": 1
+    },
+    {
+      "id": "RING",
+      "kind": "annular_ring",
+      "source": "DEMO ONLY: replace with land drill tolerance and fabricator rule",
+      "conditions": "Circular drill-based geometry with hypothetical radial error budget",
+      "land_diameter_mm": 0.6,
+      "hole_diameter_mm": 0.3,
+      "hole_basis": "drill",
+      "radial_offset_mm": 0.05,
+      "required_ring_mm": 0.1
+    }
+  ]
+}

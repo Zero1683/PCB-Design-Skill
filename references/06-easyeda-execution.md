@@ -2,6 +2,8 @@
 
 The complete EasyEDA API Skill, bridge implementation, and ws runtime dependency are bundled. Resolve paths relative to this skill's root; do not depend on installation directories on the author's machine. Do not copy old project document IDs, ports, or unverified API signatures.
 
+Before selecting a transport or changing an integration, read [operation backends](16-easyeda-operation-backends.md). The default online path remains the bundled official API and bridge. A selected community backend must satisfy the same project identity, scoped edits, readback and engineering gates; its workflow does not replace this one. Native-format work uses [reference 17](17-easyeda-native-format.md).
+
 ## EasyEDA
 
 Read the bundled [easyeda-api/SKILL.md](../vendor/easyeda-api/SKILL.md), then use its index to load the API classes, interfaces, enums, or format references needed for the current operation. Tool documentation defines accurate calls; this skill defines engineering checks and delivery criteria. A missing external easyeda-api installation is not a blocker because the package is bundled.

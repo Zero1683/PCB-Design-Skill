@@ -61,7 +61,7 @@ Description
 
 </td><td>
 
-((primitiveIds: string) =&gt; [IPCB\_Primitive](./IPCB_Primitive.md) \| undefined \| Promise&lt;[IPCB\_Primitive](./IPCB_Primitive.md) \| undefined&gt;) &amp; ((primitiveIds: string\[\]) =&gt; Array&lt;[IPCB\_Primitive](./IPCB_Primitive.md)<!-- -->&gt; \| Promise&lt;Array&lt;[IPCB\_Primitive](./IPCB_Primitive.md)<!-- -->&gt;&gt;)
+{ (primitiveIds: string): [IPCB\_Primitive](./IPCB_Primitive.md) \| undefined \| Promise&lt;[IPCB\_Primitive](./IPCB_Primitive.md) \| undefined&gt;; (primitiveIds: Array&lt;string&gt;): Array&lt;[IPCB\_Primitive](./IPCB_Primitive.md)<!-- -->&gt; \| Promise&lt;Array&lt;[IPCB\_Primitive](./IPCB_Primitive.md)<!-- -->&gt;&gt; }
 
 </td><td>
 
@@ -139,8 +139,7 @@ delete: (primitiveIds: string | any | Array<string> | Array<any>) => boolean | P
 ## Signature
 
 ```typescript
-get: ((primitiveIds: string) => IPCB_Primitive | undefined | Promise<IPCB_Primitive | undefined>)
-	& ((primitiveIds: string[]) => Array<IPCB_Primitive> | Promise<Array<IPCB_Primitive>>);
+get: { (primitiveIds: string): IPCB_Primitive | undefined | Promise<IPCB_Primitive | undefined>; (primitiveIds: Array<string>): Array<IPCB_Primitive> | Promise<Array<IPCB_Primitive>> };
 ```
 
 ### getall

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "netLengthPhysic": {
+      "description": "网络长度规则 --- 对应组的",
+      "type": "string"
+    },
+    "netLengthTolerancePhysics": {
+      "description": "网络长度公差规则 --- 对应组的",
+      "type": "string"
+    },
+    "targetNet": {
+      "description": "目标网络",
+      "type": "string"
+    }
+  },
+  "required": [
+    "netLengthPhysic",
+    "netLengthTolerancePhysics",
+    "targetNet"
+  ],
+  "description": "xNet 组\r\n\r\n【联动增删·必须成组操作】X_NET_GROUP 与其组内的 X_NET 是**同一生命周期**：\r\n**新增组时必须一并写出组内的 X_NET；删除 X_NET_GROUP 时必须把组内所有 X_NET 一并删除**\r\n（组内 xNet 清空后才能删组），否则留下悬空的 X_NET。"
+}

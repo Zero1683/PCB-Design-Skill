@@ -95,7 +95,7 @@ _(Optional)_ Placeholder text
 
 </td><td>
 
-\{ x?: undefined \| false \| true; y?: undefined \| false \| true \}
+\{ x?: boolean; y?: boolean \}
 
 </td><td>
 
@@ -180,7 +180,7 @@ Whether it is resizable (x horizontal / y vertical)
 ## Signature
 
 ```typescript
-resizable?: { x?: undefined | false | true; y?: undefined | false | true };
+resizable?: { x?: boolean; y?: boolean };
 ```
 
 ### value

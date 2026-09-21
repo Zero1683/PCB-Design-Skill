@@ -1,5 +1,10 @@
 # Validation tools and data contracts
 
+For native PCB extraction and independent geometry/manufacturing checks, use
+[the bundled inspection toolkit](18-pcb-inspection-toolkit.md). Preserve actual
+input coverage and baseline; its board model is distinct from our normalized
+component snapshots. The existing gates in this reference still apply.
+
 These tools analyze explicit inputs and records. They do not parse arbitrary EasyEDA files, run a field solver, or replace EDA connectivity and DRC. Do not label helper output as complete board approval.
 
 ## Check records

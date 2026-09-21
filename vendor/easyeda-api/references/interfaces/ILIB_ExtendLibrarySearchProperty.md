@@ -65,7 +65,7 @@ _(Optional)_ Number of entries per page
 
 </td><td>
 
-T &amp; { wd?: undefined \| string; listByTitles?: undefined \| string\[\]; classification?: undefined \| string\[\] \| [ILIB\_ExtendLibraryClassificationIndex](./ILIB_ExtendLibraryClassificationIndex.md) }
+T &amp; { wd?: string; listByTitles?: Array&lt;string&gt;; classification?: [ILIB\_ExtendLibraryClassificationIndex](./ILIB_ExtendLibraryClassificationIndex.md) \| Array&lt;string&gt; }
 
 </td><td>
 
@@ -111,5 +111,5 @@ Query parameter
 ## Signature
 
 ```typescript
-query: T & { wd?: undefined | string; listByTitles?: undefined | string[]; classification?: undefined | string[] | ILIB_ExtendLibraryClassificationIndex };
+query: T & { wd?: string; listByTitles?: Array<string>; classification?: ILIB_ExtendLibraryClassificationIndex | Array<string> };
 ```

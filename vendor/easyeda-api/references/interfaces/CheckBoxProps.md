@@ -59,6 +59,21 @@ _(Optional)_ Whether Disable
 </td></tr>
 <tr><td>
 
+[indeterminate?](./CheckBoxProps.md)
+
+</td><td>
+
+</td><td>
+
+boolean
+
+</td><td>
+
+_(Optional)_ 半选状态（全选/半选三态）
+
+</td></tr>
+<tr><td>
+
 [name?](./CheckBoxProps.md)
 
 </td><td>
@@ -145,6 +160,18 @@ Whether Disable
 
 ```typescript
 disabled?: boolean;
+```
+
+### indeterminate
+
+# CheckBoxProps.indeterminate property
+
+半选状态（全选/半选三态）
+
+## Signature
+
+```typescript
+indeterminate?: boolean;
 ```
 
 ### name

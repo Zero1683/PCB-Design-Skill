@@ -1,9 +1,5 @@
 # EPCB\_DocumentRatlineCalculatingActiveStatus enum
 
-> Warning: This API is now obsolete.
->
-> since EDA v4.2
-
 Document ratline calculation function status
 
 ## Signature

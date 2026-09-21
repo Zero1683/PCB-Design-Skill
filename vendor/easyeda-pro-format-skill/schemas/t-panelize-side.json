@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "on": {
+      "description": "是否启用（不启用则不使用工艺边）",
+      "type": "boolean"
+    },
+    "sideHeight": {
+      "description": "工艺边高度",
+      "type": "number"
+    },
+    "positionHoleDiameter": {
+      "description": "定位孔直径（0 表示无定位孔）",
+      "type": "number"
+    },
+    "markDiameter": {
+      "description": "Mark 点直径（0 表示不启用 Mark 点）",
+      "type": "number"
+    },
+    "markExpansion": {
+      "description": "Mark 点阻焊扩展",
+      "type": "number"
+    },
+    "borderRadius": {
+      "description": "工艺边圆角半径",
+      "type": "number"
+    }
+  },
+  "required": [
+    "on",
+    "sideHeight",
+    "positionHoleDiameter",
+    "markDiameter",
+    "markExpansion",
+    "borderRadius"
+  ],
+  "description": "工艺边参数\r\n\r\n⚠️ **不要往示例里补 `direction`**：真实样本的 `horizontalSize` / `verticalSize` 里都没有该键，\r\n区分水平/垂直靠的是它在 PANELIZE 里的**位置**（`horizontalSize` 还是 `verticalSize`）。\r\n解码端会自己往里注入一个 `direction` 字段（水平注入 `0`、垂直注入 `1`），\r\n所以**读盘时不要依赖这个键**。"
+}

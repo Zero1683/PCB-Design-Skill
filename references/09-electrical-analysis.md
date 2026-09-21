@@ -57,3 +57,11 @@ Checked 2026-09-21. Apply methods to the selected parts; example processor limit
 - [TI, PDN implementation and analysis, SPRAC76H, sections 4–5](https://www.ti.com/lit/an/sprac76h/sprac76h.pdf): static voltage drop and dynamic impedance budgeting.
 - [Analog Devices, AN104](https://www.analog.com/media/en/technical-documentation/application-notes/an104f.pdf): load-step behavior and capacitor parasitics.
 - Exact regulator, capacitor, inductor and load datasheets define the project's limits and required models.
+
+## Physical screening calculations
+
+The same helper also accepts `mask_pair`, `escape_channel` and `annular_ring` inputs
+from [the fabrication example](../assets/fabrication-calcs.example.json). Read
+[engineering constraints](19-engineering-constraints.md) for formulas, tolerances,
+per-side dimensions and geometry limits. Results remain CALCULATED; positive margins
+do not establish fabrication acceptance, complete fanout or thermal performance.

@@ -35,7 +35,7 @@ Description
 
 </td><td>
 
-() =&gt; [ISCH\_Primitive](./ISCH_Primitive.md) \| undefined \| Promise&lt;[ISCH\_Primitive](./ISCH_Primitive.md)<!-- -->&gt; \| Promise&lt;[ISCH\_Primitive](./ISCH_Primitive.md) \| undefined&gt;
+() =&gt; [ISCH\_Primitive](./ISCH_Primitive.md) \| Promise&lt;[ISCH\_Primitive](./ISCH_Primitive.md)<!-- -->&gt;
 
 </td><td>
 
@@ -144,8 +144,7 @@ Description
 ## Signature
 
 ```typescript
-create: () =>
-	ISCH_Primitive | undefined | Promise<ISCH_Primitive> | Promise<ISCH_Primitive | undefined>;
+create: () => ISCH_Primitive | Promise<ISCH_Primitive>;
 ```
 
 ### done

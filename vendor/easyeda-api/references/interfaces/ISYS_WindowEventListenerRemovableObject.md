@@ -52,7 +52,7 @@ Description
 
 </td><td>
 
-\{ capture?: undefined \| false \| true \}
+\{ capture?: boolean \}
 
 </td><td>
 
@@ -95,7 +95,7 @@ listener: (ev: any) => any;
 ## Signature
 
 ```typescript
-options?: { capture?: undefined | false | true };
+options?: { capture?: boolean };
 ```
 
 ### type

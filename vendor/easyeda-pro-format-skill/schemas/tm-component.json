@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "description": "名称",
+      "type": "string"
+    },
+    "description": {
+      "description": "库描述",
+      "type": "string"
+    },
+    "tags": {
+      "description": "自定义分类",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "description": "来源：`<来源条目 uuid>|<来源工程 uuid>` 两段式（工程库独有）\r\n\r\n 第 2 段是**来源工程的 uuid**（不是库内路径），**工程内自建条目为空串**。",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "tags",
+    "source"
+  ],
+  "description": "库的 META 基础类型\r\n\r\n**抽象基类，不单独成文档**；实际格式见 `TMFootprint` / `TMSymbol` / `TMPanelLib` 等。"
+}

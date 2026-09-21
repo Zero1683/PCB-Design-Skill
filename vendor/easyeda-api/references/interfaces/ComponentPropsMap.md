@@ -68,6 +68,19 @@ Description
 </td></tr>
 <tr><td>
 
+[ColorPicker](./ComponentPropsMap.md)
+
+</td><td>
+
+</td><td>
+
+[ColorPickerProps](./ColorPickerProps.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
 [Dialog](./ComponentPropsMap.md)
 
 </td><td>
@@ -198,6 +211,19 @@ Description
 </td></tr>
 <tr><td>
 
+[RichTable](./ComponentPropsMap.md)
+
+</td><td>
+
+</td><td>
+
+[RichTableProps](./RichTableProps.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
 [Scroller](./ComponentPropsMap.md)
 
 </td><td>
@@ -218,6 +244,19 @@ Description
 </td><td>
 
 [SelectProps](./SelectProps.md)
+
+</td><td>
+
+</td></tr>
+<tr><td>
+
+[Slider](./ComponentPropsMap.md)
+
+</td><td>
+
+</td><td>
+
+[SliderProps](./SliderProps.md)
 
 </td><td>
 
@@ -295,6 +334,16 @@ Button: ButtonProps;
 
 ```typescript
 CheckBox: CheckBoxProps;
+```
+
+### colorpicker
+
+# ComponentPropsMap.ColorPicker property
+
+## Signature
+
+```typescript
+ColorPicker: ColorPickerProps;
 ```
 
 ### dialog
@@ -397,6 +446,16 @@ Modal: ModalProps;
 RadioGroup: RadioGroupProps;
 ```
 
+### richtable
+
+# ComponentPropsMap.RichTable property
+
+## Signature
+
+```typescript
+RichTable: RichTableProps;
+```
+
 ### scroller
 
 # ComponentPropsMap.Scroller property
@@ -415,6 +474,16 @@ Scroller: ScrollerProps;
 
 ```typescript
 Select: SelectProps;
+```
+
+### slider
+
+# ComponentPropsMap.Slider property
+
+## Signature
+
+```typescript
+Slider: SliderProps;
 ```
 
 ### slot

@@ -53,3 +53,45 @@ The root MIT license covers this project's original workflow, templates, and int
 原理图增强资料取自上述固定版本，保留上游 MIT 声明。仅调整兼容性元数据位置；
 本项目的辅助方法文档单独说明适用条件和集成规则。示例中的器件与脚号不能直接
 作为其他设计的选型或连接依据。
+
+## Operation foundations refresh, 2026-09-21
+
+The API references are now sourced from easyeda/easyeda-api-skill 1.1.36,
+commit ccfaf28a577b61a09ebc907f0a943d1e6c782def. The earlier 1.1.28 provenance
+above describes the original bundle. Retained bridge fixes and the source pin
+are recorded in vendor/easyeda-api/UPSTREAM.md; the runtime remains unchanged.
+
+Official easyeda-pro-format-skill 1.0.0 is included from
+https://github.com/easyeda/easyeda-pro-format-skill at
+bee647fbe5e649ab9b4d8ebe3a201a1eee68ff03. Its original MIT LICENSE is retained.
+The metadata adjustment, exported schema maps and locked registry URL change
+are documented in vendor/easyeda-pro-format-skill/UPSTREAM.md. Six runtime
+packages retain their own license files under that directory's node_modules:
+ajv, ajv-formats, fast-deep-equal, fast-uri, json-schema-traverse and
+require-from-string. Versions: ajv 8.20.0, ajv-formats 2.1.1, fast-deep-equal 3.1.3,
+fast-uri 3.1.7, json-schema-traverse 1.0.0 and require-from-string 2.0.2.
+fast-uri uses BSD-3-Clause; the other five use MIT. Refer to the lockfile for integrity pins.
+
+easyeda-agent (zhoushoujianwork) and easyeda-mcp-pro (oaslananka) are community
+projects, not claimed to be official EasyEDA products. They are referenced as
+optional external backends; no source, skill or connector from either is bundled.
+The former has MIT/Apache-2.0 notices; the reviewed latter uses PolyForm
+Noncommercial 1.0.0. This project's MIT license does not grant rights to them.
+
+官方 API 已更新至上述固定版本，保留已验证的桥接修正。官方格式 Skill 及运行依赖
+随包提供并保留原始许可；社区 CLI 和 MCP 项目只提供外部接入说明，不混入本项目
+的 MIT 代码包。具体运行条件与适用范围见 references/16 和 references/17。
+
+## PCB inspection toolkit / PCB 检查工具库
+
+- Source: https://github.com/daishuge/pcb-skill
+- Commit: `6e939b64907e3c63236c7522c511af5d7d1afaad`.
+- Included subset: placement/routing/verify/notify scripts and associated README files.
+- Location: `vendor/pcb-skill-toolkit/`; original MIT copyright and license text
+  retained in its LICENSE. Local modifications are listed in UPSTREAM.md.
+- This is a community toolkit, not an official EasyEDA component. Its original
+  skill entrypoint, procurement workflow and approval automation are not included.
+- NumPy is an optional runtime dependency for two tools and is not redistributed.
+
+保留上游署名与 MIT 许可；针对断言误判、Gerber 未支持语义、布线结果时效、
+Windows 进程探测及不完整导入做了本地修正。主流程、通用性设置及 EDA 操作基础不变。
