@@ -1,4 +1,4 @@
 interface:
-  display_name: "PCB 设计与实板验证"
-  short_description: "从需求、选型、封装和布线到制造、焊接与实板验证的完整执行流程"
-  default_prompt: "使用 $pcb-design-to-bringup，根据我的需求完成 PCB 设计、制造交付及分阶段实板验证，并保留可供其他 AI 接手的记录。"
+  display_name: "PCB Design and Bring-Up"
+  short_description: "PCB design, manufacturing handoff, and physical board validation"
+  default_prompt: "Use $pcb-design-to-bringup to complete PCB design, manufacturing handoff, and staged physical board validation based on my requirements. Keep records sufficient for another agent to continue the work."

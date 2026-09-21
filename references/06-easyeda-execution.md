@@ -1,53 +1,53 @@
-# 工具适配：嘉立创EDA与其他环境
+# Tool integration: EasyEDA and other environments
 
-本 skill 已内置完整 EasyEDA API Skill、桥接实现和 ws 运行依赖。所有路径以本 skill 根目录为基准，不依赖作者电脑上的外部安装目录。不能复制旧项目的文档 ID、端口或未验证的调用签名。
+The complete EasyEDA API Skill, bridge implementation, and ws runtime dependency are bundled. Resolve paths relative to this skill's root; do not depend on installation directories on the author's machine. Do not copy old project document IDs, ports, or unverified API signatures.
 
-## 嘉立创EDA
+## EasyEDA
 
-先读取内置 [easyeda-api/SKILL.md](../vendor/easyeda-api/SKILL.md)，再按其中索引读取本次需要的 API 类、接口、枚举或格式文档。工具文档负责准确调用，本 skill 负责工程检查与交付判据。不要在缺少外部同名 Skill 时停工；本包已经包含它。
+Read the bundled [easyeda-api/SKILL.md](../vendor/easyeda-api/SKILL.md), then use its index to load the API classes, interfaces, enums, or format references needed for the current operation. Tool documentation defines accurate calls; this skill defines engineering checks and delivery criteria. A missing external easyeda-api installation is not a blocker because the package is bundled.
 
-集成包的启动约定：
+Integrated startup conventions:
 
-1. 先执行 `node scripts/easyeda_bridge.mjs status`；需要连接且未启动时执行 `node scripts/easyeda_bridge.mjs start`，以本 skill 根目录为工作目录。Windows 人工使用可双击 `start-easyeda.cmd`。
-2. 不运行 `npm install` 或 README 中的文档构建；所需 ws 和生成好的文档已在包内。Node.js 18+ 和嘉立创EDA桌面客户端仍是外部前提。具体安装入口见 [开箱说明](../START_HERE.md)。
-3. 上游文档中的 `$CLAUDE_SKILL_DIR` 在本集成场景应理解为当前包的 `vendor/easyeda-api` 绝对路径，不修改用户全局环境变量。上游启动 shell 示例由本包跨平台 Node 启动器替代，其余 API 语义仍以原文为准。
-4. 启动器会验证 `easyeda-bridge` 服务标识并返回实际端口、窗口列表；不能固定假设 49620。`WAITING_FOR_EDA` 不是桥接故障，提示用户在客户端启用 Run API Gateway；不重复启动多个服务。
-5. 在多服务或多窗口情况下，根据当前任务核对目标。后续调用明确使用所选服务和 `windowId`，不要依赖默认活动窗口。连接成功不证明当前工程就是目标工程。
+1. From this skill's root, run `node scripts/easyeda_bridge.mjs status`. If a connection is needed and no bridge exists, run `node scripts/easyeda_bridge.mjs start`. Windows users may double-click `start-easyeda.cmd`.
+2. Do not run `npm install` or the upstream README's documentation build. ws and generated references are already present. Node.js 18+ and the EasyEDA desktop client remain external prerequisites. See [setup](../START_HERE.md).
+3. Interpret upstream `$CLAUDE_SKILL_DIR` as the absolute path to this package's `vendor/easyeda-api`; do not modify global user environment variables. This package's cross-platform Node launcher replaces upstream shell startup examples. Other API semantics remain as documented upstream.
+4. The launcher verifies service ID `easyeda-bridge` and reports the actual port and windows; do not assume port 49620. `WAITING_FOR_EDA` means the user should enable Run API Gateway in the desktop client, not that another bridge must be started.
+5. With multiple services/windows, identify the target from the task. Explicitly use the selected service and `windowId` in later calls rather than relying on the active-window default. Connection alone does not identify the intended project.
 
-正常操作步骤：
+Operational procedure:
 
-只读任务跳过写入、重铺、保存和初始化记录；若检查工具会自动写锁文件、缓存或报告，选择只读导出/内存分析等方式；只有允许创建工作副本时才在隔离副本执行，并说明检查对象与原件的关系。
+Read-only tasks skip writes, repours, saves, and record initialization. If a check automatically writes locks, caches, or reports, use read-only exports or in-memory analysis instead. Use an isolated working copy only when creating one is allowed, and state its relationship to the original.
 
-1. 按当前工具文档查桥接服务健康状态，验证服务标识，区分“服务不存在”“服务存在但EDA未连接”“窗口/文档不对”。
-2. 确认当前工程、窗口、文档类型和标识。多窗口无法从任务确定时询问目标；不能写入碰巧打开的另一块板。
-3. 读取原理图/PCB、元件、封装、网络与规则，保存修改前快照。
-4. 对本次动作查准确API签名、单位、旋转/镜像和返回结构。使用正式API优先；源格式修改需要当前格式文档。
-5. 小批次执行，检查返回结果；重读对象，核对实际数值、器件数量和网名。
-6. 需要时重建铺铜，跑对应检查，查看实际画面，保存。
-7. 导出修改后快照和差异，保留回滚路径。
+1. Check bridge health against current tool documentation. Verify service identity and distinguish absent service, disconnected desktop, and wrong window/document.
+2. Verify project, window, document type, and identifier. Ask which target when multiple windows cannot be resolved from scope; never edit another open board by accident.
+3. Read schematics/PCB, components, footprints, nets, and rules. Save a pre-edit snapshot for authorized edits.
+4. Check exact signatures, units, rotation/mirroring, and return shapes for the operation. Prefer official APIs; source-file changes require current format documentation.
+5. Work in small batches and inspect results. Reread objects and verify actual values, component counts, and net names.
+6. Rebuild pours as needed, run relevant checks, inspect the actual view, and save.
+7. Export the post-edit snapshot and differences, retaining a rollback path.
 
-不要用“HTTP 200”当动作成功。响应可能是空值、异常包装或异步尚未完成。超时后先读取结果再重试，避免重复创建线段、器件、过孔或铜区。三次相同错误且没有新证据时停止重复调用，查文档/权限/连接，不无限盲试。
+HTTP 200 alone is not success: payloads may be null, wrapped errors, or incomplete asynchronous work. After a timeout, read the result before retrying to avoid duplicate traces, parts, vias, or copper regions. Stop repeating after three identical errors without new evidence; investigate documentation, permissions, and connection rather than retrying indefinitely.
 
-## 数据与坐标
+## Data and coordinates
 
-- 确認API用mm、mil还是内部单位；原点和Y轴方向；相对封装坐标到全板坐标的变换；旋转和底面镜像。
-- 层ID使用当前文档枚举，不把旧脚本的数字作为跨工具常量。
-- 封装可能包含多个同编号焊盘。保留每个物理焊盘实例，同时正确映射电气引脚。
-- 源文档可能有历史记录、删除标记和同ID多版本；读取最终有效状态，不把所有记录当现存图元。
-- 源文件修改是高影响步骤：保存基线、解析往返检查、变更最小集合、重新打开和DRC。不要全局字符串替换网名/脚号。
+- Verify mm, mil, or internal units; origin and Y-axis direction; local-footprint to board transforms; rotation and bottom-side mirroring.
+- Resolve layer IDs from current enums rather than treating old numeric IDs as cross-tool constants.
+- Footprints may contain multiple pads with the same number. Preserve each physical instance while correctly mapping electrical pins.
+- Source documents may include history, deletion markers, and multiple versions of one ID. Read final effective state rather than treating all records as existing primitives.
+- Direct source editing is a high-impact operation: preserve a baseline, check parsing round trips, make the smallest required changes, reopen, and run DRC. Do not globally replace net names or pin numbers as raw strings.
 
-## 截图的作用
+## Screenshots
 
-截图用于几何、方向、丝印和视觉异常核对，不能证明隐藏网名、整个工程连通性或真实阻抗。保存必要的全板视图和关键电源/USB/细间距区域视图。
+Use screenshots to check geometry, orientation, silkscreen, and visible anomalies. They do not prove hidden net names, full-project connectivity, or actual impedance. Preserve needed whole-board views and critical power/USB/fine-pitch details.
 
-布局初稿先实际看一遍，检查大面积重叠或板框错误，再继续布线；不要让用户成为第一次看到错误的人。已授权设计无需每次等待用户确认，但用户提出“不改先看”立即切成只读。
+Inspect the first placement visually for widespread overlap and outline errors before continuing routing. Do not leave first inspection to the user. Already authorized design work does not require approval at each step; a request to review without changes immediately switches the task to read-only.
 
-## 其他EDA和无在线工具时
+## Other EDA tools or unavailable live access
 
-KiCad、Altium等使用其原生工程、DRC、导出和脚本接口，执行同样检查。脚本不能解析的格式不强行输出PASS。
+Use native projects, DRC, exports, and scripting in KiCad, Altium, or other tools with the same checks. Do not report PASS for formats the available scripts cannot parse.
 
-仅有图片：可判断可见布局和标注，可生成待查清单；不能宣称逐引脚连通、已重新铺铜或制造包正确。仅有Gerber：能检查制造几何，但不能完整恢复符号、器件参数和原理图设计意图。
+With images alone, assess visible layout and annotations and list outstanding checks; do not claim pin-by-pin connectivity, completed repours, or a correct manufacturing package. Gerbers support manufacturing-geometry review but cannot fully recover symbols, component parameters, or schematic intent.
 
-没有任何可用EDA时，仍可完成需求、架构、引脚表、BOM候选、关键电气/封装证据和制造约束，交付准确缺项；不伪造已保存的PCB文件。
+Without an available EDA tool, continue requirements, architecture, pin tables, candidate BOM, critical electrical/footprint evidence, and manufacturing constraints. Report exact missing deliverables rather than fabricating a saved PCB file.
 
-桥接断开不会自动授权重置用户工程、关闭其他进程或删除项目。后台启动方式和磁盘位置服从当前环境要求。
+A disconnected bridge does not authorize resetting projects, terminating unrelated processes, or deleting projects. Background startup and storage must follow the current environment's requirements.

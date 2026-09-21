@@ -1,81 +1,81 @@
-# G1–G2：架构、器件、原理图和封装
+# G1-G2: Architecture, parts, schematics, and footprints
 
-## 资料与选型证据
+## Sources and component selection
 
-对关键器件保存厂家、完整型号、封装后缀、供应商编号、手册版本/日期/页码或章节、来源URL。用原厂手册、勘误和参考布局；卖家说明可作采购线索，不能替代电气规格。
+For critical parts, record manufacturer, full part number, package suffix, supplier code, datasheet revision/date/page or section, and source URL. Prefer manufacturer datasheets, errata, and reference layouts. Seller descriptions support procurement but do not replace electrical specifications.
 
-供应商推荐替换时对照：电压、逻辑电平、容值/阻值、公差、耐压、温度、最大/连续/峰值电流、损耗、封装针序、实际尺寸及库存。库存和价格查实时页面并标时间，不把公开起价当本次小批量成交价。
+Compare proposed substitutes for operating voltage, logic levels, capacitance/resistance, tolerance, voltage rating, temperature, maximum/continuous/peak current, losses, pinout, physical dimensions, and availability. Check current stock and pricing with a timestamp; a published starting price is not a quote for the required small quantity.
 
-二极管、保护阵列、稳压器等同名兼容型号，按实际厂家核对；不能直接套用另一个品牌的数据表。
+For similarly named diodes, protection arrays, regulators, and compatible parts, use the actual manufacturer's specifications rather than another brand's datasheet.
 
-## 电源设计
+## Power design
 
-1. 建立稳态、启动和无线/电机等突发负载预算。串接的稳压器分别计算输入输出，而不是把负载电流简单相加到电池侧。
-2. 根据电源范围选 LDO、降压、升压、升降压或其他拓扑。估算 `Iin ≈ Vout × Iout / (Vin × efficiency)`，注明效率假设，考虑最低输入时电流。
-3. 校核额定值和降额：电感饱和与RMS电流、MOS/芯片开关限流、接插件、电池能力、输入输出电容有效容值、压降、热损耗。
-4. 分清“芯片开关电流”与“板子可持续输出电流”；后者还受输入、效率、温升、铜和器件限制。
-5. 逐脚查 VIN/VOUT/FB/EN/PGND/AGND/EP/PG/同步脚；固定输出和可调输出型号不能混用。辅助电源脚可能有内部连接，依据原厂说明，不能凭直觉补线。
-6. 明确反接、过流、充电、过放和反向供电由哪里处理。芯片 UVLO 不自动等于电池保护。某项不配置时记录使用边界，不能在说明里写成已具备。
-7. ADC分压检查最高输入、容差、ADC允许范围、源阻抗和RC稳定时间；记录校准方法。电压不等于准确电量百分比。
+1. Budget steady-state, startup, and burst loads such as radios or motors. Calculate each cascaded regulator's input and output rather than summing load currents directly at the battery.
+2. Select LDO, buck, boost, buck-boost, or another topology from the supply range. Estimate `Iin ≈ Vout × Iout / (Vin × efficiency)`, state the efficiency assumption, and account for current at minimum input voltage.
+3. Check ratings and derating: inductor saturation and RMS current, MOSFET/IC switch-current limits, connectors, battery capability, effective input/output capacitance, voltage drop, and thermal loss.
+4. Distinguish IC switch-current limits from sustainable board output current, which also depends on input voltage, efficiency, temperature rise, copper, and other components.
+5. Check VIN/VOUT/FB/EN/PGND/AGND/EP/PG/synchronization pins individually. Fixed and adjustable versions are not interchangeable. Auxiliary supply pins may have internal connections; follow manufacturer instructions rather than adding intuitive connections.
+6. Identify how reverse polarity, overcurrent, charging, overdischarge, and back-powering are handled. IC UVLO is not automatically battery protection. Document the usage boundary for omitted functions instead of claiming they exist.
+7. For ADC dividers, check maximum input, tolerances, ADC limits, source impedance, and RC settling. Record calibration. Voltage alone does not establish an accurate state-of-charge percentage.
 
-输出电源树、状态表、预算和关键计算。计算应可复算，实测项目另列。
+Produce the power tree, state table, budget, and reproducible calculations. List measurements separately.
 
-## MCU、启动和恢复
+## MCU, boot, and recovery
 
-- 按“裸芯片/模组”分别检查时钟、Flash、射频和去耦需求，不重复照搬内部已有电路。
-- 启动配置脚记录上电、复位、下载三种状态；检查外接LED、按键、传感器和分压是否改变采样电平。
-- 复位RC和上电时序查具体芯片规范。复位键接法、上拉、电容、调试口必须可测。
-- 选用支持预期唤醒方式的GPIO；某个引脚能普通中断，不代表能深睡眠唤醒。
-- 预留至少一条适合该芯片的恢复编程路径。原生USB与USB转UART是不同设备；能识别转接器不证明目标芯片启动。
-- 建立规范引脚表：器件位号、封装脚号、芯片GPIO、网名、方向、上电电平、外部连接、固件定义。引脚号和GPIO号分开写。
+- Check bare-chip and module requirements separately for clocks, flash, RF, and decoupling; do not duplicate circuits already inside a module.
+- Record boot-strap states at power-up, reset, and programming. Check whether LEDs, buttons, sensors, or dividers alter sampled levels.
+- Use the specific device's reset-RC and sequencing requirements. Make reset wiring, pull-ups, capacitors, and debug connections measurable.
+- Choose GPIOs supporting the intended wake mode. Ordinary interrupt capability does not establish deep-sleep wake capability.
+- Provide at least one recovery programming path appropriate to the device. Native USB and USB-UART adapters are separate devices; adapter enumeration does not prove the target booted.
+- Maintain a pin table with reference designator, package pin, GPIO, net, direction, startup level, external connection, and firmware definition. Keep package pin numbers separate from GPIO numbers.
 
-## 传感器与总线
+## Sensors and buses
 
-检查 VDD/VDDIO、供电顺序、模式选择、地址选择、接口上拉、未使用脚处理、去耦、量程和采样率。I²C地址不等于身份寄存器值；总线ACK不证明所有轴数据正常。
+Check VDD/VDDIO, power sequencing, mode and address selection, bus pull-ups, unused-pin treatment, decoupling, measurement range, and sampling rate. An I²C address is not an identity-register value; ACK alone does not validate all sensor axes.
 
-中断记录 INT1/INT2、开漏/推挽、极性、锁存/脉冲、清除条件、接收GPIO、测试点和软件寄存器。未使用辅助引脚应按厂家要求处理，不能一概悬空或接地。
+For interrupts, record INT1/INT2, open-drain/push-pull mode, polarity, latched/pulsed behavior, clearing conditions, receiving GPIO, test point, and software registers. Treat unused auxiliary pins as the manufacturer specifies rather than universally floating or grounding them.
 
-## 接口与指示
+## Interfaces and indicators
 
-- USB：确认支持的速率/角色；D+/D−、CC、SBU、VBUS、屏蔽、保护阵列和串阻按实际接口规范核对。不把USB2设备的CC方案复制到PD或Host。
-- UART：目标电平、交叉TX/RX、公共地、流控和供电责任明确。3V3电源输出不一定代表TXD也是3.3V；模式跳帽也可能仅切换供电。
-- 连接器：标针序、插入方向、锁扣方向、配套线束定义；同外形插头不能证明线序一致。
-- LED：以A/K或厂家定义核对，不假设不同库的“1脚”都是相同极性。电阻按供电、压降和目标电流选择。
-- 按键：核对实际内部触点，不根据2脚/4脚外形猜同侧是否直连。功能脚上拉/下拉和消抖设计明确。
+- USB: establish speed and role. Check D+/D−, CC, SBU, VBUS, shield, protection arrays, and series resistors against the actual interface requirements. Do not reuse a USB 2 device's CC arrangement for PD or Host by assumption.
+- UART: define target logic levels, crossed TX/RX, common ground, flow control, and power responsibility. A 3V3 supply output does not establish 3.3 V TXD levels; a jumper may switch power only.
+- Connectors: document pin order, mating direction, latch orientation, and cable wiring. Matching housings do not establish matching wiring.
+- LEDs: verify A/K or manufacturer polarity; pin 1 is not universally the same polarity across libraries. Choose resistance from supply voltage, forward drop, and target current.
+- Buttons: verify the internal contacts. Do not infer same-side continuity from a two- or four-pin housing. Specify pulls and debounce.
 
-## 封装四向对应检查
+## Four-way footprint mapping
 
-必须将 **符号脚号 → PCB焊盘号 → 实物引脚 → 手册视图** 连起来。
+Verify **symbol pin → PCB pad number → physical terminal → datasheet view**.
 
-每个关键封装记录：
+For every critical footprint, record:
 
-| 字段 | 核对内容 |
+| Field | Check |
 |---|---|
-| 手册视图 | 顶视/底视、1脚基准、旋转方向 |
-| 几何 | 本体、端子、推荐焊盘、间距、孔径、脚距、外伸 |
-| 工艺层 | 铜、阻焊开窗、钢网开口、丝印、装配外形，各层作用不同 |
-| 散热/接地 | EP和重复GND焊盘的号码及网络，开口分割、过孔是否影响漏锡 |
-| 模型 | 模型朝向/高度仅作装配辅助，不能替代落点图 |
-| 公差 | 手册最小/标称/最大与制造能力是否兼容 |
+| Datasheet view | Top/bottom view, pin-1 reference, rotation direction |
+| Geometry | Body, terminals, recommended lands, clearances, hole diameters, pitch, overhang |
+| Process layers | Copper, solder-mask openings, stencil apertures, silkscreen, assembly outline; each has a different role |
+| Thermal/ground | EP and duplicate ground-pad numbers/nets, aperture segmentation, and solder-wicking effects of vias |
+| Model | Orientation and height support assembly review but do not replace the land pattern |
+| Tolerances | Manufacturer minimum/nominal/maximum dimensions versus manufacturing capability |
 
-尺寸比较用统一单位。`1 mil = 0.0254 mm`；边缘间距与中心距分开；左右不等宽焊盘应分别计算。包围丝印不是器件本体边界。
+Use consistent units: `1 mil = 0.0254 mm`. Distinguish edge clearance from center pitch. Calculate unequal left/right pad widths separately. Surrounding silkscreen is not the component body outline.
 
-### 默认封装还是自定义
+### Library versus custom footprints
 
-不要先选择立场。将两套尺寸逐项对照厂家推荐焊盘及焊接工艺，说明哪一项匹配、哪一项是工艺放大量、哪一项没有依据。
+Compare both alternatives against manufacturer lands and the assembly process before choosing. Identify exact matches, process allowances, and unsupported dimensions.
 
-焊盘略大可能有利于焊接观察，也可能改变锡量、桥连风险、寄生参数和装配间距；“大一点总没问题”不是通用规则。自定义焊盘只有在尺寸和工艺证据明确时才替换库封装。
+Larger pads may improve joint visibility but also change solder volume, bridging risk, parasitics, and assembly clearance. “Slightly larger is always fine” is not a general rule. Replace a library footprint with a custom one only when dimensional and process evidence supports it.
 
-批量标准化按同一确切型号/料号分组，不能把不同器件全选后统一替换成一个目标。替换前后核对网络、脚号、BOM、封装与电气属性；保留位号/唯一ID时确认工具实际行为。
+Group bulk substitutions by exact part number. Do not select heterogeneous devices and replace all with one target. Check nets, pins, BOM, footprints, and electrical properties before and after replacement. Verify actual tool behavior when preserving reference designators or unique IDs.
 
-## 原理图与PCB一致性
+## Schematic/PCB consistency
 
-检查来源为真实连线/网表，而非视觉上相交的线条。针对错误的网标、被缩写的名字、同名电源域、隐藏电源脚、NC和重复焊盘分别检查。
+Use real connections and netlists, not visually crossing lines. Check incorrect or truncated net labels, identically named power domains, hidden power pins, NC pins, and duplicate pads.
 
-- 比较设计实例的位号、型号、值、是否装配/是否进BOM、引脚网络。
-- NC、机械脚、同编号多个实体焊盘、DNP器件有显式规则；不要仅按脚数不同判错。
-- 模块删除后重新导出网表和BOM，检查旧网名与悬空端点。
-- ERC/DRC警告查看具体内容，不仅记录计数；属性标准化提示与电气未连接是不同问题。
-- 不通过禁用规则、扩大豁免或添加假NC来消除真实错误。
+- Compare instance reference designators, part numbers, values, fitted/BOM status, and pin nets.
+- Define explicit treatment for NC, mechanical pins, multiple physical pads sharing a number, and DNP components. Pin-count differences alone do not establish an error.
+- Re-export the netlist and BOM after removing a functional block; check obsolete nets and dangling endpoints.
+- Inspect individual ERC/DRC warnings, not only counts. Property-standardization messages differ from electrical disconnections.
+- Do not remove real errors by disabling rules, expanding exemptions, or assigning false NC markers.
 
-G2通过条件：关键电气与引脚有原厂依据，关键封装有尺寸依据，网表/BOM一致，规则错误已处理或有具体且适用的豁免。无法读取封装或未检查的项目明确留为未核对。
+G2 passes when critical electrical connections and pins have manufacturer support, critical footprints have dimensional evidence, netlists and BOM agree, and rule violations are resolved or have specific applicable exemptions. Unreadable footprints and unperformed checks remain unverified.

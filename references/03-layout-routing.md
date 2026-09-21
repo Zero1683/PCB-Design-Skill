@@ -1,92 +1,92 @@
-# G3–G4：布局、布线、地铜和信号完整性
+# G3-G4: Placement, routing, ground copper, and signal integrity
 
-## 先把制造条件写进规则
+## Set manufacturing rules first
 
-读取目标板厂对应工艺的能力与公差，建立线宽/间距、钻孔、环宽、铜到板边、阻焊桥、丝印和叠层规则。规则值来自项目要求和工厂能力；不能为消除报错临时放宽。名义板厚不等于信号层到参考层介质厚度，外层成品铜厚与基铜也可能不同。
+Read the selected fabricator's capabilities and tolerances for the intended process. Set trace width/clearance, drill, annular ring, copper-to-edge, solder-mask dam, silkscreen, and stackup rules from project requirements and fabrication capability. Do not relax them merely to clear errors. Nominal board thickness differs from dielectric thickness between signal and reference layers; finished outer copper may differ from base copper.
 
-若阻抗是明确要求，优先取得板厂叠层并完成初步截面计算，再冻结层数/板厚和关键器件位置。不要等所有线画完才发现所需线宽无法穿过连接器区域。
+If controlled impedance is required, obtain the fabricator's stackup and calculate preliminary cross-sections before freezing layer count, thickness, and critical placement. Avoid discovering after routing that the required width cannot escape the connector.
 
-## 布局顺序
+## Placement order
 
-1. 固定板框、安装孔、插座配合面、按键操作面、天线和禁止区域。器件允许外伸的位置写明，不把全部越框一概判错。
-2. 放连接器、主控/模组和关键机械器件。检查线缆插拔、螺丝工具、相邻插头和外壳净空。
-3. 围绕电源器件按厂家参考布局放电感、输入/输出电容和反馈器件；先保障回路，不能用后期长线弥补器件摆得太远。
-4. 放传感器、去耦、偏置/上拉和接口保护。传感器轴向与固定方式要记录，不能只考虑平面好看。
-5. 给电源、差分线和必要信号预留通道，再填其余器件。单面装配不代表底面禁止所有信号，但优先保持参考地连续。
-6. 检查丝印、极性、位号归属和测量空间后，才进入大规模布线。
+1. Fix the outline, mounting holes, connector mating faces, button access, antenna, and keepouts. Document allowed overhang; do not reject every component extending past the outline.
+2. Place connectors, MCU/modules, and mechanically constrained parts. Check cable insertion/removal, screw-tool access, adjacent plugs, and enclosure clearance.
+3. Place inductors, input/output capacitors, and feedback parts around power ICs using manufacturer layouts. Preserve critical loops; long routing cannot compensate for distant components.
+4. Place sensors, decoupling, bias/pull resistors, and interface protection. Record sensor axes and mounting rather than optimizing only the plan view.
+5. Reserve channels for power, differential pairs, and required signals before filling remaining space. Single-sided assembly does not prohibit all bottom-layer signals, but prioritize a continuous reference ground.
+6. Check silkscreen, polarity, reference-designator association, and probe access before extensive routing.
 
-## 几何检查必须包含真实范围
+## Check actual geometry
 
-先统一内部单位、原点、旋转方向、镜像规则，再转换库坐标到板坐标。可用一个已知尺寸器件验证变换。底层翻转不能只改一个正负号。
+Establish internal units, origin, rotation convention, and mirroring before transforming library coordinates into board coordinates. Verify with a known-size component. Bottom-side transforms require more than changing one sign.
 
-为每个器件获取铜焊盘、器件本体/装配外形、courtyard、丝印和高度；保存来源和缺失字段。自动包围框可用于保守初筛，旋转器件/多边形可能需要精确轮廓复查。
+Obtain copper pads, body/assembly outline, courtyard, silkscreen, and height for each component. Record sources and missing fields. Bounding boxes provide a conservative first pass; rotated parts and polygons may require exact-contour review.
 
-输出：疑似重叠的位号对、间距、所在位置与截图。不能只输出“已排好49个器件”。缺库或无法解析的封装标为未检查，不当成空占用范围。
+Report suspected overlapping reference-designator pairs, clearance, location, and screenshots. Reporting only “49 components placed” is insufficient. Unavailable or unparsed footprints remain unchecked rather than having zero occupied area.
 
-装配额外检查：
+Additional assembly checks:
 
-- 两颗相邻两脚器件的四个焊盘不能容易被误认为另一组配对；拉开、转向或加清楚的装配图。
-- 位号不能落到别的元件旁，不能被连接器完全遮住；图中明确顶视和板头方向。
-- 插座1脚、锁扣、正负标识同时对应电气针序；线色只作提示。
-- EP/LGA底部不可探测的关键网络，从同网电阻、电容、过孔或测试点留可测路径。
-- 单面加热装配应考虑底部通孔脚、已经焊好的塑料件和加热台接触面。
-- 3D模型缺失时，用尺寸包络审查，准确报告没有完成整机三维验证。
+- Four pads from two adjacent two-terminal parts must not look like alternative pairings. Increase spacing, rotate parts, or provide a clear assembly drawing.
+- Keep reference designators associated with the correct part and visible around connectors. Indicate top view and board orientation.
+- Connector pin 1, latch, and polarity marks must agree with electrical pin order. Wire colors are only supporting cues.
+- Expose critical EP/LGA nets through same-net resistors, capacitors, vias, or test pads where hidden terminals cannot be probed.
+- For hot-plate assembly, consider bottom-side through-hole leads, already soldered plastic parts, and contact with the heating surface.
+- If 3D models are missing, review dimensional envelopes and report that complete 3D assembly validation remains unfinished.
 
-## 布线优先级与回路
+## Routing priorities and loops
 
-先电源开关回路、关键时钟/差分/敏感模拟，再主电源干线和普通控制信号；根据项目允许调整。
+Generally route switching-power loops, critical clocks/differential pairs/sensitive analog signals, then power trunks and ordinary control signals. Adapt this order to the project.
 
-电源区：最短高di/dt回路、输入电容回流、PGND/信号地关系、热焊盘和反馈取样位置均依据具体芯片。反馈不要从有大电流压降或噪声的任意点绕回。开关节点尽量紧凑，不能把它当普通电源铺成大片。
+Follow the specific IC's requirements for high-di/dt loop minimization, input-capacitor returns, PGND/signal-ground relationships, thermal pads, and feedback sensing. Do not sense feedback at arbitrary noisy points or points with high-current voltage drop. Keep switch nodes compact rather than treating them as large ordinary power pours.
 
-线宽依据电流、铜厚、温升和允许压降评估；检查最窄瓶颈、过孔数量和连接器，不用主干粗线掩盖细长扇出。短窄扇出是否可接受要说明长度与负载，不机械要求全网一个宽度。
+Evaluate widths against current, copper thickness, temperature rise, and allowed voltage drop. Check the narrowest necks, via count, and connectors; a wide trunk does not compensate for long narrow fanouts. Evaluate short narrow escapes using their actual length and load rather than requiring one width everywhere on the net.
 
-去耦检查的是“电源脚—电容—地”的连接路径，不只是两器件的直线距离。高频信号考虑返回电流；不要为了分模拟/数字地造成关键回流被切断。
+Review the complete power-pin/capacitor/ground decoupling path, not only component separation. Account for high-frequency return current; do not split analog/digital grounds in a way that breaks critical returns.
 
-自动布线仅作候选，完成后仍需检查电源路径、跨层、参考地、阻抗和装配。没有提供自动布线能力的工具，不虚构“全自动完成”。
+Treat autorouted traces as candidates requiring power-path, layer-transition, reference-ground, impedance, and assembly checks. Do not claim automatic routing when the available tool does not provide it.
 
-## 地铜和过孔
+## Ground pours and vias
 
-- 为预期地网络铺铜；天线和特定禁布区域按厂家保留。
-- 在合适位置连接顶底地，检查孤岛、狭窄颈部、无效热焊盘和回流绕路。
-- 信号换层考虑附近回流通道；接地过孔不是随意撒满全板。
-- 热焊盘/过孔是否直接开在焊盘内，取决于填孔盖帽/塞孔等制造工艺与焊接要求；不把没有专项检查的多边形焊盘宣称“全部无漏锡风险”。
-- 每次线路/规则/禁止区域变更后重建实际铺铜，读回铜边缘和网络，再运行完整连通检查。
+- Assign pours to the intended ground net and preserve manufacturer antenna and other keepouts.
+- Connect top and bottom ground where appropriate. Check islands, narrow necks, ineffective thermal-relief connections, and return-path detours.
+- Provide appropriate nearby return paths for signal layer changes; do not scatter ground vias arbitrarily.
+- Via-in-pad decisions depend on filling, capping, plugging, and assembly requirements. Do not claim polygon pads are free of solder-wicking risk without the relevant checks.
+- After routing, rule, or keepout changes, rebuild pours, read back actual copper edges and nets, and run full connectivity checks.
 
-## USB及其他受控阻抗接口
+## USB and other controlled-impedance interfaces
 
-记录协议和速率；按相应标准/厂家要求定目标阻抗、容差、长度和失配要求。USB 90Ω只是特定接口常见要求，不套到所有差分接口。
+Record protocol and speed. Derive impedance, tolerance, length, and mismatch requirements from the relevant standard and manufacturer guidance. A 90 Ω USB target applies to particular interfaces, not every differential pair.
 
-对需要计算的每一段记录：
+For each calculated segment, record:
 
-| 参数 | 必须明确 |
+| Parameter | Required detail |
 |---|---|
-| 层与模型 | 微带/带状/共面，单端/差分；实际信号层和参考层 |
-| 叠层 | 介质厚度、Dk适用频率、铜厚、阻焊等模型假设 |
-| W | 两根线是否等宽、单位、实际铜宽 |
-| S | 边缘间距，不是中心距 |
-| D | 同层左右铜边缘距离；对称还是不对称 |
-| 参考地 | 连续性、宽度、开槽、其他信号和反焊盘 |
-| 范围 | 该截面覆盖的起止位置、长度与变化 |
-| 过渡 | 焊盘、串阻、保护器件、过孔、换层、支路 |
+| Layer/model | Microstrip/stripline/coplanar; single-ended/differential; actual signal and reference layers |
+| Stackup | Dielectric thickness, applicable frequency for Dk, copper thickness, solder-mask and other model assumptions |
+| W | Actual copper width, units, and whether both traces have equal width |
+| S | Edge-to-edge spacing, not center pitch |
+| D | Left/right same-layer copper-edge clearance; symmetric or asymmetric |
+| Reference ground | Continuity, width, slots, other signals, and antipads |
+| Extent | Start/end locations, length, and variation covered by the cross-section |
+| Transitions | Pads, series resistors, protection devices, vias, layer changes, and stubs |
 
-不得以左右距离平均、沿线加权平均，替代非均匀结构的阻抗验证。对称计算器只有实际结构足够符合其假设时才适用。无法做场求解时，可以调整主要段几何与模型匹配，但仍要列出过渡段限制。
+Do not replace nonuniform impedance analysis with averages of left/right clearance or length-weighted averages. Symmetric calculators apply only when the actual geometry sufficiently meets their assumptions. If field solving is unavailable, align the main routed section with an applicable model and explicitly identify transition limitations.
 
-几何迭代操作：
+Geometry iteration:
 
-1. 保存修改前快照和当前实际截面。
-2. 用正确板厂叠层算候选几何，标记估算/目标。
-3. 调整线宽、边缘线距、铜间距和必要回流通道。
-4. 用适当的铺铜规则/局部约束维持间隙，避免重铺失效。
-5. 重铺后在多处读实际铜边缘，包括拐角与过渡附近。
-6. 保存计算器输入、结果、适用长度和仍未覆盖的结构。
-7. 分开报告“截面计算”“板厂可制造/阻抗服务确认”“实板通信”“TDR/眼图/合规”，不能互相代替。
+1. Save the pre-edit snapshot and actual existing cross-section.
+2. Calculate candidate geometry with the correct fabricator stackup; label estimates and targets.
+3. Adjust width, edge spacing, copper clearance, and necessary return paths.
+4. Maintain clearances with appropriate pour rules/local constraints so repouring preserves them.
+5. After repouring, measure actual copper edges at multiple points, including corners and transitions.
+6. Save calculator inputs, results, covered length, and structures outside the model.
+7. Report cross-section calculation, fabricator manufacturability/impedance-service confirmation, physical communication tests, and TDR/eye-diagram/compliance tests separately. They are not interchangeable.
 
-计算器给出绿字不代表工厂提供阻抗测试；制造能力提示要单独处理。已知差分结构严重不匹配且没有依据时，不因用户说“差不多”就伪称达到目标；可在授权下作为明确风险的试验样板。
+A green calculator result does not establish that fabrication includes impedance testing. Resolve capability warnings separately. If the differential geometry is known to be substantially mismatched and lacks justification, do not claim the target is met because the user accepts “close enough.” An authorized experimental prototype may proceed with explicit risks.
 
-## 最终静态检查
+## Final static checks
 
-重铺后运行全板DRC/ERC及未连接检查，保存规则、豁免和完整结果；检查网表/PCB/BOM逐器件逐引脚一致。几何专项脚本作为补充，不代替EDA连通图；仅按线段端点相接会漏掉铜线与焊盘/铺铜重叠。
+After repouring, run applicable whole-design DRC/ERC and unrouted-connection checks. Save rules, exemptions, and full results. Compare netlist, PCB, and BOM component by component and pin by pin. Geometric scripts supplement the EDA connectivity graph; segment-endpoint matching alone misses trace overlap with pads and pours.
 
-凡解释为“已连通”的结论要有实际EDA图或可信连接分析；API无返回、空值、超时与成功返回空错误列表不同。
+Connectivity conclusions require actual EDA connectivity data or trustworthy analysis. Missing API returns, nulls, and timeouts differ from a successful empty error list.
 
-检查完保存，重新读取或打开确认。若最终再挪一个器件/一条线，受影响检查失效，不能继续沿用原终检结果。
+Save and reread or reopen the checked design. A subsequent component or trace move invalidates affected checks; do not reuse the earlier final-inspection conclusion unchanged.

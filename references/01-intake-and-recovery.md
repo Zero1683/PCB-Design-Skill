@@ -1,74 +1,74 @@
-# G0：需求、边界与恢复上下文
+# G0: Requirements, scope, and context recovery
 
-## 新项目先提取，不先发长问卷
+## Extract confirmed requirements before asking questions
 
-从当前对话、附件、项目文件提取已确认条件。按下面的表记录 `confirmed / proposed / unknown / superseded`，重要未知项不能自动采用旧案例参数。
+Read the conversation, attachments, and project files. Record parameters as `confirmed / proposed / unknown / superseded`. Do not fill important unknowns with values from a previous case.
 
-| 类别 | 需要确定什么 | 决策影响 |
+| Category | Establish | Design impact |
 |---|---|---|
-| 功能 | 输入、输出、计算、通信、响应速度、运行方式 | MCU、接口、存储、传感器 |
-| 电源 | 每种输入的最小/标称/最大电压、连续/峰值电流、插拔组合 | 电源拓扑、保护、接口额定 |
-| 电池 | 化学体系、串数、保护板、线序、充电方式、容量来源 | 充电和低压保护；不能只看“14500”外形 |
-| 机械 | 板框、圆角、孔位、接口朝向、外壳净空、天线、电池位置 | 不能只约束宽×长，必须包含装配包络 |
-| 制造 | 层数、叠层、铜厚、表面处理、板厂能力和公差 | 线宽间距、孔、阻抗与成本 |
-| 装配 | 手焊/钢网/工厂贴装，单/双面，最小可处理封装 | 封装、间距、测试点、贴装顺序 |
-| 工具 | 万用表、限流电源、示波器、放大镜、热风、加热面积 | 哪些项目可现场验证，哪些要外部测量 |
-| 维护 | 下载口、恢复模式、测试点、可更换器件、固件升级 | 不把正常运行依赖于唯一不可恢复的路径 |
-| 交付 | 样板数量、源工程、制造包、文档、许可证 | 不自行加入产品背景，不自动采购/发布 |
+| Function | Inputs, outputs, computation, communication, response time, operating modes | MCU, interfaces, storage, sensors |
+| Power | Minimum/nominal/maximum voltage for every input, continuous/peak current, connection combinations | Topology, protection, connector ratings |
+| Battery | Chemistry, series count, protection board, pin order, charging method, capacity source | Charging and undervoltage protection; a “14500” form factor is insufficient |
+| Mechanics | Outline, corner radii, holes, connector orientation, enclosure clearance, antenna and battery positions | Include the assembly envelope, not just board width and length |
+| Manufacturing | Layers, stackup, copper weight, finish, fabricator capabilities and tolerances | Trace widths, clearances, holes, impedance, cost |
+| Assembly | Hand soldering/stencil/factory assembly, single/double sided, smallest manageable package | Packages, spacing, test points, assembly order |
+| Tools | Multimeter, current-limited supply, oscilloscope, magnification, hot air, heating area | What can be verified locally and what requires external measurement |
+| Maintenance | Programming interface, recovery mode, test points, replaceable parts, firmware update | Avoid dependence on a sole unrecoverable operating path |
+| Delivery | Prototype quantity, source project, manufacturing package, documentation, license | Do not invent project background or automatically purchase/publish |
 
-仅把“会改变当前设计”的缺失项提出。例：电池串数、USB是否供电、外壳宽度是硬依赖；阻焊颜色通常不阻塞原理图。给一个有依据的建议并解释取舍，继续独立可完成的选型和资料核对。
+Ask only about missing information that changes the current design. Battery series count, whether USB supplies power, and enclosure width may be hard dependencies; solder-mask color usually does not block schematic work. Recommend an evidence-based option, explain its tradeoff, and continue independent selection and documentation checks.
 
-尺寸写清单位和对象：PCB板框、模组外伸、USB外壳突出、底面通孔脚、整机包络各记一项。两个尺寸冲突时读取板框或实测，不能把口述的新数字默默覆盖历史制造数据。
+State units and the object being measured: board outline, module overhang, USB shell projection, bottom-side through-hole leads, and complete assembly envelope. Resolve conflicting dimensions from the outline or physical measurement; do not silently replace manufacturing history with a newly spoken number.
 
-## 既有项目接手
+## Existing projects
 
-优先级不是“日期最新的文件一定正确”。按用途确定权威来源：
+A newer file is not automatically authoritative. Establish authority by purpose:
 
-1. 当前用户明确指令决定允许修改的范围。
-2. 实際下单包/订单预览决定已造裸板的制造版本。
-3. 正在编辑的工程是设计修改对象，未必与已造板相同。
-4. 原理图网表、PCB数据、BOM应相互核对，冲突要显式记录。
-5. 实板编号、返修记录、固件版本决定测试结论可以用于哪一块板。
-6. 历史报告是定位线索，不自动继承 PASS。
+1. Current explicit user instructions define the permitted edit scope.
+2. The submitted manufacturing package and order preview identify the fabricated bare-board revision.
+3. The active editable project is the target for design changes and may differ from the fabricated board.
+4. Cross-check schematic netlist, PCB data, and BOM; record conflicts explicitly.
+5. Physical board ID, rework history, and firmware revision determine which board a test conclusion covers.
+6. Historical reports are investigation leads, not inherited PASS results.
 
-若缺完整原生工程，只能提供交换格式或文档快照，准确命名，记录缺少库/工程层级等限制。不要把几张截图或一个 `.epcb` 命名成“完整可编辑工程”。
+If only exchange files or snapshots are available, label them accurately and record missing libraries or project hierarchy. A few screenshots or an isolated `.epcb` file must not be described as a complete editable project.
 
-先形成项目摘要；只读任务在会话中给出，不创建或更新工程旁的记录文件。允许写入时再保存到项目记录：
+First produce a project summary. For read-only tasks, report it in the conversation without creating or updating adjacent records. Save it only when writes are allowed:
 
 ```text
-工作模式：只读审查 / 局部修改 / 新设计 / 制造 / 装配 / 调试
-权威设计文件及版本：...
-已制实板及制造包：...
-明确不能改的内容：...
-本次允许完成的范围：...
-当前已知失败及原始证据：...
-还缺什么，影响哪一步：...
+Mode: read-only review / local revision / new design / manufacturing / assembly / debugging
+Authoritative design files and revision: ...
+Fabricated boards and manufacturing package: ...
+Explicitly protected content: ...
+Authorized scope for this task: ...
+Known failures and original evidence: ...
+Missing information and the step it affects: ...
 ```
 
-不要为了“优化全部”任意更换芯片、针序或机械接口。区分已授权的优化与会改变使用方法的架构变更。
+“Optimize everything” does not justify arbitrary chip, pin-order, or mechanical-interface changes. Distinguish authorized optimization from architecture changes that alter use.
 
-## 需求冻结与变更
+## Requirements baseline and changes
 
-每次电源、引脚或机械修改，记录：原因、旧值、新值、受影响文件、需要重跑的检查。例如把传感器中断换到可唤醒引脚，要同步原理图、PCB、接口表、固件和测试方案；仅改标签不够。
+For every power, pin, or mechanical change, record reason, old value, new value, affected files, and checks to repeat. Moving a sensor interrupt to a wake-capable pin requires updating schematics, PCB, interface tables, firmware, and tests; changing a label alone is insufficient.
 
-当用户改为外部充电：删除相关器件后，检查原理图、PCB、采购表、接口、电源状态、说明和固件引脚是否仍残留旧功能。位号断号正常，不要为漂亮而打乱已有实板位号。
+If charging moves off-board, remove the relevant components and check schematics, PCB, purchasing lists, interfaces, power states, instructions, and firmware pins for obsolete functionality. Gaps in reference designators are acceptable; do not renumber a fabricated design for cosmetic consistency.
 
-## 供电状态表必须先于布线
+## Define power states before routing
 
-逐个列出实际可出现的组合，例如电池有/无、USB有/无、开关开/关、调试器连接/断开。每行写：
+List every realistic combination, such as battery present/absent, USB connected/disconnected, switch on/off, and debugger connected/disconnected. For each state, specify:
 
-- 哪个输入向哪条电源轨供电；
-- 电池是否充电；
-- 开关是切断主电流还是控制 EN；
-- 信号线是否可能在主电源关闭时反向供电；
-- 有无电源并接，如何避免冲突；
-- MCU预期运行、复位还是断电；
-- 需要实测的项目。
+- which input supplies each rail;
+- whether the battery charges;
+- whether the switch interrupts load current or controls EN;
+- possible back-powering through signals when main power is off;
+- any paralleled supplies and how contention is avoided;
+- whether the MCU should run, remain in reset, or be unpowered;
+- measurements required.
 
-不要因为出现 Type-C 接口就默认它同时提供供电、充电、USB Host、PD 或高速 USB 功能。
+A Type-C connector does not establish power input, charging, USB Host, PD, or high-speed USB capability.
 
-## 可接受的计划输出
+## Planning deliverables
 
-给出功能框图、初步电源/引脚表、器件选型方向、机械草图、阶段顺序和未知项。根据需求确定功耗/响应/误差/温升等可测指标；不能等到测试后再把测得值重新定义为合格线。
+Provide a functional block diagram, preliminary power and pin tables, part-selection direction, mechanical sketch, stage order, and unknowns. Define measurable power, response, accuracy, and temperature-rise requirements before testing; do not redefine acceptance to match the result afterward.
 
-如果用户要求“直接画”，这些内容可以作为过程产物自主完成，不要求每张表都等待用户确认。
+A request to design directly authorizes producing these intermediate artifacts within scope without waiting for approval of every table.

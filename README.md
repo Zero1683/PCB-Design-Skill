@@ -116,6 +116,8 @@ USB-C 供电，元件全部放在顶层，采用钢网和加热台装配。
 | [EDA 操作](references/06-easyeda-execution.md) | API 调用、单位、状态与结果核对 |
 | [记录模板](assets/) | PROJECT、CHECKS、HANDOFF |
 
+核心 Skill、工程参考和模板采用英文；回复和生成的项目记录跟随用户语言。上游 API 文档保留原文。
+
 <details>
 <summary><strong>辅助命令与运行配置</strong></summary>
 

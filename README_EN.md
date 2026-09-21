@@ -116,7 +116,7 @@ Record conditions, results, and open items at each stage. Verify footprints agai
 | [EDA operations](references/06-easyeda-execution.md) | API calls, units, state, and result checks |
 | [Project templates](assets/) | PROJECT, CHECKS, and HANDOFF |
 
-Engineering references are primarily in Chinese. Upstream API documentation retains its original language.
+The core skill, engineering references, and templates are written in English. Replies and generated project records follow the user’s language. Upstream API documentation retains its original language.
 
 <details>
 <summary><strong>Helper commands and runtime configuration</strong></summary>

@@ -1,83 +1,83 @@
-# {{PROJECT_NAME}} — PCB 项目合同与设计基线
+# {{PROJECT_NAME}}: PCB Project Requirements and Design Baseline
 
-创建时间：{{CREATED_UTC}}
+Created: {{CREATED_UTC}}
 
-空白项表示尚未确定，不表示默认通过。按项目范围填写/删除不适用行；所有数值注明单位和来源。
+Blank fields are unresolved, not implicitly passed. Complete the applicable rows and remove inapplicable rows according to the project scope. Give units and sources for every numeric value.
 
-## 1. 工作范围与授权
+## 1. Scope and Authorization
 
-- 当前任务模式：
-- 本次允许修改：
-- 明确不能修改：
-- 下单/付款/公开发布授权（如有，记录来源）：
-- 当前阶段：G0
-- 工程工作目录、工具及版本：
-- 当前权威设计基线ID：
-- 已下单制造包/订单/哈希（若无，写未下单）：
-- 实板ID与装配版本（若无，写未制作）：
+- Current task mode:
+- Changes authorized for this task:
+- Changes explicitly prohibited:
+- Authorization to order, pay, or publish (record its source, if applicable):
+- Current stage: G0
+- Project working directory, tools, and versions:
+- Current authoritative design baseline ID:
+- Manufacturing package, order, and hash already submitted (write “not ordered” if none):
+- Physical board ID and assembly revision (write “not built” if none):
 
-## 2. 需求与限制
+## 2. Requirements and Constraints
 
-| ID | 要求/参数及单位 | 状态 confirmed/proposed/unknown/superseded | 用户/文件来源 | 对设计的影响 |
+| ID | Requirement or parameter with units | Status: confirmed/proposed/unknown/superseded | User or document source | Design impact |
 |---|---|---|---|---|
-| REQ-01 | 功能、响应、通信 | unknown | | |
-| REQ-02 | 输入电源范围、负载峰值 | unknown | | |
-| REQ-03 | 板框、孔位、装配包络 | unknown | | |
-| REQ-04 | 层数、叠层、板厚、铜厚 | unknown | | |
-| REQ-05 | 装配面、最小封装、工具条件 | unknown | | |
-| REQ-06 | 下载、恢复、测试点 | unknown | | |
-| REQ-07 | 预算、数量、工艺与交付 | unknown | | |
+| REQ-01 | Functions, response, and communication | unknown | | |
+| REQ-02 | Input supply range and peak load | unknown | | |
+| REQ-03 | Board outline, hole locations, and assembly envelope | unknown | | |
+| REQ-04 | Layer count, stackup, board thickness, and copper thickness | unknown | | |
+| REQ-05 | Assembly side, minimum package size, and available tools | unknown | | |
+| REQ-06 | Programming, recovery, and test points | unknown | | |
+| REQ-07 | Budget, quantity, manufacturing process, and deliverables | unknown | | |
 
-## 3. 电源状态与预算
+## 3. Power States and Budget
 
-| 输入/USB/电池/开关/调试器组合 | 电流来源和路径 | 哪些轨有电 | 充电/反供电行为 | 预期MCU状态 | 实测项目 |
+| Input/USB/battery/switch/debugger combination | Current source and path | Powered rails | Charging and backfeed behavior | Expected MCU state | Physical measurements required |
 |---|---|---|---|---|---|
 
-| 负载/电源轨 | 输入范围 | 稳态/峰值/启动 | 效率/压降假设 | 器件与热余量 | 来源 |
+| Load or rail | Input range | Steady-state/peak/startup current | Efficiency or voltage-drop assumptions | Component and thermal margins | Source |
 |---|---|---|---|---|---|
 
-## 4. 关键器件与封装依据
+## 4. Critical Components and Footprint References
 
-| 位号 | 厂家/完整型号/供应商号 | 手册版本及章节 | 电气选择理由 | 推荐落点与库尺寸核对 | 未解决项 |
+| Reference designator | Manufacturer/full part number/supplier part number | Datasheet revision and section | Electrical selection rationale | Recommended land pattern vs. library dimensions | Open items |
 |---|---|---|---|---|---|
 
-## 5. 引脚与可测通路
+## 5. Pin Mapping and Accessible Measurement Paths
 
-| 功能 | 位号-封装脚号 | 芯片GPIO/网名 | 方向/启动电平 | 接口针序/极性 | 外露替代测点 | 固件定义 |
+| Function | Reference designator and package pin | Chip GPIO/net name | Direction and startup level | Connector pin order/polarity | Accessible alternative test point | Firmware definition |
 |---|---|---|---|---|---|---|
 
-## 6. 制造与装配参数
+## 6. Manufacturing and Assembly Parameters
 
-- 板厂/工艺版本和读取日期：
-- 板框与器件外伸范围：
-- 实际叠层、铜厚与介质参数：
-- 最小线/距、孔/环宽、铜到边、阻焊与丝印规则：
-- 特殊孔/槽、天线及机械禁止区域：
-- 受控阻抗模型、尺寸、范围及未覆盖的过渡：
-- 表面处理、钢网面/厚度/特殊开口：
-- 装配顺序、极性图、通孔件和热工具限制：
+- Fabricator, process specification revision, and date accessed:
+- Board outline and component overhang:
+- Actual stackup, copper thickness, and dielectric parameters:
+- Minimum trace width/spacing, hole size/annular ring, copper-to-edge clearance, solder-mask rules, and silkscreen rules:
+- Special holes/slots, antenna keepouts, and mechanical keepouts:
+- Controlled-impedance model, dimensions, applicable sections, and transitions not covered:
+- Surface finish, stencil side/thickness, and special apertures:
+- Assembly sequence, polarity drawing, through-hole parts, and heating-tool limitations:
 
-## 7. 验收判据
+## 7. Acceptance Criteria
 
-在测试前定义，详见 CHECKS.csv。没有实板/仪器的项目保持未测。
+Define these before testing; record details in CHECKS.csv. Checks requiring an unavailable physical board or instrument remain untested.
 
-| 功能或工况 | 测量方法/仪器/测点 | 负载与供电 | 合格范围/次数/时长 | 原始结果文件 |
+| Function or operating condition | Measurement method/instrument/test point | Load and supply | Acceptable range/repetitions/duration | Raw result file |
 |---|---|---|---|---|
 
-## 8. 变更、问题与降级
+## 8. Changes, Issues, and Reduced Functionality
 
-| 日期 | 旧基线→新基线 | 修改及原因 | 受影响文件/检查 | 用户决定来源（如需要） |
+| Date | Previous baseline → new baseline | Change and reason | Affected files/checks | Source of user decision, if required |
 |---|---|---|---|---|
 
-| 问题 | 事实与证据 | 假设 | 下一项区分测试 | 已接受限制及来源 |
+| Issue | Facts and evidence | Hypothesis | Next test to distinguish possible causes | Accepted limitations and their sources |
 |---|---|---|---|---|
 
-## 9. 文件入口
+## 9. File Locations
 
-- 源工程/必要器件库：
-- 原理图/PCB/网表/BOM：
-- 实际制造包/钢网/坐标/装配图：
-- DRC/ERC及规则：
-- 固件/下载脚本/恢复方法：
-- 检查表：CHECKS.csv
-- 交接：HANDOFF.md
+- Source project and required component libraries:
+- Schematic, PCB, netlist, and BOM:
+- Actual manufacturing package, stencil, placement data, and assembly drawing:
+- DRC/ERC results and rules:
+- Firmware, programming scripts, and recovery procedure:
+- Checklist: CHECKS.csv
+- Handoff: HANDOFF.md

@@ -1,43 +1,43 @@
-# {{PROJECT_NAME}} — 继续工作的入口
+# {{PROJECT_NAME}}: Work Handoff
 
-更新于：{{CREATED_UTC}}
+Updated: {{CREATED_UTC}}
 
-## 当前状态
+## Current Status
 
-- 当前授权范围：
-- 工作模式与阶段：
-- 最近一次动作及实际结果：
-- 当前结论及其适用范围：尚未执行检查
+- Current authorized scope:
+- Work mode and stage:
+- Most recent action and actual result:
+- Current conclusion and its scope: No checks performed
 
-## 身份与文件
+## Identity and Files
 
-- 设计版本/基线/权威工程：
-- 制造包/订单/哈希及与工程的关系：
-- 实板编号/返修记录：
-- 固件版本/哈希/需保留的用户数据：
-- 当前工具、桥接窗口/文档ID：
-- 当前端口、设备身份、串口占用者：
+- Design revision, baseline, and authoritative project:
+- Manufacturing package, order, hash, and relationship to the project:
+- Physical board ID and rework history:
+- Firmware version, hash, and user data to preserve:
+- Current tools, bridge window, and document ID:
+- Current port, device identity, and process holding the serial port:
 
-## 当前接线与供电
+## Current Wiring and Power
 
-- 输入来源/电压/限流/开关状态：
-- USB和调试器接了哪些针，谁负责供电：
-- 接口针序与易误认方向：
-- 同网外露测点图/表：
+- Input source, voltage, current limit, and switch state:
+- USB/debugger pins connected and which source supplies power:
+- Connector pin order and easily confused orientations:
+- Diagram or table of accessible test points on the same nets:
 
-## 已知证据
+## Known Evidence
 
-- 已通过：列 CHECKS.csv 检查ID和证据路径，不能只写“正常”
-- 已知失败：
-- 尚未测试或工具不支持：
-- 用户接受的限制和准确来源：
-- 被新版本取代的旧结论：
+- Passed checks: List CHECKS.csv check IDs and evidence paths; “normal” alone is insufficient.
+- Known failures:
+- Untested checks or checks unsupported by the available tools:
+- User-accepted limitations and their exact sources:
+- Older conclusions superseded by a new revision:
 
-## 下一步
+## Next Steps
 
-- 可以直接执行的动作：
-- 需要用户配合时的完整测量指令：
-- 结果A后的动作：
-- 结果B后的动作：
-- 阻塞条件及恢复办法（若有）：
-- 回滚快照或恢复下载方法：
+- Action that can be executed directly:
+- Complete measurement instructions if user assistance is needed:
+- Action after result A:
+- Action after result B:
+- Blocking condition and recovery procedure, if any:
+- Rollback snapshot or recovery programming procedure:

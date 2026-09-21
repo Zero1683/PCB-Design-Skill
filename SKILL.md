@@ -1,72 +1,76 @@
 ---
 name: pcb-design-to-bringup
-description: 将电子产品需求转成可制造、可装配、可调试的 PCB，执行选型、原理图、封装核对、布局布线、制造交付和实板验收。用于从零设计、已有板审查或返修、打板准备和首板调试；通过阶段证据和交接文件供没有项目记忆的 AI 继续工作。支持嘉立创EDA，也可使用其他 EDA，不用于仅修改固件或制作外壳。
+description: Design manufacturable, assembleable, and testable PCBs from hardware requirements. Covers component selection, schematics, footprint verification, placement and routing, manufacturing handoff, and hardware acceptance. Use for new designs, board reviews and rework, fabrication preparation, and first-board bring-up. Includes staged verification records and project handoff templates. Supports EasyEDA and workflows in other EDA tools. Not for firmware-only changes or enclosure modeling.
 ---
 
-# PCB 设计到实板验证
+# PCB Design to Bring-up
 
-已内置 EasyEDA API Skill 1.1.28、完整 API/格式文档、桥接服务和 ws 运行依赖，无需单独安装 easyeda-api。首次配置见 [开箱说明](START_HERE.md)；实际操作按 [EDA 执行](references/06-easyeda-execution.md) 读取内置工具文档并启动服务。Node.js 与 EDA 桌面客户端/Gateway 扩展仍需在目标机器具备。只做流程咨询或文件审查时不启动服务。
+EasyEDA API Skill 1.1.28, API and source-format documentation, the bridge server, and the ws runtime dependency are bundled. No separate easyeda-api installation is required. See [setup](START_HERE.md) and follow [EDA operations](references/06-easyeda-execution.md) to load the relevant tool documentation and start the bridge. The target machine still needs Node.js, the EDA desktop client, and its Gateway extension. Do not start a service for workflow advice or file-only review.
 
-目标是交付能被继续制造、装配、测量和维护的设计。尽量在第一次打样前消除已知问题，但不要承诺“一次成功”或把没有样板的静态设计称为成熟产品。
+Deliver designs that can be manufactured, assembled, measured, and maintained. Resolve known issues before the first prototype, but do not promise first-pass success or describe an unbuilt design as a mature product.
 
-## 首次接手
+## Language
 
-1. 识别任务模式：新设计、只读审查、局部修改、制造准备、装配指导、实板排故。已有项目从当前阶段进入，不要求重做已有效完成的阶段。
-2. 先读项目规则、`PROJECT.md`、`HANDOFF.md`、`CHECKS.csv`（若存在），核对实际工程、发布版本和实板编号。历史文字、屏幕截图和已发往工厂的文件可能不是同一版。
-3. 读取 [需求与无记忆接手](references/01-intake-and-recovery.md)。优先从已有资料提取参数，只询问会改变架构、接口或制造结果的缺失信息；已经明确的要求不再重复确认。
-4. 对允许写入的任务，在用户授权的工作目录保存新项目，遵守环境的磁盘偏好。可用 `scripts/init_project.py` 初始化下方模板，不覆盖已有文件。没有 Python 时直接复制模板。只读审查默认只在会话中交付，不初始化或更新项目文件；使用不会改写原项目的读取方式。
-5. 按任务阶段读取下表参考。嘉立创EDA实操另读 [工具执行](references/06-easyeda-execution.md)；不启动与本次任务无关的服务。
+Use the user's language for conversation, explanations, and generated project records unless they request otherwise. Keep API names, commands, file paths, identifiers, status values, and template placeholders unchanged. English instructions do not require English replies.
 
-## 不可丢失的执行约束
+## Starting a task
 
-- 用户的尺寸、单面装配、器件保留、只读、成本和工具条件进入项目约束；案例中的 24×70 mm、两层 1.6 mm、1 oz、0603、ESP32-C3、COM30 都不是通用默认值。
-- 在已有授权范围内完成备份、读取、检查和修改，不给每一阶段额外设置审批。新器件、板框、接口或功能变更超出已授权范围时，先形成具体方案；下单、付款、公开发布要有相应用户授权。
-- “先不要改”意味着只读；用户随后允许修改指定区域时仅扩大到该范围。遇到其他问题继续记录，不能擅自改全板。
-- 先查确切厂家、确切型号和封装后缀的手册，再连接电路；主控裸芯片、模组、同名兼容芯片不能互套引脚和指标。
-- 不用默认库、自画封装、推荐器件或 3D 模型的外观代替尺寸证据。替换前列出实际变化，不为清除属性提示而盲目标准化。
-- 布局必须检查旋转后的真实焊盘和器件外形、装配间距、插拔空间与丝印辨识；按中心点排坐标或 DRC=0 不能证明不重叠。
-- 未经测量的几何必须标为假设；电源线宽、差分阻抗、回流条件必须对应实际叠层与电流。平均铜间距不能证明非均匀线路的阻抗。
-- 每次变更后读取实际结果、重铺必要铜层并重跑受影响检查；不要把 API 成功响应等同于修改成功。改动无效或结果异常时，停止叠加操作，读取状态后再决定重试或回滚。
-- 隐藏焊点、启动脚、调试接口在设计时预留可测通路。把手工装配方向和针序直接画清楚，不要求用户凭记忆猜测。
-- 每个通过项应有版本、条件、方法和结果。未测、工具不支持、用户接受的限制必须各自说明，不能改成 PASS。
+1. Identify the mode: new design, read-only review, local revision, manufacturing preparation, assembly guidance, or hardware troubleshooting. Resume existing projects at the relevant stage without repeating valid completed work.
+2. Read project rules and any `PROJECT.md`, `HANDOFF.md`, and `CHECKS.csv`. Verify the actual project, release revision, and physical board ID. Historical text, screenshots, and files sent to fabrication may describe different revisions.
+3. Read [requirements and context recovery](references/01-intake-and-recovery.md). Extract confirmed parameters first. Ask only for missing information that affects architecture, interfaces, or manufacturing outcomes; do not reconfirm settled requirements.
+4. For tasks permitting writes, save new work in the authorized directory and follow storage preferences. Use `scripts/init_project.py` to initialize templates without overwriting files, or copy them manually if Python is unavailable. For read-only reviews, report in the conversation by default; do not initialize or update project records, and use access methods that leave the original project unchanged.
+5. Load references for the relevant stage below. For live EasyEDA work, also read [EDA operations](references/06-easyeda-execution.md). Do not start unrelated services.
 
-## 阶段与退出条件
+## Execution constraints
 
-按实际范围执行相应阶段。阶段检查是工程判据，不是额外向用户申请权限的流程。
+- Record the user's dimensions, assembly side, retained parts, read-only scope, budget, and available tools. Case values such as 24 x 70 mm, two layers, 1.6 mm, 1 oz, 0603, ESP32-C3, and COM30 are not universal defaults.
+- Perform backups, reads, checks, and edits within existing authorization without adding approval gates at every stage. Prepare a concrete proposal for component, outline, interface, or functional changes outside that scope. Ordering, payment, and public release require the corresponding authorization.
+- Treat “do not change it yet” as read-only. Later permission to modify one area extends scope only to that area. Record other issues without silently modifying the whole board.
+- Read the datasheet for the exact manufacturer, part number, and package suffix before connecting the circuit. Bare chips, modules, and similarly named compatible parts do not share pinouts or ratings by assumption.
+- Verify dimensions using evidence rather than library defaults, custom footprints, recommended-part labels, or 3D appearance. List actual changes before replacement; do not standardize blindly to remove property warnings.
+- Check rotated physical pads and component outlines, assembly clearance, connector access, and silkscreen identification. Center coordinates or zero DRC errors do not establish absence of overlap.
+- Mark unmeasured geometry as assumed. Evaluate power-trace widths, differential impedance, and return-path conditions against the actual stackup and current. Average copper clearance cannot validate a nonuniform route.
+- Read back every change, rebuild affected copper pours, and repeat affected checks. API success does not establish a successful edit. If edits fail or results are abnormal, stop adding operations, read the state, and decide whether to retry or roll back.
+- Provide accessible test paths for hidden joints, boot pins, and debug interfaces. Draw manual-assembly orientation and pin order explicitly.
+- Every passed check needs its revision, conditions, method, and result. Distinguish untested items, unsupported checks, and accepted limitations; do not relabel them PASS.
 
-| 阶段 | 本阶段必须得到的结果 | 执行参考 |
+## Stages and exit criteria
+
+Apply stages relevant to the authorized scope. These are engineering criteria, not additional approval procedures.
+
+| Stage | Required outcome | Reference |
 |---|---|---|
-| G0 需求与基线 | 功能、供电、机械、装配、制造约束与未知项清楚；明确当前权威版本 | [01](references/01-intake-and-recovery.md) |
-| G1 架构与选型 | 电源状态、预算、引脚分配、可采购器件、数据手册来源 | [02](references/02-circuit-and-library.md) |
-| G2 原理图与封装 | 逐引脚核对、关键封装尺寸证据、ERC/DRC问题处理、BOM一致 | [02](references/02-circuit-and-library.md) |
-| G3 布局 | 机械与真实外形不冲突、关键回路能布、手工装配可辨识 | [03](references/03-layout-routing.md) |
-| G4 布线与地铜 | 电源/关键接口/回流合理，最终铜皮回读和完整连通检查有证据 | [03](references/03-layout-routing.md) |
-| G5 制造发布 | 冻结快照、制造文件独立预览、BOM/坐标/钢网一致、限制披露 | [04](references/04-release-assembly.md) |
-| G6 装配与断电检查 | 正确印膏、方向、冷却检查；实板身份、断电测量可追溯 | [04](references/04-release-assembly.md) |
-| G7 限流上电与下载 | 电源、复位、启动、电平匹配、至少一条恢复下载通路实测 | [05](references/05-bringup-debug.md) |
-| G8 功能与边界测试 | 传感器/接口/负载/冷启动等按需求实测，故障和降级明确 | [05](references/05-bringup-debug.md) |
-| G9 交付 | 文件与实板对应、已测/未测/下一步清楚，另一 AI 可接手 | [08](references/08-evidence-and-handoff.md) |
+| G0 Requirements and baseline | Functions, power, mechanics, assembly, manufacturing constraints, unknowns, and authoritative revision identified | [01](references/01-intake-and-recovery.md) |
+| G1 Architecture and parts | Power states, budgets, pin assignment, procurable parts, and datasheet sources | [02](references/02-circuit-and-library.md) |
+| G2 Schematics and footprints | Pin-by-pin checks, critical footprint dimensions, ERC/DRC disposition, and consistent BOM | [02](references/02-circuit-and-library.md) |
+| G3 Placement | Mechanical and physical envelopes clear, critical routes feasible, manual assembly unambiguous | [03](references/03-layout-routing.md) |
+| G4 Routing and ground | Appropriate power paths, critical interfaces, and returns; final copper readback and complete connectivity evidence | [03](references/03-layout-routing.md) |
+| G5 Manufacturing release | Frozen snapshot, independent manufacturing-file preview, consistent BOM/placement/stencil, disclosed limitations | [04](references/04-release-assembly.md) |
+| G6 Assembly and unpowered checks | Correct paste print, orientation, and checks after cooling; traceable board identity and unpowered measurements | [04](references/04-release-assembly.md) |
+| G7 Current-limited power-up and programming | Measured power, reset, boot, logic compatibility, and at least one recovery programming path | [05](references/05-bringup-debug.md) |
+| G8 Functional and boundary tests | Required sensor/interface/load/cold-start tests completed; failures and reduced functionality documented | [05](references/05-bringup-debug.md) |
+| G9 Handoff | Files mapped to physical boards; tested scope, untested scope, and next steps recorded for continued work | [08](references/08-evidence-and-handoff.md) |
 
-工具不可用或实板未到时，继续完成不依赖它的工作，交付可审查成果并说明准确阻塞点。不伪造 DRC、仿真、连通性、截图或示波器结果。
+When a tool or physical board is unavailable, continue independent work and deliver reviewable results with the exact blocker. Never invent DRC, simulation, connectivity, screenshot, or oscilloscope results.
 
-## 如何表达成熟度
+## Reporting maturity
 
-- **设计审查完成**：所列静态检查通过，说明基线和覆盖范围。
-- **可进行工程打样**：设计和制造包达到本次打样条件；把接受的残余风险列明。不是量产保证。
-- **样板基本功能通过**：指明哪一块板、哪些固件、供电和接口组合通过哪些测试。
-- **完成规定验证**：需求中定义的测试范围都已有证据；“规定范围”必须可查。不要将其泛化成所有工况、法规认证或无限续航。
+- **Design review complete:** specified static checks passed; identify baseline and coverage.
+- **Ready for engineering prototyping:** the design and manufacturing package meet the conditions for this prototype; list accepted residual risks. This is not a mass-production guarantee.
+- **Basic prototype functions passed:** identify the board, firmware, power/interface combinations, and tests.
+- **Specified verification complete:** evidence covers the defined requirements and tests; make that scope accessible. Do not generalize to all operating conditions, regulatory certification, or unlimited battery life.
 
-规则及记录格式见 [证据与交接](references/08-evidence-and-handoff.md)。如果用户接受某项降级，保留原需求变更记录和限制，不能据此宣布原功能通过。
+See [evidence and handoff](references/08-evidence-and-handoff.md). When the user accepts reduced functionality, retain the requirements change and limitations. Acceptance does not make the original function pass.
 
-## 复用本次经验
+## Case lessons
 
-读 [指令—行动—失败模式对照](references/07-case-lessons.md) 了解这些约束的来由。它用于行为校准，不能把旧项目的具体电气数值复制到新板。
+Read [instructions, actions, and failure modes](references/07-case-lessons.md) for the origin of these constraints. Use the lessons to guide decisions, not to copy the old board's electrical values into a new design.
 
-## 附带工具与模板
+## Tools and templates
 
-- `python scripts/init_project.py --output <项目目录> --name <项目名>`：创建 `PROJECT.md`、`CHECKS.csv`、`HANDOFF.md`，仅创建不存在的项目目录；拒绝覆盖。
-- `python scripts/release_manifest.py create --root <冻结发布目录> --revision <版本> --baseline <基线ID>`：为已准备好的发布包生成字节大小和 SHA-256 清单，不修改 PCB。
-- `python scripts/release_manifest.py verify --root <冻结发布目录>`：检查遗漏、增添和内容变化，拒绝路径越界与符号链接。它只证明包完整性，不证明原理图、阻抗或实板合格。
-- 原始模板放在 [assets](assets/PROJECT.template.md)。按任务规模精简，不复制空表来制造完成感；没有执行的检查保持未测。
+- `python scripts/init_project.py --output <project-directory> --name <project-name>` creates `PROJECT.md`, `CHECKS.csv`, and `HANDOFF.md` only in a directory that does not exist. It refuses overwrite.
+- `python scripts/release_manifest.py create --root <frozen-release-directory> --revision <revision> --baseline <baseline-id>` generates byte counts and SHA-256 hashes for a prepared release package without modifying the PCB.
+- `python scripts/release_manifest.py verify --root <frozen-release-directory>` checks missing, added, and changed files and rejects path traversal and symbolic links. It verifies package integrity, not schematics, impedance, or hardware acceptance.
+- Templates start at [assets](assets/PROJECT.template.md). Adapt them to the task; empty tables are not completed work. Leave unperformed checks untested.
 
-最终交付给用户：当前结论、实际做过的修改、对应验证、真实限制、可打开的交付文件。需要用户配合时给出明确测点、仪表挡位、通断电状态、预期和下一步分支。
+Deliver the current conclusion, actual edits, corresponding verification, real limitations, and accessible files. When measurements require user assistance, specify test points, meter mode, power state, expected results, and branches for the next step.

@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.1.1",
-  "baseline_id": "bilingual-public-release",
-  "generated_utc": "2026-09-20T07:37:02+00:00",
+  "revision": "main-english-2026-09-21",
+  "baseline_id": "english-skill-translation",
+  "generated_utc": "2026-09-21T02:45:20+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -14,68 +14,76 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 7440,
-      "sha256": "01d3a71f33f3f71d1be4ff507cebcf3ec9fb641fba7e5908a22b7474a4f1c34e"
+      "bytes": 7576,
+      "sha256": "7cb60b0797c2c8c8b9e3b66c5407b3c1fe8521fbc4131475efd69ebcfae7812e"
+    },
+    "README_EN.md": {
+      "bytes": 8366,
+      "sha256": "ae82828148544aad54cc7d5446ebbfdd13314314241ef99dd00ab2cd93755a57"
     },
     "SKILL.md": {
-      "bytes": 7928,
-      "sha256": "a3863f8842bacd274f5cb74a95954b807e37ba371dc4ae28868eaf475a083b10"
+      "bytes": 9418,
+      "sha256": "8f5b67053c6867751407aef4e7512c2eff8caa0f4ab7a4a7519d2e19aec77e28"
     },
     "START_HERE.md": {
-      "bytes": 2073,
-      "sha256": "0f55bef42f3ad01d390bed1f3fcd034e0fd358906492a72490b0c58485c8b1ba"
+      "bytes": 2569,
+      "sha256": "bd8ec9a03040ae08aa797244ccd173462cb2f41a58029bc086c90209166d4791"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 2030,
       "sha256": "023d68caacea4ae88c3ac7d8d113cf3f07da97e0491fbe6eeea77902e2d71265"
     },
     "agents/openai.yaml": {
-      "bytes": 346,
-      "sha256": "61aa47bc4b6c3ce9c5ebb4c4983e1193f63b692e5833e3d8a028a666a0dd6dee"
+      "bytes": 362,
+      "sha256": "085f1f830909a131419fddddd3ee868a641b956344fe8258ebb5b8668a794daa"
     },
     "assets/CHECKS.template.csv": {
-      "bytes": 1878,
-      "sha256": "85b4c31d7f3b2205b6eef518e5566291596b56dd410798e1c44db6f439492027"
+      "bytes": 2380,
+      "sha256": "061d3df1cc6066cf329f05cfc19a676349687cd2c9d7353cd23aa902747afa08"
     },
     "assets/HANDOFF.template.md": {
-      "bytes": 1172,
-      "sha256": "4c66f60e1f5baafb5dd71a1a5270cb26fe7a8b6be4d0ed42ee270e48d4c997da"
+      "bytes": 1443,
+      "sha256": "aa405f8195406e78350443536b13ec4d7ed458619289e824fb21dcbe9d78733c"
     },
     "assets/PROJECT.template.md": {
-      "bytes": 3116,
-      "sha256": "c9ad82ffb185ab8200576ea4ef0fd6980b928e8747ad889a620ded9c515f15a6"
+      "bytes": 4126,
+      "sha256": "c5462c983ff123f2c1fb84aff0970f0d38e3505fa20c60cf16890d3691c41078"
+    },
+    "assets/logo.svg": {
+      "bytes": 1005,
+      "sha256": "e6f8f5dd1e2554a19688ca7ee3abb515e216a5ef59a0a993a4697ada3051dbae"
     },
     "references/01-intake-and-recovery.md": {
-      "bytes": 4796,
-      "sha256": "2377f70033121308ded11c61f07b992b4bf08a9167773fce940af17d7b540203"
+      "bytes": 5771,
+      "sha256": "0e702eec9bf123d5a9ab48222279afda90b7a2d673eb9b8c2e0e645a69e55bfd"
     },
     "references/02-circuit-and-library.md": {
-      "bytes": 6409,
-      "sha256": "15b8046b407e5521cf33d3ecccca0c23ff2ee86ccb5cb0394829e48a3567f04d"
+      "bytes": 7804,
+      "sha256": "643c9950b35fbab408bf9eb80d25e11a95a078807dfeda07733945cf4bfe9dac"
     },
     "references/03-layout-routing.md": {
-      "bytes": 6827,
-      "sha256": "76d858db220ddbe385d1f55c5281848fe555c5d76c13a12b8fb3c3bbcbaf72ed"
+      "bytes": 8617,
+      "sha256": "f030ee6d2feb3fc4794af35b4e68a5594295e17c6875db7dba583a8d7459e7e8"
     },
     "references/04-release-assembly.md": {
-      "bytes": 5155,
-      "sha256": "81f25df5147fd5c7265a14728456332ad6223a21484aefaac5d7786a03ee4feb"
+      "bytes": 6328,
+      "sha256": "4898d86d51aad86a72a4bebee7ca70ed3c60045a8648ef343f0397e98f62030a"
     },
     "references/05-bringup-debug.md": {
-      "bytes": 6852,
-      "sha256": "3800cea3c40d298d86fb88aa3fc9a6429ee8b767071315770b7d83315df3480e"
+      "bytes": 8239,
+      "sha256": "9a77d2a6622d70f8bfcf7468767a7c04d35b548d02b8d4d0c5ea68c034eae9a5"
     },
     "references/06-easyeda-execution.md": {
-      "bytes": 5039,
-      "sha256": "2e72664c56f3b94d6129d5f7be417510ed371a93b75a3231c0e2dee57c185221"
+      "bytes": 5901,
+      "sha256": "8fa6b6990d94bd653aeb424e2e46f14108b23dcd455792878bf3bea3abee2662"
     },
     "references/07-case-lessons.md": {
-      "bytes": 5570,
-      "sha256": "d2f4ec0ad9a70db2ac477f9638efbe31fc3be93362e296f954a6942c67016687"
+      "bytes": 6994,
+      "sha256": "f05f08713aeeeddacdaf8667c574eb98e767827622ac57d9fe15df17b54963cb"
     },
     "references/08-evidence-and-handoff.md": {
-      "bytes": 5148,
-      "sha256": "b663c151d23a3b66ef3970b0169f33f1500b6b5f9c12956fd16064bb232faf2f"
+      "bytes": 6067,
+      "sha256": "687509445c8be83a472ecceaeb705f49dcc1955bc2e40a806a57ef1565db43a4"
     },
     "scripts/easyeda_bridge.mjs": {
       "bytes": 3354,
@@ -1776,14 +1784,6 @@
     "vendor/easyeda-api/user-guide/using-extension.md": {
       "bytes": 2250,
       "sha256": "21b12879d081a638a5e86712984d852f4576013442dc4c677b2cb1123338b7c8"
-    },
-    "assets/logo.svg": {
-      "bytes": 1005,
-      "sha256": "e6f8f5dd1e2554a19688ca7ee3abb515e216a5ef59a0a993a4697ada3051dbae"
-    },
-    "README_EN.md": {
-      "bytes": 8269,
-      "sha256": "2bf3a725f8cf9a3198c417fe95372cffa395c6688a776c6df69c57c6c9b5d83a"
     }
   }
 }

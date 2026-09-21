@@ -1,81 +1,81 @@
-# 证据、版本和交接约定
+# Evidence, revisions, and handoff
 
-## 记录状态
+## Check states
 
-`CHECKS.csv`每个检查用以下状态，大小写固定，按实际范围增减检查行：
+Use these case-sensitive states in `CHECKS.csv`. Add or remove rows to match the task:
 
-- `NOT_RUN`：尚未执行。
-- `PASS`：在记录的条件/范围内有证据满足预先判据。
-- `FAIL`：执行后不满足判据，写明实际值和处置。
-- `BLOCKED`：因具体工具/文件/实板缺失无法执行；不同于已测失败。
-- `N_A`：本设计确实不适用，说明理由；不能把没有工具记成不适用。
-- `ACCEPTED_LIMITATION`：用户已明确接受未实现/未充分验证的范围，保留接受来源和影响；不等同PASS。
-- `STALE`：对应设计/工艺/固件/实板发生相关变化，需复核。
+- `NOT_RUN`: not yet executed.
+- `PASS`: evidence meets predetermined criteria under recorded conditions and scope.
+- `FAIL`: executed but criteria not met; record actual values and disposition.
+- `BLOCKED`: cannot execute because a specific tool, file, or physical board is unavailable; distinct from tested failure.
+- `N_A`: genuinely inapplicable to this design, with a reason. Missing tools do not make a check inapplicable.
+- `ACCEPTED_LIMITATION`: the user explicitly accepted unimplemented or insufficiently verified scope; record the acceptance source and impact. This is not PASS.
+- `STALE`: a relevant design, process, firmware, or board change requires rechecking.
 
-当前阶段“验证通过”要求所有适用且必要的项目均为PASS，确实不适用的项目有理由地标N_A。FAIL/BLOCKED/NOT_RUN/STALE即使已经解释原因，也仍是未通过或未完成，不能计入阶段通过。已接受限制可支持特定条件下的试验样板继续，但必须单列，不能声称原验证通过，也不能自动把任何FAIL降级成限制。缩小需求范围必须有明确决定及变更记录。
+A stage passes verification only when all applicable required checks are PASS and genuinely inapplicable checks have justified N_A status. Explained FAIL/BLOCKED/NOT_RUN/STALE items still remain failed or incomplete. Accepted limitations may permit a prototype under specified conditions, but must be separate and cannot count as passing the original verification. Do not automatically downgrade FAIL to a limitation. Scope reduction requires an explicit decision and change record.
 
-## 一个通过项需要什么
+## Evidence for a passed check
 
-至少记录：检查ID、阶段、设计基线、实板/固件（若适用）、方法、条件、预期判据、实际结果、证据路径、时间、局限。案例：
+At minimum record check ID, stage, design baseline, board/firmware where applicable, method, conditions, expected criteria, actual result, evidence path, time, and limitations. Example:
 
 ```text
 USB-TRANSFER / G8 / board-B revC / fw sha256:...
-供电：J2 3.7V；FT232未供VCC；原生USB；线缆A；主机Windows...
-方法：双向固定随机种子数据逐字节比较，覆盖63/64/65等包边界
-判据：项目预先指定的字节数/次数内零不一致；记录重连和错误
-实际：...；原始文件：evidence/...json
-局限：不构成TDR、眼图或USB合规认证
+Power: J2 3.7 V; FT232 VCC disconnected; native USB; cable A; Windows host...
+Method: bidirectional byte comparison of fixed-seed pseudorandom data, including 63/64/65-byte boundaries
+Criteria: zero mismatches over the project's predetermined byte count/repetitions; record reconnects and errors
+Actual: ...; raw data: evidence/...json
+Limitations: does not establish TDR, eye-diagram, or USB compliance certification
 ```
 
-文件名包含“final”“passed”不是证据。用户测量可作为证据，但注明用户报告、测点和状态，不能伪装成AI现场仪器测量。没有单位或测点明确性时先澄清，不把mΩ和MΩ猜成一种。
+Words such as “final” or “passed” in a filename are not evidence. User measurements are valid evidence when labeled as user-reported with test points and conditions; do not present them as direct agent instrument measurements. Clarify missing units or ambiguous points instead of guessing between mΩ and MΩ.
 
-## 变更后的证据失效
+## Evidence invalidation after changes
 
-| 改动 | 至少重新评估 |
+| Change | Reassess at least |
 |---|---|
-| 型号/封装/库标准化 | 电气、引脚、尺寸、网络、布局、BOM、装配、DRC |
-| 器件移动/走线/铺铜 | 连通、DRC、间距、回流、相关阻抗与制造导出 |
-| 板厚/铜厚/叠层/表面处理 | 受影响阻抗、载流、孔和装配工艺 |
-| GPIO/中断/启动配置 | 原理图、PCB、接口表、固件、下载恢复与相关测试 |
-| 电池/外壳/连接器 | 极性、供电峰值、净空、天线、装配/热/续航 |
-| 换板/返修 | 该板断电/供电检查和受影响模块、邻近网络 |
-| 固件或SDK更新 | 受影响外设、供电负载、休眠、通信与持久化 |
+| Part/footprint/library standardization | Electrical specifications, pins, dimensions, nets, placement, BOM, assembly, DRC |
+| Component movement/routing/pours | Connectivity, DRC, spacing, return paths, affected impedance and manufacturing exports |
+| Board/copper thickness, stackup, finish | Affected impedance, current capacity, holes, assembly process |
+| GPIO/interrupt/boot configuration | Schematics, PCB, interface table, firmware, recovery programming, related tests |
+| Battery/enclosure/connector | Polarity, peak power, clearance, antenna, assembly/thermal/runtime behavior |
+| Different board/rework | That board's unpowered/power checks, affected modules and nearby nets |
+| Firmware/SDK update | Affected peripherals, power load, sleep, communication, persistence |
 
-不盲目重跑全项目；说明哪些旧证据仍适用及依据，重跑变更确实影响的检查。
+Do not blindly rerun the entire project. Explain which evidence remains applicable and why; repeat checks actually affected by the change.
 
-## 无记忆AI交接
+## Handoff records
 
-`HANDOFF.md`保留可直接行动的信息：
+Keep actionable information in `HANDOFF.md`:
 
-1. 当前授权范围，用户明确不想改/不想继续测的内容。
-2. 权威工程、制造包、订单对应、基线ID和哈希；实板ID/返修史。
-3. 当前接线与供电，实际端口/设备标识，以及正在占用接口的程序。
-4. 已通过的具体项目、未测项目、已知失败、已接受限制，各自证据。
-5. 关键引脚表、电源状态、实物方向和无需探隐藏焊盘的替代测点。
-6. 最近一次操作和结果，下一步确切动作及不同结果的分支。
-7. 回滚文件、恢复下载方式、需保留的配置/模板。
-8. 若有工具阻塞：服务存在与否、EDA是否连接、文档身份、实际错误，不只写“连不上”。
+1. Current authorization and items the user explicitly does not want changed or tested further.
+2. Authoritative project, manufacturing package, order mapping, baseline ID/hashes, physical board IDs, and rework history.
+3. Current wiring/power, actual ports/device identities, and software holding interfaces open.
+4. Specific passed checks, untested items, known failures, and accepted limitations with evidence for each.
+5. Critical pin table, power states, physical orientation, and accessible alternatives to hidden-pad probing.
+6. Last operation/result, exact next action, and branches for different results.
+7. Rollback files, recovery programming procedure, and configurations/templates to preserve.
+8. Tool blockers: service availability, desktop connection, document identity, and exact error rather than only “cannot connect.”
 
-不要保存凭据、私人Wi-Fi密码或无关用户背景。公开文档遵守用户命名、署名与内容要求，不自行编造项目用途；项目具体联系人也不固化到通用 skill。
+Do not retain credentials, private Wi-Fi passwords, or unrelated personal background. Respect naming, attribution, and content requirements in public documentation. Do not invent a project purpose or embed project-specific contacts in a general skill.
 
-## 最终报告写法
+## Final report
 
-结论先行，然后是改动、验证、局限和交付物。示例：
+Lead with the conclusion, then changes, verification, limitations, and deliverables. Example:
 
-> revC原理图与PCB在所列静态检查中通过，制造包已独立预览并冻结，可以按约定条件制作工程样板。USB局部截面已计算，未做全通道/TDR；样板尚未上电。下一步先装配一块，按测试表检查电源与启动。
+> revC schematics and PCB passed the listed static checks. The manufacturing package has been independently previewed and frozen for engineering prototypes under the agreed conditions. The local USB cross-section was calculated; full-channel/TDR testing is outstanding. The prototype has not been powered. Assemble one board next and check power and boot against the test plan.
 
-反例：
+Avoid:
 
-> DRC=0，全部能跑通，直接付款，肯定没问题。
+> DRC is zero, everything will work, pay now, guaranteed.
 
-对“成熟板子”的回答要落到需求约定和实测范围。没有生产一致性、环境寿命、EMC或法规测试时，不自称完成量产认证。是否需要这些测试由应用和交付范围决定，不把它们添加成所有DIY项目的强制任务。
+Relate board maturity to agreed requirements and measured coverage. Without production-consistency, environmental-life, EMC, or regulatory tests, do not claim mass-production certification. Whether those tests are required depends on the application and delivery scope; do not add them as mandatory work to every DIY project.
 
-## 原厂资料入口
+## Manufacturer source examples
 
-这些是案例对应的来源范例，执行新项目时改为实际器件与版本：
+These sources correspond to the case. Use the actual parts and revisions for each new project:
 
-- [Espressif 硬件设计指南](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c3/index.html)：区分芯片与模组、启动与布局。
-- [TI TPS63021](https://www.ti.com/product/TPS63021)：器件手册、布局和电源设计。
-- [ST LSM6DS3TR-C 手册](https://www.st.com/resource/en/datasheet/lsm6ds3tr-c.pdf)：引脚、模式、寄存器与自检。
+- [Espressif hardware design guidelines](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c3/index.html): distinguish chips/modules, boot requirements, and layout.
+- [TI TPS63021](https://www.ti.com/product/TPS63021): datasheet, layout, and power design.
+- [ST LSM6DS3TR-C datasheet](https://www.st.com/resource/en/datasheet/lsm6ds3tr-c.pdf): pins, modes, registers, and self-test.
 
-优先原厂文件，记录版本/章节和读取日期；在线latest内容可能更新，不当作永远不变的设计合同。
+Prefer manufacturer documents and record revision/section/access date. Online “latest” content may change and is not an immutable design baseline.

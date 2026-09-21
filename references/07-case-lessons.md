@@ -1,47 +1,47 @@
-# 用户指令—实际行动—标准化规则
+# User instructions, observed work, and reusable rules
 
-这个案例源于一次ESP32-C3、LSM6DS3TR-C和TPS63021长条板制作与调试。下表提炼工程决策，不依赖原对话、本机路径或此前AI的记忆。
+This case concerns the design and debugging of an elongated board using ESP32-C3, LSM6DS3TR-C, and TPS63021. These decisions can be applied without the original conversation, machine paths, or previous agent context.
 
-## 把指令变成流程要求
+## Convert requests into workflow requirements
 
-| 用户要求或反馈 | 实际工作/问题 | 新AI应执行的标准规则 |
+| User request or feedback | Work or issue observed | Reusable rule |
 |---|---|---|
-| “默认焊盘为什么不能用，我亲自验证” | 自定义与默认L1尺寸不同，曾过早否定默认 | 给出厂家落点、两套焊盘尺寸和理由；允许用户复算，不能维护先前结论 |
-| “全部用推荐器件，能不能批量” | 器件管理器按目标器件替换 | 按相同料号分组核对，不对异构器件执行同一目标批量替换 |
-| “底层不要元件，要钢网加热台” | 全部顶面装配，仍有通孔脚 | 记录装配面与工具，考虑通孔件后焊和底面接触；不等于必须单层铜 |
-| “板框24×70，R1”“要留地方走线” | 长条、模组天线外伸、走线通道紧 | 先锁机械和天线，再为关键走线留通道；不随意加宽板子 |
-| “你摆的元件全重叠” | 初期自动摆放检查不足 | 真实封装轮廓、旋转、间距、实际截图检查后才能称布局完成 |
-| “我已布线，先不要改” | 需要只读审查 | 记录问题位置和证据；不能重铺保存或自动优化，直到获相应授权 |
-| “处理U4电源”“USB直接搞” | 先分区优化，后扩大授权 | 每轮备份，限定变更范围，检查接口和相邻网络，避免误改其他区域 |
-| “全部检查，所有能跑通” | DRC及网表比对可做，实板当时未到 | 拆成静态、电源瞬态、通信、装配、固件测试，逐项标实际覆盖 |
-| “1.6mm、1oz” | 固定了名义制造条件 | 获取实际叠层再算阻抗，不把名义板厚当介质高度 |
-| “D1求个平均”“还是稳妥，统一D1” | 左右地铜不对称，后统一局部截面 | 不能用平均值验证全路径；调整后重铺并多点读实际铜边缘 |
-| “钢网另做，OSP，自行焊” | 制板、钢网、装配分开 | 三套文件同基线，说明方向/开口与工艺，不把板厂制板当已装配 |
-| “锡膏连着也会归位” | 细间距底部锡桥风险 | 印膏检查在回流前；表面张力不能保证过量焊锡不桥连 |
-| “热风温控差，加热台小” | 返修与分区加热受限 | 按实际测温/受热条件制定方案，不给万能温度和固定秒数 |
-| “焊盘被元件压住，测不了” | U1/U2关键脚隐藏 | 查同网外露点；设计时留测试点，不重复要求探隐藏脚 |
-| “按键一直通，不是按钮” | 拆键后EN仍短，拆模组后解除 | 用空板/拆件/同网测量区分设计与装配，不固守首个猜测 |
-| “把电阻竖放改成横放后状态变了” | R17/R18四焊盘易误读，曾误叫R16 | 先对照位号、脚号、网名与图片，不沿用不确定标签；改善装配图 |
-| “CH340支持3.3V，测得3.8V” | 电源选择不一定切逻辑电平 | 测TX/查IO规格、供电责任；不能用客服支持替代电平核对 |
-| “以后全部用原生USB” | 烧录/网页从FT232迁移 | 以设备身份识别端口，迁移所有消费者并释放占用，不硬编码COM30 |
-| “中断不测了，接受轮询” | I²C正常，中断未驱动，最终轮询 | 尊重接受的降级，不再无意义拆焊；不声称中断或深睡眠通过 |
-| “把软件算法说明打包” | 需要完整可复现交付 | 源码、工程、制造、BOM、固件、测点、限制和许可证分清，排除缓存凭据 |
+| Why reject the default pads? I want to verify them myself. | Custom and library L1 geometry differed; the default was rejected prematurely | Provide manufacturer lands, both pad geometries, and reasoning that can be recalculated; do not defend a prior conclusion without evidence |
+| Use recommended parts; can this be done in bulk? | The component manager replaces selections with a target device | Group by identical part number; do not apply one replacement to heterogeneous parts |
+| No bottom components; use stencil and hot plate | Top-side assembly still had through-hole leads | Record side and tools, consider later through-hole soldering and underside contact; this does not require single-layer copper |
+| 24 x 70 outline, radius 1; leave routing room | Narrow board, antenna overhang, constrained routing | Lock mechanics and antenna first, reserve critical channels, and do not arbitrarily widen the board |
+| The components all overlap | Early automated placement lacked adequate checks | Validate real footprint outlines, rotation, spacing, and actual screenshots before calling placement complete |
+| Routing is done; do not change it yet | Read-only review required | Record issue locations and evidence; do not repour/save or optimize without appropriate authorization |
+| Fix U4 power; handle USB directly | Authorization first covered local areas, then expanded | Back up each iteration, bound changes, check interfaces and nearby nets, avoid unrelated edits |
+| Check everything and confirm it runs | DRC/netlist checks were possible before a board existed | Separate static, transient-power, communication, assembly, and firmware tests; label actual coverage |
+| 1.6 mm, 1 oz | Nominal manufacturing conditions fixed | Obtain actual stackup before impedance calculation; nominal board thickness is not dielectric height |
+| Average D1; later, make D1 uniform | Asymmetric ground clearances were later standardized locally | Do not validate the whole path with an average; repour and sample actual edges at multiple locations |
+| Separate stencil, OSP, self-assembly | Fabrication, stencil production, and assembly were separate | Use one baseline for all files and document aperture orientation/process; fabrication alone is not assembly |
+| Paste bridges will disappear on heating | Fine-pitch hidden-joint bridging risk | Inspect paste before reflow; surface tension does not guarantee excess solder will separate |
+| Inaccurate hot-air temperature; small plate | Rework and sectional heating were constrained | Plan around actual measurement/heating conditions; avoid universal temperatures and fixed durations |
+| Pads are hidden under the part | Critical U1/U2 terminals inaccessible | Identify exposed same-net points and design test access; do not repeatedly request hidden-pad probing |
+| The switch pads stay shorted; the button is fine | EN remained short with button removed and cleared after module removal | Compare bare board, removed parts, and same-net measurements to isolate design versus assembly |
+| Correcting resistor orientation changed behavior | R17/R18 pad pairs were confused and previously called R16 | Verify designator, pin, net, and photo; discard uncertain labels and improve assembly drawings |
+| CH340 claims 3.3 V support but measures 3.8 V | Supply selection might not change logic levels | Measure TX, check IO specifications and power responsibility; seller confirmation is insufficient |
+| Use native USB for everything from now on | Programming and web access moved from FT232 | Identify ports by device identity, migrate all clients, and release port ownership; do not hard-code COM30 |
+| Stop interrupt testing; polling is acceptable | I²C worked; interrupt output was unresolved; polling used | Honor accepted reduced scope, avoid pointless rework, and do not claim interrupt/deep-sleep validation |
+| Package software, algorithms, and instructions | Reproducible complete delivery needed | Distinguish source, project, manufacturing, BOM, firmware, test points, limits, and licenses; exclude caches and credentials |
 
-## 必须保留的反例边界
+## Boundaries of the examples
 
-1. **L1封装**：案例自定义焊盘1.0×2.9mm、中心距1.9mm；默认1.3×3.0mm、中心距2.1mm。这只说明几何不同，不能单凭大小推导谁错。新项目重新查其厂家手册。
-2. **USB截面**：案例后来统一了1.6mm长直线段的W=0.80mm、S=0.35mm、两侧D=0.30mm，计算器显示约92.4Ω。没有整条TDR证据，过渡段也未被这个均匀模型覆盖。不得把这些尺寸作为新项目的90Ω通用公式。
-3. **阻值与短路**：两根启动线各经10k上拉到同一电源，互测约20k可以是正常路径；案例接近表笔短接的低阻才支持硬短问题。热板、带电测量和在路电容会改变读数。
-4. **旧新记录冲突**：中断从GPIO6改到GPIO1；电源3.0V档最初3.20V，后来在两处复测3.329V。保留修正来源，不能继续复制旧说明。
-5. **制造版本**：保存的板框24×70mm与后来的口述24×76mm不一致；制造Gerber与编辑快照日期也不同。必须核对对象和文件，不直接“取最新”。
-6. **固件也会造成接口故障**：案例USB固定包边界回显问题后来经ZLP处理修复。已经枚举或烧录通过，不代表任意应用传输都正确；应用失败也不必然是PCB问题。
+1. **L1 footprint:** custom pads were 1.0 x 2.9 mm at 1.9 mm center pitch; default pads were 1.3 x 3.0 mm at 2.1 mm pitch. This establishes a geometric difference, not which is wrong. Check the new project's manufacturer datasheet.
+2. **USB cross-section:** the case used a nominal 1.6 mm board. A later uniform straight section used W = 0.80 mm, S = 0.35 mm, and D = 0.30 mm on both sides; the calculator showed about 92.4 Ω. There was no whole-route TDR evidence, and transitions were outside the uniform model. These dimensions are not a universal 90 Ω recipe. The 1.6 mm value is board thickness, not the modeled segment length.
+3. **Resistance versus shorts:** two boot nets each pulled up through 10 kΩ to one rail can read about 20 kΩ between them. In the case, resistance near the shorted-probe baseline supported a hard-short diagnosis. A hot board, powered measurements, and in-circuit capacitors alter readings.
+4. **Conflicting records:** the interrupt changed from GPIO6 to GPIO1. At the 3.0 V input setting, an initial output reading was 3.20 V; later two-point measurements were 3.329 V. Retain the correction source instead of repeating obsolete values.
+5. **Manufacturing identity:** the stored 24 x 70 mm outline conflicted with a later stated 24 x 76 mm size; manufacturing Gerbers and editing snapshots also had different dates. Match the object and files rather than simply choosing the latest.
+6. **Firmware can cause interface faults:** a USB echo failure at fixed packet boundaries was later corrected through ZLP handling. Enumeration or programming does not validate arbitrary application transfers, and application failure does not necessarily implicate PCB hardware.
 
-## 证据层级如何演进
+## How evidence developed
 
-设计阶段：网表、DRC和几何专项检查支持“可进行工程样板”。
+During design, netlist, DRC, and geometry checks supported engineering prototyping.
 
-装配阶段：EN与启动脚短路通过对照和返修解除；这些问题也暴露了布局可装配性不足，不能全部归咎用户。
+During assembly, comparisons and rework resolved EN and boot-pin shorts. These faults also exposed assembly-usability weaknesses in the layout and should not all be attributed to the user.
 
-基础功能阶段：身份读取、IMU自检与连续采样、按键/LED、多档电源、USB双向数据校验和部分无线往返有实测。没有完整阻抗合规、长期续航或中断唤醒结论。
+Basic functional evidence covered identity reads, IMU self-test and continuous sampling, buttons/LEDs, multiple input voltages, verified bidirectional USB data, and some wireless round trips. It did not establish full impedance compliance, long-term runtime, or interrupt wake-up.
 
-规则：把成功测试扩展到新板、新电池、新固件或装壳条件前，评估并重测受影响项目。保留真实限制不会妨碍交付，虚构成熟度会妨碍正确接手。
+Before extending results to another board, battery, firmware, or enclosure condition, assess and retest affected items. Preserve actual limitations so subsequent decisions remain valid.

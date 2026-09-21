@@ -1,66 +1,66 @@
-# G5–G6：制造发布与装配
+# G5-G6: Manufacturing release and assembly
 
-## 冻结一个可追溯版本
+## Freeze a traceable revision
 
-制造前保存原生工程及必要库、原理图、PCB、网表、BOM与检查结果；分配版本/基线ID。源数据语义相同但返回顺序变化，不等于设计改了；字节不同也不能说哈希相同。分别记录语义比较与字节哈希。
+Before fabrication, save the native project and required libraries, schematics, PCB, netlist, BOM, and check results with a revision/baseline ID. Changed record order with unchanged semantics is not necessarily a design change, but different bytes cannot have an assumed identical hash. Record semantic comparison separately from byte hashes.
 
-最小交付按用途选择：
+Select deliverables for the intended use:
 
-| 文件 | 要核对的关系 |
+| File | Verify |
 |---|---|
-| 原生工程及库 | 能用预期工具重新打开；交换快照不能冒充完整工程 |
-| Gerber/ODB++及钻孔 | 与冻结PCB对应，板框/铜/阻焊/丝印/钻孔齐备 |
-| BOM | 实际装配位号、数量、完整料号、规格、封装、DNP、替代限制 |
-| 坐标文件 | 工厂贴装时需要；原点、单位、面别、旋转约定匹配 |
-| 钢网 | 实际装配面、开口与方向、厚度及特殊EP开口要求 |
-| 装配图 | 1脚、A/K、锁扣、正负、相邻器件配对、DNP、分步焊接 |
-| 制造说明 | 叠层、板厚/铜厚、公差、表面处理、特殊孔/槽/阻抗要求 |
-| 检查与测试说明 | 已查范围、已接受限制、首板测点和下载恢复办法 |
+| Native project/libraries | Reopens in the intended tool; exchange snapshots are not complete native projects |
+| Gerber/ODB++ and drill files | Match the frozen PCB, with outline, copper, mask, silkscreen, and drilling |
+| BOM | Fitted reference designators, quantities, full part numbers, specifications, packages, DNP status, substitution limits |
+| Placement file | Required for factory placement; origin, units, side, and rotation convention agree |
+| Stencil | Assembly side, aperture geometry/orientation, thickness, special EP apertures |
+| Assembly drawing | Pin 1, A/K, latch, polarity, adjacent pad pairings, DNP, staged soldering |
+| Fabrication notes | Stackup, board/copper thickness, tolerances, finish, special holes/slots/impedance |
+| Inspection/test instructions | Reviewed scope, accepted limitations, first-board test points, recovery programming |
 
-不要把包含多个相互矛盾版本的文件夹直接交给工厂“自己选”。历史文件明确标为历史，当前发布包只放可识别的一套。
+Do not send conflicting revisions for the fabricator to choose between. Label historical files explicitly and keep one identifiable current set in the release package.
 
-## 独立检查制造文件
+## Independently review manufacturing files
 
-用制造预览器重新打开导出文件，至少检查：
+Reopen exports in a manufacturing viewer and check at least:
 
-- 板框闭合、尺寸/圆角/槽正确，无重复外框或错用丝印当板框；
-- 铜层数量、顶底方向、铜到边、参考地和禁止区域；
-- 钻孔单位、PTH/NPTH、定位孔/安装孔与焊盘对应；
-- 阻焊开窗、细间距阻焊桥、过孔盖油要求；
-- 钢网开口、装配面和大焊盘分割；
-- 丝印可读且没有遮挡焊盘，极性标记明确；
-- 铜与焊盘、保护/串阻/电源结构和最终PCB一致。
+- closed outline, dimensions, corner radii, and slots; no duplicate outline or silkscreen used as outline;
+- copper-layer count, top/bottom orientation, copper-to-edge clearance, reference ground, and keepouts;
+- drill units, PTH/NPTH, tooling/mounting holes, and pad alignment;
+- mask openings, fine-pitch mask dams, and via-tenting requirements;
+- stencil apertures, assembly side, and large-pad segmentation;
+- legible silkscreen clear of pads, with explicit polarity;
+- copper, pads, protection, series resistors, and power structures matching the final PCB.
 
-不能只看压缩包存在或文件数量。没有制造查看器时，把这一项标为未完成，继续准备其他资料；不能称全部DFM已通过。
+Archive existence or file count is insufficient. Without a manufacturing viewer, mark preview incomplete and continue other preparation; do not claim all DFM checks passed.
 
-下单参数取自项目合同，不从旧截图复制。表面处理与装配/存储条件匹配；OSP、喷锡、沉金没有脱离场景的一律最佳。板厂叠层或工艺改变时，复核受影响的阻抗和装配。
+Use project requirements for order parameters rather than copying old screenshots. Choose finish for assembly and storage conditions; OSP, HASL, and ENIG have no universally best choice. Recheck affected impedance and assembly if the fabricator changes stackup or process.
 
-用户授权上传后保存实际上传包的哈希、订单号/预览与参数；此前只能称“待下单包”。没有订单证据，不能把后找到的历史Gerber称为已下单文件。
+After authorized upload, save the uploaded package hash, order ID/preview, and parameters. Before upload, call it a package awaiting ordering. Without order evidence, do not describe subsequently found historical Gerbers as the submitted files.
 
-可用 `scripts/release_manifest.py` 对**单独的冻结发布目录**创建清单并校验。该脚本不能验证电气或保证各文件语义一致；先人工/工具审查，再计算哈希。后续改动应形成新版本，不用重新算哈希掩盖未经检查的修改。
+Use `scripts/release_manifest.py` on a separate frozen release directory. It cannot validate electrical correctness or semantic consistency across files. Review first, then hash. Later changes require a new revision; do not recompute hashes to conceal unreviewed edits.
 
-## 来料检查与装配准备
+## Incoming inspection and assembly preparation
 
-首板优先完成一块可测样板后再批量，除非用户已有明确工艺/批量安排。核对裸板版本、关键尺寸、破损/污染、接口孔位；比对实际零件标签和BOM，记录替代。
+Normally complete one testable board before assembling the batch, unless the user already specified a process or batch plan. Check bare-board revision, critical dimensions, damage/contamination, and connector holes. Compare physical part labels with the BOM and record substitutions.
 
-将小料分组标位号，提供顶视装配图。图中同时有器件标号、实际焊盘配对和方向；不要让用户凭“左上那个”定位。表面颜色和插头缺口只能辅助，针序以电路和测量为准。
+Group small parts by reference designator and provide a top-view assembly drawing showing labels, real pad pairings, and orientation. Avoid ambiguous references such as “the upper-left one.” Color and connector notches are supporting cues; determine pin order from the circuit and measurements.
 
-钢网印膏：固定板/钢网，对齐所有细焊盘，控制平整支撑，印后检查错位、漏印、堆膏和连续桥连。明显异常先处理，不能保证表面张力会自动修复。
+For paste printing, secure and align board/stencil at all fine pads with flat support. Inspect for offset, omissions, excess paste, and continuous bridges. Correct clear defects before reflow; surface tension is not a guarantee of self-correction.
 
-贴装时核对IC 1脚、LED A/K、极性器件和连接器。轻放对中；不要在焊锡熔化时压模组，防止底部挤锡、桥连或悬浮。
+Check IC pin 1, LED A/K, polarized parts, and connectors during placement. Center gently. Do not press a module while solder is molten, which can squeeze solder underneath, bridge pads, or cause floating.
 
-## 回流与手工工具限制
+## Reflow and hand-tool limitations
 
-温度方案取自**确切锡膏合金/工艺文件与器件耐温要求**，记录测温方式。熔点不是整板应设置的台面温度；热风设定、台面温度、焊点实温不相同。没有实际测温，就不能声称严格满足某条温度曲线。
+Base the profile on the exact solder-paste alloy/process documentation and component thermal limits. Record how temperature is measured. Melting point is not a whole-board hot-plate setpoint; hot-air settings, plate temperature, and actual joint temperature differ. Without measurements, do not claim strict compliance with a reflow profile.
 
-小加热台分区处理时：评估板子支撑、受热均匀性、散热铜、模组跨越冷热边界、已焊区域再次升温和塑料件温度。两次没有重复放置器件不代表热量互不影响。无法均匀回流关键底部焊点时，给出合适热源/工装或分步装配方案，不能保证分两半一定可靠。
+For sectional heating on a small plate, assess support, thermal uniformity, copper heat sinking, modules spanning hot/cold boundaries, reheating of completed regions, and plastic temperatures. Nonoverlapping component placement does not imply thermally independent passes. If hidden critical joints cannot reflow uniformly, propose a suitable heat source, fixture, or staged assembly process; do not guarantee two-half reflow reliability.
 
-通孔/高塑料连接器一般按工艺安排后焊，避免妨碍台面接触。器件是否允许炉温回流查其规格，不因“是连接器”就统一处理。
+Schedule through-hole/tall plastic connectors appropriately, often after reflow, to preserve plate contact. Verify each part's reflow rating rather than treating all connectors alike.
 
-返修先断开所有供电并冷却；合适助焊剂、控风、防吹走邻件和适度清理。焊盘有凸起不能证明锡量合适；整理锡面也不是刮除铜箔。取下隐藏焊点器件前尽可能用同网外露点完成定位，降低重复拆焊次数。
+Before rework, disconnect all supplies and let the board cool. Use suitable flux, controlled airflow, protection for adjacent parts, and moderate cleanup. Raised solder does not establish correct volume; leveling solder is not scraping copper away. Use accessible same-net points to localize faults before removing hidden-joint parts where possible, reducing repeated rework.
 
-焊后检查包括放大观察可见焊点、器件偏移、立碑、桥连、焊盘损伤和插座方向。肉眼看不到底部不等于底部没有短路；必要时用电测、对照板或合适检测手段。
+After soldering, inspect visible joints under magnification for misalignment, tombstoning, bridges, pad damage, and connector orientation. Invisibility of underside joints does not establish absence of shorts; use electrical tests, a comparison board, or suitable inspection as needed.
 
-## 装配记录
+## Assembly records
 
-为每块板分配ID，记录制造版本、装配版本、替代器件、返修区、日期和照片。完全冷却、断电并确认相关电源轨放电后，进入 [上电与排故](05-bringup-debug.md)。没有实板时，G6保持未测，不把制作说明当作装配已经完成。
+Assign each board an ID and record manufacturing revision, assembly revision, substitutions, reworked areas, date, and photos. After full cooling, disconnection, and confirmation that relevant rails have discharged, proceed to [power-up and debugging](05-bringup-debug.md). Without a physical board, G6 remains untested; assembly instructions do not establish completed assembly.
