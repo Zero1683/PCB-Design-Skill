@@ -87,3 +87,11 @@ Use real connections and netlists, not visually crossing lines. Check incorrect 
 - Do not remove real errors by disabling rules, expanding exemptions, or assigning false NC markers.
 
 G2 passes when the applicable staged inventory/placement review and final drawing inspection are recorded, critical electrical connections and pins have manufacturer support, critical footprints have dimensional evidence, netlists and BOM agree, and rule violations are resolved or have specific applicable exemptions. Unreadable footprints and unperformed checks remain unverified.
+
+## Part identity gate before wiring
+
+At G2-A, complete `PART-IDENTITY` for every fitted electrical BOM line and explicitly account for DNP/mechanical entries. Retain a table with reference(s), schematic value, manufacturer and full MPN, supplier code, supplier-resolved specification, package, relevant ratings/tolerance and dated source evidence. Repeated instances may share one verified selection record, but each reference must map to it. For generic/no-supplier parts record the exact procurement specification and why a supplier code is absent; do not fabricate a code.
+
+Resolve a supplier code independently from its official product record; do not derive its value from the schematic text or trust that two exported documents agreeing establishes a correct selection. Compare physical quantities using units (22R = 22 ohm, not 220 ohm); compare tolerances, power/voltage ratings and package separately. Do not parse opaque manufacturer suffixes by guesswork. A value/MPN/code mismatch blocks wiring of the affected block and manufacturing release. Correct the selected component association rather than relabeling a wrong part to look right.
+
+After any replacement or property synchronization, repeat identity checks for changed lines and compare SCH, PCB and exported BOM. Confirm supplier codes, reference IDs, fitted status and footprint associations survived save/reopen. Check final BOM quantities, duplicates, missing codes and declared generic items at G5. Missing stock data is a sourcing limitation; an unresolved electrical value mismatch is a design failure. Stock checks do not authorize purchase.

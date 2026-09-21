@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.3.0",
-  "baseline_id": "PCB-Design-Skill-v1.3.0",
-  "generated_utc": "2026-09-21T03:37:47+00:00",
+  "revision": "schematic-methods-2026-09-21",
+  "baseline_id": "PCB-Design-Skill-schematic-methods-2026-09-21",
+  "generated_utc": "2026-09-21T07:37:09+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -14,36 +14,36 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 9872,
-      "sha256": "0732f0794393be2e23dd75b5817c61e3a77bc1240122db157a7c595d43160fc7"
+      "bytes": 10262,
+      "sha256": "e7da68be40b857f90433390a50bc792562e6d00e823a56aafd17eb5e6cdf3b1a"
     },
     "README_EN.md": {
-      "bytes": 10897,
-      "sha256": "ad6846d342bfd062b0707d025f8b27fcfe44c2d3484466e062e802c0a0c12690"
+      "bytes": 11349,
+      "sha256": "75db1b04f1a726298d8783954a157a151ef220bc745b5d229100cc73bef7dc6b"
     },
     "SKILL.md": {
-      "bytes": 14043,
-      "sha256": "97146cea6d9bc53999bca9745bec5497f07571d2be4c886f40226cd1a277de53"
+      "bytes": 16682,
+      "sha256": "0a3b8f5218082c8bf0e898ea72edf843c6dc56db6bf90a629b895399bab694de"
     },
     "START_HERE.md": {
-      "bytes": 4512,
-      "sha256": "c3a1b52a91466a5ab795190439ed88db65ebe3905ba590c1ce370c1e2c623a24"
+      "bytes": 5088,
+      "sha256": "4e291dd47ca936829a81fd777ada58363759710f13c5c5ae8f45f8c985005280"
     },
     "THIRD_PARTY_NOTICES.md": {
-      "bytes": 3597,
-      "sha256": "b50999ea6125ffb06186ceea285dca37addedfcb79138e4f98463ee27f8b0f63"
+      "bytes": 4748,
+      "sha256": "0f7eb055c34e9a8857719775ae84ee853cd04b9e16ed500d1974b8ce22d61fd6"
     },
     "VALIDATION.md": {
-      "bytes": 7155,
-      "sha256": "c9e6e33cf00d5279a2f33765d5241f6f1f6804adbf92a3c0e97a9654d1f3e80b"
+      "bytes": 13107,
+      "sha256": "709603c6a2a956d82ee615fd5819ad84941d2e61c734f8be88cd7304645b62d0"
     },
     "agents/openai.yaml": {
       "bytes": 365,
       "sha256": "821485e5fb3572cdfe3a0fd1986752cb0fc2e1fdd948f347fff4d4c0c7169c17"
     },
     "assets/CHECKS.template.csv": {
-      "bytes": 3536,
-      "sha256": "a451c3f897ef618edad9ce6f1e1c962c0f62edcd052a03e98d8ad6008597416d"
+      "bytes": 4575,
+      "sha256": "4990d44e3b739755d7146c7247550d9f99d415cf5ca765205a4b54523245d220"
     },
     "assets/HANDOFF.template.md": {
       "bytes": 1573,
@@ -66,8 +66,8 @@
       "sha256": "de7731f77d4c0459de7028a2156906bd97b866720adaa1ef2391132f8f65e24e"
     },
     "assets/zh/CHECKS.template.csv": {
-      "bytes": 2935,
-      "sha256": "eab0b951b20778684a01ec7c0092e1bf8c5a9c089cba0d4ecda127d110d6b797"
+      "bytes": 3891,
+      "sha256": "e0ad0022923d70cb6c10a2b0a6bf3d9ce690a097c612b58b9a4508e899527542"
     },
     "assets/zh/HANDOFF.template.md": {
       "bytes": 1289,
@@ -82,24 +82,24 @@
       "sha256": "0e702eec9bf123d5a9ab48222279afda90b7a2d673eb9b8c2e0e645a69e55bfd"
     },
     "references/02-circuit-and-library.md": {
-      "bytes": 8781,
-      "sha256": "49cd4ccded55ccd7af7af490a9a9f5cb7ce7df9fa7bdd133514ea16474d411e6"
+      "bytes": 10400,
+      "sha256": "3c79cece660fbf349b192af0775daf163526b6a42dcf2cb5e97d4ba300a77a34"
     },
     "references/03-layout-routing.md": {
-      "bytes": 12037,
-      "sha256": "00484aacaaa187141c7686740edb0bceae519a9038fccf4fafdd8f3940f6a483"
+      "bytes": 16851,
+      "sha256": "dc2ac187c56be58459e2a27625c491a5bc4a5e3fae8eeb768a4e5ee2e0b91af8"
     },
     "references/04-release-assembly.md": {
-      "bytes": 6986,
-      "sha256": "3ab46536b2f419f2beba75ec289489b464bca581a298bb2c4f40302afac5be79"
+      "bytes": 9737,
+      "sha256": "fd02f2b5f7d30e3a35ae9b8cfab0081481116e6526d8bf4e23de2f98d91f6a4a"
     },
     "references/05-bringup-debug.md": {
       "bytes": 8239,
       "sha256": "9a77d2a6622d70f8bfcf7468767a7c04d35b548d02b8d4d0c5ea68c034eae9a5"
     },
     "references/06-easyeda-execution.md": {
-      "bytes": 9986,
-      "sha256": "a5a624cda9b6cbfdfb8f06b82680ed9c23def916b6556704c4300606b2fdba59"
+      "bytes": 13372,
+      "sha256": "09e60ee8f8173d401e54270bbce482107796ccd7f3772f1d0612646c23984245"
     },
     "references/07-case-lessons.md": {
       "bytes": 6994,
@@ -114,20 +114,28 @@
       "sha256": "998c74466c6f3cf11cc5be075a91a8f7310f5fca0e1b1df4b094ae5d69ebede2"
     },
     "references/10-validation-tools.md": {
-      "bytes": 6190,
-      "sha256": "3f70585b5cd6a4ae4d3feba10815dca961a9cb18258641b8a7770633cefa0cda"
+      "bytes": 6631,
+      "sha256": "df3db511f648402a88ef59151d9ca8bf53ce8a67ded6ca1f3d1ca30c2bcfe499"
     },
     "references/11-validation-scenarios.md": {
-      "bytes": 5043,
-      "sha256": "de3fdde14897f0aeb7f11ca189b38052f982a868c1504213f2075e3d52892b73"
+      "bytes": 5824,
+      "sha256": "a5395f03e7d3f5d0924bf78f40d6df7e95f056039bce9adf905e7a343631d9cc"
     },
     "references/12-schematic-drafting.md": {
-      "bytes": 11912,
-      "sha256": "5b75732b8a2c537c8528b0de1f1dcce7f973217cf6216e807be2389e8ad19f65"
+      "bytes": 23845,
+      "sha256": "80c9eac4d913c536f485deb6d719c084a7d8d93fe10679d1ce99d946c3fc6086"
     },
     "references/13-circuit-intent-and-reuse.md": {
       "bytes": 8088,
       "sha256": "f09be817a81ce66a12fd1b33f44b929adeb995703f47f1c822178eefb0f3279a"
+    },
+    "references/14-visual-geometry-gates.md": {
+      "bytes": 5393,
+      "sha256": "be09deb3c2359c806866038ce3a3649a9b34a6686fa43f8de3c84acff37bb3f3"
+    },
+    "references/15-easyeda-schematic-methods.md": {
+      "bytes": 9626,
+      "sha256": "41cc29aa331e7f62ad17b82f4ca99dbaec0d0f2920b5f082fc0500d15745efff"
     },
     "scripts/audit_design.py": {
       "bytes": 6967,
@@ -138,8 +146,8 @@
       "sha256": "55ab5e692873988eba794546f6d25fff647ab5212b3434e498c02e472b6f5971"
     },
     "scripts/check_evidence.py": {
-      "bytes": 4865,
-      "sha256": "b1f50aff503bed615062524c4a5be5da598752327ca95ba8649217e5605eef61"
+      "bytes": 6036,
+      "sha256": "a4bb746c43c1a633ceb702bb87dfecd38c57d31915c98629edec778709f15677"
     },
     "scripts/easyeda_bridge.mjs": {
       "bytes": 3842,
@@ -161,6 +169,10 @@
       "bytes": 6348,
       "sha256": "b0a365bdd481545a5024e55cbe31c61d0b400fb91d37f96c2b1df2c9253d1ca7"
     },
+    "scripts/screen_visual_geometry.py": {
+      "bytes": 5542,
+      "sha256": "d1743b2c460f6047f3061ac5456f38a8390c68b175b74785da4163e10fe38b29"
+    },
     "scripts/test_bridge.mjs": {
       "bytes": 3847,
       "sha256": "996821e51e7347b2e53b674a49812e1184cfce5bf2a0f081a4c0f1c6b0a647e2"
@@ -169,9 +181,17 @@
       "bytes": 9369,
       "sha256": "d9f44b59c1fb5cbd8a98df3327dd527ad4b851f3ebefed1c243061da9357ce80"
     },
+    "scripts/test_design_gates.py": {
+      "bytes": 2140,
+      "sha256": "5595697f9a3726cf4978f3395cc04f110a6e104916514c76fd8b9cadd65ff6f1"
+    },
     "scripts/test_helpers.py": {
       "bytes": 5122,
       "sha256": "1cc3cf96020a35b166280692d776701e7830665f5214c6e83dbe815a2b8a4204"
+    },
+    "scripts/test_visual_geometry.py": {
+      "bytes": 3105,
+      "sha256": "dfec5854cf5ee3af80c29469d33a5d99419b069e6a91654b3db5a1d71514e941"
     },
     "scripts/test_workflow.py": {
       "bytes": 8977,
@@ -1860,6 +1880,22 @@
     "vendor/easyeda-api/user-guide/using-extension.md": {
       "bytes": 2250,
       "sha256": "21b12879d081a638a5e86712984d852f4576013442dc4c677b2cb1123338b7c8"
+    },
+    "vendor/easyeda-schematic-net-fanout/README.md": {
+      "bytes": 1530,
+      "sha256": "f216c67cf2e8b641939f5afb6f864c500f1ed9ad596f40463124f23a55ce017c"
+    },
+    "vendor/easyeda-schematic-net-fanout/SKILL.md": {
+      "bytes": 14665,
+      "sha256": "6133ad0c162998c298094188cc08511254d59ab8d41216ec6839f33de6025c94"
+    },
+    "vendor/easyeda-schematic-net-fanout/UPSTREAM.md": {
+      "bytes": 1093,
+      "sha256": "fb0a5e905c06878165290cd009c923d9414ee15ad482c72ec4b82d63f47157ff"
+    },
+    "vendor/easyeda-schematic-net-fanout/references/esp32-s3-debugger-example.md": {
+      "bytes": 7346,
+      "sha256": "4d088806120a84799899727d9dac927d833e8ca4b80462cc24efdd421df40fbb"
     }
   }
 }

@@ -68,3 +68,21 @@ After soldering, inspect visible joints under magnification for misalignment, to
 ## Assembly records
 
 Assign each board an ID and record manufacturing revision, assembly revision, substitutions, reworked areas, date, and photos. After full cooling, disconnection, and confirmation that relevant rails have discharged, proceed to [power-up and debugging](05-bringup-debug.md). Without a physical board, G6 remains untested; assembly instructions do not establish completed assembly.
+
+## Consolidated pre-release review and freeze
+
+Collect one defect list before producing a final package. Classify each item as electrical/part identity, placement/spacing, drafting, tool/export, or documented warning. Use stable IDs, affected objects and an objective acceptance condition; close resolved items instead of rediscovering them in repeated whole-board reviews. Complete source repairs before freezing. Stage temporary exports outside the final release folder.
+
+Pass `RELEASE-FREEZE` only after the selected design gates, part identity, actual connectivity, applicable calculations and rule dispositions are reconciled. Record source revision/hash, active project/document IDs, exports, current checks and unresolved scope. Then export one candidate package from that saved state and independently inspect it. A failed preview reopens the specific defect; correct native source first, invalidate affected checks, and generate a new candidate revision. Do not release patched Gerbers that disagree with the native source. If a documented manufacturer-only transformation is genuinely required, retain both versions and the reproducible transform, explain why native export cannot express it, and validate the resulting source/manufacturing correspondence explicitly.
+
+Use this impact map to select rechecks; changed geometry or uncertain side effects broaden scope:
+
+| Change | Minimum affected checks |
+|---|---|
+| Graphical schematic heading/annotation position | Format, bounds and text; if editing source or pin attributes, also compare pin nets and ERC |
+| Part value/MPN/supplier code/footprint | Identity and SCH/PCB/BOM consistency; electrical ratings/calculations for specification changes; placement/routing for footprint changes |
+| PCB text or graphic on silkscreen only | Silk/silk, silk/mask, board-edge/polarity/association, manufacturing preview; confirm copper/net geometry unchanged |
+| Component position, pad/trace/via, board outline or keepout | Affected placement/spacing, routes, return paths and impedance, repour, complete DRC/connectivity, manufacturing output |
+| Stackup or copper rules | Electrical geometry/impedance/current analysis, routing/rules, repour, complete DRC and exports |
+
+After candidate export, verify source did not change and package files share the same baseline, then hash the frozen package. Stop when required evidence is complete: do not redesign already-passing blocks for cosmetic preference. Report concrete remaining failed gates rather than repeated claims that only a final export remains. An explicit user request to stop or accept a narrower handoff preserves unresolved checks and changes the delivery claim; it does not produce a PASS or authorize manufacturing-ready wording.

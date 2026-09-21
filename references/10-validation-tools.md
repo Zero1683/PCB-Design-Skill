@@ -63,3 +63,7 @@ Use [circuit intent and reuse](13-circuit-intent-and-reuse.md) to check independ
 For authorized edits, retain before/after native snapshots and export diffs. Compare reference, part, pin-net, position/rotation/side, rules, trace/via/pour geometry, and affected manufacturing files using actual format support. The normalized tools compare component properties and pin nets within or across baselines. They do not compare native geometry, routing, pours, or rules. Never claim unchanged routing from matching component records alone.
 
 Use the release-manifest tool only on reviewed frozen deliverables. Gerber/drill/stencil/BOM/placement consistency and rendered previews remain separate engineering tasks. Run the helpers on derived records; do not use them to rewrite the source project automatically.
+
+## Drawing and physical-object screening
+
+`scripts/screen_visual_geometry.py` checks supplied transformed object bounds for page/title-block intrusion and pad/silk/mask spacing. Read [the schema and acceptance procedure](14-visual-geometry-gates.md). It does not parse native EDA files, establish export coverage, or replace rendered review and exact-contour checks. The older `audit_design.py geometry` command remains a body-only screen.

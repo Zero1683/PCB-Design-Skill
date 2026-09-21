@@ -20,7 +20,7 @@
 
 ---
 
-Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client.
+Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, schematic methods, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client. The API layer supplies operation interfaces; the methods library covers functional blocks, batch placement, selective net fanout, and revision cleanup.
 
 ## Installation
 
@@ -72,7 +72,7 @@ Design requests finish with a reviewed, routed PCB and manufacturing files for t
 | PCB layout | Component clearance, critical loops, differential signals, return paths, and ground copper |
 | Manufacturing | Gerber, BOM, placement, and stencil consistency checks; release baselines |
 | Board bring-up | Unpowered measurements, current-limited power-up, reset, programming, and functional tests |
-| EDA tools | Bundled EasyEDA API Skill 1.1.28, bridge server, references, and `ws` dependency |
+| EDA tools | Bundled EasyEDA API Skill 1.1.28, schematic enhancement methods 1.2.0, bridge server, and `ws` dependency |
 
 The engineering workflow also applies to other EDA tools through their native interfaces and checks.
 
@@ -127,6 +127,7 @@ Record conditions, results, and open items at each stage. Verify footprints agai
 | [Manufacturing and assembly](references/04-release-assembly.md) | Release files, stencils, and soldering |
 | [Board bring-up](references/05-bringup-debug.md) | Power-up, measurements, and fault isolation |
 | [EDA operations](references/06-easyeda-execution.md) | API calls, units, state, and result checks |
+| [Schematic methods](references/15-easyeda-schematic-methods.md) | Block drawing, batch placement, selective fanout, compatibility probes, and revision cleanup |
 | [Project templates](assets/) | PROJECT, CHECKS, and HANDOFF |
 | [Electrical analysis](references/09-electrical-analysis.md) | Power, voltage drop, transient budgets, and impedance handoff |
 | [Validation tools](references/10-validation-tools.md) | Evidence and normalized export contracts |
@@ -170,7 +171,7 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 ## Validation status
 
-All 41 Python tests pass. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, pin relationships, revision differences, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
+The current run contains 50 Python tests: 49 passed and one was skipped because Windows denied symbolic-link creation. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, pin relationships, revision differences, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
 
 The last live bridge check returned `WAITING_FOR_EDA`. Actual connected-client project creation, routing, export/reopen, and macOS end-to-end operation remain unverified. The helpers do not replace physical board acceptance or an impedance solver. Bundled API documentation marks several mutation methods beta; confirm installed-version support and use a scoped UI fallback when required.
 

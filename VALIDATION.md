@@ -63,3 +63,63 @@ node scripts/test_bridge.mjs --workdir /path/to/temp-root
 ```
 
 The bridge regression starts and stops only its own isolated temporary server. It uses simulated clients and does not select or modify an actual EDA project. The workflow probe test briefly uses an unoccupied local bridge-range port; it skips that test if all ports are occupied.
+
+## Local visual-gate correction, 2026-09-21
+
+Reviewed the ESP32-C3 USB development-board trial log and supplied schematic images. The trial exposed dense overlapping pin/net text, missing graphical block separators, late off-sheet attribute repair, and a gap between body-envelope screening and pad/silkscreen validation. Its CHECKS record explicitly leaves schematic presentation and final ERC unresolved; it is not evidence of successful visual acceptance.
+
+Added early page/block/text gates, distinct positive pad/silk/mask clearance checks, bounded coordinate repair, six bilingual check-template rows, and a standard-library conservative object-bounds screen. The screen consumes normalized native-derived geometry; it is not an EasyEDA extractor and cannot certify coverage or text readability.
+
+Validation: Python 3.12.14 ran 49 tests: 48 passed, one existing symlink test skipped because Windows denied symlink creation. All 8 new geometry regression tests passed. Existing 16 workflow and 14 connectivity tests passed; 10 of 11 existing packaging tests passed with that one skip. System skill structure validator passed using the system Python environment. The older default Python cannot execute some existing Python 3.10+ helpers; use the documented supported runtime. No dependencies installed.
+
+No live EDA repair or new end-to-end board run was performed for this correction. The existing PCB project and manufacturing artifacts were not modified. This is a local skill revision, not a published release or a claim that the trial board is now fixed.
+
+## Schematic presentation modes, 2026-09-21
+
+Both free-layout without a standard outer frame and partitioned standard sheets are supported. Boundary checks use the selected custom export rectangle or the inner sheet frame, respectively; metadata reservation is conditional. Updated routing instructions and bilingual check labels without changing geometry code. No live EDA changes were made.
+
+## Strict format gates and bounded repair, 2026-09-21
+
+Only free-layout and framed-layout are permitted for new/redrafted schematics. Added a required SCH-FORMAT record and --design-gates profile to reject missing/non-PASS/wrong-stage required gates or other formats. Added common drafting remedies and item-specific harmless-warning dispositions. Unreadable content, missing partitions, overlaps, electrical uncertainty and manufacturing defects are not minor-warning exemptions.
+
+Validation: new design-gate regression covers both allowed modes, disallowed mode, omitted gate, G2-only scope, N_A bypass, wrong stage and stale baseline; passed. All 16 existing workflow tests and skill structure validation passed. No live EDA test performed.
+
+## Trial-driven early checks and release workflow, 2026-09-21
+
+Added PART-IDENTITY at G2, ROUTING-READY at G3, and RELEASE-FREEZE at G5 to the strict design profile and bilingual templates. Selection verification must independently resolve the supplier specification, including displayed 22-ohm versus selected 220-ohm mismatches. Routing readiness covers native outline recognition, actual rules and tool capability. API bulk edits require one-object persistence/protected-field review. Release guidance consolidates defects, freezes a reviewed candidate, and maps each mutation to affected rechecks.
+
+Validation on Python 3.12.14: 39 tests passed (1 expanded gate regression, 16 workflow, 14 connection/revision and 8 geometry tests). The gate regression now removes every required gate in turn to verify rejection, and retains both valid formats, G2 scope, N_A/wrong-stage/stale-baseline rejection cases. Skill structure validation and git diff whitespace checks passed. These checks exercise helper behavior and record contracts, not live EDA correctness; no new end-to-end design or hardware test was performed. No PCB files or external repository were modified by this local update.
+
+## Bundled schematic methods integration, 2026-09-21
+
+Bundled easyeda-schematic-net-fanout 1.2.0 at upstream commit
+`0c4b9a0ad94d532923dee5c828a6efa7444f4506`. Added reference 15 as the
+integration adapter, routed it from the entrypoint and EDA/drafting references,
+and updated both READMEs, setup, provenance and scenario definitions.
+
+- Main skill and bundled enhancement entrypoint passed the local structure validator.
+- Checked 102 first-party Markdown file links: all targets exist.
+- The three vendored upstream files match the reviewed installed snapshot byte-for-byte
+  (including its documented compatibility-metadata relocation).
+- Reviewed the new paths for placement-only staging, dense rotated labels and
+  partially completed batches: the adapter retains G2-A before fanout, geometry
+  verification, independent pin nets and ownership-aware cleanup. This was an
+  author review; the added behavioral scenarios have not been independently run.
+- No runtime implementation changed in this update; helper suites were not rerun.
+  Prior helper results above retain their original scope.
+
+No bridge was started and no live EDA project, manufacturing output or hardware
+was modified or tested. Connected-client probes and native render/save/reopen
+remain required before claiming live integration acceptance.
+
+## GitHub publication check, 2026-09-21
+
+Reran all five Python suites on Python 3.12.14 before publishing the combined
+visual-gate and schematic-methods update: 50 cases, 49 passed, one skipped.
+The skipped case is test_reject_symlink: Windows returned WinError 1314 while
+creating its fixture. No symlink-rejection PASS is claimed for this run.
+Suite totals: helpers 11 (10 passed, one skipped), workflow 16, circuit checks
+14, design gates 1, visual geometry 8. Native EDA and physical hardware were not
+tested. Main and enhancement skill structure checks and diff whitespace checks
+passed during integration. The package manifest is regenerated from a clean
+snapshot excluding .git and runtime/cache data, then verified before commit.

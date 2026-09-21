@@ -20,7 +20,7 @@
 
 ---
 
-将硬件需求转化为电路设计、PCB 工程与制造文件，提供封装核验、布局布线检查和首板调试流程。内置 EasyEDA API 文档、本地桥接服务及运行依赖，支持在嘉立创EDA中执行工程操作。
+将硬件需求转化为电路设计、PCB 工程与制造文件，提供封装核验、布局布线检查和首板调试流程。内置 EasyEDA API、原理图辅助方法库、本地桥接服务及运行依赖，支持在嘉立创EDA中执行工程操作。API 负责接口调用，辅助方法库提供功能分区、批量摆放、网络引出和修改清理流程。
 
 ## 安装
 
@@ -72,7 +72,7 @@ Node.js、EDA 客户端和 Gateway 扩展需单独安装。Python 3.10+ 用于�
 | 布局布线 | 器件间距、关键回路、差分信号、回流路径与地铜检查 |
 | 制造交付 | Gerber、BOM、坐标和钢网文件的一致性检查与版本冻结 |
 | 实板调试 | 断电测量、限流上电、复位与下载、接口及功能验证 |
-| EDA 工具 | 内置 EasyEDA API Skill 1.1.28、桥接服务、文档和 `ws` 依赖 |
+| EDA 工具 | 内置 EasyEDA API Skill 1.1.28、原理图增强方法 1.2.0、桥接服务和 `ws` 依赖 |
 
 工程流程也适用于其他 EDA；具体操作需使用对应软件的接口与检查工具。
 
@@ -127,6 +127,7 @@ USB-C 供电，元件全部放在顶层，采用钢网和加热台装配。
 | [制造与装配](references/04-release-assembly.md) | 制造发布、钢网与焊接 |
 | [实板调试](references/05-bringup-debug.md) | 上电验证、测量与故障定位 |
 | [EDA 操作](references/06-easyeda-execution.md) | API 调用、单位、状态与结果核对 |
+| [原理图辅助方法](references/15-easyeda-schematic-methods.md) | 分区框、批量摆放、选择性网络引出、兼容探测和修改清理 |
 | [记录模板](assets/) | PROJECT、CHECKS、HANDOFF |
 | [电气计算](references/09-electrical-analysis.md) | 电源、压降、瞬态预算与阻抗复核 |
 | [校验工具](references/10-validation-tools.md) | 证据与规范化导出数据格式 |
@@ -170,7 +171,7 @@ python -X utf8 scripts/release_manifest.py verify --root /path/to/pcb-design-to-
 
 ## 验证状态
 
-41 项 Python 测试通过，覆盖记录初始化、文件完整性、证据完整性、电气基础计算、规范化数据对照、外形筛查、引脚连接规则、版本差异，以及模拟桥接下的 API 探测行为。详见[验证记录](VALIDATION.md)。
+本次运行 50 项 Python 测试：49 项通过，1 项因 Windows 符号链接创建权限限制跳过。测试覆盖记录初始化、文件完整性、证据完整性、电气基础计算、规范化数据对照、外形筛查、引脚连接规则、版本差异，以及模拟桥接下的 API 探测行为。详见[验证记录](VALIDATION.md)。
 
 上次桥接检查响应为 `WAITING_FOR_EDA`。连接客户端后的工程创建、布线、导出重开，以及 macOS 端到端操作仍未验证。辅助工具不替代实板验收或阻抗求解器。内置 API 文档将部分修改方法标为 beta，需要核实客户端支持情况，必要时只对该操作使用界面回退。
 

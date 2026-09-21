@@ -1,15 +1,24 @@
 # Getting Started
 
-This package includes the PCB workflow skill, the complete documentation for EasyEDA API Skill 1.1.28, the bridge service, and its ws runtime dependency. No separate easyeda-api skill installation, npm install, or documentation generation is required.
+This package includes the PCB workflow skill, the complete documentation for EasyEDA API Skill 1.1.28, the bridge service, and its ws runtime dependency. The schematic enhancement methods and upstream recipes are also bundled. No separate prerequisite skill installation, npm install, or documentation generation is required.
 
 ## First Use
 
-1. Install the full package as **one skill**, including `vendor/easyeda-api/`. No second prerequisite skill is required. Extract the entire folder to your working drive and preserve its directory structure. On Windows, D: is recommended; paths may contain Chinese characters and spaces.
+1. Install the full package as **one skill**, including both `vendor/easyeda-api/` and `vendor/easyeda-schematic-net-fanout/`. No second prerequisite skill is required. Extract the entire folder to your working drive and preserve its directory structure. On Windows, D: is recommended; paths may contain Chinese characters and spaces.
 2. Install Node.js 18 or later and an EasyEDA desktop client that supports extensions if they are not already available. This package does not include a Node.js installer or the EDA client.
 3. Install and enable the **Run API Gateway** extension in EasyEDA. The upstream package does not include an `.eext` file, and this package does not supply a fabricated substitute. Search for the extension by name in the client's extension marketplace. The upstream URL is https://jlc-ext.com/item/oshwhub/run-api-gateway .
 4. On Windows, double-click `start-easyeda.cmd`. On other systems or in an agent terminal, run `node scripts/easyeda_bridge.mjs start` with this folder as the working directory.
 5. `EDA_CONNECTED` means connected. `WAITING_FOR_EDA` means the bridge has started; open the client and enable the extension. `BRIDGE_NOT_FOUND` means the service was not found; check the reported log path and whether the port is occupied.
 6. Register this folder in an AI tool that supports skills, then invoke `$pcb-design-to-bringup`. Alternatively, ask the agent to read this folder's `SKILL.md`. Do not load another external copy of easyeda-api.
+
+## Included operation layers
+
+The main skill loads the API reference and bridge for EasyEDA operations, then
+[schematic methods](references/15-easyeda-schematic-methods.md) when drawing or
+revising schematics. The methods adapt the upstream enhancement recipes while
+retaining placement-before-wiring, the two supported drawing formats and native
+verification. Keep the entire vendor directory; there is no second installation
+or extra bridge to start.
 
 ## macOS and skill discovery
 

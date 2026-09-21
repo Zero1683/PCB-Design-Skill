@@ -12,7 +12,7 @@ FIELDS = {'id', 'stage', 'check', 'applicability', 'status', 'baseline_id', 'boa
           'checked_at', 'limitation', 'next_action'}
 
 
-def audit(root, baseline, through='G5', board=None, firmware=None):
+def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=False):
     root = Path(root).resolve(strict=True)
     if not baseline.strip() or through not in {f'G{i}' for i in range(10)}:
         raise ValueError('Provide a nonempty baseline and a stage G0-G9')
@@ -61,6 +61,19 @@ def audit(root, baseline, through='G5', board=None, firmware=None):
             path = (root / name).resolve()
             if Path(name).is_absolute() or not path.is_relative_to(root) or not path.is_file() or path.stat().st_size == 0:
                 errors.append(f'{label}: evidence must be a nonempty project-local file: {name}')
+    if design_gates:
+        gates = {'PART-IDENTITY': 'G2', 'ROUTING-READY': 'G3', 'RELEASE-FREEZE': 'G5', 'SCH-FORMAT': 'G2', 'SCH-PAGE-BOUNDS': 'G2', 'SCH-BLOCKS': 'G2',
+                 'SCH-TEXT': 'G2', 'PCB-PAD-GAP': 'G3', 'PCB-SILK-GAP': 'G3', 'PCB-SILK-MASK': 'G3'}
+        by_id = {r.get('id', '').strip(): r for r in rows if isinstance(r.get('id'), str)}
+        for ident, stage in gates.items():
+            if int(stage[1:]) > int(through[1:]): continue
+            row = by_id.get(ident)
+            if row is None:
+                errors.append(f'{ident}: required design gate missing'); continue
+            if row.get('stage') != stage or row.get('status') != 'PASS' or row.get('applicability') != 'required':
+                errors.append(f'{ident}: design gate must be required PASS at {stage}')
+            if ident == 'SCH-FORMAT' and row.get('actual') not in {'free-layout', 'framed-layout'}:
+                errors.append('SCH-FORMAT: only free-layout or framed-layout is allowed')
     if selected == 0: errors.append('No check rows in selected stage range')
     return {'scope': 'record-completeness-only', 'through': through, 'selected_checks': selected,
             'record_errors': errors, 'pending': pending,
@@ -74,8 +87,9 @@ def main():
     p.add_argument('--baseline', required=True)
     p.add_argument('--through', default='G5', choices=[f'G{i}' for i in range(10)])
     p.add_argument('--board'); p.add_argument('--firmware')
+    p.add_argument('--design-gates', action='store_true', help='Require schematic format/visual and PCB spacing gate records')
     args = p.parse_args()
-    try: result = audit(args.root, args.baseline, args.through, args.board, args.firmware)
+    try: result = audit(args.root, args.baseline, args.through, args.board, args.firmware, args.design_gates)
     except (OSError, ValueError) as exc: p.exit(2, f'ERROR: {exc}\n')
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result['records_complete'] else 1

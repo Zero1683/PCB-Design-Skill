@@ -109,3 +109,28 @@ After repouring, run applicable whole-design DRC/ERC and unrouted-connection che
 Connectivity conclusions require actual EDA connectivity data or trustworthy analysis. Missing API returns, nulls, and timeouts differ from a successful empty error list.
 
 Save and reread or reopen the checked design. A subsequent component or trace move invalidates affected checks; do not reuse the earlier final-inspection conclusion unchanged.
+
+## Mandatory pad and silkscreen spacing review
+
+Before routing, define and record strictly positive edge-to-edge limits for pad-to-pad copper, silk-to-silk, silk-to-solder-mask-opening and component-body assembly clearance. Derive copper/mask limits from the actual process, voltage and footprint requirements. For an ordinary low-voltage prototype, 0.20 mm silk-to-silk, 0.20 mm silk-to-mask-opening and 0.50 mm between separate component bodies are useful initial layout targets, not universal manufacturing limits. Adjust explicitly when the selected process, exact package or assembly method requires it; do not ask a beginner to choose unexplained numbers. Record the chosen numerical values before placement review.
+
+Different pads must not overlap or touch. Check same-net pad pairs too: electrical DRC can exempt them while assembly still fails. Check distinct pads inside footprints against the exact package drawing; intentional compound copper primitives representing one physical pad are grouped by verified physical pad identity, never just by net name. Solder-jumper structures require explicit design intent and documented geometry. Do not move library pads to make components fit.
+
+Check all final visible silkscreen: reference designators, footprint outlines, connector labels, polarity marks, logos and board text. Check stroke edges and actual text extent, including rotation and mirroring. No unrelated silk objects may overlap or touch; keep the chosen positive separation. A continuous designed outline is one graphic, not a false collision at each connected segment. Check silk against solder-mask openings, not only copper pads. Do not rely on the fabricator clipping silk off pads, hiding required references, or exporting edited Gerbers while leaving the native source wrong.
+
+Review `PCB-PAD-GAP`, `PCB-SILK-GAP`, `PCB-SILK-MASK` separately from body envelopes. Record object IDs/reference pairs, layers, measured edge gaps, selected limits, extraction coverage and a readable image of each suspect. Unknown geometry or disabled DRC categories remain unchecked. A body gap report cannot satisfy pad or silk checks. Use the conservative helper in reference 14 for screening when appropriate, then resolve suspects against exact geometry/native DRC and rendered evidence.
+
+At G3, resolve collisions and insufficient space before routing. Move components as complete assemblies; resolve footprints, body access and route channels first, then arrange their labels. Recheck after autorouting, any component/text movement, repouring and final Gerber export. G5 requires the final source and actual top/bottom silkscreen and mask outputs to agree. If space cannot meet requirements, replan placement or propose an outline change; do not squeeze clearance to zero.
+
+## Routing readiness gate
+
+Before the first trace batch or autorouter run, pass `ROUTING-READY` with a saved placement baseline:
+
+- Native tool recognizes the intended closed board region, including cutouts; visually meeting line endpoints is insufficient. Verify layer, contour closure and router recognition. Use an actual tool diagnostic or a backed-up small routing trial if no read-only recognition API exists. A polygon replacement must preserve measured outline geometry and cutouts, not silently substitute a rectangle.
+- Required placement/body/pad/silk gates pass. Critical power and interface escape paths have space. Record net classes, real units, widths/clearances, permitted layers, keepouts, via rules and any differential constraints.
+- Probe current client capabilities once. A missing autoroute API selects the documented native UI route; it does not imply the client has no autorouter. Record client version, tool route and specific limitation. When UI is unavailable, use explicit routing with the same constraints and state the reason.
+- Preserve existing critical routes and constrain the ordinary-net autorouter. For explicit routing, verify one representative route batch and its actual net/layer/width before applying more.
+
+At intermediate stages classify native findings as geometry/clearance violations, expected unfinished connections, or waived/false-positive findings. A deliberate unrouted placement snapshot may retain connection warnings, but pad shorts, forbidden overlaps and spacing failures remain blockers. Keep the full report; never turn off final connectivity checks to make the placement report look clean. At final G4, required connections must be complete and copper repoured before the full DRC/connection audit.
+
+When the user takes over routing, save and hand off actual settings and exclusions. On resumption read the current PCB first; do not overwrite user routes or assume the pre-handoff state. Only remove existing routing when authorized and preserve a rollback snapshot.

@@ -14,9 +14,13 @@ Integrated startup conventions:
 4. The launcher verifies service ID `easyeda-bridge` and reports the actual port and windows; do not assume port 49620. `WAITING_FOR_EDA` means the user should enable Run API Gateway in the desktop client, not that another bridge must be started.
 5. With multiple services/windows, identify the target from the task. Explicitly use the selected service and `windowId` in later calls rather than relying on the active-window default. Connection alone does not identify the intended project.
 
+## Schematic operating methods
+
+For schematic creation or revision, read [schematic methods](15-easyeda-schematic-methods.md) alongside the relevant API classes. It adapts the bundled [enhancement recipes](../vendor/easyeda-schematic-net-fanout/SKILL.md) for block layout, batch placement, selective labels, partial-failure recovery and protected edits. Use one shared bridge and the same selected window/document. Follow the adapter before upstream examples: exact-part mapping, measured geometry, G2-A before G2-B, and native acceptance remain required. Upstream recipes are supplementary operating guidance, not a second governing workflow or a complete layout/electrical checker.
+
 ## Installation completion and routing to tools
 
-The main skill and `vendor/easyeda-api` ship together. Read the vendor entrypoint directly by path; nested discovery as a second installed skill is unnecessary. Missing discovery is not evidence that computer use is the only tool.
+The main skill, `vendor/easyeda-api` and `vendor/easyeda-schematic-net-fanout` ship together. Read the vendor entrypoint directly by path; nested discovery as a second installed skill is unnecessary. Missing discovery is not evidence that computer use is the only tool.
 
 Separate three states:
 
@@ -85,3 +89,21 @@ With images alone, assess visible layout and annotations and list outstanding ch
 Without an available EDA tool, continue requirements, architecture, pin tables, candidate BOM, critical electrical/footprint evidence, and manufacturing constraints. Report exact missing deliverables rather than fabricating a saved PCB file.
 
 A disconnected bridge does not authorize resetting projects, terminating unrelated processes, or deleting projects. Background startup and storage must follow the current environment's requirements.
+
+## Schematic attribute coordinate probe
+
+Before bulk edits to pin attributes or NC markers, test one documented operation and inspect it after save/reopen. Component-local, API and serialized source positions may use different origins and Y directions. A negative coordinate alone is not corruption. Do not apply a sign flip or global translation without a verified transform and parent relationship. Preserve pin identities and the pre-edit netlist; restore a failed probe before trying another method. Follow the bounded repair procedure in reference 12.
+
+## One-object persistence probe before bulk mutation
+
+For an unverified API method/client-version combination involving component properties, symbol attributes, coordinates or import/synchronization, first back up and test one representative object. Read exact method semantics: a replacement-style setter may erase unspecified fields. Capture the full relevant pre-state, make the smallest documented edit, read back, save, reopen the document, then compare:
+
+- Requested field/position and native rendered result.
+- Stable object ID, designator, part/MPN, supplier code, footprint, value, fitted/BOM status and pin-net mapping where applicable.
+- For geometrical edits, units, parent transform, orientation, layer and association with the correct object.
+
+Proceed in small batches only if the intended change persisted and unrelated protected fields stayed unchanged. Reread after each batch. A missing field, wrong object type, document switch or unexpected diff fails the operation; restore the affected object/snapshot and diagnose before retrying. Do not blindly fill missing fields from a stale snapshot after the user has edited the design. Avoid whole-source replacement for a local attribute if a verified narrow method exists. Direct source repair still needs current format documentation, parse/round-trip checks and connectivity comparison.
+
+Import/synchronization success may mean a confirmation dialog opened, not that changes were applied. Complete the native confirmation within authorized scope, then verify imported object identities and pin nets. Export calls may depend on the active editor: activate the exact document, verify project/document/type immediately before exporting, and inspect the returned content, not only its filename. After reconnect or project opening rediscover window/document IDs rather than reusing stale ones.
+
+Record probe evidence once per relevant version/operation and reuse it while those conditions remain unchanged. Do not repeat the entire capability discovery for each component. A timeout requires readback before retry; do not create duplicates.

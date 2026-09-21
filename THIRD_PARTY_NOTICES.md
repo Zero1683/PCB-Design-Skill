@@ -35,3 +35,21 @@ The root MIT license covers this project's original workflow, templates, and int
 `assets/schematic-style-reference.png` is the schematic example supplied by the user on 2026-09-06 and included at their request. Its original author and license have not been independently established. It is retained as a visual reference for page organization, not as an electrically validated circuit. The repository's MIT grant does not extend to this image.
 
 该图片来自用户于 2026-09-06 提供的原理图示例，按用户要求收录。原作者及原始许可尚未独立确认；图片用于说明页面组织，不代表电路已通过验证，也不纳入本仓库自有内容的 MIT 授权范围。
+
+## EasyEDA schematic enhancement / 原理图增强方法
+
+- Source: https://github.com/easyeda/easyeda-enhanced-schematic-skill
+- Snapshot: `0c4b9a0ad94d532923dee5c828a6efa7444f4506`; declared version 1.2.0.
+- Bundled at `vendor/easyeda-schematic-net-fanout/`, retaining the README,
+  skill entrypoint and ESP32-S3 example. The upstream SKILL.md declares MIT;
+  this snapshot contains no separate LICENSE file or explicit copyright notice.
+  No upstream copyright statement has been invented.
+- Integration adjustment: the compatibility field is moved under metadata;
+  dependency semantics and upstream workflow/example text are unchanged.
+- The project-authored adapter is `references/15-easyeda-schematic-methods.md`.
+  It identifies stage, geometry, pin-review and runtime rules that govern use of
+  the upstream examples. The example is not an electrically approved circuit.
+
+原理图增强资料取自上述固定版本，保留上游 MIT 声明。仅调整兼容性元数据位置；
+本项目的辅助方法文档单独说明适用条件和集成规则。示例中的器件与脚号不能直接
+作为其他设计的选型或连接依据。

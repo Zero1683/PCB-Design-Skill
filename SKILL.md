@@ -5,7 +5,7 @@ description: Design manufacturable, assembleable, and testable PCBs from hardwar
 
 # PCB Design to Bring-up
 
-EasyEDA API Skill 1.1.28, API and source-format documentation, the bridge server, and the ws runtime dependency are bundled. No separate easyeda-api installation is required. See [setup](START_HERE.md) and follow [EDA operations](references/06-easyeda-execution.md) to load the relevant tool documentation and start the bridge. The target machine still needs Node.js, the EDA desktop client, and its Gateway extension. Do not start a service for workflow advice or file-only review.
+EasyEDA API Skill 1.1.28, API and source-format documentation, the bridge server, and the ws runtime dependency are bundled. The bundled schematic methods library adds block drawing, batch placement and selective net fanout. No separate easyeda-api or schematic enhancement installation is required. See [setup](START_HERE.md) and follow [EDA operations](references/06-easyeda-execution.md) to load the relevant tool documentation and start the bridge. The target machine still needs Node.js, the EDA desktop client, and its Gateway extension. Do not start a service for workflow advice or file-only review.
 
 Deliver designs that can be manufactured, assembled, measured, and maintained. Resolve known issues before the first prototype, but do not promise first-pass success or describe an unbuilt design as a mature product.
 
@@ -17,9 +17,21 @@ For EasyEDA, load the **bundled** API skill before choosing an interaction metho
 
 Use native autorouting for suitable ordinary nets after critical placement, power, and sensitive routes are planned. Preserve completed routes and verify the result. This can reduce per-segment agent work; it does not remove engineering checks or guarantee a particular token saving. Follow [routing strategy](references/03-layout-routing.md).
 
+## EasyEDA operating foundations
+
+Use two bundled layers: [easyeda-api](vendor/easyeda-api/SKILL.md) for the bridge and exact operation references, and [schematic methods](references/15-easyeda-schematic-methods.md) for drawing blocks, placing parts, selective fanout and controlled revisions. For EasyEDA schematic work, load the methods reference before applying the bundled [upstream recipes](vendor/easyeda-schematic-net-fanout/SKILL.md). This workflow owns staging and acceptance; the adapter identifies which upstream shortcuts require replacement or version verification. Both layers are available by relative path without separate installation or discovery.
+
 ## Schematic drafting sequence
 
 Before creating a schematic, read [schematic drafting standards](references/12-schematic-drafting.md). Complete G2-A with all required components placed, named functional blocks, no unintended overlap, and zero electrical wires/buses. Read back and visually inspect the placement, save its evidence, then continue to G2-B wiring and electrical review. The zero-wire requirement applies to the placement snapshot only. Existing wired projects retain their connections; review their current state and apply the staged process to new blocks.
+
+## Drawing and spacing gates
+
+Read [visual and geometry checks](references/14-visual-geometry-gates.md) before placing schematic or PCB components. Exactly two schematic formats are allowed: `free-layout` without a standard outer frame, or `framed-layout` partitioning inside a standard sheet frame. No third format is permitted; record and pass SCH-FORMAT before wiring. Failed format/readability/spacing gates block progression and cannot be waived as small warnings. Follow the common-remedy and item-specific warning disposition tables in reference 12. Define usable canvas/export bounds, reserve metadata or the title block as appropriate, and draw graphical block separators. Pass page-boundary, block and text checks before PCB import. Before routing, pass separate pad-to-pad, silk-to-silk and silk-to-mask checks using positive recorded clearances; a body-envelope check or zero electrical DRC errors is insufficient. Recheck final native drawings and manufacturing outputs. After two ineffective repairs to the same visual defect, diagnose the coordinate/symbol/rendering cause before further edits; do not spend the release stage blindly nudging attributes.
+
+## Prevent late rework
+
+Before wiring, verify schematic values against independently resolved MPN/supplier specifications (`PART-IDENTITY`, reference 02). Before routing, verify native outline recognition, placement gates and actual routing rules/tool capability (`ROUTING-READY`, reference 03). Before bulk API edits, prove one object's requested change and protected properties survive save/reopen (reference 06). Consolidate defects, repair native source, then freeze and export one reviewed candidate (`RELEASE-FREEZE`, reference 04); later edits invalidate only the relevant checks unless side effects are uncertain.
 
 ## Circuit intent and reuse
 
@@ -91,7 +103,7 @@ At G1/G2, calculate supply/load budgets and component operating margins. At G4, 
 - `python scripts/init_project.py --output <project-directory> --name <project-name> --lang <en|zh>` creates `PROJECT.md`, `CHECKS.csv`, and `HANDOFF.md` only in a directory that does not exist. It refuses overwrite.
 - `python scripts/release_manifest.py create --root <frozen-release-directory> --revision <revision> --baseline <baseline-id>` generates byte counts and SHA-256 hashes for a prepared release package without modifying the PCB.
 - `python scripts/release_manifest.py verify --root <frozen-release-directory>` checks missing, added, and changed files and rejects path traversal and symbolic links. It verifies package integrity, not schematics, impedance, or hardware acceptance.
-- `python scripts/check_evidence.py --root <project-directory> --baseline <baseline-id> --through G5` checks record completeness, evidence files, and baseline identity. It does not certify the circuit.
+- `python scripts/check_evidence.py --root <project-directory> --baseline <baseline-id> --through G5 --design-gates` enforces required design-gate rows and checks record completeness, evidence files, and baseline identity. It does not certify the circuit.
 - `python scripts/electrical_calcs.py --input <calculations.json>` calculates sourced first-order power, loss, DC path, and transient budgets; see [09](references/09-electrical-analysis.md).
 - `python scripts/audit_design.py compare <schematic.json> <pcb.json>` compares normalized records; `geometry <pcb.json> --clearance-mm <value>` screens body envelopes. See [data contracts](references/10-validation-tools.md); these are not native EDA parsers.
 - `python scripts/check_connectivity.py <snapshot.json> <circuit-checks.json>` checks declared pin relationships against a normalized native export. `python scripts/audit_design.py diff <before.json> <after.json>` reports component/pin changes between revisions. See [13](references/13-circuit-intent-and-reuse.md); neither result certifies electrical or physical correctness.
