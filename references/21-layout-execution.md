@@ -141,3 +141,10 @@ token reduction, millisecond live rendering or complete hardware compilation is
 claimed. Measure end-to-end time, actual agent token usage, retries, native
 save/reload results and remaining findings on the same board before comparing
 backends. Offline success alone cannot select the better production path.
+
+## Batch preflight and repair feedback
+
+Use [the batch/repair helper](22-batch-repair.md) before a scoped G2-A write and
+when an actual readback differs. It assesses the full target and records bounded
+repair attempts; it neither intercepts every native API nor executes proposals.
+Keep raw capture, adapter revision and save/reload evidence with the reports.

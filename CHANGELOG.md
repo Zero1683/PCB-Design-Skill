@@ -1,3 +1,27 @@
+# v1.5.2 · 批次预检与修复反馈 / Batch preflight and repair feedback
+
+## 中文
+
+- 新增 G2-A 完整布局批次预检：读取新鲜源数据，计算所有目标对象和分区后的状态，检查几何及保护属性，再交给选定后端执行。
+- 输出结构化修复报告：记录对象、预期值、实际值、失败检查及候选动作；身份、引脚、属性异常和重载失败不会直接生成移动指令。
+- 新增持久化重试账本：阻止同计划与同适配器原样重试，识别重复失败，限制连续无进展，并支持幂等记录。
+- 补充后端版本、原始观测和读回证据的对应要求；制造与供应信息保持可配置，不引入硬编码费用或库存门槛。
+- 新增 11 项离线回归测试；复测相邻数据恢复和布局工具。更新中英文 README 与操作说明。
+
+## English
+
+- Add full-target G2-A layout batch preflight using fresh source data, geometry and protected properties before handoff to the selected backend.
+- Emit structured repair evidence with expected/actual values, objects, failed checks and scoped proposals. Identity, pin/property and reload failures do not authorize movement.
+- Add a persistent, idempotent attempt ledger that blocks unchanged retries, detects repeated failures and bounds unsuccessful attempts.
+- Document adapter revisions, raw captures and native readback evidence. Keep manufacturing/supply policies configurable; add no hard-coded fees or stock threshold.
+- Add 11 offline regression tests and rerun adjacent data/recovery and layout tests. Update both READMEs and the execution guide.
+
+## 范围 / Scope
+
+本版本支持已测量的无连线分区布局。它不拦截任意官方 API、不自动执行修复、不求解电气意图、不回滚实时 EDA；真实 EDA 采集、写入和保存重载仍需后端联调。测试使用合成数据，未验证实板或 Token 节省比例。
+
+This release covers measured unwired block layouts. It does not intercept arbitrary official API calls, execute repairs, solve electrical intent or roll back live EDA. Native capture, application and save/reload still require backend integration. Tests use synthetic data; no hardware or token-saving benchmark is claimed.
+
 # v1.5.1 · 数据核对、布局规划与操作恢复 / Data, layout and recovery
 
 ## 中文

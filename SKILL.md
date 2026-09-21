@@ -75,6 +75,12 @@ compute a fixed plan, apply through the selected backend, then compare immediate
 and post-reload observations. The helper packs existing local blocks; it does not
 solve wiring, operate EDA or certify save/reload. Preserve two-format and stage rules.
 
+For bounded layout writes and repairs, use [batch preflight and repair feedback](references/22-batch-repair.md).
+Preview the complete target from fresh source, record actual observations and use
+one scoped retry ledger. Change the failing plan or adapter before retrying;
+repeated/no-progress failures stop that method. Reports are repair evidence,
+not executable commands or proof of electrical intent. Native readback still applies.
+
 ## Circuit intent and reuse
 
 For critical connection checks, reusable blocks, or revisions, read [circuit intent and reuse](references/13-circuit-intent-and-reuse.md). Record expectations from requirements and exact-part documentation, implement through the native EDA workflow, then compare independent intent with actual exported pin nets. Keep native source authoritative for the implemented design. Recheck reused blocks against the new supply, load, pin mapping, and physical constraints. No additional circuit language or PCBDL dependency is required.

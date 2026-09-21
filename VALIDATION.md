@@ -1,3 +1,25 @@
+# v1.5.2: batch preflight and repair feedback
+
+2026-09-21, Windows/Python 3.12. Eleven new cases exercise full-target preview,
+stale source rejection, scoped geometry proposals, protected-fact and persistence
+failures, unchanged/repeated/bounded retries, adapter revision, idempotent ledger
+recording, corruption rejection and CLI behavior. Adjacent data/recovery (27)
+and layout (14) tests are rerun for publication: 52 cases total.
+
+Independent read-only review ran the initial 10 cases and found no additional
+concrete defect beyond the adapter revision issue being addressed: a corrected
+adapter must be distinguishable from an unchanged plan/adapter retry. Explicit
+adapter IDs now participate in that decision and are covered by tests.
+
+An initial subprocess-test encoding mismatch on a Chinese Windows path was fixed
+by explicit UTF-8 in both child execution and output decoding; CLI output is now
+asserted as well as exit status. The corrected 11-case suite passed cleanly.
+
+No native API interception, adapter capture/application, live save/reload,
+physical manufacturing, supplier query or token-saving benchmark was performed.
+Reports and ledgers contain declared observation evidence, not independent proof
+of native execution or electrical correctness. Existing v1.5.1 records follow.
+
 # v1.5.1: measured schematic layout execution
 
 Windows synthetic validation, 2026-09-21: 14 new tests passed, covering both

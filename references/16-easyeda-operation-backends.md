@@ -128,3 +128,10 @@ test. Prove one scoped operation on a disposable design before broad mutations,
 then verify native readback, save/reopen and affected checks. Record source-only,
 offline-tested and live-tested results separately. See reference 11 for scenarios
 and VALIDATION.md for actual execution evidence.
+
+## Batch preflight and repair feedback
+
+Use [the batch/repair helper](22-batch-repair.md) before a scoped G2-A write and
+when an actual readback differs. It assesses the full target and records bounded
+repair attempts; it neither intercepts every native API nor executes proposals.
+Keep raw capture, adapter revision and save/reload evidence with the reports.

@@ -24,7 +24,7 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Recent updates
 
-Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **v1.5.1 includes data reconciliation, layout planning and operation recovery.** Download the complete release package or clone the repository.
+Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **v1.5.2 adds layout batch preflight, structured repair reports and retry control, alongside data reconciliation, layout planning and operation recovery.** Download the complete release package or clone the repository.
 
 | Area | Additions |
 |---|---|
@@ -120,6 +120,10 @@ Pack locally arranged functional blocks into a defined sheet using measured comp
 
 Reconcile component/pin data across PCB models, query bounded summaries/pages and inspect deltas while retaining raw inputs locally. Complete closed-file projects can use isolated candidates with phase results and hash-guarded recovery that preserves the failed copy. Live EDA rollback needs separate validation. See [usage](references/20-data-and-recovery.md).
 
+## Batch preflight and repair feedback
+
+Check the complete layout target before writing, then turn readback differences into reports containing objects, expected/actual values and scoped proposals. A persistent ledger blocks unchanged plan/adapter retries, detects repeated failures and bounds unsuccessful attempts. Pin/property drift requires investigation; post-reload failures prioritize persistence checks. This covers measured G2-A layouts and does not execute repairs or intercept arbitrary EDA APIs. See the [operation guide](references/22-batch-repair.md).
+
 ## Usage
 
 ### Design a new PCB
@@ -214,6 +218,8 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 </details>
 
 ## Validation status
+
+For v1.5.2, all 11 new batch/repair cases and reruns of 27 data/recovery plus 14 layout cases passed: 52 total. These use offline synthetic data and local files.
 
 All 14 new synthetic layout tests passed, covering bounds, obstacles, stale plans and readback changes. Live EDA save/reload integration has not been tested.
 

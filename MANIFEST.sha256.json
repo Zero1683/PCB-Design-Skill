@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.5.1",
-  "baseline_id": "v1.5.1-release",
-  "generated_utc": "2026-09-21T12:43:11+00:00",
+  "revision": "v1.5.2",
+  "baseline_id": "v1.5.2-release",
+  "generated_utc": "2026-09-21T13:04:51+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,24 +10,24 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 6241,
-      "sha256": "2bcb8d630b8da2731f8c788427d4bf1485a29d94d6c11b35dbbe83c0acee0696"
+      "bytes": 8497,
+      "sha256": "1dfbd9d64689cb99694285d2ff0e4903d1d89b5d554e4c81a9cbf4f628167e11"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 14802,
-      "sha256": "0dcc452dd34de5eea8bfaf7db6b86baa418eb86cbbf7c0e7bf5225bdae31af82"
+      "bytes": 15531,
+      "sha256": "13d39da9c97d18281d31f186460a5778f8ba6930c4131664f13dd4115cac7822"
     },
     "README_EN.md": {
-      "bytes": 16234,
-      "sha256": "2c55fd0f35a9a15a6f229f9b7061efc532e56945ddb9f7cfa3d8f671856588a2"
+      "bytes": 17039,
+      "sha256": "7bb2351715f7e469ae3373bf2e15f422bca10f7bbbbbfece12cafa1bd64e3d18"
     },
     "SKILL.md": {
-      "bytes": 19754,
-      "sha256": "5a772f6528f0df38eeac20ef4d9c9919016ef7e8d16b18282281b5d41c0e7709"
+      "bytes": 20190,
+      "sha256": "737f2e7c272560ffbce93fc2ad7031f2ccef09f19240bbffd218ba09af9bb5ac"
     },
     "START_HERE.md": {
       "bytes": 6156,
@@ -38,8 +38,8 @@
       "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
     },
     "VALIDATION.md": {
-      "bytes": 21309,
-      "sha256": "f8c31014c681a0f2c8393cf6b202c4bc07de9a9d143589cdf99107e39ecbe53d"
+      "bytes": 22608,
+      "sha256": "48af8563b4022b2f2baded290c86d800ae67e5d91ba73b1351766bfcad9b5132"
     },
     "agents/openai.yaml": {
       "bytes": 365,
@@ -138,8 +138,8 @@
       "sha256": "d9a329c50d5b8a1d5ffe839e5926d3245f50aeabc1cc3a900a162cc8d0f1aa08"
     },
     "references/10-validation-tools.md": {
-      "bytes": 7712,
-      "sha256": "f7701c91edbf0ccd4350c7fa3fcc9b52dcee4bc645e49086f75898fb2e99eca7"
+      "bytes": 8073,
+      "sha256": "15f52b7054cfb4b05bca96aba4f8c494dc237b40034d4787cda212446165dca2"
     },
     "references/11-validation-scenarios.md": {
       "bytes": 10728,
@@ -162,8 +162,8 @@
       "sha256": "6e671f1cf354358eef009126a3b02e79438fe8e43b35bb2125778f345c9a4acb"
     },
     "references/16-easyeda-operation-backends.md": {
-      "bytes": 8453,
-      "sha256": "22ee596c86460a745e94910bce2d0fe419be303592f5665056263f084e36db6d"
+      "bytes": 8814,
+      "sha256": "a9def767720b98008e2e22b9c7511185bc3b28485c0bd121e06d35a7952b5d3d"
     },
     "references/17-easyeda-native-format.md": {
       "bytes": 4806,
@@ -182,8 +182,12 @@
       "sha256": "5784bdee8a9a8e73f75b56cbaf5f5e92917ffe721d093d86d61a309c3a62fc41"
     },
     "references/21-layout-execution.md": {
-      "bytes": 9418,
-      "sha256": "76eb232a2add5c4586a5b55e94199fd452cc574ad51c88b3a69e1675db0fdfcf"
+      "bytes": 9779,
+      "sha256": "8df57b0fc4dd8f033a312cbe93f641444776fbb5d9512ef100079ffa3b9953b1"
+    },
+    "references/22-batch-repair.md": {
+      "bytes": 6428,
+      "sha256": "36c9ea1b033bb3733cf2cd8e3e1e4a9097684853f09fa74a22b6cc83fe3abeb8"
     },
     "scripts/audit_design.py": {
       "bytes": 6967,
@@ -216,6 +220,10 @@
     "scripts/init_project.py": {
       "bytes": 2168,
       "sha256": "272909b74bd256fcde20e009e69a6cb1452bd29e1a59e057e8afe494c8b1e01b"
+    },
+    "scripts/layout_batch.py": {
+      "bytes": 8506,
+      "sha256": "bf621734ed6e751809313bf009e6a52460a4a50fea1023023949461a70d10eba"
     },
     "scripts/operation_state.py": {
       "bytes": 13502,
@@ -264,6 +272,10 @@
     "scripts/test_helpers.py": {
       "bytes": 5122,
       "sha256": "1cc3cf96020a35b166280692d776701e7830665f5214c6e83dbe815a2b8a4204"
+    },
+    "scripts/test_layout_batch.py": {
+      "bytes": 6669,
+      "sha256": "533bd6ddc83cf61ba8e9612fa3f3e9cfabeeae8049dc708d25ba3e69ff651aa7"
     },
     "scripts/test_pcb_toolkit.py": {
       "bytes": 9402,
