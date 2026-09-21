@@ -46,6 +46,10 @@ Blank fields are unresolved, not implicitly passed. Complete the applicable rows
 | Function | Reference designator and package pin | Chip GPIO/net name | Direction and startup level | Connector pin order/polarity | Accessible alternative test point | Firmware definition |
 |---|---|---|---|---|---|---|
 
+- Critical connection expectations and independent source references:
+- Reused block revisions, interface bindings, operating assumptions, and native object mapping:
+- Actual native readback, extraction method, and before/after comparison files:
+
 ## 6. Manufacturing and Assembly Parameters
 
 - Fabricator, process specification revision, and date accessed:

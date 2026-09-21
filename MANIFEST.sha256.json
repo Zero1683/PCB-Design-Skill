@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.2.1",
-  "baseline_id": "PCB-Design-Skill-v1.2.1",
-  "generated_utc": "2026-09-21T03:26:41+00:00",
+  "revision": "v1.3.0",
+  "baseline_id": "PCB-Design-Skill-v1.3.0",
+  "generated_utc": "2026-09-21T03:37:47+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -14,16 +14,16 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 9533,
-      "sha256": "6e2f81426869949557c12dd9e14e14f5916a00862c62982d2fe659ba5c755f25"
+      "bytes": 9872,
+      "sha256": "0732f0794393be2e23dd75b5817c61e3a77bc1240122db157a7c595d43160fc7"
     },
     "README_EN.md": {
-      "bytes": 10510,
-      "sha256": "6b7f6f2322a8059e48e6ad6f8fa494eab96bf454c789e702f4f862f6ed8c16f2"
+      "bytes": 10897,
+      "sha256": "ad6846d342bfd062b0707d025f8b27fcfe44c2d3484466e062e802c0a0c12690"
     },
     "SKILL.md": {
-      "bytes": 13107,
-      "sha256": "c27d0ce0f55cdb6504ab83aabdfb08edc3dd7a75633ef840f00b8deb1adf2583"
+      "bytes": 14043,
+      "sha256": "97146cea6d9bc53999bca9745bec5497f07571d2be4c886f40226cd1a277de53"
     },
     "START_HERE.md": {
       "bytes": 4512,
@@ -34,8 +34,8 @@
       "sha256": "b50999ea6125ffb06186ceea285dca37addedfcb79138e4f98463ee27f8b0f63"
     },
     "VALIDATION.md": {
-      "bytes": 5548,
-      "sha256": "58657e2ac386d0d7a01833451663ba16e245942c036bd828f320d86f9a3af182"
+      "bytes": 7155,
+      "sha256": "c9e6e33cf00d5279a2f33765d5241f6f1f6804adbf92a3c0e97a9654d1f3e80b"
     },
     "agents/openai.yaml": {
       "bytes": 365,
@@ -50,8 +50,8 @@
       "sha256": "f25c74d2a5dd5515b0b77429b6c5316e3de678451ae439f1d5708df698248825"
     },
     "assets/PROJECT.template.md": {
-      "bytes": 5442,
-      "sha256": "0e0374d21119a9ab28df465c7872ad8c9f70cad7a208ee2a6b11d3822a30f743"
+      "bytes": 5689,
+      "sha256": "ded0560d133052cede736e3089e0dc88e7d2209b1c3a2bd1a18e31accb24a9d2"
     },
     "assets/electrical.example.json": {
       "bytes": 1211,
@@ -74,16 +74,16 @@
       "sha256": "094f0dc20e49dc6a317052b7ecd9b3ee1b77a15a25ac7009555a4532aba30cbf"
     },
     "assets/zh/PROJECT.template.md": {
-      "bytes": 4288,
-      "sha256": "714dae99c6aafe9bcf598a7b6232755a84cd5b09d067662ff0cb63cfacd8a154"
+      "bytes": 4467,
+      "sha256": "1a2fed6c79dd000045ea28cee771c2aaedf89fae5764415937765f377fb2e194"
     },
     "references/01-intake-and-recovery.md": {
       "bytes": 5771,
       "sha256": "0e702eec9bf123d5a9ab48222279afda90b7a2d673eb9b8c2e0e645a69e55bfd"
     },
     "references/02-circuit-and-library.md": {
-      "bytes": 8446,
-      "sha256": "363e47186e2ec9d480a38671a3b73ced90616bebc63709768799af976b1cbbc9"
+      "bytes": 8781,
+      "sha256": "49cd4ccded55ccd7af7af490a9a9f5cb7ce7df9fa7bdd133514ea16474d411e6"
     },
     "references/03-layout-routing.md": {
       "bytes": 12037,
@@ -114,20 +114,28 @@
       "sha256": "998c74466c6f3cf11cc5be075a91a8f7310f5fca0e1b1df4b094ae5d69ebede2"
     },
     "references/10-validation-tools.md": {
-      "bytes": 5672,
-      "sha256": "eb717f91790d43472927df33ef03d326206e508467b5343e41ca8781d4e0efd1"
+      "bytes": 6190,
+      "sha256": "3f70585b5cd6a4ae4d3feba10815dca961a9cb18258641b8a7770633cefa0cda"
     },
     "references/11-validation-scenarios.md": {
-      "bytes": 4736,
-      "sha256": "ea6c82107c55f6ae8ca11a4d2818734829fd7c1e86d3b763ed668a031c67e8aa"
+      "bytes": 5043,
+      "sha256": "de3fdde14897f0aeb7f11ca189b38052f982a868c1504213f2075e3d52892b73"
     },
     "references/12-schematic-drafting.md": {
-      "bytes": 11770,
-      "sha256": "142c132e862f0878c0c12e615bd1d6d3916536bb40382ef979fff08166835188"
+      "bytes": 11912,
+      "sha256": "5b75732b8a2c537c8528b0de1f1dcce7f973217cf6216e807be2389e8ad19f65"
+    },
+    "references/13-circuit-intent-and-reuse.md": {
+      "bytes": 8088,
+      "sha256": "f09be817a81ce66a12fd1b33f44b929adeb995703f47f1c822178eefb0f3279a"
     },
     "scripts/audit_design.py": {
-      "bytes": 5327,
-      "sha256": "9524f108ba08295360fa43125bdb14fbdfc4717d8e5ee3d83ba87fced3128936"
+      "bytes": 6967,
+      "sha256": "d7fa158f39e40f81ed4920f162629b726534199766a460c9f10a03dee79a6798"
+    },
+    "scripts/check_connectivity.py": {
+      "bytes": 5464,
+      "sha256": "55ab5e692873988eba794546f6d25fff647ab5212b3434e498c02e472b6f5971"
     },
     "scripts/check_evidence.py": {
       "bytes": 4865,
@@ -156,6 +164,10 @@
     "scripts/test_bridge.mjs": {
       "bytes": 3847,
       "sha256": "996821e51e7347b2e53b674a49812e1184cfce5bf2a0f081a4c0f1c6b0a647e2"
+    },
+    "scripts/test_circuit_checks.py": {
+      "bytes": 9369,
+      "sha256": "d9f44b59c1fb5cbd8a98df3327dd527ad4b851f3ebefed1c243061da9357ce80"
     },
     "scripts/test_helpers.py": {
       "bytes": 5122,

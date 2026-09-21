@@ -21,6 +21,10 @@ Use native autorouting for suitable ordinary nets after critical placement, powe
 
 Before creating a schematic, read [schematic drafting standards](references/12-schematic-drafting.md). Complete G2-A with all required components placed, named functional blocks, no unintended overlap, and zero electrical wires/buses. Read back and visually inspect the placement, save its evidence, then continue to G2-B wiring and electrical review. The zero-wire requirement applies to the placement snapshot only. Existing wired projects retain their connections; review their current state and apply the staged process to new blocks.
 
+## Circuit intent and reuse
+
+For critical connection checks, reusable blocks, or revisions, read [circuit intent and reuse](references/13-circuit-intent-and-reuse.md). Record expectations from requirements and exact-part documentation, implement through the native EDA workflow, then compare independent intent with actual exported pin nets. Keep native source authoritative for the implemented design. Recheck reused blocks against the new supply, load, pin mapping, and physical constraints. No additional circuit language or PCBDL dependency is required.
+
 ## Language
 
 Use the user's language for conversation, explanations, and generated project records unless they request otherwise. Keep API names, commands, file paths, identifiers, status values, and template placeholders unchanged. English instructions do not require English replies.
@@ -90,6 +94,7 @@ At G1/G2, calculate supply/load budgets and component operating margins. At G4, 
 - `python scripts/check_evidence.py --root <project-directory> --baseline <baseline-id> --through G5` checks record completeness, evidence files, and baseline identity. It does not certify the circuit.
 - `python scripts/electrical_calcs.py --input <calculations.json>` calculates sourced first-order power, loss, DC path, and transient budgets; see [09](references/09-electrical-analysis.md).
 - `python scripts/audit_design.py compare <schematic.json> <pcb.json>` compares normalized records; `geometry <pcb.json> --clearance-mm <value>` screens body envelopes. See [data contracts](references/10-validation-tools.md); these are not native EDA parsers.
+- `python scripts/check_connectivity.py <snapshot.json> <circuit-checks.json>` checks declared pin relationships against a normalized native export. `python scripts/audit_design.py diff <before.json> <after.json>` reports component/pin changes between revisions. See [13](references/13-circuit-intent-and-reuse.md); neither result certifies electrical or physical correctness.
 - Run [behavioral and live validation](references/11-validation-scenarios.md) when changing this skill or its integration. Do not report dry-run scenarios as real EDA validation.
 - Templates start at [assets](assets/PROJECT.template.md). Adapt them to the task; empty tables are not completed work. Leave unperformed checks untested.
 

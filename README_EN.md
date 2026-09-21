@@ -60,6 +60,7 @@ Design requests finish with a reviewed, routed PCB and manufacturing files for t
 - **Setup verification:** discover the skill, connect Gateway, then run the read-only API probe. A restart is a recovery option for stale discovery, not a mandatory installation step. macOS uses the same Node launcher.
 - **Mixed routing:** plan critical power and sensitive routes, use native autorouting for suitable ordinary nets, preserve existing routes, and verify actual results.
 - **Electrical review:** calculate power budgets, losses, DC path drop and simplified transient targets; use the actual stackup for controlled impedance. Request missing inputs or user-operated calculator results with exact fields and units.
+- **Circuit reuse and revision checks:** record module interfaces and operating assumptions, check independent pin relationships against actual EDA exports, and list component/connection changes between revisions.
 - **Evidence tools:** validate check records, compare normalized schematic/PCB/BOM exports, and screen component body envelopes. These tools supplement native DRC and visual review.
 
 ## Capabilities
@@ -121,6 +122,7 @@ Record conditions, results, and open items at each stage. Verify footprints agai
 | [Setup guide](START_HERE.md) | Environment setup, bridge startup, and connection diagnostics |
 | [Circuits and footprints](references/02-circuit-and-library.md) | Parts, pins, and footprint verification |
 | [Schematic drafting](references/12-schematic-drafting.md) | Functional blocks, two-stage drafting, wiring and annotations, visual reference, and acceptance evidence |
+| [Circuit intent and reuse](references/13-circuit-intent-and-reuse.md) | Pin relationship checks, module assumptions, revision differences, and native readback |
 | [Placement and routing](references/03-layout-routing.md) | Layout, critical nets, and ground copper |
 | [Manufacturing and assembly](references/04-release-assembly.md) | Release files, stencils, and soldering |
 | [Board bring-up](references/05-bringup-debug.md) | Power-up, measurements, and fault isolation |
@@ -168,7 +170,7 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 ## Validation status
 
-The 11 original helper tests and 16 workflow tests pass. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
+All 41 Python tests pass. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, pin relationships, revision differences, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
 
 The last live bridge check returned `WAITING_FOR_EDA`. Actual connected-client project creation, routing, export/reopen, and macOS end-to-end operation remain unverified. The helpers do not replace physical board acceptance or an impedance solver. Bundled API documentation marks several mutation methods beta; confirm installed-version support and use a scoped UI fallback when required.
 

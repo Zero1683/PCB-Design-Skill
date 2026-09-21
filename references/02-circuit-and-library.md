@@ -72,6 +72,10 @@ Larger pads may improve joint visibility but also change solder volume, bridging
 
 Group bulk substitutions by exact part number. Do not select heterogeneous devices and replace all with one target. Check nets, pins, BOM, footprints, and electrical properties before and after replacement. Verify actual tool behavior when preserving reference designators or unique IDs.
 
+## Reusing a circuit block
+
+Follow [circuit intent and reuse](13-circuit-intent-and-reuse.md) for explicit interfaces, parameter checks, unique local nets/references, independent connection expectations, and native readback. Validate each new instance against the exact parts and conditions; preserve the two-stage schematic process.
+
 ## Schematic/PCB consistency
 
 Use real connections and netlists, not visually crossing lines. Check incorrect or truncated net labels, identically named power domains, hidden power pins, NC pins, and duplicate pads.

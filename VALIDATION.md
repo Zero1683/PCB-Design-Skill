@@ -1,4 +1,4 @@
-# Validation record: 1.2.1
+# Validation record: 1.3.0
 
 Date: 2026-09-21. Local platform: Windows; Node.js 22.23.2. These results describe the skill package and helper behavior, not a certified PCB design.
 
@@ -7,10 +7,21 @@ Date: 2026-09-21. Local platform: Windows; Node.js 22.23.2. These results descri
 | Skill structure | PASS | System skill validator | Frontmatter/structure only |
 | Existing helpers | PASS, 11 tests | `python -X utf8 scripts/test_helpers.py --workdir <temp-root>` | Initialization and release integrity |
 | Workflow helpers | PASS, 16 tests | `python -X utf8 scripts/test_workflow.py --workdir <temp-root>` | Known arithmetic, record rejection, normalized exports, envelope screening, localization and fake-bridge probe |
-| Actual bridge server with simulated clients | PASS in 1.2.0; unchanged code, not rerun for 1.2.1 | `node scripts/test_bridge.mjs --workdir <temp-root>` | Window switching, nonexistent-window isolation and explicit-window request routing; no EDA client |
-| Local live connection | BLOCKED at the previous check; not re-probed for 1.2.1 | Existing bridge reported `WAITING_FOR_EDA`, zero windows | No client connection; old running bridge also reports upgrade recommended |
+| Actual bridge server with simulated clients | PASS in 1.2.0; unchanged code, not rerun for 1.3.0 | `node scripts/test_bridge.mjs --workdir <temp-root>` | Window switching, nonexistent-window isolation and explicit-window request routing; no EDA client |
+| Local live connection | BLOCKED at the previous check; not re-probed for 1.3.0 | Existing bridge reported `WAITING_FOR_EDA`, zero windows | No client connection; old running bridge also reports upgrade recommended |
 | Live project creation/edit/routing/export/reopen | NOT_RUN | Procedure in reference 11 | Must be tested in a disposable connected project |
 | macOS end-to-end | NOT_RUN | Cross-platform commands documented | Windows execution and a Mac scenario review do not establish macOS execution |
+
+## Circuit intent and reuse in 1.3.0
+
+Added independent pin-relationship checks, normalized component/pin revision differences, and reusable-block guidance. Native EDA remains the implemented design source. All new runtime code uses Python's standard library; no PCBDL runtime, copied source, exporters, or component libraries were introduced.
+
+- Reran the 11 helper tests and 16 workflow tests: PASS.
+- Added and ran 14 circuit-check regression tests: PASS, including CLI exit codes. Cases cover changed net names, wrong connections, merged rails, unexpected DNP branches, disconnected endpoints, intentional NC violations, missing endpoints, partial/stale/BOM inputs, invalid rules and duplicate JSON keys, component additions/removals, BOM exclusion changes, and revision comparison guards.
+- Skill structure validator passed. Checked 84 local Markdown link targets: all exist.
+- An independent read-only agent reviewed the tools and relevant guidance and reran the 14 new tests. It found no substantive incorrect PASS behavior within the declared scope or conflict with native-EDA authority and staged schematic drafting.
+
+The inputs were synthetic fixtures. No connected EDA extraction, native ERC/DRC, physical routing, or real hardware was tested for this update. Coverage declarations and source authenticity still require review. Passing declared pin relationships does not establish ratings, timing, impedance, or continuity of fabricated copper. Revision reports compare declared component properties and pin nets only.
 
 ## Schematic drafting update in 1.2.1
 
@@ -47,6 +58,7 @@ Run from the package root; choose a writable temporary directory on your working
 ```sh
 python -X utf8 scripts/test_helpers.py --workdir /path/to/temp-root
 python -X utf8 scripts/test_workflow.py --workdir /path/to/temp-root
+python -X utf8 scripts/test_circuit_checks.py --workdir /path/to/temp-root
 node scripts/test_bridge.mjs --workdir /path/to/temp-root
 ```
 

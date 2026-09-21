@@ -47,7 +47,7 @@ For an existing wired design, preserve valid work. Review its current organizati
 ### Electrical review
 
 1. Check each functional block against the exact datasheet and approved pin table. Include supply pins, exposed pads, reserved/unused pins, startup states, protection polarity, logic levels, and recovery interfaces.
-2. Verify actual connected pin sets, intentional unconnected pins, and the boundaries between voltage/ground domains. Apply NC markers only to intentionally unused pins where the datasheet permits that treatment, with the reason recorded.
+2. Verify actual connected pin sets, intentional unconnected pins, and the boundaries between voltage/ground domains. For critical connections, use [independently specified pin relationships](13-circuit-intent-and-reuse.md) against the actual native readback. Apply NC markers only to intentionally unused pins where the datasheet permits that treatment, with the reason recorded.
 3. Check power budgets, feedback/divider values, current limiting, pulls, timing, ratings, and margins using reference 09. ERC cannot establish these by itself.
 4. Run native schematic rules/ERC and review individual findings. Reconcile symbol properties, footprints, fitted status, and BOM. Record justified exceptions without disabling rules to hide faults.
 5. Export and inspect the completed drawing as an overview and at readable detail. Check block boundaries, title placement, references, page order, and off-sheet navigation. Include project name, sheet title/number, revision, and date in the title block. Save the final source, netlist, BOM, rule report, and rendered review evidence.

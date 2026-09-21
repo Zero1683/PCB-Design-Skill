@@ -54,8 +54,12 @@ python scripts/audit_design.py geometry pcb.json --clearance-mm 0.5
 
 The clearance above is an example, not a default manufacturing requirement. Exit 1 reports mismatches or suspect/missing geometry; exit 2 reports invalid input. No suspects is not mechanical acceptance: rotated AABBs overestimate bodies, and the helper does not inspect copper. Confirm each suspect against exact outlines and actual EDA views.
 
+## Connection intent and revision checks
+
+Use [circuit intent and reuse](13-circuit-intent-and-reuse.md) to check independently specified pin relationships with `check_connectivity.py` and review normalized component/pin changes with `audit_design.py diff`. These use the snapshot schema above. `compare` still requires one shared baseline across documents; `diff` requires distinct baselines of the same document kind. Preserve native exports and extraction provenance for both.
+
 ## Change reports and manufacturing checks
 
-For authorized edits, retain before/after native snapshots and export diffs. Compare reference, part, pin-net, position/rotation/side, rules, trace/via/pour geometry, and affected manufacturing files using actual format support. The normalized comparison helper checks cross-document properties; it is not a complete native revision-diff engine. Never claim unchanged routing from matching component records alone.
+For authorized edits, retain before/after native snapshots and export diffs. Compare reference, part, pin-net, position/rotation/side, rules, trace/via/pour geometry, and affected manufacturing files using actual format support. The normalized tools compare component properties and pin nets within or across baselines. They do not compare native geometry, routing, pours, or rules. Never claim unchanged routing from matching component records alone.
 
 Use the release-manifest tool only on reviewed frozen deliverables. Gerber/drill/stencil/BOM/placement consistency and rendered previews remain separate engineering tasks. Run the helpers on derived records; do not use them to rewrite the source project automatically.
