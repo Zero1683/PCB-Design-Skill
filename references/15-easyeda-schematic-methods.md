@@ -57,6 +57,11 @@ Finish placement with zero native electrical wires AND buses in the scoped new
 block/sheet. Save the inventory and visual/count evidence before adding external
 ports, power flags or wires. Existing wired blocks retain valid connections.
 
+For repeatable G2-A placement, follow [measured layout execution](21-layout-execution.md).
+The planner preserves local block geometry, returns absolute anchor targets and
+checks native observations after application and reload. Use it after local
+geometry measurement; a fixed offline preview does not establish native persistence.
+
 ## Geometry and compatibility probes
 
 The upstream recipe uses schematic units of 10 mil, upward-increasing Y and a

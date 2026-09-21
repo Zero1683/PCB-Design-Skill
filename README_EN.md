@@ -28,7 +28,7 @@ Recent work covers schematic drafting, EDA operations, independent inspection an
 
 | Area | Additions |
 |---|---|
-| Schematic drafting | Two supported formats: freeform functional sections or sections within a sheet frame. Review unwired placement before connecting components; apply boundary, text-spacing and common layout fixes |
+| Schematic drafting | Two supported formats: freeform functional sections or sections within a sheet frame. Review unwired placement before connecting components; apply boundary, text-spacing and common layout fixes; add measured block planning and post-apply comparison |
 | EDA operations | Bundled official API, schematic methods, native-format documentation and validation dependencies; batch placement, net fanout and explicit backend selection |
 | PCB and manufacturing inspection | Supported native extraction, component-clearance and escape-space screening, Gerber/drill/mask checks, and DSN/SES routing helpers |
 | Electrical and fabrication calculations | Associate manufacturer sources, calculation conditions, native rules and export checks with one revision; expand power, return-path, thermal, escape-channel, mask-web and annular-ring checks |
@@ -111,6 +111,10 @@ require NumPy, which is not bundled.
 ## Engineering constraints and calculations
 
 Track critical sources, calculation conditions, native rules and export checks. Review dense escapes, return paths and thermal design, with reproducible mask opening/web, escape-channel and annular-ring arithmetic. See [engineering constraints](references/19-engineering-constraints.md).
+
+## Schematic layout planning
+
+Pack locally arranged functional blocks into a defined sheet using measured component and text bounds. Preserve internal positions and orientation, and produce fixed anchor targets, frames and title envelopes. Check source freshness before applying; compare observations after application and save/reload for position, property, pin and annotation changes. Supports the two schematic formats and unwired G2-A scopes; the selected backend performs native EDA operations. See the [layout execution guide](references/21-layout-execution.md).
 
 ## Reconciled data and operation recovery
 
@@ -210,6 +214,8 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 </details>
 
 ## Validation status
+
+All 14 new synthetic layout tests passed, covering bounds, obstacles, stale plans and readback changes. Live EDA save/reload integration has not been tested.
 
 The v1.5.0 release rerun includes 81 Python cases: 80 passed and one was skipped because Windows denied symbolic-link creation. All 8 Node format cases and isolated simulated bridge checks passed. Integration-time results for 21 toolkit self-tests are listed in [validation records](VALIDATION.md).
 

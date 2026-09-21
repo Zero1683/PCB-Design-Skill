@@ -91,6 +91,17 @@ The project's MIT license contains an Apache-2.0 exception for ported beautify
 code; its compiled connector requires the corresponding notices. No community
 source, connector binary or circuit library is copied into this package.
 
+### Data-driven layout integration
+
+Additional source review: `caf102b3ea12a667c963b9d29484f5887751b97b`.
+The Go `layout-render` command generates offline SVG, while local layout,
+sheet planning, compose queues and native Apply are distinct operations. Prefer
+measured source and a fixed target over repeated visual trial placement. Use
+installed version-matched commands; preserve G2-A and all visible property text.
+Follow [our execution contract](21-layout-execution.md) for preflight, bounded writes,
+save/reload and independent readback. This review does not establish installed
+compatibility or live acceptance, and does not add a community dependency.
+
 ## easyeda-mcp-pro adapter
 
 At the reviewed commit the project declares PolyForm Noncommercial 1.0.0;

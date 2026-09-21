@@ -21,6 +21,11 @@ For an existing wired design, preserve valid work. Review its current organizati
 7. **External interfaces:** group interface circuitry beside its connector. Put protection first in the external signal path where the device topology requires it, and carry the connector-side placement requirement into PCB layout.
 8. **Controller peripherals:** arrange supporting circuits around the corresponding pin functions to reduce crossings and make critical nets easy to follow. Keep the correct symbol-to-package pin mapping when arranging or rotating symbols; drawing aesthetics cannot justify swapping pins.
 
+For repeatable G2-A placement, follow [measured layout execution](21-layout-execution.md).
+The planner preserves local block geometry, returns absolute anchor targets and
+checks native observations after application and reload. Use it after local
+geometry measurement; a fixed offline preview does not establish native persistence.
+
 ## G2-A: Place, organize, inspect
 
 1. Build the expected component inventory from the selected architecture and pin requirements. Include support parts, protection, pulls, decoupling, clocks, reset, programming connectors, test points, and relevant mechanical parts. Identify DNP parts and multi-unit symbols explicitly. Unresolved selections must be listed and resolved before wiring the affected circuit.

@@ -1,5 +1,7 @@
 # Unreleased
 
+- 新增实测原理图分区规划、写入前版本核对及写入／重载后几何与属性对账；提供官方 API 执行流程，保留 G2-A 无连线阶段。
+- Add measured schematic block planning, stale-source preflight and post-apply/reload geometry and property comparison, with a documented native execution workflow.
 - 增加观测数据一致性核对、分页查询和版本差异，保留完整原始输入。
 - 增加隔离文件工程的检查点、验收证据归档和可恢复状态流程；不替换用户原工程。
 - 验收后文件或证据变化时标记 STALE；实时 EDA 回滚尚未实现。

@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "unreleased-data-recovery-2026-09-21",
-  "baseline_id": "be29537-plus-data-and-isolated-recovery",
-  "generated_utc": "2026-09-21T11:33:06+00:00",
+  "revision": "unreleased-layout-execution-2026-09-21",
+  "baseline_id": "3721e83-plus-measured-layout",
+  "generated_utc": "2026-09-21T12:38:49+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,24 +10,24 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 4833,
-      "sha256": "f9e270b4374b49dcf5eb9bc05c154ea63f84c31d39ed3a2ca3f575c38427bae3"
+      "bytes": 5165,
+      "sha256": "e579496ba8329fc6b41a49a2e7878f56fd38b83134f6a098a3933ad32addf12d"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 14116,
-      "sha256": "ffceabb7e078edf5b2066a569ba18e51cfdca8315754040b94902a27a7d2ab83"
+      "bytes": 14836,
+      "sha256": "3e6d60cf6512ebaf876e13450c3276684a18aeaf4eae8931c188265417344cf2"
     },
     "README_EN.md": {
-      "bytes": 15473,
-      "sha256": "aae15a5975064e9bac3a1d5aa76f1a57b213075e2e3158b9b3b2d0816b1e893d"
+      "bytes": 16257,
+      "sha256": "6d5072dd5cfe19e71f31d1cdef3ec943215c247f21b4673e0bdcfc4986996b4e"
     },
     "SKILL.md": {
-      "bytes": 19282,
-      "sha256": "40d69a4b17e03d740b5df7ae4aee7a018b490a35aae98d273bda84c1c07c959a"
+      "bytes": 19754,
+      "sha256": "5a772f6528f0df38eeac20ef4d9c9919016ef7e8d16b18282281b5d41c0e7709"
     },
     "START_HERE.md": {
       "bytes": 6156,
@@ -38,8 +38,8 @@
       "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
     },
     "VALIDATION.md": {
-      "bytes": 20026,
-      "sha256": "4ff8246dbf1825d54ae733b0edca90fc147053d6b7013b621b1aa56a4103122c"
+      "bytes": 20974,
+      "sha256": "7c24110a038f922983d8f27e8f1e73c85dec22b051642fb93c2c81d3d0f52943"
     },
     "agents/openai.yaml": {
       "bytes": 365,
@@ -68,6 +68,14 @@
     "assets/fabrication-calcs.example.json": {
       "bytes": 1345,
       "sha256": "a8e708b3e466d18deeb6597d96ed5fb8b53feece089b4d7e66bf8c9c15d0b51a"
+    },
+    "assets/layout-source.example.json": {
+      "bytes": 1422,
+      "sha256": "beb99b20094d96118a601de88d983b89949beeb6c584e1fb457b17ee83e8e160"
+    },
+    "assets/layout-spec.example.json": {
+      "bytes": 560,
+      "sha256": "b4947cf43d858c58d869ea5ed792edf4b63ad2cb444d15893af3ef368df1a56a"
     },
     "assets/logo.svg": {
       "bytes": 1005,
@@ -130,16 +138,16 @@
       "sha256": "d9a329c50d5b8a1d5ffe839e5926d3245f50aeabc1cc3a900a162cc8d0f1aa08"
     },
     "references/10-validation-tools.md": {
-      "bytes": 7384,
-      "sha256": "c31869262048419d27817a850eeb8b3af8df6a6f8af7ffc072c64dccca73c521"
+      "bytes": 7712,
+      "sha256": "f7701c91edbf0ccd4350c7fa3fcc9b52dcee4bc645e49086f75898fb2e99eca7"
     },
     "references/11-validation-scenarios.md": {
       "bytes": 10728,
       "sha256": "5f88bc4b6a4d932873d238c68e5bc1dd35cb8721ac23800b9da5661816e00b75"
     },
     "references/12-schematic-drafting.md": {
-      "bytes": 23845,
-      "sha256": "80c9eac4d913c536f485deb6d719c084a7d8d93fe10679d1ce99d946c3fc6086"
+      "bytes": 24178,
+      "sha256": "ee4fb015d6b2ecfb6f636e67c15044f5e0a3049c1f15a1cdc62061906114c982"
     },
     "references/13-circuit-intent-and-reuse.md": {
       "bytes": 8088,
@@ -150,12 +158,12 @@
       "sha256": "be09deb3c2359c806866038ce3a3649a9b34a6686fa43f8de3c84acff37bb3f3"
     },
     "references/15-easyeda-schematic-methods.md": {
-      "bytes": 9626,
-      "sha256": "41cc29aa331e7f62ad17b82f4ca99dbaec0d0f2920b5f082fc0500d15745efff"
+      "bytes": 9959,
+      "sha256": "6e671f1cf354358eef009126a3b02e79438fe8e43b35bb2125778f345c9a4acb"
     },
     "references/16-easyeda-operation-backends.md": {
-      "bytes": 7793,
-      "sha256": "9e139a714be702a4969c1058a363106c90061d47e9c316b8c6faff9a6da92545"
+      "bytes": 8453,
+      "sha256": "22ee596c86460a745e94910bce2d0fe419be303592f5665056263f084e36db6d"
     },
     "references/17-easyeda-native-format.md": {
       "bytes": 4806,
@@ -172,6 +180,10 @@
     "references/20-data-and-recovery.md": {
       "bytes": 10572,
       "sha256": "5784bdee8a9a8e73f75b56cbaf5f5e92917ffe721d093d86d61a309c3a62fc41"
+    },
+    "references/21-layout-execution.md": {
+      "bytes": 9418,
+      "sha256": "76eb232a2add5c4586a5b55e94199fd452cc574ad51c88b3a69e1675db0fdfcf"
     },
     "scripts/audit_design.py": {
       "bytes": 6967,
@@ -217,6 +229,10 @@
       "bytes": 6348,
       "sha256": "b0a365bdd481545a5024e55cbe31c61d0b400fb91d37f96c2b1df2c9253d1ca7"
     },
+    "scripts/schematic_layout.py": {
+      "bytes": 11731,
+      "sha256": "13d0ac86cfe07ca9efa21b5650635eb00ddb85554130e6dc19125ee4a708f308"
+    },
     "scripts/screen_visual_geometry.py": {
       "bytes": 5542,
       "sha256": "d1743b2c460f6047f3061ac5456f38a8390c68b175b74785da4163e10fe38b29"
@@ -252,6 +268,10 @@
     "scripts/test_pcb_toolkit.py": {
       "bytes": 9402,
       "sha256": "d452b460fcbfc43f93dba633a7a05a1028e2dc13df6d76e5e811a03f16761511"
+    },
+    "scripts/test_schematic_layout.py": {
+      "bytes": 7245,
+      "sha256": "9f32d993d9a6cd29ecc5adbd8f2b2182b69b807d47c3dce6cd1fa1d35de12843"
     },
     "scripts/test_visual_geometry.py": {
       "bytes": 3105,

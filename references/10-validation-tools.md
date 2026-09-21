@@ -80,3 +80,10 @@ snapshot/board binding, component/pin reconciliation, preserved contract export,
 summary, pagination and section deltas. Existing comparison/connectivity tools
 consume its normalized export; toolkit tools consume its board export. No schema
 is silently renamed. The accompanying operation state helper is file-only.
+
+## Measured G2-A layout
+
+`scripts/schematic_layout.py` provides `plan`, `preflight`, and `verify` for measured
+unwired scopes. See [the contract and commands](21-layout-execution.md). MATCH
+covers declared geometry and protected facts only; native save/reload receipts,
+rendered checks and G2 stage acceptance remain separate.

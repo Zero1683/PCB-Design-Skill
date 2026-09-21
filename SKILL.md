@@ -67,6 +67,14 @@ coverage before trusting geometry. Unsupported formats and missing objects fail
 explicitly. Toolkit board JSON is not the normalized schema in reference 10.
 These tools supplement existing stage gates; script success is not board acceptance.
 
+## Measured schematic placement
+
+For new G2-A blocks, use [layout planning and native execution](references/21-layout-execution.md)
+when organizing multiple measured functional blocks. Measure complete visible envelopes,
+compute a fixed plan, apply through the selected backend, then compare immediate
+and post-reload observations. The helper packs existing local blocks; it does not
+solve wiring, operate EDA or certify save/reload. Preserve two-format and stage rules.
+
 ## Circuit intent and reuse
 
 For critical connection checks, reusable blocks, or revisions, read [circuit intent and reuse](references/13-circuit-intent-and-reuse.md). Record expectations from requirements and exact-part documentation, implement through the native EDA workflow, then compare independent intent with actual exported pin nets. Keep native source authoritative for the implemented design. Recheck reused blocks against the new supply, load, pin mapping, and physical constraints. No additional circuit language or PCBDL dependency is required.

@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "phase": "G2-A",
+  "role": "observed",
+  "units": "raw-0.01inch",
+  "axis": "y-up",
+  "project_id": "p",
+  "document_id": "d",
+  "baseline_id": "rev1",
+  "scope_id": "new-blocks",
+  "complete_scope": true,
+  "wire_count": 0,
+  "bus_count": 0,
+  "objects": [
+    {
+      "id": "0",
+      "bbox": [
+        0,
+        0,
+        20,
+        20
+      ],
+      "anchor": [
+        10,
+        10
+      ],
+      "facts": {
+        "designator": "R0",
+        "device_id": "device",
+        "footprint_id": "fp",
+        "rotation": 0,
+        "pins": {
+          "1": null,
+          "2": null
+        },
+        "value": "10k"
+      }
+    },
+    {
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        20,
+        20
+      ],
+      "anchor": [
+        10,
+        10
+      ],
+      "facts": {
+        "designator": "R1",
+        "device_id": "device",
+        "footprint_id": "fp",
+        "rotation": 0,
+        "pins": {
+          "1": null,
+          "2": null
+        },
+        "value": "10k"
+      }
+    },
+    {
+      "id": "2",
+      "bbox": [
+        0,
+        0,
+        20,
+        20
+      ],
+      "anchor": [
+        10,
+        10
+      ],
+      "facts": {
+        "designator": "R2",
+        "device_id": "device",
+        "footprint_id": "fp",
+        "rotation": 0,
+        "pins": {
+          "1": null,
+          "2": null
+        },
+        "value": "10k"
+      }
+    }
+  ]
+}

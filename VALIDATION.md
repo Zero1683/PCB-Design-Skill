@@ -1,3 +1,19 @@
+# Unreleased: measured schematic layout execution
+
+Windows synthetic validation, 2026-09-21: 14 new tests passed, covering both
+formats, deterministic block placement, obstacles, stale input, CLI exits,
+identity/pin/property drift, missing frames and reload-like position loss.
+Independent read-only review also screened 30,000 random packing cases: all
+27,465 successful plans obeyed tested bounds/frame/obstacle clearances. It found
+unprotected extra object fields and tolerance permitting a frame outside bounds;
+both were corrected with regression tests. An initial obstacle-row packing failure
+was corrected before the final test run.
+
+The source fixture and readbacks are synthetic. No native EDA writer/extractor,
+client save/reopen, electrical correctness, physical PCB or token saving was
+validated in this update. Commands plan rigid, already arranged unwired blocks;
+they do not automatically solve local circuit layout or wired pages.
+
 # Unreleased: reconciled data and isolated recovery
 
 Validated on Windows, 2026-09-21. This section covers the current working update; older release records follow.
