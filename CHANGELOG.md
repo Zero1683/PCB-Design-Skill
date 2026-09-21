@@ -1,13 +1,26 @@
-# Unreleased
+# v1.5.1 · 数据核对、布局规划与操作恢复 / Data, layout and recovery
 
-- 新增实测原理图分区规划、写入前版本核对及写入／重载后几何与属性对账；提供官方 API 执行流程，保留 G2-A 无连线阶段。
-- Add measured schematic block planning, stale-source preflight and post-apply/reload geometry and property comparison, with a documented native execution workflow.
-- 增加观测数据一致性核对、分页查询和版本差异，保留完整原始输入。
-- 增加隔离文件工程的检查点、验收证据归档和可恢复状态流程；不替换用户原工程。
-- 验收后文件或证据变化时标记 STALE；实时 EDA 回滚尚未实现。
-- Add observed-data reconciliation, paged queries and revision deltas with full input preservation.
-- Add checkpointed operations and archived verification evidence for isolated closed-file projects, preserving the original project.
-- Mark changed accepted files/evidence STALE. Live EDA rollback remains unsupported.
+## 中文
+
+- 增加两套 PCB 观测数据的器件与逐脚网络核对、摘要、分页查询和版本差异，保留完整原始输入。
+- 增加完整关闭文件工程的隔离检查点与失败恢复，保留原工程和失败现场；验收后文件或证据变化时标记 STALE。
+- 增加 G2-A 实测分区布局规划、写入前源数据核对、写入及重载后几何与属性对账。保留区内相对位置、两种原理图格式和无连线阶段。
+- 补充官方 API 的布局执行流程、示例及中英文 README。
+- 新增 27 项数据／恢复测试和 14 项布局测试通过；21 项既有 PCB 工具测试及导入器自检通过。
+
+## English
+
+- Reconcile components and pin nets across observed PCB models; query summaries, pages and revision deltas while retaining full inputs.
+- Add isolated checkpoints and failure recovery for complete closed-file projects. Preserve the source and failed work; mark changed accepted files/evidence STALE.
+- Add measured G2-A block planning, source preflight and post-apply/reload geometry and property comparison. Preserve local positions, both schematic formats and the unwired stage.
+- Document native execution through the official API, with examples and updated English/Chinese READMEs.
+- All 27 new data/recovery and 14 layout tests passed, along with 21 existing PCB toolkit tests and the importer self-test.
+
+## 范围 / Scope
+
+布局规划器处理已完成区内摆放的无连线功能块。EDA 写入和真实保存重载需通过选定后端执行与验证。未实现实时 EDA 自动回滚；本次未验证真实 EDA 全流程、macOS、实板或 Token 节省比例。
+
+The planner packs locally arranged unwired blocks. Native application and actual save/reload require the selected backend and separate verification. Live EDA rollback is not implemented. No live EDA end-to-end, macOS, physical board or token-saving benchmark is claimed for this release.
 
 # v1.5.0 — 工程约束与独立 PCB 检查 / Engineering constraints and PCB inspection
 

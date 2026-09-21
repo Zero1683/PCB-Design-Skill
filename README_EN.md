@@ -24,7 +24,7 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Recent updates
 
-Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **The current `main` includes data reconciliation and operation recovery; the latest Release is still v1.5.0.** Clone or update `main` to use these additions.
+Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **v1.5.1 includes data reconciliation, layout planning and operation recovery.** Download the complete release package or clone the repository.
 
 | Area | Additions |
 |---|---|
@@ -221,7 +221,7 @@ The v1.5.0 release rerun includes 81 Python cases: 80 passed and one was skipped
 
 These tests cover scripts and synthetic data. The new toolchain has not completed live EDA end-to-end, macOS, external-router interoperability or physical manufacturing validation. Native extraction has format limits; the new adapter reconciles toolkit board data and normalized snapshots under one baseline, with real-project validation still pending. Helpers do not replace an impedance solver or physical acceptance.
 
-On current `main`, all 27 new data/recovery tests passed, along with a rerun of 21 PCB toolkit tests and the importer self-test. These results are separate from the v1.5.0 counts above.
+In v1.5.1, all 27 new data/recovery tests passed, along with a rerun of 21 PCB toolkit tests and the importer self-test. These results are separate from the v1.5.0 counts above.
 
 See the [changelog](CHANGELOG.md) for the complete update.
 

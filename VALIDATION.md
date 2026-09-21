@@ -1,4 +1,4 @@
-# Unreleased: measured schematic layout execution
+# v1.5.1: measured schematic layout execution
 
 Windows synthetic validation, 2026-09-21: 14 new tests passed, covering both
 formats, deterministic block placement, obstacles, stale input, CLI exits,
@@ -14,7 +14,7 @@ client save/reopen, electrical correctness, physical PCB or token saving was
 validated in this update. Commands plan rigid, already arranged unwired blocks;
 they do not automatically solve local circuit layout or wired pages.
 
-# Unreleased: reconciled data and isolated recovery
+# v1.5.1: reconciled data and isolated recovery
 
 Validated on Windows, 2026-09-21. This section covers the current working update; older release records follow.
 
@@ -237,3 +237,10 @@ bridge window selection/isolation/routing passed with --workdir after correcting
 an initial invocation that omitted this required option. No runtime fix was needed.
 Package files, staged Git inventory and archive hashes are checked before publication.
 No live EDA or physical hardware validation is claimed.
+
+## v1.5.1 publication check
+
+All 27 data/recovery and 14 schematic-layout tests reran successfully for publication.
+The release ZIP is rebuilt from the manifest inventory and verified after extraction.
+Existing 21 toolkit tests and importer self-test passed during this version development.
+No new live EDA or hardware validation is claimed.

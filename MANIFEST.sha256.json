@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "unreleased-layout-execution-2026-09-21",
-  "baseline_id": "3721e83-plus-measured-layout",
-  "generated_utc": "2026-09-21T12:38:49+00:00",
+  "revision": "v1.5.1",
+  "baseline_id": "v1.5.1-release",
+  "generated_utc": "2026-09-21T12:43:11+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,20 +10,20 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 5165,
-      "sha256": "e579496ba8329fc6b41a49a2e7878f56fd38b83134f6a098a3933ad32addf12d"
+      "bytes": 6241,
+      "sha256": "2bcb8d630b8da2731f8c788427d4bf1485a29d94d6c11b35dbbe83c0acee0696"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 14836,
-      "sha256": "3e6d60cf6512ebaf876e13450c3276684a18aeaf4eae8931c188265417344cf2"
+      "bytes": 14802,
+      "sha256": "0dcc452dd34de5eea8bfaf7db6b86baa418eb86cbbf7c0e7bf5225bdae31af82"
     },
     "README_EN.md": {
-      "bytes": 16257,
-      "sha256": "6d5072dd5cfe19e71f31d1cdef3ec943215c247f21b4673e0bdcfc4986996b4e"
+      "bytes": 16234,
+      "sha256": "2c55fd0f35a9a15a6f229f9b7061efc532e56945ddb9f7cfa3d8f671856588a2"
     },
     "SKILL.md": {
       "bytes": 19754,
@@ -38,8 +38,8 @@
       "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
     },
     "VALIDATION.md": {
-      "bytes": 20974,
-      "sha256": "7c24110a038f922983d8f27e8f1e73c85dec22b051642fb93c2c81d3d0f52943"
+      "bytes": 21309,
+      "sha256": "f8c31014c681a0f2c8393cf6b202c4bc07de9a9d143589cdf99107e39ecbe53d"
     },
     "agents/openai.yaml": {
       "bytes": 365,
