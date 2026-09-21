@@ -1,5 +1,9 @@
 # G1-G2: Architecture, parts, schematics, and footprints
 
+## Schematic drafting
+
+For schematic creation and new blocks, follow [the two-stage drafting standard](12-schematic-drafting.md): G2-A places and reviews components before any wires; G2-B connects and checks the circuit. Retain the G2-A snapshot and count report. Review existing wired designs in place. Functional organization and final visual inspection are part of G2 acceptance alongside the electrical checks below.
+
 ## Sources and component selection
 
 For critical parts, record manufacturer, full part number, package suffix, supplier code, datasheet revision/date/page or section, and source URL. Prefer manufacturer datasheets, errata, and reference layouts. Seller descriptions support procurement but do not replace electrical specifications.
@@ -78,4 +82,4 @@ Use real connections and netlists, not visually crossing lines. Check incorrect 
 - Inspect individual ERC/DRC warnings, not only counts. Property-standardization messages differ from electrical disconnections.
 - Do not remove real errors by disabling rules, expanding exemptions, or assigning false NC markers.
 
-G2 passes when critical electrical connections and pins have manufacturer support, critical footprints have dimensional evidence, netlists and BOM agree, and rule violations are resolved or have specific applicable exemptions. Unreadable footprints and unperformed checks remain unverified.
+G2 passes when the applicable staged inventory/placement review and final drawing inspection are recorded, critical electrical connections and pins have manufacturer support, critical footprints have dimensional evidence, netlists and BOM agree, and rule violations are resolved or have specific applicable exemptions. Unreadable footprints and unperformed checks remain unverified.

@@ -106,7 +106,7 @@ Review the outline, drilling, solder mask, and stencil, and list unresolved issu
 | Stage | Review focus |
 |---|---|
 | Requirements and parts | Power, mechanics, interfaces, cost, and assembly constraints |
-| Schematics and footprints | Connections, component ratings, pin mapping, and dimensions |
+| Schematics and footprints | Review unwired component placement, then connect; verify electrical design, readability, pins, and footprints |
 | Placement and routing | Physical outlines, power loops, signal integrity, and connectivity |
 | Fabrication and assembly | File revisions, process settings, orientation, and test points |
 | Power-up and verification | Voltage, current, boot state, communication, and functional tests |
@@ -120,6 +120,7 @@ Record conditions, results, and open items at each stage. Verify footprints agai
 | [SKILL.md](SKILL.md) | Agent entry point, execution rules, and stage criteria |
 | [Setup guide](START_HERE.md) | Environment setup, bridge startup, and connection diagnostics |
 | [Circuits and footprints](references/02-circuit-and-library.md) | Parts, pins, and footprint verification |
+| [Schematic drafting](references/12-schematic-drafting.md) | Functional blocks, two-stage drafting, wiring and annotations, visual reference, and acceptance evidence |
 | [Placement and routing](references/03-layout-routing.md) | Layout, critical nets, and ground copper |
 | [Manufacturing and assembly](references/04-release-assembly.md) | Release files, stencils, and soldering |
 | [Board bring-up](references/05-bringup-debug.md) | Power-up, measurements, and fault isolation |
@@ -169,7 +170,7 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 The 11 original helper tests and 16 workflow tests pass. They cover initialization, byte integrity, evidence completeness, first-order electrical arithmetic, normalized record comparison, envelope screening, and probe behavior against a local fake bridge. See [validation records](VALIDATION.md).
 
-The live bridge currently responds as `WAITING_FOR_EDA`. Actual connected-client project creation, routing, export/reopen, and macOS end-to-end operation remain unverified. The helpers do not replace physical board acceptance or an impedance solver. Bundled API documentation marks several mutation methods beta; confirm installed-version support and use a scoped UI fallback when required.
+The last live bridge check returned `WAITING_FOR_EDA`. Actual connected-client project creation, routing, export/reopen, and macOS end-to-end operation remain unverified. The helpers do not replace physical board acceptance or an impedance solver. Bundled API documentation marks several mutation methods beta; confirm installed-version support and use a scoped UI fallback when required.
 
 ## Contributing
 

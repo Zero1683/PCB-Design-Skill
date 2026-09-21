@@ -29,3 +29,9 @@ The root MIT license covers this project's original workflow, templates, and int
 - `vendor/easyeda-api/SKILL.md`: corrects two `openProject(projectPath)` references to `openProject(projectUuid)`, matching the upstream method signature.
 - 自动布线示例与接口字段不一致的部分未擅自修改上游 API 文档，使用说明记录在 `references/03-layout-routing.md`；运行时仍需核实客户端支持。
 - 原作者与 MIT 许可信息保留。修正仅覆盖以上具体位置，不代表已验证全部上游 API。
+
+## Schematic style reference / 原理图排版参考
+
+`assets/schematic-style-reference.png` is the schematic example supplied by the user on 2026-09-06 and included at their request. Its original author and license have not been independently established. It is retained as a visual reference for page organization, not as an electrically validated circuit. The repository's MIT grant does not extend to this image.
+
+该图片来自用户于 2026-09-06 提供的原理图示例，按用户要求收录。原作者及原始许可尚未独立确认；图片用于说明页面组织，不代表电路已通过验证，也不纳入本仓库自有内容的 MIT 授权范围。

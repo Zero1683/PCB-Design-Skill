@@ -17,6 +17,10 @@ For EasyEDA, load the **bundled** API skill before choosing an interaction metho
 
 Use native autorouting for suitable ordinary nets after critical placement, power, and sensitive routes are planned. Preserve completed routes and verify the result. This can reduce per-segment agent work; it does not remove engineering checks or guarantee a particular token saving. Follow [routing strategy](references/03-layout-routing.md).
 
+## Schematic drafting sequence
+
+Before creating a schematic, read [schematic drafting standards](references/12-schematic-drafting.md). Complete G2-A with all required components placed, named functional blocks, no unintended overlap, and zero electrical wires/buses. Read back and visually inspect the placement, save its evidence, then continue to G2-B wiring and electrical review. The zero-wire requirement applies to the placement snapshot only. Existing wired projects retain their connections; review their current state and apply the staged process to new blocks.
+
 ## Language
 
 Use the user's language for conversation, explanations, and generated project records unless they request otherwise. Keep API names, commands, file paths, identifiers, status values, and template placeholders unchanged. English instructions do not require English replies.
@@ -50,7 +54,7 @@ Apply stages relevant to the authorized scope. These are engineering criteria, n
 |---|---|---|
 | G0 Requirements and baseline | Functions, power, mechanics, assembly, manufacturing constraints, unknowns, and authoritative revision identified | [01](references/01-intake-and-recovery.md) |
 | G1 Architecture and parts | Power states, budgets, pin assignment, procurable parts, and datasheet sources | [02](references/02-circuit-and-library.md) |
-| G2 Schematics and footprints | Pin-by-pin checks, critical footprint dimensions, ERC/DRC disposition, and consistent BOM | [02](references/02-circuit-and-library.md) |
+| G2 Schematics and footprints | G2-A component inventory and unwired placement review; G2-B wiring, readable drawing, pin/footprint checks, ERC disposition, and consistent BOM | [02](references/02-circuit-and-library.md), [12](references/12-schematic-drafting.md) |
 | G3 Placement | Mechanical and physical envelopes clear, critical routes feasible, manual assembly unambiguous | [03](references/03-layout-routing.md) |
 | G4 Routing and ground | Appropriate power paths, critical interfaces, and returns; final copper readback and complete connectivity evidence | [03](references/03-layout-routing.md) |
 | G5 Manufacturing release | Frozen snapshot, independent manufacturing-file preview, consistent BOM/placement/stencil, disclosed limitations | [04](references/04-release-assembly.md) |

@@ -6,6 +6,8 @@ Updated: {{CREATED_UTC}}
 
 - Current authorized scope:
 - Work mode and stage:
+- Schematic phase, reviewed scope, and last accepted placement snapshot:
+- Placement check result and whether wiring may proceed:
 - Most recent action and actual result:
 - Current conclusion and its scope: No checks performed
 

@@ -1,4 +1,4 @@
-# Validation record: 1.2.0
+# Validation record: 1.2.1
 
 Date: 2026-09-21. Local platform: Windows; Node.js 22.23.2. These results describe the skill package and helper behavior, not a certified PCB design.
 
@@ -7,12 +7,23 @@ Date: 2026-09-21. Local platform: Windows; Node.js 22.23.2. These results descri
 | Skill structure | PASS | System skill validator | Frontmatter/structure only |
 | Existing helpers | PASS, 11 tests | `python -X utf8 scripts/test_helpers.py --workdir <temp-root>` | Initialization and release integrity |
 | Workflow helpers | PASS, 16 tests | `python -X utf8 scripts/test_workflow.py --workdir <temp-root>` | Known arithmetic, record rejection, normalized exports, envelope screening, localization and fake-bridge probe |
-| Actual bridge server with simulated clients | PASS | `node scripts/test_bridge.mjs --workdir <temp-root>` | Window switching, nonexistent-window isolation and explicit-window request routing; no EDA client |
-| Local live connection | BLOCKED | Existing bridge reports `WAITING_FOR_EDA`, zero windows | No client connection; old running bridge also reports upgrade recommended |
+| Actual bridge server with simulated clients | PASS in 1.2.0; unchanged code, not rerun for 1.2.1 | `node scripts/test_bridge.mjs --workdir <temp-root>` | Window switching, nonexistent-window isolation and explicit-window request routing; no EDA client |
+| Local live connection | BLOCKED at the previous check; not re-probed for 1.2.1 | Existing bridge reported `WAITING_FOR_EDA`, zero windows | No client connection; old running bridge also reports upgrade recommended |
 | Live project creation/edit/routing/export/reopen | NOT_RUN | Procedure in reference 11 | Must be tested in a disposable connected project |
 | macOS end-to-end | NOT_RUN | Cross-platform commands documented | Windows execution and a Mac scenario review do not establish macOS execution |
 
-## Independent scenario review
+## Schematic drafting update in 1.2.1
+
+- Compared the drafting reference against all eight supplied organization rules. Included the original visual example with its provenance and licensing scope. No fixed minimum package size was introduced.
+- Added G2-A component/placement review before wiring and G2-B connection/electrical/drawing review. Zero wire/bus counts belong to the scoped placement snapshot only; existing wired designs are reviewed in place.
+- Reran the structure validator and all 27 Python helper/workflow tests: PASS. Initialized English and Chinese records in isolated temporary directories: both contain the same 36 check IDs/stages/applicability values, all initially NOT_RUN. The record checker correctly leaves the five new checks pending. Temporary records were removed afterward.
+- Checked 75 local Markdown link targets: all exist. Inspected the supplied image and confirmed it is a wired presentation example, not a placement-only snapshot.
+
+An independent agent read the skill and relevant references, without the scenario acceptance table, and described its actions for three requests: creating a complete new schematic from approved selections, reviewing an existing wired schematic read-only without placement history, and adding a sensor block while preserving existing wiring. It retained the requested scope, required placement evidence before new wiring, continued without an extra approval gate, preserved existing connections, and did not invent missing historical evidence. No blocking instruction conflict was found.
+
+This was a read-only behavioral review. The agent did not create a schematic or operate EDA. Native wire counts, rendered drawing quality, ERC, and cross-platform drafting remain untested on a connected client for this release.
+
+## Independent scenario review in 1.2.0
 
 An independent agent was given the skill and two realistic requests without the acceptance notes or prior conclusions. It read the needed files without modifying files or accessing EDA:
 

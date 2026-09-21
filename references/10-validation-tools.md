@@ -16,6 +16,8 @@ Baseline mismatches require review; the tool cannot infer which design changes i
 
 Split outcomes that can differ. LED, button, sensor identity/data, interrupt, and sleep tests must have separate rows when relevant. Existing projects migrate by adding new rows; retain old evidence and explain replaced aggregate rows.
 
+For schematic drafting, retain separate G2-A placement and G2-B wiring evidence as described in [reference 12](12-schematic-drafting.md). SCH-UNWIRED is mandatory for new schematics and new blocks; `assess` allows a documented applicability decision for an existing wired design. A final wired drawing does not invalidate an authentic earlier zero-wire snapshot. This checker validates records, not native wire counts or the chronological execution of the stages.
+
 ## Normalized design exports
 
 Build these records from actual native API/netlist/BOM exports using version-specific mappings, recording the source and coverage. Retain the raw export and the extraction code. Never reconstruct missing nets from screenshots or declare coverage complete when parsing failed. `coverage: complete` is an extraction assertion requiring review, not something the helper independently proves.

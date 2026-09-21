@@ -89,3 +89,18 @@ Define these before testing; record details in CHECKS.csv. Checks requiring an u
 - Calculation inputs, sources, output and margins:
 - Native API probe and any operation-specific UI fallback:
 - Routing strategy and preserved critical nets:
+
+## 11. Schematic Drafting Review
+
+- Current schematic phase: G2-A placement / G2-B wiring / existing-design review:
+- Sheets and functional blocks in scope:
+- G2-A expected inventory, placement-only source snapshot, and overview/detail images:
+- G2-A wire/bus counts, native extraction method, document IDs, and snapshot revision:
+- Placement review result and issues resolved before wiring:
+- G2-B source, netlist, rule report, and final visual review:
+- Historical stage applicability, unavailable evidence, and impact of later changes:
+
+For new schematics or new blocks, SCH-UNWIRED is required before wiring. For an existing wired design, document the applicability decision without deleting connections. Keep the placement-only snapshot separate from the final wired drawing. Record phase, scope, and snapshot identity in CHECKS.csv; retain superseded results separately.
+
+| Block/sheet | Signal or power flow | Associated support parts | Ground/return and isolation notes | Review evidence |
+|---|---|---|---|---|
