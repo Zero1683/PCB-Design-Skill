@@ -146,6 +146,10 @@ Read [instructions, actions, and failure modes](references/07-case-lessons.md) f
 
 At G1/G2, calculate supply/load budgets and component operating margins. At G4, update calculations from actual geometry: DC path drop/loss, load-step budget, relevant signal impedance and return paths. Use [electrical analysis](references/09-electrical-analysis.md) and its reproducible calculator. Do arithmetic with available tools; ask the user only for unavailable inputs, inaccessible calculators, or physical measurements, with exact fields and units. Do not ask a beginner to invent stackup values or interpret an unexplained impedance number.
 
+## Guarded native writes
+
+For G2-A moves of existing parts on an unwired EasyEDA page, use [the guarded live writer](references/23-live-eda.md). It captures native state, preflights the batch, preserves writable properties, verifies actual writes and performs guarded compensation. Use its explicit save/reopen check before claiming persistence. Other native operations retain their selected backend and normal gates; this wrapper does not intercept external calls.
+
 ## Tools and templates
 
 - `python scripts/init_project.py --output <project-directory> --name <project-name> --lang <en|zh>` creates `PROJECT.md`, `CHECKS.csv`, and `HANDOFF.md` only in a directory that does not exist. It refuses overwrite.

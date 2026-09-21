@@ -1,3 +1,13 @@
+# v1.6.0 · 真实 EDA 受控写入 / Guarded live EDA writes
+
+- 新增原生无连线原理图元件移动入口，支持写前碰撞、越界、源状态和字段检查。
+- 正向写入与反向恢复保留完整可写属性；修复实测发现的仅传坐标导致扩展属性丢失问题。
+- 新增逐步回读、保存重开验证、幂等操作 ID、日志锁和受控补偿；未知现场停止恢复。
+- test1 实测通过合法移动、碰撞/越界拦截、保存重开及回滚后完整快照比对。
+- 14 项新增自动化测试覆盖故障注入、自动补偿、并发改动阻断与重载差异；既有 52 项相邻测试复测。
+
+Native movement now uses a typed Gateway entrypoint with preflight, full writable-property preservation, readback, save/reopen and guarded inverse operations. Native tests ran on test1; injected failure compensation was tested with mocks. Global interception of arbitrary calls, wired schematic edits and PCB routing rollback remain outside this release.
+
 # v1.5.2 · 批次预检与修复反馈 / Batch preflight and repair feedback
 
 ## 中文

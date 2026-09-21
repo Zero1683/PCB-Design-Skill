@@ -22,9 +22,13 @@
 
 Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, schematic methods, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client. The API layer supplies operation interfaces; the methods library covers functional blocks, batch placement, selective net fanout, and revision cleanup.
 
+## v1.6.0: guarded live EDA writes
+
+Move existing parts on unwired schematic pages through the native API, with preflight interception, property-preserving writes, per-step readback and guarded compensation. Live testing on test1 covered collision/bounds rejection, movement, save/reopen and rollback. See the [live writer guide](references/23-live-eda.md). This does not provide global interception or PCB routing rollback.
+
 ## Recent updates
 
-Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **v1.5.2 adds layout batch preflight, structured repair reports and retry control, alongside data reconciliation, layout planning and operation recovery.** Download the complete release package or clone the repository.
+Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **v1.6.0 adds guarded native movement, prewrite checks, persistence verification and batch rollback for unwired schematic pages.** Download the complete release package or clone the repository.
 
 | Area | Additions |
 |---|---|
@@ -35,7 +39,7 @@ Recent work covers schematic drafting, EDA operations, independent inspection an
 | Data access | Reconcile components and pin nets across two PCB models; provide summaries, paged queries and revision deltas while retaining full inputs and rejecting missing or conflicting records |
 | Operation recovery | Checkpoints and isolated candidates for complete closed-file projects; preserve failed work and restore the candidate. Changed accepted files or evidence produce a `STALE` status |
 
-See the [operation guide](references/20-data-and-recovery.md) for commands, examples and scope, the [changelog](CHANGELOG.md) for changes, and [validation records](VALIDATION.md) for test results. Live EDA rollback is not implemented; token savings have not been benchmarked.
+See the [operation guide](references/20-data-and-recovery.md) for commands, examples and scope, the [changelog](CHANGELOG.md) for changes, and [validation records](VALIDATION.md) for test results. Guarded movement and rollback were tested on a native unwired page; arbitrary EDA operations and PCB routing are outside this writer. Token savings have not been benchmarked.
 
 ## Installation
 

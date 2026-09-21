@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.5.2",
-  "baseline_id": "v1.5.2-release",
-  "generated_utc": "2026-09-21T13:04:51+00:00",
+  "revision": "v1.6.0",
+  "baseline_id": "v1.6.0-release",
+  "generated_utc": "2026-09-21T13:25:34+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,24 +10,24 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 8497,
-      "sha256": "1dfbd9d64689cb99694285d2ff0e4903d1d89b5d554e4c81a9cbf4f628167e11"
+      "bytes": 9507,
+      "sha256": "53e2755e327b287dec344182856b2f726dfa07eb2e3f5e5b6a79126eaf876131"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 15531,
-      "sha256": "13d39da9c97d18281d31f186460a5778f8ba6930c4131664f13dd4115cac7822"
+      "bytes": 15719,
+      "sha256": "208f465b898a7879cc725538e25b1fc2e9bc533e9f4315962c1580c5e087c18e"
     },
     "README_EN.md": {
-      "bytes": 17039,
-      "sha256": "7bb2351715f7e469ae3373bf2e15f422bca10f7bbbbbfece12cafa1bd64e3d18"
+      "bytes": 17536,
+      "sha256": "3665ff197f840cf3b05588a650d97c0ee25e7257de2246d8cb77f8faa1f72001"
     },
     "SKILL.md": {
-      "bytes": 20190,
-      "sha256": "737f2e7c272560ffbce93fc2ad7031f2ccef09f19240bbffd218ba09af9bb5ac"
+      "bytes": 20657,
+      "sha256": "b9ff28f083eed3aff0df7d8785d46beb6c7bee93214ac3aa24e5a117f02c86bc"
     },
     "START_HERE.md": {
       "bytes": 6156,
@@ -38,8 +38,8 @@
       "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
     },
     "VALIDATION.md": {
-      "bytes": 22608,
-      "sha256": "48af8563b4022b2f2baded290c86d800ae67e5d91ba73b1351766bfcad9b5132"
+      "bytes": 23876,
+      "sha256": "433fe33cb4e94a652d74b6ebcaa615549706ad39b1d4db29d046bd5899ea2204"
     },
     "agents/openai.yaml": {
       "bytes": 365,
@@ -162,8 +162,8 @@
       "sha256": "6e671f1cf354358eef009126a3b02e79438fe8e43b35bb2125778f345c9a4acb"
     },
     "references/16-easyeda-operation-backends.md": {
-      "bytes": 8814,
-      "sha256": "a9def767720b98008e2e22b9c7511185bc3b28485c0bd121e06d35a7952b5d3d"
+      "bytes": 9190,
+      "sha256": "a04e0167687548fa4aeb06760d54ffbdeea6bcede6cae0dfabdfc73ab3a4d35f"
     },
     "references/17-easyeda-native-format.md": {
       "bytes": 4806,
@@ -182,12 +182,16 @@
       "sha256": "5784bdee8a9a8e73f75b56cbaf5f5e92917ffe721d093d86d61a309c3a62fc41"
     },
     "references/21-layout-execution.md": {
-      "bytes": 9779,
-      "sha256": "8df57b0fc4dd8f033a312cbe93f641444776fbb5d9512ef100079ffa3b9953b1"
+      "bytes": 10155,
+      "sha256": "df6cff0c05cb650ffdafa17d5f8b44f18f4cd4013fa76981a2e0161a5dbcb55a"
     },
     "references/22-batch-repair.md": {
-      "bytes": 6428,
-      "sha256": "36c9ea1b033bb3733cf2cd8e3e1e4a9097684853f09fa74a22b6cc83fe3abeb8"
+      "bytes": 6804,
+      "sha256": "f795fc96e315b37b6b4c93c888e65a42290603ca65bb56443222649b57393381"
+    },
+    "references/23-live-eda.md": {
+      "bytes": 5180,
+      "sha256": "724d2825429799190d8f166a06d53854a41a3ed0e54be79afb571580b23ebb7d"
     },
     "scripts/audit_design.py": {
       "bytes": 6967,
@@ -208,6 +212,14 @@
     "scripts/easyeda_bridge.mjs": {
       "bytes": 3842,
       "sha256": "8a35c266e5495395fb146da99be9f3de51db9b3cd3a4e523201d3c7080b7b147"
+    },
+    "scripts/eda_live.mjs": {
+      "bytes": 4953,
+      "sha256": "85d5193b8c2254c6bd6122aa4a8d4b55f1b3162c3b6139e39a595f2a518ed655"
+    },
+    "scripts/eda_live_runtime.mjs": {
+      "bytes": 12100,
+      "sha256": "d43ab5f4d3437b286a3f3e8bbb6a6f1abadb6b9a395f2cfbb349c5036c6e33fa"
     },
     "scripts/eda_probe.mjs": {
       "bytes": 2565,
@@ -264,6 +276,10 @@
     "scripts/test_eda_format.cjs": {
       "bytes": 2994,
       "sha256": "312be1e0a2fc4e7cd5b9e76e0861915dfed0b54fcd38934e3b78102618680677"
+    },
+    "scripts/test_eda_live.mjs": {
+      "bytes": 4943,
+      "sha256": "18a3ac83a02f8dec4397a969c3756136d93162b19a2da8b0fb830225feb0c405"
     },
     "scripts/test_fabrication_calcs.py": {
       "bytes": 4396,

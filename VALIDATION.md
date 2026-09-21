@@ -1,3 +1,11 @@
+# v1.6.0: guarded native operations
+
+2026-09-21, Windows, Node 22.23.2, connected EasyEDA client and bundled API reference. Authorized test1 page contained 12 parts, one sheet, no wires or buses. Native capture, collision and bounds rejection, property-preserving move, save/close/reopen, explicit rollback with save, and exact restored snapshot comparison passed.
+
+The first coordinate-only native modify changed SupplierId and cleared several OtherProperty values. Readback caught it and blocked blind recovery. The affected test component was explicitly restored from the original snapshot and exact comparison passed. The adapter now sends all documented writable properties for both forward and inverse operations. The corrected native sequence passed again.
+
+14 Node regression cases cover prewrite rejection, stale inputs, unsupported fields/wired pages, duplicate IDs, property preservation, injected second-write failure with automatic compensation, concurrent changes, inverse failure, idempotency, wrong target, reload mismatch and serialized execution. Automatic mid-batch failure compensation uses mocks; native validation exercised explicit rollback. No PCB routing rollback, global interception, token benchmark or electrical acceptance was performed.
+
 # v1.5.2: batch preflight and repair feedback
 
 2026-09-21, Windows/Python 3.12. Eleven new cases exercise full-target preview,

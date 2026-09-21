@@ -148,3 +148,7 @@ Use [the batch/repair helper](22-batch-repair.md) before a scoped G2-A write and
 when an actual readback differs. It assesses the full target and records bounded
 repair attempts; it neither intercepts every native API nor executes proposals.
 Keep raw capture, adapter revision and save/reload evidence with the reports.
+
+## Native movement entrypoint
+
+v1.6 adds [guarded live movement](23-live-eda.md) for existing parts on unwired schematic pages. It supplies actual capture, property-preserving writes, per-step readback, save/reopen checks and guarded inverse operations. The helper described above retains its own scope; arbitrary official calls and PCB routing are not globally intercepted.

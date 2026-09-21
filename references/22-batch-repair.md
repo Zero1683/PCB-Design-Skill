@@ -99,3 +99,7 @@ unless they violate explicit user requirements. Do not hard-code a vendor fee or
 ten-times-stock threshold, reject local workspace creation for those reasons, or
 make regression tests depend on live supplier inventory. This release adds no
 supplier client, cart, order or purchasing action.
+
+## Native movement entrypoint
+
+v1.6 adds [guarded live movement](23-live-eda.md) for existing parts on unwired schematic pages. It supplies actual capture, property-preserving writes, per-step readback, save/reopen checks and guarded inverse operations. The helper described above retains its own scope; arbitrary official calls and PCB routing are not globally intercepted.
