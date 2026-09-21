@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.5.0",
-  "baseline_id": "004fe9b-plus-v1.5.0-reviewed-update",
-  "generated_utc": "2026-09-21T09:00:13+00:00",
+  "revision": "unreleased-data-recovery-2026-09-21",
+  "baseline_id": "be29537-plus-data-and-isolated-recovery",
+  "generated_utc": "2026-09-21T10:51:45+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,24 +10,24 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 4207,
-      "sha256": "4b618b785fd09372fdc13c063fae24cc1961bf115853b68c09839891beddb9a0"
+      "bytes": 4833,
+      "sha256": "f9e270b4374b49dcf5eb9bc05c154ea63f84c31d39ed3a2ca3f575c38427bae3"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 11815,
-      "sha256": "4082368eb3c41775b5df8370e343feafcfae1096483b73f647520164a2ff7d86"
+      "bytes": 12272,
+      "sha256": "a8ae8ea26a70fea329918474d652a2e72852c42f83abb7e903c28b25956e7955"
     },
     "README_EN.md": {
-      "bytes": 13001,
-      "sha256": "e787bcaaad8911e3cc88acff1913e0038503f65b9ade424d9442af8ca09d78f2"
+      "bytes": 13460,
+      "sha256": "8ed7c60855b6de6079189ea4c9ecd0d6654672cf6d783e82fa167d1d7c604d6f"
     },
     "SKILL.md": {
-      "bytes": 18734,
-      "sha256": "e2446ce84bfb2d7bfb3cecfb818c7284a321c935a0c48ca6e6681c708ffa023f"
+      "bytes": 19282,
+      "sha256": "40d69a4b17e03d740b5df7ae4aee7a018b490a35aae98d273bda84c1c07c959a"
     },
     "START_HERE.md": {
       "bytes": 6156,
@@ -38,8 +38,8 @@
       "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
     },
     "VALIDATION.md": {
-      "bytes": 18723,
-      "sha256": "49cad6faa14423f8a6a74403d6f58825ea5665b1a3167f8b50e94e5a248330a3"
+      "bytes": 20026,
+      "sha256": "4ff8246dbf1825d54ae733b0edca90fc147053d6b7013b621b1aa56a4103122c"
     },
     "agents/openai.yaml": {
       "bytes": 365,
@@ -57,6 +57,10 @@
       "bytes": 6476,
       "sha256": "cfef6335615c1511e03ba68caf9659b024204f200b376bbc218411940c7f6d8f"
     },
+    "assets/data-binding.example.json": {
+      "bytes": 500,
+      "sha256": "21e41f55e67033dbd8baf9c054612a075b55a2f894550a5cdbd03a5bb64a7baf"
+    },
     "assets/electrical.example.json": {
       "bytes": 1211,
       "sha256": "60ae9aaf8ca4f009cca478cdb1406f61356678e8c36c3a4547edef77dfe02972"
@@ -68,6 +72,10 @@
     "assets/logo.svg": {
       "bytes": 1005,
       "sha256": "e6f8f5dd1e2554a19688ca7ee3abb515e216a5ef59a0a993a4697ada3051dbae"
+    },
+    "assets/operation-plan.example.json": {
+      "bytes": 491,
+      "sha256": "263bda083714f6ddea7ad54ac34750067164855d62827fca5f2d44270bba5a68"
     },
     "assets/schematic-style-reference.png": {
       "bytes": 213343,
@@ -94,20 +102,20 @@
       "sha256": "c03f8f2fc4218b026ffe9bfeb78907dd08cdac96f31a55156e180a2f4771706b"
     },
     "references/03-layout-routing.md": {
-      "bytes": 17540,
-      "sha256": "87fee4df61808d37c271618bfa37b530649a51e87267bc67c96ee91ae4ff61c4"
+      "bytes": 17553,
+      "sha256": "77546a1b63be19b41f84ab1ac32b91fe2a722c56b933a32bdf351ccfc22ed5ef"
     },
     "references/04-release-assembly.md": {
-      "bytes": 10356,
-      "sha256": "3f3c4a420d47a44e5bcab5fb0c569a0e7a86568398c7469ec6c701b73b096571"
+      "bytes": 10369,
+      "sha256": "d84fcca3ab76e3a32db3c7dbdb7895252d01a3c1f279cc89ffb6cbebe2babafe"
     },
     "references/05-bringup-debug.md": {
       "bytes": 8239,
       "sha256": "9a77d2a6622d70f8bfcf7468767a7c04d35b548d02b8d4d0c5ea68c034eae9a5"
     },
     "references/06-easyeda-execution.md": {
-      "bytes": 13784,
-      "sha256": "5c2b93285572f651bca045f5ddaebc92700a7ea3b46a42c2c5dce1af44fb284c"
+      "bytes": 14321,
+      "sha256": "7968a687d73d69f9b85ee7c9313c29286d0368fa3caacf82d34e93755f320038"
     },
     "references/07-case-lessons.md": {
       "bytes": 6994,
@@ -122,12 +130,12 @@
       "sha256": "d9a329c50d5b8a1d5ffe839e5926d3245f50aeabc1cc3a900a162cc8d0f1aa08"
     },
     "references/10-validation-tools.md": {
-      "bytes": 6937,
-      "sha256": "239e0cf11596958e0b2f897bde854fbedcb0e747f9cf4d18f83e983e9ff53c30"
+      "bytes": 7384,
+      "sha256": "c31869262048419d27817a850eeb8b3af8df6a6f8af7ffc072c64dccca73c521"
     },
     "references/11-validation-scenarios.md": {
-      "bytes": 9891,
-      "sha256": "6e7d3df79fc5640754f14ee3d43a6003d482a4f01421c7ff18e54b4559101302"
+      "bytes": 10728,
+      "sha256": "5f88bc4b6a4d932873d238c68e5bc1dd35cb8721ac23800b9da5661816e00b75"
     },
     "references/12-schematic-drafting.md": {
       "bytes": 23845,
@@ -154,12 +162,16 @@
       "sha256": "e6cada9974817f3b5d5d4e97f474f0bb98df07ae59a23886f8074a55ce864eb1"
     },
     "references/18-pcb-inspection-toolkit.md": {
-      "bytes": 8976,
-      "sha256": "63a744003568332cfe7bd27d9358f78e2f8c7d006f89537b09dafa64c59bb2ff"
+      "bytes": 8992,
+      "sha256": "fb848f8d0dc2ce78a522e1b946756600d0b6ddf646ee9a905b8051e2c365689e"
     },
     "references/19-engineering-constraints.md": {
       "bytes": 10880,
       "sha256": "01208af0897b802c265e10a171d37700e72eb6c71dce2666b58db03083f3389f"
+    },
+    "references/20-data-and-recovery.md": {
+      "bytes": 10572,
+      "sha256": "5784bdee8a9a8e73f75b56cbaf5f5e92917ffe721d093d86d61a309c3a62fc41"
     },
     "scripts/audit_design.py": {
       "bytes": 6967,
@@ -172,6 +184,10 @@
     "scripts/check_evidence.py": {
       "bytes": 6036,
       "sha256": "a4bb746c43c1a633ceb702bb87dfecd38c57d31915c98629edec778709f15677"
+    },
+    "scripts/design_data.py": {
+      "bytes": 11450,
+      "sha256": "e07068b709c4897a68ecc89dc047819ae450bd978b31274eef5df248b021328c"
     },
     "scripts/easyeda_bridge.mjs": {
       "bytes": 3842,
@@ -188,6 +204,10 @@
     "scripts/init_project.py": {
       "bytes": 2168,
       "sha256": "272909b74bd256fcde20e009e69a6cb1452bd29e1a59e057e8afe494c8b1e01b"
+    },
+    "scripts/operation_state.py": {
+      "bytes": 13502,
+      "sha256": "0fb70d7149d3c96cc2b6c23358b33e4aeab96c346c45c50eb403499482c13ce4"
     },
     "scripts/pcb_toolkit.py": {
       "bytes": 4188,
@@ -208,6 +228,10 @@
     "scripts/test_circuit_checks.py": {
       "bytes": 9369,
       "sha256": "d9f44b59c1fb5cbd8a98df3327dd527ad4b851f3ebefed1c243061da9357ce80"
+    },
+    "scripts/test_data_operations.py": {
+      "bytes": 14453,
+      "sha256": "d93bba48e143053a220f526e8264075e6b7c65fabb872dbb1a3b9c7d9e6aaba6"
     },
     "scripts/test_design_gates.py": {
       "bytes": 2140,
@@ -240,6 +264,10 @@
     "scripts/validate_eda_primitive.cjs": {
       "bytes": 2870,
       "sha256": "7f52a679f53c4ac704c8292c58ca72d257c8e43301a338967f984c3f3e8aec95"
+    },
+    "scripts/workflow_io.py": {
+      "bytes": 3030,
+      "sha256": "2463bf7e5b9a9a2b42c8591428f7160d4aa3b99b2ef7e9bcd0ea658dbaf9de78"
     },
     "start-easyeda.cmd": {
       "bytes": 303,
@@ -7150,8 +7178,8 @@
       "sha256": "030f999ded4ddf6fee754806562989f31951fbe3d80a3e011717aaa5e7047000"
     },
     "vendor/pcb-skill-toolkit/UPSTREAM.md": {
-      "bytes": 2445,
-      "sha256": "ae7cc203dbe462322bc37fab47c0f630fd18ce308b2770a7f2ce479cc02972ce"
+      "bytes": 2697,
+      "sha256": "1b361b2a225afe0f8868b94d04e2661d088207f3b63c36f2ab5f9633cd9b78ee"
     },
     "vendor/pcb-skill-toolkit/scripts/README.md": {
       "bytes": 6347,
@@ -7190,8 +7218,8 @@
       "sha256": "06ec62ce4b4c8ba170691ed621b510034e25fef27f83fe3706ed4f21ae9b04db"
     },
     "vendor/pcb-skill-toolkit/scripts/placement/import_easyeda.py": {
-      "bytes": 30437,
-      "sha256": "91ead0dd494dbe35ae54f95248278a9c35679a432e1003d1e093d97edacc3dfb"
+      "bytes": 30460,
+      "sha256": "852fb446ed3ac5a7a877c4fb3e8f450da6e83c2b8f547dfc70d2d152955b90f2"
     },
     "vendor/pcb-skill-toolkit/scripts/process_status.py": {
       "bytes": 1875,

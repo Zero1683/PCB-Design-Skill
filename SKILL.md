@@ -47,6 +47,15 @@ Read [visual and geometry checks](references/14-visual-geometry-gates.md) before
 
 Before wiring, verify schematic values against independently resolved MPN/supplier specifications (`PART-IDENTITY`, reference 02). Before routing, verify native outline recognition, placement gates and actual routing rules/tool capability (`ROUTING-READY`, reference 03). Before bulk API edits, prove one object's requested change and protected properties survive save/reopen (reference 06). Consolidate defects, repair native source, then freeze and export one reviewed candidate (`RELEASE-FREEZE`, reference 04); later edits invalidate only the relevant checks unless side effects are uncertain.
 
+## Structured data and bounded operation recovery
+
+Use [data reconciliation and recovery](references/20-data-and-recovery.md) when
+combining native PCB/toolkit records, reading large exports, or operating on a
+complete closed-file native project copy. Reconcile observed data independently of
+design intent, query summaries/deltas before detail, and preserve raw files.
+The file state machine edits only an isolated candidate and guards recovery by hashes;
+it cannot roll back a running EDA client or turn an inspection JSON into a native backup.
+
 ## Native extraction and independent inspection
 
 At G3-G5, use the [PCB inspection toolkit](references/18-pcb-inspection-toolkit.md)

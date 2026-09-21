@@ -55,11 +55,11 @@ Their measured example values describe the upstream board only.
    footprint from this client/version. Compare actual pad coordinates, not only
    a plausible-looking rectangle. Outline curves are approximated; tight edge
    clearances and cutouts need native or exact geometric checks.
-5. This toolkit's **board JSON is a different contract** from reference 10's
-   normalized component snapshots. Do not rename or pass it to audit_design.py
-   or check_connectivity.py as if interchangeable. Preserve both exports with the
-   same baseline if using both toolchains. Independent circuit intent still
-   comes from requirements and exact-part documentation (reference 13).
+5. Use [the reconciliation adapter](20-data-and-recovery.md) to bind this toolkit's
+   board JSON to an actual normalized PCB snapshot from reference 10. It checks
+   component/pin correspondence and preserves both contracts for existing tools;
+   do not pass one shape directly into the other's checker. Independent intent
+   still comes from requirements and exact-part documentation (reference 13).
 
 ## Use results at the relevant stage
 

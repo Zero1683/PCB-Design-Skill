@@ -1,3 +1,12 @@
+# Unreleased
+
+- 增加观测数据一致性核对、分页查询和版本差异，保留完整原始输入。
+- 增加隔离文件工程的检查点、验收证据归档和可恢复状态流程；不替换用户原工程。
+- 验收后文件或证据变化时标记 STALE；实时 EDA 回滚尚未实现。
+- Add observed-data reconciliation, paged queries and revision deltas with full input preservation.
+- Add checkpointed operations and archived verification evidence for isolated closed-file projects, preserving the original project.
+- Mark changed accepted files/evidence STALE. Live EDA rollback remains unsupported.
+
 # v1.5.0 — 工程约束与独立 PCB 检查 / Engineering constraints and PCB inspection
 
 ## 中文

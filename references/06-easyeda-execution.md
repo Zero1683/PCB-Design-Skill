@@ -109,3 +109,12 @@ Proceed in small batches only if the intended change persisted and unrelated pro
 Import/synchronization success may mean a confirmation dialog opened, not that changes were applied. Complete the native confirmation within authorized scope, then verify imported object identities and pin nets. Export calls may depend on the active editor: activate the exact document, verify project/document/type immediately before exporting, and inspect the returned content, not only its filename. After reconnect or project opening rediscover window/document IDs rather than reusing stale ones.
 
 Record probe evidence once per relevant version/operation and reuse it while those conditions remain unchanged. Do not repeat the entire capability discovery for each component. A timeout requires readback before retry; do not create duplicates.
+
+## File-only recovery and bounded reads
+
+For complete closed-file native bundles, [the operation state helper](20-data-and-recovery.md)
+provides an isolated candidate, evidence-bound phase results and resumable file
+recovery. Do not apply it to open/cloud-backed EDA state. Online operations retain
+this reference's supported API, one-writer, checkpoint and readback requirements.
+Use the same reference's summaries and paged queries for reconciled PCB data;
+preserve raw bridge output instead of changing the transport to omit fields.

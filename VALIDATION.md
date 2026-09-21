@@ -1,3 +1,13 @@
+# Unreleased: reconciled data and isolated recovery
+
+Validated on Windows, 2026-09-21. This section covers the current working update; older release records follow.
+
+- 27 new data/operation regression tests passed (`scripts/test_data_operations.py`). They cover lossless input round trips, observed/intent separation, repeated-pad and NC handling, pagination/deltas, stale data/report rejection, evidence preservation, candidate recovery and interruption between directory renames.
+- 21 existing PCB toolkit regression tests passed after the additive native component ID field. The importer self-test passed for both supported synthetic record dialects.
+- Independent read-only review found three defects: repeated pads borrowing a missing element net, broken archived evidence paths, and status reporting historical acceptance after file changes. All three were corrected and have passing regression cases.
+- Recovery preserves the source and failed candidate. It operates only on isolated, closed-file project bundles; declared dependency completeness and reopen evidence still need actual native validation.
+- No live EasyEDA operation, native project recovery, macOS execution, physical board, or measured token-saving benchmark was tested. Synthetic checks do not establish electrical acceptance.
+
 # Validation record: 1.3.0
 
 Date: 2026-09-21. Local platform: Windows; Node.js 22.23.2. These results describe the skill package and helper behavior, not a certified PCB design.

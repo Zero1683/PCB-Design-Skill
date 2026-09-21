@@ -2,8 +2,8 @@
 
 For native PCB extraction and independent geometry/manufacturing checks, use
 [the bundled inspection toolkit](18-pcb-inspection-toolkit.md). Preserve actual
-input coverage and baseline; its board model is distinct from our normalized
-component snapshots. The existing gates in this reference still apply.
+input coverage and baseline; use [data reconciliation](20-data-and-recovery.md)
+to bind its board model to normalized PCB snapshots. Existing gates still apply.
 
 ## Set manufacturing rules first
 

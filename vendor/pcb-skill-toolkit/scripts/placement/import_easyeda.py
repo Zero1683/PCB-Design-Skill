@@ -538,7 +538,7 @@ def convert(paths, rules=None, layers=None, netlist=None, arc_segments=12,
             raise ValueError("%s references missing footprint %r; incomplete export" % (des, fpid))
         if any(c["des"] == des for c in components):
             raise ValueError("Duplicate component designator: %s" % des)
-        components.append({"des": des, "footprint": fpid,
+        components.append({"des": des, "native_id": str(cid), "footprint": fpid,
                            "x": float(cb["x"]) * MIL, "y": float(cb["y"]) * MIL,
                            "angle": float(cb.get("angle") or 0.0),
                            "side": "bottom" if cb.get("layerId") == lay["bottom"] else "top"})

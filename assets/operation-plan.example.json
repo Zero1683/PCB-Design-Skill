@@ -1,0 +1,21 @@
+{
+  "project_id": "REPLACE-ACTUAL-PROJECT",
+  "document_id": "REPLACE-ACTUAL-DOCUMENT",
+  "baseline_id": "REPLACE-BASELINE",
+  "phase": "G3",
+  "closed_file_project": true,
+  "dependencies_complete": true,
+  "native_files": [
+    "REPLACE-NATIVE-PROJECT-FILENAME"
+  ],
+  "required_checks": [
+    "PCB-PAD-GAP",
+    "PCB-SILK-GAP",
+    "PCB-SILK-MASK",
+    "ROUTING-READY"
+  ],
+  "reopen_evidence": {
+    "path": "REPLACE-REOPEN-EVIDENCE-FILE",
+    "sha256": "REPLACE-ACTUAL-FILE-HASH"
+  }
+}

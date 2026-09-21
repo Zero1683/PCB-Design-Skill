@@ -80,3 +80,16 @@ real export compatibility, full rendering and physical hardware need their own e
 
 These are evaluation inputs and expected behavior, not claims of live EDA or hardware
 validation. Automated arithmetic coverage is recorded separately in VALIDATION.md.
+
+## Data and recovery scenarios
+
+- Join observed PCB models with conflicting element and numbered pad nets: reject
+  the join without substituting the intended connection. Missing nets remain unknown.
+- Read a large board for one decision: use summary then exact/paged queries, preserve
+  raw geometry and show coverage and digest. Do not promise a fixed token reduction.
+- Fail an isolated edit after the user changes the original source: refuse recovery;
+  preserve both user changes and failed candidate.
+- Interrupt recovery between candidate renames: resume the recorded operation and
+  preserve the failed copy, without claiming live EDA or electrical acceptance.
+- Feed an online/cloud-only inspection export as a restorable project: reject that
+  workflow; use supported native checkpoint/readback and verify restore separately.

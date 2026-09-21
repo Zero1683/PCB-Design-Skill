@@ -72,3 +72,11 @@ Use the release-manifest tool only on reviewed frozen deliverables. Gerber/drill
 ## Drawing and physical-object screening
 
 `scripts/screen_visual_geometry.py` checks supplied transformed object bounds for page/title-block intrusion and pad/silk/mask spacing. Read [the schema and acceptance procedure](14-visual-geometry-gates.md). It does not parse native EDA files, establish export coverage, or replace rendered review and exact-contour checks. The older `audit_design.py geometry` command remains a body-only screen.
+
+## Reconciled PCB data and bounded queries
+
+[Reference 20](20-data-and-recovery.md) documents `design_data.py`: explicit observed
+snapshot/board binding, component/pin reconciliation, preserved contract export,
+summary, pagination and section deltas. Existing comparison/connectivity tools
+consume its normalized export; toolkit tools consume its board export. No schema
+is silently renamed. The accompanying operation state helper is file-only.

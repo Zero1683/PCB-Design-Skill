@@ -97,6 +97,10 @@ require NumPy, which is not bundled.
 
 Track critical sources, calculation conditions, native rules and export checks. Review dense escapes, return paths and thermal design, with reproducible mask opening/web, escape-channel and annular-ring arithmetic. See [engineering constraints](references/19-engineering-constraints.md).
 
+## Reconciled data and operation recovery
+
+Reconcile component/pin data across PCB models, query bounded summaries/pages and inspect deltas while retaining raw inputs locally. Complete closed-file projects can use isolated candidates with phase results and hash-guarded recovery that preserves the failed copy. Live EDA rollback needs separate validation. See [usage](references/20-data-and-recovery.md).
+
 ## Usage
 
 ### Design a new PCB
@@ -194,7 +198,7 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 The v1.5.0 release rerun includes 81 Python cases: 80 passed and one was skipped because Windows denied symbolic-link creation. All 8 Node format cases and isolated simulated bridge checks passed. Integration-time results for 21 toolkit self-tests are listed in [validation records](VALIDATION.md).
 
-These tests cover scripts and synthetic data. The new toolchain has not completed live EDA end-to-end, macOS, external-router interoperability or physical manufacturing validation. Native extraction has format limits; toolkit board data and normalized snapshots require same-baseline reconciliation. Helpers do not replace an impedance solver or physical acceptance.
+These tests cover scripts and synthetic data. The new toolchain has not completed live EDA end-to-end, macOS, external-router interoperability or physical manufacturing validation. Native extraction has format limits; the new adapter reconciles toolkit board data and normalized snapshots under one baseline, with real-project validation still pending. Helpers do not replace an impedance solver or physical acceptance.
 
 See the [v1.5.0 release notes](CHANGELOG.md) for the complete update.
 

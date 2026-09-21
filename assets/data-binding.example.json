@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "role": "observed",
+  "project_id": "REPLACE-ACTUAL-PROJECT",
+  "document_id": "REPLACE-ACTUAL-PCB",
+  "baseline_id": "REPLACE-BASELINE",
+  "snapshot_digest": "REPLACE-WITH-HASH-COMMAND-RESULT",
+  "board_digest": "REPLACE-WITH-HASH-COMMAND-RESULT",
+  "readback_evidence": "REPLACE-WITH-RECORDED-NATIVE-READBACK",
+  "footprint_map": {
+    "R1": {
+      "snapshot": "REPLACE-NORMALIZED-FOOTPRINT",
+      "toolkit": "REPLACE-NATIVE-FOOTPRINT-ID"
+    }
+  },
+  "unconnected_pins": []
+}

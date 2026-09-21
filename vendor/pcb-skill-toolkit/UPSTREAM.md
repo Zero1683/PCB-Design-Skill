@@ -38,3 +38,7 @@ for raster/clearance and is not redistributed in this package.
 Validation performed by this integration is recorded in the parent VALIDATION.md.
 Upstream case measurements are the author's reported results, not our reproduction
 on those original files or a physical board. Native-client acceptance is separate.
+
+Additional local adaptation: native PCB import retains each component's native_id
+for the first-party reconciliation adapter. Existing board fields remain available.
+This additive field does not establish full primitive-ID or native restore coverage.
