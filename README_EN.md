@@ -2,15 +2,15 @@
   <img src="assets/logo.svg?v=2" width="156" height="156" alt="PCB Design to Bring-up logo">
 </p>
 
-<h1 align="center">pcb-design-to-bringup-skill</h1>
+<h1 align="center">PCB-Design-Skill</h1>
 
 <p align="center"><strong>PCB engineering for AI agents</strong></p>
 <p align="center">Schematic design · PCB layout · Manufacturing · Board bring-up</p>
 
 <p align="center">
-  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/releases"><img src="https://img.shields.io/github/v/release/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;label=release&amp;color=333333" alt="Latest release"></a>
-  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/stargazers"><img src="https://img.shields.io/github/stars/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;color=333333" alt="GitHub stars"></a>
-  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/issues"><img src="https://img.shields.io/github/issues/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;color=333333" alt="Open issues"></a>
+  <a href="https://github.com/Zero1683/PCB-Design-Skill/releases"><img src="https://img.shields.io/github/v/release/Zero1683/PCB-Design-Skill?style=flat-square&amp;label=release&amp;color=333333" alt="Latest release"></a>
+  <a href="https://github.com/Zero1683/PCB-Design-Skill/stargazers"><img src="https://img.shields.io/github/stars/Zero1683/PCB-Design-Skill?style=flat-square&amp;color=333333" alt="GitHub stars"></a>
+  <a href="https://github.com/Zero1683/PCB-Design-Skill/issues"><img src="https://img.shields.io/github/issues/Zero1683/PCB-Design-Skill?style=flat-square&amp;color=333333" alt="Open issues"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-333333?style=flat-square" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/EasyEDA-bundled-333333?style=flat-square" alt="EasyEDA tools bundled">
 </p>
@@ -24,10 +24,10 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Installation
 
-Download the [latest release](https://github.com/Zero1683/pcb-design-to-bringup-skill/releases), or clone the repository:
+Download the [latest release](https://github.com/Zero1683/PCB-Design-Skill/releases), or clone the repository:
 
 ```sh
-git clone https://github.com/Zero1683/pcb-design-to-bringup-skill.git pcb-design-to-bringup
+git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
 ```
 
 Place the complete folder in your client's skill directory, or ask your agent to read [SKILL.md](SKILL.md). Keep `references/`, `assets/`, and `vendor/` with the entry file.
@@ -158,7 +158,7 @@ Release testing covered independent extraction, paths containing Chinese charact
 
 ## Contributing
 
-Report problems through [Issues](https://github.com/Zero1683/pcb-design-to-bringup-skill/issues), or submit a pull request for workflow, documentation, or tool integration improvements. Include software versions, reproduction steps, and sanitized logs. For hardware reports, include part numbers, board revision, and measurement conditions.
+Report problems through [Issues](https://github.com/Zero1683/PCB-Design-Skill/issues), or submit a pull request for workflow, documentation, or tool integration improvements. Include software versions, reproduction steps, and sanitized logs. For hardware reports, include part numbers, board revision, and measurement conditions.
 
 ## License
 

@@ -2,15 +2,15 @@
   <img src="assets/logo.svg?v=2" width="156" height="156" alt="PCB Design to Bring-up logo">
 </p>
 
-<h1 align="center">pcb-design-to-bringup-skill</h1>
+<h1 align="center">PCB-Design-Skill</h1>
 
 <p align="center"><strong>面向 AI Agent 的 PCB 工程 Skill</strong></p>
 <p align="center">原理图设计 · PCB 布局布线 · 制造交付 · 实板调试</p>
 
 <p align="center">
-  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/releases"><img src="https://img.shields.io/github/v/release/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;label=release&amp;color=333333" alt="Latest release"></a>
-  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/stargazers"><img src="https://img.shields.io/github/stars/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;color=333333" alt="GitHub stars"></a>
-  <a href="https://github.com/Zero1683/pcb-design-to-bringup-skill/issues"><img src="https://img.shields.io/github/issues/Zero1683/pcb-design-to-bringup-skill?style=flat-square&amp;color=333333" alt="Open issues"></a>
+  <a href="https://github.com/Zero1683/PCB-Design-Skill/releases"><img src="https://img.shields.io/github/v/release/Zero1683/PCB-Design-Skill?style=flat-square&amp;label=release&amp;color=333333" alt="Latest release"></a>
+  <a href="https://github.com/Zero1683/PCB-Design-Skill/stargazers"><img src="https://img.shields.io/github/stars/Zero1683/PCB-Design-Skill?style=flat-square&amp;color=333333" alt="GitHub stars"></a>
+  <a href="https://github.com/Zero1683/PCB-Design-Skill/issues"><img src="https://img.shields.io/github/issues/Zero1683/PCB-Design-Skill?style=flat-square&amp;color=333333" alt="Open issues"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-333333?style=flat-square" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/EasyEDA-bundled-333333?style=flat-square" alt="EasyEDA tools bundled">
 </p>
@@ -24,10 +24,10 @@
 
 ## 安装
 
-下载 [最新发布包](https://github.com/Zero1683/pcb-design-to-bringup-skill/releases)，或克隆仓库：
+下载 [最新发布包](https://github.com/Zero1683/PCB-Design-Skill/releases)，或克隆仓库：
 
 ```sh
-git clone https://github.com/Zero1683/pcb-design-to-bringup-skill.git pcb-design-to-bringup
+git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
 ```
 
 将完整目录放入客户端的 Skill 目录，或让 Agent 直接读取 [SKILL.md](SKILL.md)。目录中的 `references/`、`assets/` 和 `vendor/` 需一并保留。
@@ -156,7 +156,7 @@ python -X utf8 scripts/release_manifest.py verify --root /path/to/pcb-design-to-
 
 ## 贡献
 
-欢迎通过 [Issues](https://github.com/Zero1683/pcb-design-to-bringup-skill/issues) 提交问题，或通过 Pull Request 补充流程、文档和工具适配。问题报告请附软件版本、复现步骤及已去除敏感信息的日志；硬件相关问题请注明器件型号、板版本和测量条件。
+欢迎通过 [Issues](https://github.com/Zero1683/PCB-Design-Skill/issues) 提交问题，或通过 Pull Request 补充流程、文档和工具适配。问题报告请附软件版本、复现步骤及已去除敏感信息的日志；硬件相关问题请注明器件型号、板版本和测量条件。
 
 ## 许可
 
