@@ -15,12 +15,27 @@
   <img src="https://img.shields.io/badge/EasyEDA-bundled-333333?style=flat-square" alt="EasyEDA tools bundled">
 </p>
 
-<p align="center"><a href="#installation">Installation</a> · <a href="#capabilities">Capabilities</a> · <a href="#usage">Usage</a> · <a href="#documentation">Documentation</a></p>
+<p align="center"><a href="#recent-updates">Recent updates</a> · <a href="#installation">Installation</a> · <a href="#capabilities">Capabilities</a> · <a href="#usage">Usage</a> · <a href="#documentation">Documentation</a></p>
 <p align="center"><a href="README.md">简体中文</a> · <strong>English</strong></p>
 
 ---
 
 Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, schematic methods, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client. The API layer supplies operation interfaces; the methods library covers functional blocks, batch placement, selective net fanout, and revision cleanup.
+
+## Recent updates
+
+Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **The current `main` includes data reconciliation and operation recovery; the latest Release is still v1.5.0.** Clone or update `main` to use these additions.
+
+| Area | Additions |
+|---|---|
+| Schematic drafting | Two supported formats: freeform functional sections or sections within a sheet frame. Review unwired placement before connecting components; apply boundary, text-spacing and common layout fixes |
+| EDA operations | Bundled official API, schematic methods, native-format documentation and validation dependencies; batch placement, net fanout and explicit backend selection |
+| PCB and manufacturing inspection | Supported native extraction, component-clearance and escape-space screening, Gerber/drill/mask checks, and DSN/SES routing helpers |
+| Electrical and fabrication calculations | Associate manufacturer sources, calculation conditions, native rules and export checks with one revision; expand power, return-path, thermal, escape-channel, mask-web and annular-ring checks |
+| Data access | Reconcile components and pin nets across two PCB models; provide summaries, paged queries and revision deltas while retaining full inputs and rejecting missing or conflicting records |
+| Operation recovery | Checkpoints and isolated candidates for complete closed-file projects; preserve failed work and restore the candidate. Changed accepted files or evidence produce a `STALE` status |
+
+See the [operation guide](references/20-data-and-recovery.md) for commands, examples and scope, the [changelog](CHANGELOG.md) for changes, and [validation records](VALIDATION.md) for test results. Live EDA rollback is not implemented; token savings have not been benchmarked.
 
 ## Installation
 
@@ -200,7 +215,9 @@ The v1.5.0 release rerun includes 81 Python cases: 80 passed and one was skipped
 
 These tests cover scripts and synthetic data. The new toolchain has not completed live EDA end-to-end, macOS, external-router interoperability or physical manufacturing validation. Native extraction has format limits; the new adapter reconciles toolkit board data and normalized snapshots under one baseline, with real-project validation still pending. Helpers do not replace an impedance solver or physical acceptance.
 
-See the [v1.5.0 release notes](CHANGELOG.md) for the complete update.
+On current `main`, all 27 new data/recovery tests passed, along with a rerun of 21 PCB toolkit tests and the importer self-test. These results are separate from the v1.5.0 counts above.
+
+See the [changelog](CHANGELOG.md) for the complete update.
 
 ## Contributing
 

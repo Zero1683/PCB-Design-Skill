@@ -2,7 +2,7 @@
   "schema": 1,
   "revision": "unreleased-data-recovery-2026-09-21",
   "baseline_id": "be29537-plus-data-and-isolated-recovery",
-  "generated_utc": "2026-09-21T10:51:45+00:00",
+  "generated_utc": "2026-09-21T11:33:06+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -18,12 +18,12 @@
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 12272,
-      "sha256": "a8ae8ea26a70fea329918474d652a2e72852c42f83abb7e903c28b25956e7955"
+      "bytes": 14116,
+      "sha256": "ffceabb7e078edf5b2066a569ba18e51cfdca8315754040b94902a27a7d2ab83"
     },
     "README_EN.md": {
-      "bytes": 13460,
-      "sha256": "8ed7c60855b6de6079189ea4c9ecd0d6654672cf6d783e82fa167d1d7c604d6f"
+      "bytes": 15473,
+      "sha256": "aae15a5975064e9bac3a1d5aa76f1a57b213075e2e3158b9b3b2d0816b1e893d"
     },
     "SKILL.md": {
       "bytes": 19282,
