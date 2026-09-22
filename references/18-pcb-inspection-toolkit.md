@@ -79,6 +79,55 @@ Retain region bounds, pixel pitch, measured occupancy and layer identity in evid
 
 ## Hardened behavior and limits
 
+- Use the public wrapper with input files before options. Misspelled, duplicate,
+  missing-value and malformed inspection options are rejected. Do not weaken a
+  board's clearance rule through a command-line override.
+- Physical connectivity distinguishes copper on a layer from a plated barrel.
+  NPTH features never bridge layers. Drilled pads require explicit plating; vias
+  with explicit spans connect only their contiguous declared copper layers. Legacy
+  neutral vias without type/span still mean through-vias. Verify that assumption
+  against the native export. Plane assumptions require reaching a declared plane.
+- Repeated-number pads contribute every physical land to connection, isolation
+  and open-pin assertions. A correct final land cannot hide a disconnected or
+  shorted earlier land. This geometry model excludes drill-void subtraction and
+  actual copper pours; it does not replace native DRC or final-artwork inspection.
+- `route-accept --protected N --baseline before.json` compares straight-segment,
+  pad and via geometry. Equivalent collinear segmentation is allowed; changed
+  paths, widths, layers, pads or via spans fail even if connectivity remains one
+  island. Missing baselines and empty netted-pad coverage are NOT_CHECKED.
+- `mask` uses the union of supported mask flashes and simple linear regions.
+  Offset openings and multiple openings may together cover a pad. Full pad-area
+  coverage passes; no positive-area opening fails. Partial openings are NOT_CHECKED
+  by default. Use `--allow-partial-openings` only with a documented solder-mask-defined
+  pad policy; its PASS proves positive opening area, not sufficient solderable area.
+  Review actual opening dimensions and mask dams separately.
+- Untagged copper flashes need `--assume-all-pads` plus an independent pad-count
+  check; via identity is then unavailable. Empty pad scopes, stroked mask openings,
+  compound/hole regions, region arcs and unsupported commands remain NOT_CHECKED.
+  `--tol` affects concentric expansion reporting only, never opening coverage.
+  Results record state, checked/excluded objects and policy. Floating-point geometric
+  resolution is limited; it is not a fabrication tolerance.
+- Native record import currently rejects BLIND vias, nonempty via rule references,
+  missing via type and unmodeled inner-layer lands. Array-format VIA and actually
+  drilled PAD records are rejected until their field meanings are verified.
+  Retain the export and use a supported native check; never delete these features
+  to obtain a passing import.
+
+- The outline checker reconstructs actual segment endpoints into one simple ring.
+  Shuffled/reversed edges are supported; gaps, branches, overlaps, self-intersections,
+  multiple rings and internal cutouts are rejected. It never substitutes a bounding
+  box for the board boundary. Centreline dimensions are the finished outline;
+  do not subtract the drawing pen width.
+- Requested copper and drill edge margins are enforced, including complete copper
+  edges and slot centrelines at concave notches. Omitted files are NOT CHECKED;
+  explicitly supplied empty layers remain incomplete. A valid intentionally empty
+  layer needs a scoped N_A review, not a false claim that geometry was checked.
+  Arcs and some rounded apertures remain approximated; use independent exact/native
+  inspection for near-threshold curves and unsupported cutouts.
+- Reconciliation retains every physical land using its element identity. Same-number
+  lands must each have a unique element ID and explicit element-net observation;
+  legitimate same-number/same-net lands remain supported. Conflicting number/element
+  maps, missing identities and contradictory schematic net memberships fail.
 - Assertion contracts reject empty/unknown/malformed rules. Every named net and
   pad must resolve. An unresolved target is a failure, including isolation and
   open-pin assertions. Valid rules still cover only the relationships specified.
@@ -134,3 +183,8 @@ The progress relay is retained as a patched optional utility, not part of the
 default invocation path. Do not configure or use an external messaging transport
 without the user's explicit authorization. Automatic approval watchers and the
 upstream purchasing/setup workflow are not bundled or activated.
+
+Mask aperture macros are evaluated from their actual exposed literal outline,
+including a macro named RoundRect. Parameterized/compound RoundRect exports need
+an independent capable checker; their names or ADD dimensions cannot establish
+geometry. Native EasyEDA parameterized macro exports have not been qualified.

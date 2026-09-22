@@ -48,6 +48,7 @@ UNITS AND CONVENTIONS
 from __future__ import print_function
 
 import json
+import math
 import os
 import sys
 
@@ -87,10 +88,20 @@ class BoardError(Exception):
 
 # --------------------------------------------------------------------------- loading
 
+def unique_json_object(pairs):
+    """Reject ambiguous JSON evidence rather than silently keeping the last value."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise BoardError("duplicate JSON key: %r" % key)
+        result[key] = value
+    return result
+
+
 def load(path):
     """Read a board JSON file and return a validated Board."""
     with open(path, encoding="utf-8") as fh:
-        return Board(json.load(fh), source=path)
+        return Board(json.load(fh, object_pairs_hook=unique_json_object), source=path)
 
 
 class Placed(object):
@@ -113,22 +124,116 @@ class Board(object):
         self.layers = dict(DEFAULT_LAYERS)
         self.layers.update(doc.get("layers") or {})
         self.footprints = doc.get("footprints") or {}
-        self.pad_nets = doc.get("pad_nets") or {}
+        self.pad_nets = doc.get("pad_nets", {})
         self.nets = doc.get("nets") or {}
         self.tracks = doc.get("tracks") or []
         self.vias = doc.get("vias") or []
         self.pours = doc.get("pours") or []
         self.outline = (doc.get("outline") or {}).get("polygon") or []
         self._validate(doc)
+        self._known_pad_net_keys = set()
         self.parts = {}
         for c in doc.get("components") or []:
             p = self._place(c)
             if p.des in self.parts:
                 raise BoardError("duplicate designator %r" % p.des)
             self.parts[p.des] = p
+        unknown = set(self.pad_nets) - self._known_pad_net_keys
+        if unknown:
+            raise BoardError("pad-net entries reference missing physical pads: %s"
+                             % sorted(unknown))
 
     # ------------------------------------------------------------------ validation
     def _validate(self, doc):
+        def number(value, name, positive=False, nonnegative=False):
+            if type(value) not in (int, float) or not math.isfinite(value):
+                raise BoardError("%s must be a finite number" % name)
+            if (positive and value <= 0) or (nonnegative and value < 0):
+                raise BoardError("%s has invalid negative/zero geometry" % name)
+        def points(value, name):
+            for xy in value or []:
+                if not isinstance(xy, (list, tuple)) or len(xy) != 2:
+                    raise BoardError("%s requires coordinate pairs" % name)
+                for v in xy: number(v, name)
+        for key in DEFAULT_RULES:
+            number(self.rules[key], "rules." + key, nonnegative=True,
+                   positive=(key in ("clearance", "via_pad", "via_drill")))
+        if self.rules["via_drill"] >= self.rules["via_pad"]:
+            raise BoardError("via_drill must be smaller than via_pad")
+        cu = self.layers["copper"]
+        if (not isinstance(cu, list) or not cu or
+                any(type(l) is not int or l <= 0 for l in cu) or len(set(cu)) != len(cu)):
+            raise BoardError("copper must be an ordered list of unique positive layer IDs")
+        if (self.layers["top"] not in cu or self.layers["bottom"] not in cu or
+                not set(self.layers.get("solid_planes", [])) <= set(cu)):
+            raise BoardError("top/bottom/solid_planes must be copper layers")
+        points(self.outline, "outline")
+        for c in doc.get("components") or []:
+            for key in ("x", "y", "angle"):
+                number(c.get(key, 0), "component." + key)
+            if c.get("side", "top") not in ("top", "bottom"):
+                raise BoardError("unsupported component side")
+        for fp in self.footprints.values():
+            for key in ("outline", "silk"): points(fp.get(key), key)
+            for pad in fp.get("pads") or []:
+                for key in ("x", "y", "angle"):
+                    number(pad.get(key, 0), "pad." + key)
+                for key in ("w", "h"):
+                    number(pad.get(key, 0), "pad." + key, positive=True)
+                number(pad.get("corner_radius", 0), "corner_radius", nonnegative=True)
+                shape = str(pad.get("shape", "RECT")).upper()
+                if shape not in ("RECT", "ROUNDRECT", "ROUND_RECT", "RR", "OVAL",
+                                 "OBROUND", "ELLIPSE", "CIRCLE", "ROUND", "POLY", "POLYGON"):
+                    raise BoardError("unsupported pad shape: %s" % shape)
+                if shape in ("POLY", "POLYGON") and len(pad.get("polygon") or []) < 3:
+                    raise BoardError("polygon pad requires at least three points")
+                points(pad.get("polygon"), "pad.polygon")
+                if shape in ("POLY", "POLYGON"):
+                    poly = [tuple(p) for p in pad["polygon"]]
+                    if poly[0] == poly[-1]: poly.pop()
+                    if len(poly) < 3 or len(set(poly)) != len(poly) or G.poly_area(poly) <= 1e-12:
+                        raise BoardError("degenerate/zero-area pad polygon")
+                    n = len(poly)
+                    for i in range(n):
+                        for j in range(i + 1, n):
+                            if j == i + 1 or (i == 0 and j == n - 1): continue
+                            if G.dist_segment_segment(poly[i], poly[(i + 1) % n],
+                                                      poly[j], poly[(j + 1) % n]) <= 1e-12:
+                                raise BoardError("self-intersecting pad polygon is unsupported")
+                hole = pad.get("hole") or {}
+                for key in ("w", "h"):
+                    number(hole.get(key, 0), "hole." + key, nonnegative=True)
+                if hole.get("w", 0) > 0 and type(hole.get("plated")) is not bool:
+                    raise BoardError("drilled pad requires explicit boolean hole.plated")
+                if hole.get("h", 0) > 0 and not hole.get("w", 0):
+                    raise BoardError("hole height without hole width")
+                self._pad_layers(pad, "top")
+            for hole in fp.get("npth") or []:
+                for key in ("x", "y"): number(hole.get(key), "npth." + key)
+                number(hole.get("d"), "npth.d", positive=True)
+        for track in self.tracks:
+            for key in ("x1", "y1", "x2", "y2"):
+                number(track.get(key), "track." + key)
+            number(track.get("w"), "track.w", positive=True)
+            if track.get("layer") not in cu:
+                raise BoardError("track layer is not a copper layer")
+            if any(key in track for key in ("arc", "bulge", "radius", "curve")):
+                raise BoardError("unsupported curved track geometry")
+        for via in self.vias:
+            for key in ("x", "y"): number(via.get(key), "via." + key)
+            for key in ("pad", "drill"):
+                number(via.get(key, self.rules["via_" + key]), "via." + key, positive=True)
+            if via.get("drill", self.rules["via_drill"]) >= via.get("pad", self.rules["via_pad"]):
+                raise BoardError("via drill must be smaller than pad diameter")
+            self.via_layers(via)
+        if not isinstance(self.pad_nets, dict):
+            raise BoardError("pad_nets must be an object")
+        for key, net in self.pad_nets.items():
+            if not isinstance(key, str) or not key:
+                raise BoardError("invalid pad-net key %r" % (key,))
+            # Empty string is the neutral model's explicit unassigned net.
+            if not isinstance(net, str) or (net and not net.strip()):
+                raise BoardError("invalid pad net for %s: %r" % (key, net))
         if doc.get("units", "mm") != "mm":
             raise BoardError("only millimetre board JSON is supported, got units=%r"
                              % doc.get("units"))
@@ -161,7 +266,33 @@ class Board(object):
 
         # --- pads
         p.pads = []
-        for pad in fp.get("pads") or []:
+        local_pads = fp.get("pads") or []
+        counts = _count([str(pad.get("num", "")) for pad in local_pads])
+        elements = set()
+        for pad in local_pads:
+            num = str(pad.get("num", ""))
+            elem = pad.get("elem")
+            # Unique-number legacy neutral models need no element ID. Repeated
+            # numbers require physical identities and a net record for EVERY land.
+            if elem is not None:
+                if not isinstance(elem, str) or not elem.strip():
+                    raise BoardError("%s.%s has invalid physical pad element" % (p.des, num))
+                if elem in elements:
+                    raise BoardError("%s has duplicate physical pad element %r" % (p.des, elem))
+                elements.add(elem)
+            number_key = "%s.%s" % (p.des, num)
+            element_key = "%s#%s" % (p.des, elem) if elem is not None else None
+            self._known_pad_net_keys.add(number_key)
+            if element_key is not None:
+                self._known_pad_net_keys.add(element_key)
+            if counts[num] > 1 and (element_key is None or element_key not in self.pad_nets):
+                raise BoardError("repeated-number pad requires its own element net: %s (%r)"
+                                 % (number_key, elem))
+            if (element_key in self.pad_nets and number_key in self.pad_nets
+                    and self.pad_nets[element_key] != self.pad_nets[number_key]):
+                raise BoardError("number/element net mismatch: %s vs %s" % (number_key, element_key))
+            net = (self.pad_nets[element_key] if element_key in self.pad_nets
+                   else self.pad_nets.get(number_key, ""))
             cx, cy = self._local_to_board(float(pad["x"]), float(pad["y"]),
                                           p.x, p.y, p.angle, p.side)
             # A pad's own rotation adds to the part's.  Use the pad's RENDER angle, not
@@ -181,9 +312,11 @@ class Board(object):
                 "w": float(pad.get("w") or 0.0), "h": float(pad.get("h") or 0.0),
                 "shape": pad.get("shape", "RECT"),
                 "poly": poly, "bbox": G.bbox_of(poly),
-                "net": self.pad_nets.get("%s.%s" % (p.des, num), ""),
+                "net": net,
                 "layers": self._pad_layers(pad, p.side),
                 "hole": pad.get("hole"),
+                "layer_bridge": bool((pad.get("hole") or {}).get("w", 0) > 0
+                                     and (pad.get("hole") or {}).get("plated") is True),
             }
             p.pads.append(rec)
 
@@ -246,15 +379,62 @@ class Board(object):
         return p
 
     def _pad_layers(self, pad, side):
-        lay = pad.get("layer")
+        """Copper presence only; layer_bridge separately describes a plated barrel."""
         cu = tuple(self.layers["copper"])
-        if pad.get("hole") and float((pad.get("hole") or {}).get("w") or 0.0) > 0.0:
+        if "layers" in pad:
+            ls = pad["layers"]
+            if not isinstance(ls, list) or not ls or len(set(ls)) != len(ls) or not set(ls) <= set(cu):
+                raise BoardError("pad.layers must list distinct copper layers")
+            return tuple(ls)
+        hole = pad.get("hole") or {}
+        if hole.get("w", 0) > 0 and hole.get("plated") is True:
             return cu
-        if lay == self.layers.get("board_outline") or lay == self.layers.get("multi"):
+        lay = pad.get("layer")
+        if lay == self.layers.get("multi"):
             return cu
-        if side == "bottom":
-            return (self.layers["bottom"],)
-        return (self.layers["top"],)
+        if lay is not None and lay not in cu:
+            raise BoardError("pad layer is not copper or multi")
+        # A footprint's outer layer follows the placed component's side.
+        if lay is None or lay in (self.layers["top"], self.layers["bottom"]):
+            return (self.layers["bottom"] if side == "bottom" else
+                    (lay if lay is not None else self.layers["top"]),)
+        return (lay,)
+
+    def via_layers(self, via):
+        """Explicit neutral spans are supported; legacy unqualified vias are through."""
+        cu = tuple(self.layers["copper"])
+        if "plated" in via and via["plated"] is not True:
+            raise BoardError("a via requires a plated barrel")
+        typ = str(via.get("viaType", via.get("type", "THROUGH"))).upper()
+        if typ not in ("NORMAL", "THROUGH", "BLIND", "BURIED", "SUTURE"):
+            raise BoardError("unsupported via type: %s" % typ)
+        if via.get("unusedInnerLayers"):
+            raise BoardError("unsupported via with removed inner copper lands")
+        endpoints = [(a, b) for a, b in (("start_layer", "end_layer"),
+                     ("startLayer", "endLayer"), ("startLayerId", "endLayerId"))
+                     if a in via or b in via]
+        spans = []
+        if "layers" in via:
+            spans.append(via["layers"])
+        for a, b in endpoints:
+            if via.get(a) not in cu or via.get(b) not in cu:
+                raise BoardError("via span endpoints must both be known copper layers")
+            i, j = sorted((cu.index(via[a]), cu.index(via[b])))
+            spans.append(list(cu[i:j + 1]))
+        if not spans:
+            if typ in ("BLIND", "BURIED") or via.get("ruleName"):
+                raise BoardError("unsupported via span: layer evidence/rule resolution missing")
+            return cu
+        ls = spans[0]
+        if (not isinstance(ls, list) or len(ls) < 2 or len(set(ls)) != len(ls)
+                or not set(ls) <= set(cu)):
+            raise BoardError("via.layers must contain at least two distinct copper layers")
+        inds = sorted(cu.index(l) for l in ls)
+        if inds != list(range(inds[0], inds[-1] + 1)):
+            raise BoardError("via.layers must be a contiguous copper stack span")
+        if any(set(other) != set(ls) for other in spans[1:]):
+            raise BoardError("conflicting via layer spans")
+        return tuple(cu[i] for i in inds)
 
     # ------------------------------------------------------------------ accessors
     def outline_bbox(self):

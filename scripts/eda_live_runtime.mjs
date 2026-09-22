@@ -1,5 +1,6 @@
+import {checkConstraints} from './design_constraints.mjs';
 // Serialized into the selected Gateway window. All mutation paths are typed and scoped.
-export async function liveRuntime(eda, input) {
+export async function liveRuntime(eda, input, check = checkConstraints) {
   const root = globalThis.__pcbSkillLive16 ??= {busy:false, operations:Object.create(null)};
   const norm = v => v === undefined ? null : v === null || typeof v !== 'object' ? v
     : Array.isArray(v) ? v.map(norm) : Object.fromEntries(Object.keys(v).sort().map(k=>[k,norm(v[k])]));
@@ -98,67 +99,146 @@ export async function liveRuntime(eda, input) {
       if(!c||c.props.ComponentType!=='part')throw Error('Only native part movement supported');
       const dx=finite(move.x)-c.props.X,dy=finite(move.y)-c.props.Y;
       c.props.X=move.x;c.props.Y=move.y;
-      c.bbox=c.bbox.map((v,i)=>round(v+(i%2===0?dx:dy)));
+      if(dx!==0||dy!==0)c.bbox=c.bbox.map((v,i)=>round(v+(i%2===0?dx:dy)));
     }
     const collision=(a,b)=>a[0]<b[2]+gap&&b[0]<a[2]+gap&&a[1]<b[3]+gap&&b[1]<a[3]+gap;
     for(const c of target.components.filter(c=>ids.has(c.id))) {
       const b=c.bbox;
       if(b[0]<bounds[0]||b[1]<bounds[1]||b[2]>bounds[2]||b[3]>bounds[3])throw Error('OUT_OF_BOUNDS: '+c.id);
       for(const other of target.components) if(other.id!==c.id&&other.props.ComponentType!=='sheet'&&collision(b,other.bbox))throw Error('COLLISION: '+c.id+'/'+other.id);
-      for(const g of target.graphics) if(collision(b,g.bbox))throw Error('GRAPHIC_COLLISION: '+c.id+'/'+g.id);
+      for(const g of target.graphics) {
+        // Only explicitly unfilled, square-corner, axis-aligned rectangles have hollow interiors.
+        const p=g.props;
+        const hollow=g.kind==='Rectangle'&&(p.FillStyle==='None'||(p.FillStyle===null&&p.FillColor===null))&&p.CornerRadius===0&&
+          typeof p.Rotation==='number'&&Number.isFinite(p.Rotation)&&p.Rotation%90===0&&
+          typeof p.LineWidth==='number'&&Number.isFinite(p.LineWidth)&&p.LineWidth>=0;
+        const inset=hollow?p.LineWidth+gap:0;
+        const inInterior=hollow&&b[0]>=g.bbox[0]+inset&&b[1]>=g.bbox[1]+inset&&
+          b[2]<=g.bbox[2]-inset&&b[3]<=g.bbox[3]-inset;
+        if(!inInterior&&collision(b,g.bbox))throw Error('GRAPHIC_COLLISION: '+c.id+'/'+g.id);
+      }
     }
     return target;
+  }
+  function geometry(snapshot,moves,bounds,gap) {
+    return preflight(snapshot,moves.map(m=>{const c=snapshot.components.find(c=>c.id===m.id);return {id:m.id,x:c.props.X,y:c.props.Y};}),bounds,gap);
+  }
+  // Snapshot equivalence tolerates native bbox rounding; acceptance never waives actual geometry.
+  // Strict acceptance is separate from scoped repair intermediates and restoring a defective source.
+  function validateActual(snapshot,op) {
+    const constraintReport=check(snapshot,op.constraints);
+    let error=null;
+    try {geometry(snapshot,op.moves,op.bounds,op.gap);}catch(cause){error=String(cause.message??cause);}
+    return {constraintReport,error:error??(constraintReport.state==='PASS'?null:'CONSTRAINTS')};
+  }
+  function requireActual(snapshot,op,constraintError) {
+    const result=validateActual(snapshot,op);
+    if(result.error)throw Error(result.error==='CONSTRAINTS'?constraintError:result.error);
+    return result.constraintReport;
   }
   if(input.action==='status'){await identity();return clone(root.operations[input.operationId]??{state:'NOT_FOUND'});}
   if(root.busy)throw Error('LIVE_WRITER_BUSY');
   root.busy=true;
   try {
     if(input.action==='capture')return {state:'CAPTURED',snapshot:await capture()};
-    if(!['apply','rollback','reopen'].includes(input.action))throw Error('Unsupported guarded action');
+    if(!['apply','rollback','reopen','resume'].includes(input.action))throw Error('Unsupported guarded action');
     if(typeof input.operationId!=='string'||!input.operationId.trim())throw Error('Operation ID required');
     let op=root.operations[input.operationId];
     if(input.action==='apply') {
-      const signature=JSON.stringify(norm({source:input.source,moves:input.moves,bounds:input.bounds,gap:input.gap}));
-      if(op) {if(op.signature!==signature)throw Error('OPERATION_ID_REUSED');return clone(op);}
+      const signature=JSON.stringify(norm({source:input.source,moves:input.moves,bounds:input.bounds,gap:input.gap,constraints:input.constraints,repair:input.repair}));
+      if(op) {
+        if(op.signature!==signature)throw Error('OPERATION_ID_REUSED');
+        const observed=await capture(),baseline=op.restored??op.reloaded??op.last??op.source;
+        if(!equivalent(baseline,observed))return {state:'RECONCILIATION_REQUIRED',operationId:op.operationId,operationState:op.state,error:'REPLAY_STATE_CHANGED',observed};
+        if(['APPLIED','RELOADED_MATCH'].includes(op.state)) {
+          try {requireActual(observed,op,'REPLAY_CONSTRAINTS');}
+          catch(error){return {state:'RECONCILIATION_REQUIRED',operationId:op.operationId,error:String(error.message),observed};}
+        }
+        return clone({...op,replayObserved:observed});
+      }
       const current=await capture();
       if(!equivalent(input.source,current))throw Error('STALE_SOURCE');
+      const initial=check(current,input.constraints);
+      let repairAllowed=[];
+      if(input.repair!==undefined) {
+        const r=input.repair;
+        if(!r||Object.keys(r).sort().join(',')!=='allow,reason'||typeof r.reason!=='string'||!r.reason.trim()||!Array.isArray(r.allow)||!r.allow.length)throw Error('INVALID_REPAIR_SCOPE');
+        const pair=v=>JSON.stringify([v.code,v.id]);
+        for(const v of r.allow)if(!v||Object.keys(v).sort().join(',')!=='code,id'||typeof v.code!=='string'||typeof v.id!=='string')throw Error('INVALID_REPAIR_SCOPE');
+        const requested=new Set(r.allow.map(pair)),actual=new Set(initial.violations.map(pair));
+        if(requested.size!==r.allow.length||!same([...requested].sort(),[...actual].sort()))throw Error('REPAIR_SCOPE_MISMATCH');
+        repairAllowed=clone(initial.violations);
+      }
+      if(initial.state!=='PASS'&&!repairAllowed.length)return {state:'REJECTED',error:'SOURCE_CONSTRAINTS',constraintReport:initial};
       const target=preflight(current,input.moves,input.bounds,input.gap);
+      const planned=check(target,input.constraints);
+      if(planned.state!=='PASS')return {state:'REJECTED',error:'TARGET_CONSTRAINTS',constraintReport:planned};
+      // Validate the entire ordered path before the first write; swaps need a clear staging position.
+      let preview=clone(current);
+      for(const m of input.moves) {
+        preview=preflight(preview,[m],input.bounds,input.gap);
+        const report=check(preview,input.constraints);
+        if(report.violations.some(v=>!repairAllowed.some(old=>same(old,v))))throw Error('INTERMEDIATE_CONSTRAINTS');
+      }
       op=root.operations[input.operationId]={operationId:input.operationId,projectId:input.projectId,documentId:input.documentId,
-        signature,state:'PREPARED',source:current,target,steps:[clone(current)],moves:input.moves};
+        signature,state:'PREPARED',source:current,target,steps:[clone(current)],moves:input.moves,bounds:clone(input.bounds),gap:input.gap,constraints:clone(input.constraints),repair:input.repair??null,repairAllowed};
       let expected=clone(current);
       try {
         op.state='APPLYING';
         for(const m of input.moves) {
           if(!equivalent(await capture(),expected))throw Error('CONCURRENT_CHANGE');
           const next=clone(expected),c=next.components.find(c=>c.id===m.id),t=target.components.find(c=>c.id===m.id);
-          Object.assign(c,clone(t));op.steps.push(next);
+          Object.assign(c,clone(t));
+          geometry(next,[m],op.bounds,op.gap);
+          const intermediate=check(next,op.constraints);
+          if(intermediate.violations.some(v=>!op.repairAllowed.some(old=>same(old,v))))throw Error('INTERMEDIATE_CONSTRAINTS');
+          op.steps.push(next);
           await identity();
           const result=await eda.sch_PrimitiveComponent.modify(m.id,movement(expected.components.find(c=>c.id===m.id).props,m.x,m.y));
           if(!result)throw Error('MODIFY_REJECTED');
           const observed=await capture();
           if(!equivalent(next,observed))throw Error('READBACK_MISMATCH');
+          geometry(observed,[m],op.bounds,op.gap);
+          if(check(observed,op.constraints).violations.some(v=>!op.repairAllowed.some(old=>same(old,v))))throw Error('OBSERVED_CONSTRAINTS');
           expected=observed;op.last=observed;
         }
-        op.last=await capture();op.state='APPLIED';return clone(op);
+        op.last=await capture();
+        if(!equivalent(expected,op.last))throw Error('FINAL_READBACK_MISMATCH');
+        requireActual(op.last,op,'FINAL_CONSTRAINTS');
+        op.state='APPLIED';return clone(op);
       } catch(error) {
         op.error=String(error.message??error);op.state='FAILED';
         // Continue to guarded compensation; uncertain/unexpected state is never overwritten.
       }
     } else {
-      if(!op)throw Error('UNKNOWN_OPERATION: session lost; use saved journal and manual reconciliation');
+      if(!op){if(input.action==='resume')return {state:'RECONCILIATION_REQUIRED',error:'SESSION_LOST',observed:await capture(),nextAction:'COMPARE_SAVED_JOURNAL_NO_REPLAY'};throw Error('UNKNOWN_OPERATION: session lost; use saved journal and manual reconciliation');}
       if(op.projectId!==input.projectId||op.documentId!==input.documentId)throw Error('TARGET_CHANGED');
+      if(input.action==='resume') {
+        const observed=await capture(),validation=validateActual(observed,op);
+        const matchingStep=op.steps.findIndex(s=>equivalent(s,observed));
+        return {state:input.constraintsChanged||matchingStep<0||validation.error?'RECONCILIATION_REQUIRED':'RESUME_INSPECTED',operationId:op.operationId,
+          constraintsChanged:!!input.constraintsChanged,operationState:op.state,matchingStep,constraintReport:validation.constraintReport,error:validation.error,observed,
+          nextAction:op.state==='ROLLED_BACK'?'PLAN_NEW_BATCH':op.state==='APPLIED'?'VERIFY_OR_ROLLBACK':'RECONCILE_BEFORE_NEW_WRITE'};
+      }
       if(input.action==='reopen') {
         if(op.state!=='APPLIED')throw Error('Only applied state can be saved/reopened');
-        if(!equivalent(await capture(),op.last))throw Error('CONCURRENT_CHANGE');
+        const beforeSave=await capture();
+        if(!equivalent(beforeSave,op.last))throw Error('CONCURRENT_CHANGE');
+        requireActual(beforeSave,op,'PRE_SAVE_CONSTRAINTS');
         const d=await identity();
         if(await eda.sch_Document.save()!==true)throw Error('SAVE_FAILED');
         op.saveResult=true;
-        if(!equivalent(await capture(),op.last))throw Error('POST_SAVE_CHANGED');
+        const saved=await capture();
+        if(!equivalent(saved,op.last))throw Error('POST_SAVE_CHANGED');
+        requireActual(saved,op,'POST_SAVE_CONSTRAINTS');
         if(await eda.dmt_EditorControl.closeDocument(d.tabId)!==true)throw Error('CLOSE_FAILED');
         const tab=await eda.dmt_EditorControl.openDocument(d.uuid);
         if(!tab)throw Error('REOPEN_FAILED');
         op.reloaded=await capture();
-        op.state=equivalent(op.last,op.reloaded)?'RELOADED_MATCH':'RELOAD_MISMATCH';
+        const validation=validateActual(op.reloaded,op);
+        const valid=equivalent(op.last,op.reloaded)&&!validation.error;
+        if(validation.error)op.reloadError=validation.error;
+        op.state=valid?'RELOADED_MATCH':'RELOAD_MISMATCH';
         return clone(op);
       }
       if(!['APPLIED','RELOADED_MATCH','FAILED','RECOVERY_BLOCKED'].includes(op.state))return clone(op);
@@ -177,7 +257,7 @@ export async function liveRuntime(eda, input) {
         now=await capture();if(!equivalent(expected,now))throw Error('INVERSE_MISMATCH');
       }
       if(!equivalent(op.source,now))throw Error('RESTORE_MISMATCH');
-      op.restored=now;op.state='ROLLED_BACK';
+      op.restored=now;op.restoredConstraintReport=check(now,op.constraints);op.state='ROLLED_BACK';
       // Persist compensation only when this operation had explicitly saved its changes.
       if(op.saveResult) {if(await eda.sch_Document.save()!==true)throw Error('RESTORE_SAVE_FAILED');if(!equivalent(op.source,await capture()))throw Error('RESTORE_POST_SAVE_CHANGED');op.restoreSaved=true;}
     } catch(error) {op.state='RECOVERY_BLOCKED';op.recoveryError=String(error.message??error);}

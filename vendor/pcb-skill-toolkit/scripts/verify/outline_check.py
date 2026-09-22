@@ -1,283 +1,344 @@
 # -*- coding: utf-8 -*-
-"""Board outline: size, closure, and anything that sticks out of it.
+"""Check one simple board outline and copper/drill edge clearance in millimetres.
 
-WHAT THIS MEASURES
-    From the outline Gerber alone:
-      * the extent and the size, against `--size W,H` if you give one;
-      * whether the outline path CLOSES (an open outline is a milling instruction the
-        fabricator has to guess at);
-      * the pen width it is drawn with, which is where the real edge sits: the cut
-        follows the CENTRE of the stroke, so a 0.2 mm pen means the finished board is
-        the reported extent minus one pen width.
-    Then, given copper and drill files:
-      * every copper primitive whose outline reaches OUTSIDE the board, or comes closer
-        to it than `--edge`;
-      * every drilled feature whose edge does the same.
+The cut follows the stroke CENTRE: reported centreline dimensions are the board
+dimensions, with no subtraction of pen width. Unordered/reversed strokes are
+reconnected by their actual endpoints (1e-6 mm tolerance). Open, branched,
+self-intersecting, overlapping, multiple-ring and region/flash outlines are rejected;
+there is no bounding-box acceptance fallback. Internal cutouts are unsupported.
 
-WHAT THIS CANNOT SEE
-    * A non-rectangular board, properly.  Copper-outside is tested against the outline
-      POLYGON where the outline is a single closed path, and against its bounding box
-      otherwise -- the report says which was used.  A board with internal cutouts or
-      milled slots needs those treated as keep-outs and this does not do that; check
-      them by eye on the render.
-    * V-scoring, tab-routing and panel rails.  A board that will be scored has copper
-      restrictions this knows nothing about.
-    * Whether the size is the size you ordered.  It measures; you compare.
+Copper polygon EDGES and entire drill slot centrelines are checked, including
+intersections with concave board boundaries. Circular flashes, round strokes and
+drill/slot radii are measured analytically against the parsed outline. Other
+curved apertures and Gerber arcs use the shared reader's polygon approximation:
+arc chord target is 0.02 mm (720-segment cap can exceed it), other curve errors
+depend on aperture size/tessellation. Results near those errors need independent
+verification; these are not exact curved-geometry manufacturing certificates.
+Negative margins indicate outside geometry; their depth is sampled, not an exact
+maximum penetration. Positive polygon/segment margins use all edge pairs.
 
-HOW IT WAS VALIDATED
-    On a released board this read 41.400 x 100.000 mm to within 0.0005 mm, matched the
-    design model's outline, and reported the closest drill edge and copper edge that the
-    fabrication review used.  `--selftest` runs synthetic geometry with a known answer.
+Omitted copper/drill inputs are explicitly NOT CHECKED; an explicitly supplied
+empty file fails coverage. A zero exit only accepts the supplied, supported scope.
 
-USAGE
-    python3 outline_check.py OUTLINE.GKO [--size 41.4,100.0] [--edge 0.30]
-                             [--copper L1.GTL L4.GBL ...] [--drills D.DRL ...]
-                             [--tol 0.0005] [--json out.json]
-    python3 outline_check.py --selftest
+USAGE: outline_check.py OUTLINE.GKO [--size W,H] [--edge 0.30]
+           [--copper L1.GTL ...] [--drills D.DRL ...] [--tol 0.0005] [--json out.json]
+       outline_check.py --selftest
 """
 from __future__ import print_function
 
+import argparse
 import json
+import math
 import os
 import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
 sys.path.insert(0, os.path.join(_HERE, os.pardir, "placement"))
-import geom2d as G                                                    # noqa: E402
-import gerber as GB                                                   # noqa: E402
-import clearance as CL                                                # noqa: E402
+import geom2d as G
+import gerber as GB
+import clearance as CL
+
+JOIN_TOL = 1e-6
+EPS = 1e-9
+APPROXIMATION = ("Gerber arcs are chord-flattened (0.02 mm target, 720 segment cap); "
+                 "rounded non-circular flash outlines are tessellated. Curve error "
+                 "depends on geometry; independently verify near-threshold results.")
+
+
+def _finite(values, label):
+    if any(not math.isfinite(v) for v in values):
+        raise ValueError("%s must contain finite numbers" % label)
+
+
+def _edges(poly):
+    return list(zip(poly, poly[1:] + poly[:1]))
+
+
+def _simple_polygon(poly, label):
+    if len(poly) > 1 and math.dist(poly[0], poly[-1]) <= EPS:
+        poly = poly[:-1]
+    if len(poly) < 3:
+        raise ValueError("%s has fewer than three vertices" % label)
+    _finite([v for p in poly for v in p], label)
+    edges = _edges(poly)
+    for i, (a, b) in enumerate(edges):
+        if math.dist(a, b) <= EPS:
+            raise ValueError("%s contains a zero-length edge" % label)
+        for j in range(i + 1, len(edges)):
+            c, d = edges[j]
+            adjacent = j == i + 1 or (i == 0 and j == len(edges) - 1)
+            if adjacent:
+                # Adjacent edges may share their endpoint, but may not backtrack.
+                shared, u, v = (b, a, d) if j == i + 1 else (a, b, c)
+                if (G.dist_point_segment(*u, *shared, *v) <= EPS or
+                        G.dist_point_segment(*v, *shared, *u) <= EPS):
+                    raise ValueError("%s has overlapping/backtracking edges" % label)
+            elif G.dist_segment_segment(a, b, c, d) <= EPS:
+                raise ValueError("%s self-intersects, touches or overlaps" % label)
+    if G.poly_area(poly) <= EPS * EPS:
+        raise ValueError("%s has zero area" % label)
+    return poly
 
 
 def outline_of(layer):
-    """-> (points, closed, pens, bbox).  Points follow the stroke order."""
-    pts = []
+    """Return (ordered points, closed, pens, bbox); reject unsupported topology."""
+    if layer.regions or layer.flashes:
+        raise ValueError("outline regions/flashes unsupported; need one stroked ring")
+    if not layer.segs:
+        raise ValueError("no geometry on the outline layer")
+    nodes, links, adjacency = [], [], []
+
+    def node(point):
+        _finite(point, "outline endpoint")
+        matches = [i for i, p in enumerate(nodes) if math.dist(p, point) <= JOIN_TOL]
+        if len(matches) > 1:
+            raise ValueError("ambiguous outline endpoint matching")
+        if matches:
+            return matches[0]
+        nodes.append(point)
+        adjacency.append([])
+        return len(nodes) - 1
+
+    pens = []
     for s in layer.segs:
-        if not pts:
-            pts.append((s.x1, s.y1))
-        pts.append((s.x2, s.y2))
-    for r in layer.regions:
-        pts.extend(r)
-    if not pts:
-        raise SystemExit("no geometry on the outline layer")
-    closed = (abs(pts[0][0] - pts[-1][0]) < 1e-6 and abs(pts[0][1] - pts[-1][1]) < 1e-6)
-    pens = sorted({round(s.ap.dia, 6) for s in layer.segs})
-    return pts, closed, pens, G.bbox_of(pts)
+        _finite([s.ap.w, s.ap.h, s.ap.r, s.ap.dia], "outline pen")
+        if min(s.ap.w, s.ap.h, s.ap.r, s.ap.dia) < 0:
+            raise ValueError("outline pen must be nonnegative")
+        pens.append(round(s.ap.dia, 6))
+        a, b = node((s.x1, s.y1)), node((s.x2, s.y2))
+        if a == b:
+            raise ValueError("zero-length outline segment")
+        k = len(links)
+        links.append((a, b))
+        adjacency[a].append(k)
+        adjacency[b].append(k)
+    if any(len(a) != 2 for a in adjacency):
+        raise ValueError("outline is open or branched: every endpoint must have degree 2")
+    used, ordered, current = set(), [], 0
+    while True:
+        ordered.append(nodes[current])
+        candidates = [k for k in adjacency[current] if k not in used]
+        if not candidates:
+            break
+        k = candidates[0]
+        used.add(k)
+        a, b = links[k]
+        current = b if a == current else a
+        if current == 0:
+            break
+    if len(used) != len(links):
+        raise ValueError("multiple outline rings/internal cutouts unsupported")
+    poly = _simple_polygon(ordered, "outline")
+    return poly + poly[:1], True, sorted(set(pens)), G.bbox_of(poly)
 
 
-def margin_to_outline(x, y, poly, bbox, use_poly):
-    """Distance from a point to the board edge; negative when outside."""
-    if use_poly:
-        d = min(G.dist_point_segment(x, y, poly[i][0], poly[i][1],
-                                     poly[(i + 1) % len(poly)][0],
-                                     poly[(i + 1) % len(poly)][1])
-                for i in range(len(poly)))
-        return d if G.point_in_poly(x, y, poly) else -d
-    inside = (bbox[0] <= x <= bbox[2] and bbox[1] <= y <= bbox[3])
-    d = min(abs(x - bbox[0]), abs(x - bbox[2]), abs(y - bbox[1]), abs(y - bbox[3]))
-    return d if inside else -d
+def margin_to_outline(x, y, poly, bbox=None, use_poly=True):
+    """Signed point distance; bounding-box acceptance is deliberately unsupported."""
+    if not use_poly:
+        raise ValueError("a validated outline polygon is required; no bbox fallback")
+    d = min(G.dist_point_segment(x, y, *a, *b) for a, b in _edges(poly))
+    if d <= EPS:
+        return 0.0
+    return d if G.point_in_poly(x, y, poly) else -d
+
+
+def _segment_margin(a, b, board):
+    """Whole-segment clearance, splitting at every boundary intersection."""
+    boundary = _edges(board)
+    minimum = min(G.dist_segment_segment(a, b, c, d) for c, d in boundary)
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    length2 = dx * dx + dy * dy
+    cuts = [0.0, 1.0]
+    for c, d in boundary:
+        ex, ey = d[0] - c[0], d[1] - c[1]
+        den = dx * ey - dy * ex
+        if abs(den) > 1e-15:
+            t = ((c[0] - a[0]) * ey - (c[1] - a[1]) * ex) / den
+            u = ((c[0] - a[0]) * dy - (c[1] - a[1]) * dx) / den
+            if -EPS <= t <= 1 + EPS and -EPS <= u <= 1 + EPS:
+                cuts.append(max(0.0, min(1.0, t)))
+        elif length2 > 0:
+            for p in (c, d):
+                if G.dist_point_segment(*p, *a, *b) <= EPS:
+                    cuts.append(max(0.0, min(1.0,
+                        ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / length2)))
+    cuts = sorted(set(cuts))
+    samples = cuts + [(s + t) / 2 for s, t in zip(cuts, cuts[1:])]
+    signed = min(margin_to_outline(a[0] + t * dx, a[1] + t * dy, board)
+                 for t in samples)
+    return signed if signed < -EPS else minimum
+
+
+def _polygon_margin(poly, board):
+    poly = _simple_polygon(list(poly), "copper polygon")
+    return min(_segment_margin(a, b, board) for a, b in _edges(poly))
+
+
+def _validate_aperture(ap):
+    _finite([ap.w, ap.h, ap.r], "aperture dimensions")
+    if ap.kind != "POLY" and (ap.w <= 0 or ap.h <= 0):
+        raise ValueError("copper aperture dimensions must be positive")
+    if ap.r < 0:
+        raise ValueError("aperture rounding must be nonnegative")
+
+
+def _copper_margins(layer, board):
+    for f in layer.flashes:
+        _finite([f.x, f.y], "flash coordinates")
+        _validate_aperture(f.ap)
+        if f.ap.kind == "C":
+            m = margin_to_outline(f.x, f.y, board) - f.ap.w / 2
+        elif f.ap.kind == "O":
+            r = min(f.ap.w, f.ap.h) / 2
+            dx, dy = f.ap.w / 2 - r, f.ap.h / 2 - r
+            m = _segment_margin((f.x - dx, f.y - dy), (f.x + dx, f.y + dy), board) - r
+        else:
+            m = _polygon_margin(CL._flash_poly(f), board)
+        yield m, "FLASH %s @(%.3f,%.3f)" % (f.ap, f.x, f.y)
+    for s in layer.segs:
+        _finite([s.x1, s.y1, s.x2, s.y2], "stroke coordinates")
+        _validate_aperture(s.ap)
+        if s.ap.kind != "C":
+            raise ValueError("non-circular stroked copper aperture unsupported")
+        m = _segment_margin((s.x1, s.y1), (s.x2, s.y2), board) - s.ap.dia / 2
+        yield m, "STROKE (%.3f,%.3f)-(%.3f,%.3f)" % (s.x1, s.y1, s.x2, s.y2)
+    for i, poly in enumerate(layer.regions):
+        yield _polygon_margin(poly, board), "REGION #%d" % i
+
+
+def _read(path):
+    with open(path, encoding="utf-8", errors="strict") as fh:
+        return fh.read()
 
 
 def run(outline_path, size=None, edge=0.30, copper=(), drills=(), tol=5e-4, top=10,
         out=None):
-    lay = GB.parse_gerber(open(outline_path, encoding="utf-8",
-                               errors="replace").read(), outline_path)
+    _finite([edge, tol], "edge and tolerance")
+    if edge < 0 or tol <= 0:
+        raise ValueError("edge must be nonnegative and tolerance must be positive")
+    if size is not None:
+        if len(size) != 2:
+            raise ValueError("size must contain exactly width,height")
+        _finite(size, "size")
+        if min(size) <= 0:
+            raise ValueError("size dimensions must be positive")
+    lay = GB.parse_gerber(_read(outline_path), outline_path)
     pts, closed, pens, bb = outline_of(lay)
+    board = pts[:-1]
     w, h = bb[2] - bb[0], bb[3] - bb[1]
     fail = 0
-
-    print("=" * 74)
     print("BOARD OUTLINE   %s" % os.path.basename(outline_path))
-    print("=" * 74)
-    print("segments           : %d   regions %d" % (len(lay.segs), len(lay.regions)))
+    print("path closes        : %s (one simple ring)" % closed)
     print("pen diameter(s)    : %s mm" % pens)
-    print("path closes        : %s" % closed)
-    if not closed:
-        print("   ** an open outline is a milling path the fabricator has to guess at **")
-        fail += 1
-    print("extent             : X %.6f .. %.6f    Y %.6f .. %.6f"
-          % (bb[0], bb[2], bb[1], bb[3]))
-    print("SIZE (stroke path) : %.4f x %.4f mm" % (w, h))
-    if pens:
-        print("   the cut follows the stroke CENTRE, so the finished board is about")
-        print("   %.4f x %.4f mm with a %.4f mm pen." % (w - pens[-1], h - pens[-1], pens[-1]))
-    if size:
-        okw = abs(w - size[0]) < tol
-        okh = abs(h - size[1]) < tol
-        print("required           : %.4f x %.4f mm  -> %s"
-              % (size[0], size[1], "PASS" if (okw and okh) else "FAIL"))
-        if not (okw and okh):
-            fail += 1
+    print("SIZE (centreline)  : %.4f x %.4f mm" % (w, h))
+    print("  Finished dimensions follow the stroke CENTRE; do not subtract pen width.")
+    print("edge test uses     : complete edges against the validated outline polygon")
+    print("approximation      : %s" % APPROXIMATION)
+    if size is not None:
+        good = abs(w - size[0]) <= tol and abs(h - size[1]) <= tol
+        print("required           : %.4f x %.4f mm -> %s" % (*size, "PASS" if good else "FAIL"))
+        fail += not good
 
-    use_poly = closed and len(pts) >= 4 and not lay.regions
-    print("edge test uses     : %s"
-          % ("the outline polygon" if use_poly else
-             "the outline BOUNDING BOX (a cutout or an open path would be missed)"))
+    coverage, worst_cu, worst_dr = {"copper": [], "drills": []}, [], []
+    for kind, paths in (("copper", copper), ("drills", drills)):
+        if not paths:
+            print("%s: NOT CHECKED (no files supplied)" % kind.upper())
+        for path in paths:
+            if kind == "copper":
+                layer = GB.parse_gerber(_read(path), path)
+                rows = [(m, os.path.basename(path), desc)
+                        for m, desc in _copper_margins(layer, board)]
+                worst_cu.extend(rows)
+            else:
+                _tools, hits, _plated = GB.parse_excellon(_read(path), path)
+                rows = []
+                for hit in hits:
+                    _finite([hit.x, hit.y, hit.x2, hit.y2, hit.dia], "drill geometry")
+                    if hit.dia <= 0:
+                        raise ValueError("drill diameter must be positive (tool must be defined)")
+                    m = _segment_margin((hit.x, hit.y), (hit.x2, hit.y2), board) - hit.dia / 2
+                    rows.append((m, os.path.basename(path), "DRILL/SLOT d=%.4f" % hit.dia))
+                worst_dr.extend(rows)
+            state = "checked" if rows else "not_checked_empty"
+            coverage[kind].append({"file": str(path), "status": state, "features": len(rows)})
+            if not rows:
+                print("%s: NOT CHECKED (empty file: %s)" % (kind.upper(), path))
+                fail += 1
 
-    worst_cu, outside_cu = [], []
-    for path in copper:
-        cl = GB.parse_gerber(open(path, encoding="utf-8", errors="replace").read(), path)
-        for centre, poly, desc in CL.primitives(cl):
-            for (px, py) in poly:
-                m = margin_to_outline(px, py, pts, bb, use_poly)
-                worst_cu.append((m, os.path.basename(path), desc))
-                if m < 0:
-                    outside_cu.append((m, os.path.basename(path), desc))
-                    break
-    worst_cu.sort(key=lambda t: t[0])
-    if copper:
-        print()
-        print("COPPER vs the outline   (need >= %.4f mm)" % edge)
-        print("  copper primitives reaching OUTSIDE the board: %d" % len(outside_cu))
-        for m, f, d in outside_cu[:top]:
-            print("     %8.4f  %-28s %s" % (m, f, d[:60]))
-        print("  closest %d copper points:" % top)
-        seen = set()
-        shown = 0
-        for m, f, d in worst_cu:
-            if d in seen:
-                continue
-            seen.add(d)
-            print("     %8.4f  %-28s %s" % (m, f, d[:60]))
-            shown += 1
-            if shown >= top:
-                break
-        bad = [x for x in worst_cu if x[0] < edge - 1e-9]
-        print("  copper inside the %.3f mm edge margin: %d point(s)" % (edge, len(bad)))
-        if outside_cu:
-            fail += 1
-
-    worst_dr = []
-    for path in drills:
-        _t, hits, _p = GB.parse_excellon(open(path, encoding="utf-8",
-                                              errors="replace").read(), path)
-        for hgb in hits:
-            r = hgb.dia / 2.0
-            for (px, py) in ((hgb.x, hgb.y), (hgb.x2, hgb.y2)):
-                m = margin_to_outline(px, py, pts, bb, use_poly) - r
-                worst_dr.append((m, os.path.basename(path), hgb.dia, px, py))
-    worst_dr.sort(key=lambda t: t[0])
-    if drills:
-        print()
-        print("DRILLS vs the outline   (need >= %.4f mm)" % edge)
-        print("  closest drill edge : %.4f mm  (d=%.3f at %.3f, %.3f in %s)"
-              % (worst_dr[0][0], worst_dr[0][2], worst_dr[0][3], worst_dr[0][4],
-                 worst_dr[0][1]))
-        bad = [x for x in worst_dr if x[0] < edge - 1e-9]
-        outd = [x for x in worst_dr if x[0] < 0]
-        print("  drills outside the board          : %d" % len(outd))
-        print("  drills inside the %.3f mm margin  : %d" % (edge, len(bad)))
-        if outd:
-            fail += 1
-
+    counts = {}
+    for kind, rows in (("copper", worst_cu), ("drill", worst_dr)):
+        rows.sort(key=lambda x: x[0])
+        bad = sum(m < edge - EPS for m, _f, _d in rows)
+        outside = sum(m < -EPS for m, _f, _d in rows)
+        counts[kind] = (bad, outside)
+        if rows:
+            print("%s: %d features; %d outside; %d below %.4f mm -> %s" %
+                  (kind.upper(), len(rows), outside, bad, edge, "FAIL" if bad else "PASS"))
+            for m, f, d in rows[:top]:
+                print("  %.6f mm  %s  %s" % (m, f, d))
+            fail += bool(bad)
     res = {"size": [w, h], "closed": closed, "pens": pens,
-           "copper_outside": len(outside_cu),
+           "copper_outside": counts["copper"][1], "drill_outside": counts["drill"][1],
+           "copper_margin_violations": counts["copper"][0],
+           "drill_margin_violations": counts["drill"][0],
            "min_copper_margin": worst_cu[0][0] if worst_cu else None,
            "min_drill_margin": worst_dr[0][0] if worst_dr else None,
-           "failed_gates": fail}
-    print()
-    print("failed gates: %d" % fail)
+           "coverage": coverage,
+           "copper_status": "not_supplied" if not copper else
+               ("incomplete" if any(x["status"] != "checked" for x in coverage["copper"]) else "checked"),
+           "drill_status": "not_supplied" if not drills else
+               ("incomplete" if any(x["status"] != "checked" for x in coverage["drills"]) else "checked"),
+           "approximation": APPROXIMATION, "failed_gates": int(fail)}
+    print("failed gates: %d (supplied supported scope only)" % fail)
     if out:
         with open(out, "w", encoding="utf-8") as fh:
-            json.dump(res, fh, indent=1)
-        print("wrote %s" % out)
-    return fail
-
-
-_OUTLINE = """G04 outline*
-%FSLAX26Y26*%
-%MOMM*%
-%ADD10C,0.200000*%
-D10*
-X0Y0D02*
-X20000000Y0D01*
-X20000000Y10000000D01*
-X0Y10000000D01*
-X0Y0D01*
-M02*
-"""
-
-_COPPER = """G04 copper*
-%FSLAX26Y26*%
-%MOMM*%
-%ADD10C,0.200000*%
-%ADD11R,1.000000X1.000000*%
-G04 Track Start*
-D10*
-X1000000Y1000000D02*
-X19000000Y1000000D01*
-G04 Track End*
-G04 Pad Start*
-D11*
-X19800000Y9000000D03*
-G04 Pad End*
-M02*
-"""
+            json.dump(res, fh, indent=2, allow_nan=False)
+    return int(fail)
 
 
 def _selftest():
     import tempfile
-    ok = True
-    print("outline_check selftest")
-    tmp = tempfile.mkdtemp(prefix="pcbkit-")
-    op = os.path.join(tmp, "o.GKO")
-    cp = os.path.join(tmp, "c.GTL")
-    open(op, "w").write(_OUTLINE)
-    open(cp, "w").write(_COPPER)
-
-    lay = GB.parse_gerber(_OUTLINE, "o")
-    pts, closed, pens, bb = outline_of(lay)
-    good = closed and abs(bb[2] - bb[0] - 20.0) < 1e-9 and abs(bb[3] - bb[1] - 10.0) < 1e-9
-    print("  20 x 10 closed outline read                   : %s" % ("OK" if good else "FAIL"))
-    ok = ok and good
-    good = pens == [0.2]
-    print("  pen diameter %s mm                          : %s"
-          % (pens, "OK" if good else "FAIL"))
-    ok = ok and good
-
-    # the 1 mm pad centred at x=19.8 reaches x=20.3, i.e. 0.3 mm OUTSIDE
-    m = margin_to_outline(20.3, 9.0, pts, bb, True)
-    good = m < 0 and abs(m + 0.3) < 1e-9
-    print("  a pad overhanging the edge reads %.4f mm     : %s"
-          % (m, "OK - negative means outside" if good else "FAIL"))
-    ok = ok and good
-
-    n = run(op, size=(20.0, 10.0), edge=0.30, copper=[cp], tol=1e-4, top=3)
-    good = n >= 1
-    print("  run() fails the board (copper outside)        : %s (%d failed gates)"
-          % ("OK" if good else "FAIL", n))
-    ok = ok and good
-
-    print("outline_check selftest: %s" % ("PASS" if ok else "FAIL"))
-    return 0 if ok else 1
-
-
-def _list_after(argv, flag):
-    if flag not in argv:
-        return []
-    out = []
-    for a in argv[argv.index(flag) + 1:]:
-        if a.startswith("--"):
-            break
-        out.append(a)
-    return out
+    with tempfile.TemporaryDirectory(prefix="outline-selftest-") as tmp:
+        op = os.path.join(tmp, "board.GKO")
+        text = ("%FSLAX26Y26*%\n%MOMM*%\n%ADD10C,0.2*%\nD10*\n"
+                "X0Y0D02*\nX20000000Y0D01*\nX20000000Y10000000D01*\n"
+                "X0Y10000000D01*\nX0Y0D01*\nM02*\n")
+        with open(op, "w", encoding="utf-8") as fh:
+            fh.write(text)
+        assert run(op, size=(20, 10)) == 0
+        pts, _closed, _pens, _bb = outline_of(GB.parse_gerber(text))
+        assert abs(margin_to_outline(20.3, 9, pts) + 0.3) < EPS
+    print("outline_check selftest: PASS")
+    return 0
 
 
 def main(argv):
-    if "--selftest" in argv:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("outline", nargs="?")
+    parser.add_argument("--selftest", action="store_true")
+    parser.add_argument("--size")
+    parser.add_argument("--edge", type=float, default=0.30)
+    parser.add_argument("--tol", type=float, default=5e-4)
+    parser.add_argument("--copper", nargs="+", default=[])
+    parser.add_argument("--drills", nargs="+", default=[])
+    parser.add_argument("--json")
+    opts = parser.parse_args(argv[1:])
+    if opts.selftest:
         return _selftest()
-    if len(argv) < 2:
-        print(__doc__)
+    if not opts.outline:
+        parser.error("an outline file is required")
+    try:
+        size = tuple(float(v) for v in opts.size.split(",")) if opts.size is not None else None
+        return int(bool(run(opts.outline, size=size, edge=opts.edge, tol=opts.tol,
+                            copper=opts.copper, drills=opts.drills, out=opts.json)))
+    except (ValueError, OSError, OverflowError) as error:
+        print("NOT CHECKED / INPUT ERROR: %s" % error, file=sys.stderr)
+        if opts.json:
+            with open(opts.json, "w", encoding="utf-8") as fh:
+                json.dump({"status": "not_checked", "error": str(error),
+                           "failed_gates": 1}, fh, indent=2, allow_nan=False)
         return 2
-    size = None
-    if "--size" in argv:
-        size = tuple(float(v) for v in argv[argv.index("--size") + 1].split(","))
-    edge = float(argv[argv.index("--edge") + 1]) if "--edge" in argv else 0.30
-    tol = float(argv[argv.index("--tol") + 1]) if "--tol" in argv else 5e-4
-    out = argv[argv.index("--json") + 1] if "--json" in argv else None
-    n = run(argv[1], size=size, edge=edge, copper=_list_after(argv, "--copper"),
-            drills=_list_after(argv, "--drills"), tol=tol, out=out)
-    return 1 if n else 0
 
 
 if __name__ == "__main__":

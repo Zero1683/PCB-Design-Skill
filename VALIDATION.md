@@ -1,3 +1,123 @@
+# Unreleased: physical connectivity and mask coverage
+
+2026-09-22, Windows, Python 3.12 and Node 22. **356 automated cases passed**:
+the prior 254-case acceptance suite, 40 routing-physics, 45 mask-geometry and
+17 physical-assertion/entry regressions. The mask suite includes 1,000 generated
+circle/rectangle comparisons against independent mathematical oracles. Seventeen
+other toolkit self-test commands also completed without skipped checks. Skill
+frontmatter and whitespace validation passed.
+
+NPTH no longer connects copper layers, and explicit via spans constrain actual
+reach. All repeated-number lands participate in connection/isolation assertions.
+Protected routes are compared with baseline geometry, while equivalent straight
+segmentation and polygon ring start/winding remain accepted. Mask inspection uses
+actual opening unions, handling offset, concave and jointly covering openings.
+Empty coverage, missing plating, unverified native span encodings and unsupported
+mask semantics are not promoted to PASS.
+
+Independent CLI review found four additional defects during this update: polygon
+vertex sorting erased protected shape topology; zero clearance accepted overlapping
+nets; zero-area polygons counted as pads; and the name RoundRect overrode a macro's
+actual outline. All four were reproduced, corrected and independently rechecked.
+Additional controls cover repeated lands in both orders, NPTH/through/blind-via
+connections, positive opening unions, narrow slits and malformed parameters.
+Raw original and repaired outcomes remain in independent-physics-review and
+physics-fix-validation under the task workspace.
+
+The first broad regression invocation used the read-only repository as its scratch
+working directory and timed out; rerunning from the writable task directory passed.
+No test assertions or production rules were relaxed to obtain these results.
+
+Limits: physical pad copper still does not subtract drill voids, and actual pours
+are excluded. Legacy neutral vias without declared type/span still mean through.
+Array-format drilled pads/vias and record-format blind/rule-based vias or hidden
+inner lands need a verified adapter. Mask macros support literal exposed outlines;
+parameterized/compound RoundRect, stroked openings, compound regions and region
+arcs require another capable checker. Partial openings require an explicit policy
+and separate solderable-area review. These are local software checks: no live EDA
+write, whole-board benchmark, physical-board test or GitHub publication occurred.
+
+# Unreleased: adversarial acceptance fixes
+
+2026-09-22, Windows, Python 3.12 and Node 22. **254 automated cases passed**:
+37 outline/public-CLI, 22 physical-pad identity, 13 report provenance, 14 evidence
+bindings, 13 bounded checker execution, 21 toolkit, 14 circuit checks, 1 registry
+gate sweep, 10 requirement coverage, 11 cost, 16 substitutions, 27 data/recovery
+and 55 native-runtime/constraint mocks. Skill frontmatter and whitespace checks
+passed. An independent read-only review additionally ran all five report-producing
+CLIs with positive and negative inputs (10 executions); outcomes matched.
+
+The four original reproduced defects are fixed. A missing 5 mm outline segment
+now exits 2; copper at 0.1 mm against a requested 0.3 mm edge margin exits 1;
+the original conflicting repeated-pad map exits 2; a genuine archived report with
+an old baseline is rejected even when its surrounding binding claims the current
+baseline. The outline dimensions follow the drawing centreline without subtracting
+pen width.
+
+Adjacent regressions cover shuffled/reversed valid loops, concave notches,
+whole copper edges and slot centrelines, tangency and exact threshold acceptance,
+empty inputs, malformed numeric rules, duplicate element identities and JSON keys,
+legitimate repeated-number same-net lands, contradictory schematic pin memberships,
+report input drift and foreign project/document IDs. All-unfitted body checks are
+not accepted as successful screenings; a COMPLETE_QUOTE summary cannot hide an
+UNPRICED row. Input hashes cover the exact bytes parsed, including a UTF-8 BOM.
+The first constraints metadata test revealed strict geometry rejecting baseline_id;
+the CLI now separates that metadata before evaluating the unchanged geometry schema.
+
+The outline reader supports one simple ring. Internal cutouts, multiple rings and
+self-intersections remain explicitly unsupported. Gerber arcs and some rounded
+apertures are approximated; close curve clearances still need independent native
+or exact checks. Missing data is not converted into geometric acceptance. Recorded
+hashes establish local association, not execution authenticity, electrical correctness
+or the identity of an unlabelled native export.
+
+No live EDA writes, whole-board G0-G5 run, physical-board verification or publication
+were performed in this update. Public v1.6.0 is unchanged. Local raw regression logs
+and original reproductions are retained in the task workspace's
+acceptance-fix-validation and outline-fix-work directories.
+
+# Unreleased: current-design evidence and conservative substitutions
+
+2026-09-22, Windows, Python 3.12 and Node 22. This local update passed 147 automated cases: 55 native-runtime/constraint mocks, 14 evidence-binding, 10 requirement-coverage, 1 full-registry gate sweep, 13 bounded-check execution, 16 substitution review, 11 cost arithmetic, 11 release/helper and 16 workflow cases. Skill frontmatter validation passed. One test invocation initially omitted its required --workdir argument; rerunning with the correct argument passed all 13 cases.
+
+The registry sweep removes every selected mandatory row in turn. Other cases cover stale native files and reports, revised manifests with old bindings, N_A reclassification, whitespace status bypass, junction roots, failing reports claimed as PASS, tool/input drift during execution, timeout and exit/report disagreement. Four supported checks run as real local subprocesses; native EDA runtime tests in this update use mocks.
+
+Independent review reproduced savings obtained solely by reducing spare quantities. The fix derives the before/after BOM delta, requires every changed SKU/quantity to be reviewed, rejects an unchanged supporting-BOM claim when data differs, and requires separate decision evidence for reduced total spares. Sixteen substitution cases verify these controls along with requirement completeness, raw quote correspondence, stock and identity. Neither retained captures nor manual assessments establish supplier authenticity or electrical equivalence by themselves.
+
+The bridge version diagnostic now reads the bundled package version. Apply, replay, resume and save/reopen share actual-geometry acceptance; returning to a known defective repair baseline remains explicitly distinguishable from a valid design.
+
+No live EDA modification, current distributor query or complete G0-G5 board benchmark was performed for this update. The user will run that benchmark in a fresh task using reference 28. No public release is made by this local sync; v1.6.0 remains the published release. Local binding guarantees cover declared saved files, not unlisted sources or unsaved native state.
+
+# Unreleased: component cost planning
+
+2026-09-22. The new G0/G1 intake-to-BOM quote workflow and G5 price reconciliation are linked from SKILL.md, both READMEs and both project templates. Cost reduction preserves the confirmed feature/performance baseline and requires explicit agreement for reductions.
+
+Eleven synthetic calculation regressions passed: MOQ vs consumption, order increments and tiers, spares, lower-MOQ cash savings, missing quotes, insufficient/unknown stock, mixed currency/tax/pack rejection, duplicate SKU aggregation, uncovered price tiers, invalid fields and nonmutation. Three CLI smoke cases returned the documented codes 0/1/2 with UTF-8 JSON for complete/missing quotes. Skill validation and whitespace checks passed.
+
+No live distributor quote, pricing API integration, checkout or EDA operation was performed for this change. Agents must collect current quotes through available read-only tools; the calculator verifies declared arithmetic, not market prices, complete BOM coverage or electrical equivalence. This remains an unpublished local development update.
+
+# Unreleased: repair correctness and requirement coverage
+
+2026-09-22, Windows, Node 22.23.2 and Python 3.12. 131 relevant regression cases passed: 34 guarded native-runtime mocks, 10 constraints, 10 requirement/evidence coverage, 8 output-budget, 52 data/layout/batch, 16 workflow and 1 existing design-gates scenario. Skill frontmatter validation passed. These are software checks, not board acceptance.
+
+Independent review reproduced four runtime faults: unchecked final spacing within bbox comparison tolerance, intermediate collisions, stale successful replay after external edits, and replay on a different document. It also demonstrated separator-only CSV evidence paths passing without a file. Regressions now cover these paths. Final native captures and actual spacing are rechecked; ordered intermediate states are preflighted before writing; replay reads native state and identity; evidence lists must contain files.
+
+Native validation ran on authorized test1, with 12 parts, one sheet and no wires/buses. An unfilled rectangle reported FillStyle=null and FillColor=null; a separate Solid probe reported Solid and its color. Contained movement, save/close/reopen, explicit inverse restoration, source-rule rejection and scoped allowed-region repair passed. Final capture exactly matched the pre-test snapshot after all temporary graphics were removed.
+
+The final repeat encountered one native `cmdKey` exception. The runtime reported ROLLED_BACK and its captured source/restored states matched. A fresh capture and new batch then passed repair, save/reopen and rollback. A rectangle deletion returned true while readback still listed it; deletion using the fresh native object and subsequent capture confirmed removal. Native API return values alone were not accepted as restoration evidence.
+
+Local audit records are retained in `review-fix-live` and `review-fix-live-final` in the task workspace. The final directory includes original/framed captures, move-journal, rejected-source journal, failed repair journal, successful repair-retry journal and restored-confirmed capture. Native injected external-edit and intermediate-collision scenarios remain mock tests; the native exception above is an observed API failure, not a controlled failure benchmark.
+
+Requirement coverage verifies declared mappings and current source/report hashes only. Whole-board G0-G5 benchmarking, PCB native writing/routing rollback, full 3D checks and hardware acceptance remain pending. The capability matrix and next benchmark are in reference 25. This update is a local development build; v1.6.0 remains the published release.
+
+# Unreleased: constraints, resume and bounded context
+
+2026-09-22, Windows. 28 Node tests (18 guarded runtime, 10 pure geometry constraints), 8 output-budget tests, and 52 adjacent Python cases passed: 88 total. The standalone PCB constraint CLI passed on the provided example. Skill frontmatter validation passed.
+
+Independent read-only review found two concrete issues: text-mode stdout exceeded a byte budget on Windows and could use a non-UTF-8 codepage; changed constraint files blocked read-only inspection. Both were fixed. CLI output now writes UTF-8 bytes plus a single newline; status/resume remain readable while changed constraints block mutation. The reviewer also exercised 1000 randomized pagination cases without skipped/duplicate records or stalled cursors.
+
+New constraints and resume behavior were tested with native API mocks and exported synthetic geometry. The connected EDA was on a different project, so no native writes were performed for this update. Prior v1.6 native results below do not validate these new paths. PCB routing mutation/rollback, full 3D checking, complex-board acceptance and token savings remain unverified.
+
 # v1.6.0: guarded native operations
 
 2026-09-21, Windows, Node 22.23.2, connected EasyEDA client and bundled API reference. Authorized test1 page contained 12 parts, one sheet, no wires or buses. Native capture, collision and bounds rejection, property-preserving move, save/close/reopen, explicit rollback with save, and exact restored snapshot comparison passed.

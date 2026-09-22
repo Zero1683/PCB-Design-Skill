@@ -12,6 +12,8 @@ Compare proposed substitutes for operating voltage, logic levels, capacitance/re
 
 For similarly named diodes, protection arrays, regulators, and compatible parts, use the actual manufacturer's specifications rather than another brand's datasheet.
 
+See [component cost planning](26-component-cost-planning.md) for the preliminary quote, MOQ-aware calculation, equivalent-part cost reduction and final BOM reconciliation. Verify supporting parts and firmware compatibility when comparing architecture-level substitutes.
+
 ## Power design
 
 1. Budget steady-state, startup, and burst loads such as radios or motors. Calculate each cascaded regulator's input and output rather than summing load currents directly at the battery.

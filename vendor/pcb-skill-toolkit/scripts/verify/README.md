@@ -181,15 +181,18 @@ is one drilled feature, not two holes.
 * **`drill_census.py`** — plating comes only from a `TYPE=PLATED` header comment; if your
   exporter omits it this reports `False` and you decide, because a file name is not a
   measurement. No aspect-ratio or minimum-drill rules.
-* **`mask_check.py`** — matches a mask flash to a pad by centre within `--tol` (0.02 mm).
-  A deliberately offset opening is reported as "no opening", which is the safe direction.
-  It does **not** check mask slivers between openings, or that an opening is big enough
-  for assembly. Pads drawn as regions rather than flashes are invisible; compare the flash
-  count against the board model's pad count.
-* **`outline_check.py`** — uses the outline **polygon** when the path is a single closed
-  stroke, otherwise its bounding box, and says which. Cutouts, milled slots, V-scoring and
-  panel rails are not modelled. The cut follows the stroke **centre**, so the finished
-  board is the reported extent minus one pen width; both numbers are printed.
+* **`mask_check.py`** — checks the actual union of supported circle/polygon mask
+  openings against identified pad flashes. Full area coverage passes; no opening
+  fails; partial openings need a documented `--allow-partial-openings` policy.
+  Untagged flashes require `--assume-all-pads` and independent pad-count validation.
+  Empty scopes and unsupported strokes, region arcs, compound/hole regions and
+  polarity are NOT_CHECKED with a nonzero exit. Mask dams, paste and minimum
+  solderable area still need separate checks. `--tol` does not enlarge openings.
+* **`outline_check.py`** — reconstructs one actual simple closed ring; no bounding-box
+  fallback. Missing edges, branches, self-intersections and multiple rings are rejected.
+  Dimensions follow the centreline without subtracting pen width. Requested copper
+  and drill margins are checked along supported whole geometry; cutouts/panels and
+  near-threshold approximated curves require independent checks.
 * **`netlist_assert.py`** — physical connectivity only. No resistance, no components: a
   must-connect *through* a series part correctly fails, so assert the two halves
   separately. This adapted copy rejects empty/unknown/malformed assertion rules
@@ -205,3 +208,8 @@ is one drilled feature, not two holes.
   render. A part with no 3D model contributes no cluster and is **not checked** — the
   count of parts carrying a solid is printed against the board's part count, and the
   difference is yours to explain. Nominal and rigid: no flex, tilt or tolerance.
+
+Mask aperture macros are evaluated from their actual exposed literal outline,
+including a macro named RoundRect. Parameterized/compound RoundRect exports need
+an independent capable checker; their names or ADD dimensions cannot establish
+geometry. Native EasyEDA parameterized macro exports have not been qualified.

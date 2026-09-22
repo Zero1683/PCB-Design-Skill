@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "revision": "mechanical-A",
+  "domain": "pcb",
+  "projectId": "example",
+  "documentId": "pcb",
+  "units": "mm",
+  "axis": "y-up",
+  "source": "Example only; replace with actual enclosure drawing and requirements",
+  "bounds": [
+    0,
+    0,
+    20,
+    20
+  ],
+  "rules": [
+    {
+      "type": "lock",
+      "ids": [
+        "J1"
+      ],
+      "source": "Example connector mating position",
+      "anchor": [
+        5,
+        5
+      ],
+      "rotation": 0,
+      "side": "top"
+    },
+    {
+      "type": "height",
+      "ids": "*",
+      "source": "Example enclosure cavity",
+      "max": 4
+    },
+    {
+      "type": "keepout",
+      "ids": "*",
+      "source": "Example mounting clearance",
+      "box": [
+        10,
+        10,
+        12,
+        12
+      ],
+      "gap": 1
+    }
+  ]
+}

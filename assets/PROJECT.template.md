@@ -121,3 +121,15 @@ exact source sections, units, tolerances and per-side/total dimension semantics.
 - Configuration/reset/recovery sequence and applicable clock type:
 - Native rule precedence and affected checks after a constraint change:
 - Specific warning dispositions with physical consequence and supporting evidence:
+
+## Component Cost Planning
+
+- Functional requirements baseline and unresolved options:
+- Build quantity, budget if specified, and explicit spare quantities:
+- Estimate stage (preliminary / revised / final), design revision and quote timestamp:
+- Component quote file, source observations and calculation report:
+- Currency/tax basis; single-board consumption cost / actual purchase amount:
+- Unpriced parts, stock/MOQ unknowns and existing/user-supplied parts:
+- Verified substitutes, compatibility sources, savings and affected design checks:
+- Explicit user decision for any functional/performance reduction:
+- Final exported BOM reconciliation and refreshed quotes:

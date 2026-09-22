@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "domain": "pcb",
+  "coverage": "complete",
+  "projectId": "example",
+  "documentId": "pcb",
+  "units": "mm",
+  "axis": "y-up",
+  "objects": [
+    {
+      "id": "J1",
+      "anchor": [
+        5,
+        5
+      ],
+      "rotation": 0,
+      "side": "top",
+      "bbox": [
+        4,
+        4,
+        6,
+        6
+      ],
+      "height": 3
+    }
+  ]
+}

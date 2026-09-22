@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.6.0",
-  "baseline_id": "v1.6.0-release",
-  "generated_utc": "2026-09-21T13:25:34+00:00",
+  "revision": "unreleased-physical-inspection-fixes",
+  "baseline_id": "2026-09-22-physical-inspection-fixes",
+  "generated_utc": "2026-09-22T10:15:56+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,24 +10,24 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 9507,
-      "sha256": "53e2755e327b287dec344182856b2f726dfa07eb2e3f5e5b6a79126eaf876131"
+      "bytes": 13189,
+      "sha256": "5027ba1c7023b8d4d60ce03613049df5deae5477e4284b9bec656bacf01a8918"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 15719,
-      "sha256": "208f465b898a7879cc725538e25b1fc2e9bc533e9f4315962c1580c5e087c18e"
+      "bytes": 18239,
+      "sha256": "db53025595d5e707ea7385a129cf618e013ec22b5c9bcc051ee7f12c5a1598b1"
     },
     "README_EN.md": {
-      "bytes": 17536,
-      "sha256": "3665ff197f840cf3b05588a650d97c0ee25e7257de2246d8cb77f8faa1f72001"
+      "bytes": 20408,
+      "sha256": "b57f40162895472a61ae44cf46f636bd2241269542adbed7766fcd42133fc13a"
     },
     "SKILL.md": {
-      "bytes": 20657,
-      "sha256": "b9ff28f083eed3aff0df7d8785d46beb6c7bee93214ac3aa24e5a117f02c86bc"
+      "bytes": 23279,
+      "sha256": "84088fde3c3fcfb63b09556696eb94d8e4790dbd38a063a6bf476604f1b858c6"
     },
     "START_HERE.md": {
       "bytes": 6156,
@@ -38,8 +38,8 @@
       "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
     },
     "VALIDATION.md": {
-      "bytes": 23876,
-      "sha256": "433fe33cb4e94a652d74b6ebcaa615549706ad39b1d4db29d046bd5899ea2204"
+      "bytes": 35951,
+      "sha256": "e0678e292a2b607a8ab4475ca2164aa6022a594eeb321964aa4e34f23fe4002d"
     },
     "agents/openai.yaml": {
       "bytes": 365,
@@ -54,12 +54,16 @@
       "sha256": "f25c74d2a5dd5515b0b77429b6c5316e3de678451ae439f1d5708df698248825"
     },
     "assets/PROJECT.template.md": {
-      "bytes": 6476,
-      "sha256": "cfef6335615c1511e03ba68caf9659b024204f200b376bbc218411940c7f6d8f"
+      "bytes": 7146,
+      "sha256": "bebf278e746d05b6a861915eebd96e913c6366dddc0fca53395601ce50a98b29"
     },
     "assets/data-binding.example.json": {
       "bytes": 500,
       "sha256": "21e41f55e67033dbd8baf9c054612a075b55a2f894550a5cdbd03a5bb64a7baf"
+    },
+    "assets/design-check-registry.json": {
+      "bytes": 5131,
+      "sha256": "9954696f2280f55a9de9c2e6526e6a78eb7f21c73b6bc5da0b637433c58dad7d"
     },
     "assets/electrical.example.json": {
       "bytes": 1211,
@@ -85,6 +89,18 @@
       "bytes": 491,
       "sha256": "263bda083714f6ddea7ad54ac34750067164855d62827fca5f2d44270bba5a68"
     },
+    "assets/pcb-constraints.example.json": {
+      "bytes": 816,
+      "sha256": "c91ea95d5c20228bcfa2771d01958b91acb952cb442f3292511329e3c1a84045"
+    },
+    "assets/pcb-geometry.example.json": {
+      "bytes": 373,
+      "sha256": "ddb1098f78321a086b491d9781db9a91701a8831ad00f2308eb36874ab8383aa"
+    },
+    "assets/schematic-constraints.example.json": {
+      "bytes": 597,
+      "sha256": "425dc32163fd9650903b8c815225db05d107cc8575417ffdc305e9fb362eac9a"
+    },
     "assets/schematic-style-reference.png": {
       "bytes": 213343,
       "sha256": "de7731f77d4c0459de7028a2156906bd97b866720adaa1ef2391132f8f65e24e"
@@ -98,24 +114,24 @@
       "sha256": "094f0dc20e49dc6a317052b7ecd9b3ee1b77a15a25ac7009555a4532aba30cbf"
     },
     "assets/zh/PROJECT.template.md": {
-      "bytes": 5141,
-      "sha256": "32c91ebe504bf2973ea996116855ebc0f4b28cb5560d0d43b769fc36731fc18c"
+      "bytes": 5746,
+      "sha256": "09509cb81763f52341f61813880e761f4842a999e626261a23c54aae27e94d44"
     },
     "references/01-intake-and-recovery.md": {
-      "bytes": 5771,
-      "sha256": "0e702eec9bf123d5a9ab48222279afda90b7a2d673eb9b8c2e0e645a69e55bfd"
+      "bytes": 6228,
+      "sha256": "b9f80e352e73fd294c3d37194393f20290d2744f320f91541fd88bc407755ad7"
     },
     "references/02-circuit-and-library.md": {
-      "bytes": 10682,
-      "sha256": "c03f8f2fc4218b026ffe9bfeb78907dd08cdac96f31a55156e180a2f4771706b"
+      "bytes": 10953,
+      "sha256": "175ac572b567701a23a2b2cd98801cfb62a22e0a16e73d842aab8ed8c9aa4904"
     },
     "references/03-layout-routing.md": {
-      "bytes": 17553,
-      "sha256": "77546a1b63be19b41f84ab1ac32b91fe2a722c56b933a32bdf351ccfc22ed5ef"
+      "bytes": 17987,
+      "sha256": "5d504e2d1f590ac9f68118b8a01488ab0e04c0244ab64d4a3e0e5163d6edf537"
     },
     "references/04-release-assembly.md": {
-      "bytes": 10369,
-      "sha256": "d84fcca3ab76e3a32db3c7dbdb7895252d01a3c1f279cc89ffb6cbebe2babafe"
+      "bytes": 11072,
+      "sha256": "50c0a5e610635939cbf9b141c66b3bc12c1c929b77113f686d226cb3de6c950e"
     },
     "references/05-bringup-debug.md": {
       "bytes": 8239,
@@ -138,8 +154,8 @@
       "sha256": "d9a329c50d5b8a1d5ffe839e5926d3245f50aeabc1cc3a900a162cc8d0f1aa08"
     },
     "references/10-validation-tools.md": {
-      "bytes": 8073,
-      "sha256": "15f52b7054cfb4b05bca96aba4f8c494dc237b40034d4787cda212446165dca2"
+      "bytes": 8277,
+      "sha256": "c69f8333e2c39c8510c19351384fc9093c4b2b79d12292ff2d39246a18ea3ed5"
     },
     "references/11-validation-scenarios.md": {
       "bytes": 10728,
@@ -154,8 +170,8 @@
       "sha256": "f09be817a81ce66a12fd1b33f44b929adeb995703f47f1c822178eefb0f3279a"
     },
     "references/14-visual-geometry-gates.md": {
-      "bytes": 5393,
-      "sha256": "be09deb3c2359c806866038ce3a3649a9b34a6686fa43f8de3c84acff37bb3f3"
+      "bytes": 5686,
+      "sha256": "96dae40cfeefce217356a0e57f644dca98a1828355d3a7f6ce59f43d9e844343"
     },
     "references/15-easyeda-schematic-methods.md": {
       "bytes": 9959,
@@ -170,16 +186,16 @@
       "sha256": "e6cada9974817f3b5d5d4e97f474f0bb98df07ae59a23886f8074a55ce864eb1"
     },
     "references/18-pcb-inspection-toolkit.md": {
-      "bytes": 8992,
-      "sha256": "fb848f8d0dc2ce78a522e1b946756600d0b6ddf646ee9a905b8051e2c365689e"
+      "bytes": 13040,
+      "sha256": "6c3d8e5ddfb41bcb4eae703880c58dbac3c38e89f7ef21dc63b80d77f6f0e5ae"
     },
     "references/19-engineering-constraints.md": {
       "bytes": 10880,
       "sha256": "01208af0897b802c265e10a171d37700e72eb6c71dce2666b58db03083f3389f"
     },
     "references/20-data-and-recovery.md": {
-      "bytes": 10572,
-      "sha256": "5784bdee8a9a8e73f75b56cbaf5f5e92917ffe721d093d86d61a309c3a62fc41"
+      "bytes": 10684,
+      "sha256": "59ebea0293686225bf5d09c2fd135551550304d418c891b74deb7be5bb03f308"
     },
     "references/21-layout-execution.md": {
       "bytes": 10155,
@@ -190,36 +206,68 @@
       "sha256": "f795fc96e315b37b6b4c93c888e65a42290603ca65bb56443222649b57393381"
     },
     "references/23-live-eda.md": {
-      "bytes": 5180,
-      "sha256": "724d2825429799190d8f166a06d53854a41a3ed0e54be79afb571580b23ebb7d"
+      "bytes": 6973,
+      "sha256": "685b364572fece9568218944ac29ed59b0c068f8e94bb9e823efc39300e59dfe"
+    },
+    "references/24-executable-constraints.md": {
+      "bytes": 5348,
+      "sha256": "4ad0c16b2e3159dcde0776b6e4b584c7c15be1ef29ed9bb7beb54766f392c909"
+    },
+    "references/25-requirement-coverage.md": {
+      "bytes": 5899,
+      "sha256": "5b6cd0e7db110aaa3bb6c7e2e8689d4b683caa84b4a3498bf63d4b7eb3a27e8d"
+    },
+    "references/26-component-cost-planning.md": {
+      "bytes": 14255,
+      "sha256": "5f8113fd350a0681624955481350baf58cc015e3245f2cc627a8920ab9382932"
+    },
+    "references/27-current-design-evidence.md": {
+      "bytes": 8151,
+      "sha256": "26ba08a4126d59fec0664af6a4467b318e894f0a137602a8b04a48888b3d66f5"
+    },
+    "references/28-fresh-session-benchmark.md": {
+      "bytes": 3919,
+      "sha256": "356c420a656c79eff4184dcc6a596edbe4bc9174ab1abc913979588a8c8acb9e"
     },
     "scripts/audit_design.py": {
-      "bytes": 6967,
-      "sha256": "d7fa158f39e40f81ed4920f162629b726534199766a460c9f10a03dee79a6798"
+      "bytes": 7431,
+      "sha256": "1e923405538acf429903cb938d3ac52a8bc06b410b5276d460dbfd8c909291c0"
     },
     "scripts/check_connectivity.py": {
-      "bytes": 5464,
-      "sha256": "55ab5e692873988eba794546f6d25fff647ab5212b3434e498c02e472b6f5971"
+      "bytes": 5641,
+      "sha256": "28f37d724333a4b09cf623da0be0fb9b4267d2a48e4e6c1604f489b158fa1265"
+    },
+    "scripts/check_constraints.mjs": {
+      "bytes": 1817,
+      "sha256": "98c64001267ff1fc4453ad00dbfe9c1937df3bd2850ae72f5e7cc9f620d65114"
     },
     "scripts/check_evidence.py": {
-      "bytes": 6036,
-      "sha256": "a4bb746c43c1a633ceb702bb87dfecd38c57d31915c98629edec778709f15677"
+      "bytes": 8265,
+      "sha256": "4b888f9ef0d52c27e87470022efe42dd06f47af769e36c3b976b5216d0226644"
+    },
+    "scripts/component_cost.py": {
+      "bytes": 6507,
+      "sha256": "5ca775ad06bee37252f179c5d91f588da1532833012c561deb982ded495aed44"
+    },
+    "scripts/design_constraints.mjs": {
+      "bytes": 4669,
+      "sha256": "13f4c90e1b7d6cd5bf21608fbc2b5410ed0482c5e71e94b6c3950ec25286da22"
     },
     "scripts/design_data.py": {
-      "bytes": 11450,
-      "sha256": "e07068b709c4897a68ecc89dc047819ae450bd978b31274eef5df248b021328c"
+      "bytes": 13438,
+      "sha256": "1497693b1278edfa31099da240e16d97b17babb96c1708de0bf890608eaf4079"
     },
     "scripts/easyeda_bridge.mjs": {
-      "bytes": 3842,
-      "sha256": "8a35c266e5495395fb146da99be9f3de51db9b3cd3a4e523201d3c7080b7b147"
+      "bytes": 3949,
+      "sha256": "e700f9ea1375926ab97ce42b44f4fadde802a83109a4094e09a2c2574b136c29"
     },
     "scripts/eda_live.mjs": {
-      "bytes": 4953,
-      "sha256": "85d5193b8c2254c6bd6122aa4a8d4b55f1b3162c3b6139e39a595f2a518ed655"
+      "bytes": 6029,
+      "sha256": "601723718a3366157fcac168184a487efb3610c07a2ab9734b934c9609340d24"
     },
     "scripts/eda_live_runtime.mjs": {
-      "bytes": 12100,
-      "sha256": "d43ab5f4d3437b286a3f3e8bbb6a6f1abadb6b9a395f2cfbb349c5036c6e33fa"
+      "bytes": 18013,
+      "sha256": "49cde2f08ec369ebd5c4d03dfa66cf0aedd3cba5a8159c8ff0c08ee34b0096ee"
     },
     "scripts/eda_probe.mjs": {
       "bytes": 2565,
@@ -228,6 +276,10 @@
     "scripts/electrical_calcs.py": {
       "bytes": 7437,
       "sha256": "4eb3208747aa508785e1baa0c5a4895880d274d8647427342ae2af8fe7088f25"
+    },
+    "scripts/evidence_binding.py": {
+      "bytes": 11224,
+      "sha256": "45baf4ba9710263052c01b1bf3db6486a29c7e7d79d797f44db26de3cf3626fd"
     },
     "scripts/init_project.py": {
       "bytes": 2168,
@@ -242,12 +294,28 @@
       "sha256": "0fb70d7149d3c96cc2b6c23358b33e4aeab96c346c45c50eb403499482c13ce4"
     },
     "scripts/pcb_toolkit.py": {
-      "bytes": 4188,
-      "sha256": "cfa49e053e147e99c478186c371f3ea2ee385a8b256baa45310b49ffed27916c"
+      "bytes": 6365,
+      "sha256": "25226afb9f40f77c588b6d50c19814a032e611fe0014fd795a1ccced81c2d7de"
     },
     "scripts/release_manifest.py": {
       "bytes": 6348,
       "sha256": "b0a365bdd481545a5024e55cbe31c61d0b400fb91d37f96c2b1df2c9253d1ca7"
+    },
+    "scripts/report_provenance.py": {
+      "bytes": 1292,
+      "sha256": "01d42a4d8870d16fd4d0d14c8cfa8a8f5c3360a542c9ef8dd0e55e92836b43f0"
+    },
+    "scripts/requirement_coverage.py": {
+      "bytes": 4815,
+      "sha256": "56899842121cca8871406e8be5a4d69d9d34e0f45cdbde073bb5d842fd09d7f1"
+    },
+    "scripts/review_substitutions.py": {
+      "bytes": 8531,
+      "sha256": "2accb74ca7536358d007cda7a3189f1e6d937eec0db23668616c0c6f3d2e6e43"
+    },
+    "scripts/run_bound_check.py": {
+      "bytes": 9607,
+      "sha256": "0f2f49d489754e74f1a26c13bfab8de495abe335925e26897a1e935d549a9df9"
     },
     "scripts/schematic_layout.py": {
       "bytes": 11731,
@@ -257,6 +325,14 @@
       "bytes": 5542,
       "sha256": "d1743b2c460f6047f3061ac5456f38a8390c68b175b74785da4163e10fe38b29"
     },
+    "scripts/test_assertion_physics.py": {
+      "bytes": 6025,
+      "sha256": "188ded9ba46a4f5672101597ab5bd1dfa423071b1497ada3fba6d3dfd598a4dc"
+    },
+    "scripts/test_bound_check.py": {
+      "bytes": 10211,
+      "sha256": "6041409bec99e82ee270e6b5a28a9c277a480aedd45bb12d0d1ea24aa8664404"
+    },
     "scripts/test_bridge.mjs": {
       "bytes": 3847,
       "sha256": "996821e51e7347b2e53b674a49812e1184cfce5bf2a0f081a4c0f1c6b0a647e2"
@@ -265,21 +341,37 @@
       "bytes": 9369,
       "sha256": "d9f44b59c1fb5cbd8a98df3327dd527ad4b851f3ebefed1c243061da9357ce80"
     },
+    "scripts/test_component_cost.py": {
+      "bytes": 3740,
+      "sha256": "08be31452d1af371bf2f6056ccf730672f1caf0702f802ae43f61526d9f8cc6c"
+    },
     "scripts/test_data_operations.py": {
       "bytes": 14453,
       "sha256": "d93bba48e143053a220f526e8264075e6b7c65fabb872dbb1a3b9c7d9e6aaba6"
     },
+    "scripts/test_design_constraints.mjs": {
+      "bytes": 2494,
+      "sha256": "0281aa783454f60973f53448fa9c4bd2d480a6b615c72f7280e2377399746093"
+    },
     "scripts/test_design_gates.py": {
-      "bytes": 2140,
-      "sha256": "5595697f9a3726cf4978f3395cc04f110a6e104916514c76fd8b9cadd65ff6f1"
+      "bytes": 1673,
+      "sha256": "943c657efd1abc529f6f3da696f9c5c288a6a6bd95f6fe6c0b3f0db76acd7fb5"
     },
     "scripts/test_eda_format.cjs": {
       "bytes": 2994,
       "sha256": "312be1e0a2fc4e7cd5b9e76e0861915dfed0b54fcd38934e3b78102618680677"
     },
     "scripts/test_eda_live.mjs": {
-      "bytes": 4943,
-      "sha256": "18a3ac83a02f8dec4397a969c3756136d93162b19a2da8b0fb830225feb0c405"
+      "bytes": 15486,
+      "sha256": "3396e2e6fbbd9edd5a83088843b6eb67e5d1244f33d802d8b97eaf4f981d6582"
+    },
+    "scripts/test_evidence_binding.py": {
+      "bytes": 5336,
+      "sha256": "e28d8b746a3a49222b7ba30741efa74fc26cb3f31e7a05c1d3be270e40721908"
+    },
+    "scripts/test_evidence_fixture.py": {
+      "bytes": 2372,
+      "sha256": "6f7ff235e9b145a34f4006522511fe99d9e36c926fd2969678d72409e55cef20"
     },
     "scripts/test_fabrication_calcs.py": {
       "bytes": 4396,
@@ -293,13 +385,45 @@
       "bytes": 6669,
       "sha256": "533bd6ddc83cf61ba8e9612fa3f3e9cfabeeae8049dc708d25ba3e69ff651aa7"
     },
+    "scripts/test_mask_geometry.py": {
+      "bytes": 11241,
+      "sha256": "aa990e2a12382670b9dfe06f4b1c2719d9412a68f2626168de49fbf2082af8fe"
+    },
+    "scripts/test_outline_acceptance.py": {
+      "bytes": 10140,
+      "sha256": "04d3db4c8e0861620716adb1a56dc534a163061c35abbc8f966391d195a212f4"
+    },
+    "scripts/test_output_budget.py": {
+      "bytes": 2787,
+      "sha256": "bdc8fe7f57a5f45f138e8df0ba36dd448d57be6b9167913eeb9db7bac3056708"
+    },
+    "scripts/test_pad_identity.py": {
+      "bytes": 9925,
+      "sha256": "e3cf73b5822e15c85119446a3b900eb3c2fddd505c1ea910b260d43830791f4f"
+    },
     "scripts/test_pcb_toolkit.py": {
       "bytes": 9402,
       "sha256": "d452b460fcbfc43f93dba633a7a05a1028e2dc13df6d76e5e811a03f16761511"
     },
+    "scripts/test_report_provenance.py": {
+      "bytes": 7201,
+      "sha256": "71f90b1cb3b7b1b140cd9909e337eef1cbd2ea4f4925ef1b3d54b31c8f01fc6a"
+    },
+    "scripts/test_requirement_coverage.py": {
+      "bytes": 4419,
+      "sha256": "c5ed0ff6046a7f3f6eeeac4b4dfa2c71302b4e44c1f9798fd657ecac9bf8a91d"
+    },
+    "scripts/test_route_physics.py": {
+      "bytes": 11414,
+      "sha256": "84d8bb786da37db5580774fff8e99e073885a8db5781bd8344294c6483761b1d"
+    },
     "scripts/test_schematic_layout.py": {
       "bytes": 7245,
       "sha256": "9f32d993d9a6cd29ecc5adbd8f2b2182b69b807d47c3dce6cd1fa1d35de12843"
+    },
+    "scripts/test_substitutions.py": {
+      "bytes": 7044,
+      "sha256": "3cd5689f6ad12c9877b8b86256d8754398616c2a47df0870301996fb8aaefe2c"
     },
     "scripts/test_visual_geometry.py": {
       "bytes": 3105,
@@ -7226,8 +7350,8 @@
       "sha256": "030f999ded4ddf6fee754806562989f31951fbe3d80a3e011717aaa5e7047000"
     },
     "vendor/pcb-skill-toolkit/UPSTREAM.md": {
-      "bytes": 2697,
-      "sha256": "1b361b2a225afe0f8868b94d04e2661d088207f3b63c36f2ab5f9633cd9b78ee"
+      "bytes": 3891,
+      "sha256": "76d5a0b8006f27faa1b737b3c24848669ffb45d3dfc35001f0c7669c4dafdab8"
     },
     "vendor/pcb-skill-toolkit/scripts/README.md": {
       "bytes": 6347,
@@ -7246,8 +7370,8 @@
       "sha256": "7f8037d4e1c5232bbe818550264e7ee43ce71075b80736b0be1e20fb09cdc8aa"
     },
     "vendor/pcb-skill-toolkit/scripts/placement/boardmodel.py": {
-      "bytes": 20523,
-      "sha256": "099208b3cf90b22a09567ce655e3c2eb7a18c5834e363bd303f8e96adbe024fe"
+      "bytes": 31198,
+      "sha256": "1a4de427b689bcf7315df731461df80018a7c6a246095381e84c0bc300d3421c"
     },
     "vendor/pcb-skill-toolkit/scripts/placement/body_clearance.py": {
       "bytes": 8969,
@@ -7266,16 +7390,16 @@
       "sha256": "06ec62ce4b4c8ba170691ed621b510034e25fef27f83fe3706ed4f21ae9b04db"
     },
     "vendor/pcb-skill-toolkit/scripts/placement/import_easyeda.py": {
-      "bytes": 30460,
-      "sha256": "852fb446ed3ac5a7a877c4fb3e8f450da6e83c2b8f547dfc70d2d152955b90f2"
+      "bytes": 32163,
+      "sha256": "39cd45c2c63673530823fbd15ae19bdf467a03ad64cff002b337428396cf4a71"
     },
     "vendor/pcb-skill-toolkit/scripts/process_status.py": {
       "bytes": 1875,
       "sha256": "d15cb4feac90b86ab3ce1c1b94e719030e8503155136bc0fe0e00c52950ee7a8"
     },
     "vendor/pcb-skill-toolkit/scripts/routing/README.md": {
-      "bytes": 11950,
-      "sha256": "a8aa0c8bbe8af3f6ea771e220723fc1216665922f6fc3c385dacb669b9fbe549"
+      "bytes": 12386,
+      "sha256": "9977811604957af9ee8d9408d05077f26acd9903bcc2859147215ee3399957c9"
     },
     "vendor/pcb-skill-toolkit/scripts/routing/dsn_rewrite.py": {
       "bytes": 13798,
@@ -7286,8 +7410,8 @@
       "sha256": "023a2a3b49b4ae627a212c7b9d80f6706ee74781c2dc33ade046378f9ae5b0c3"
     },
     "vendor/pcb-skill-toolkit/scripts/routing/route_accept.py": {
-      "bytes": 16719,
-      "sha256": "405b3f937a3b0096b1c2449d9a7578efddbd39381345b18a5eade10726143afd"
+      "bytes": 22371,
+      "sha256": "3a3bd81310cd56267dc07dd40248381534068676df7b3aa11399fc89d1dea199"
     },
     "vendor/pcb-skill-toolkit/scripts/routing/route_supervise.py": {
       "bytes": 17137,
@@ -7298,8 +7422,8 @@
       "sha256": "bfde0fc0f9bbc1da2c1a80192f88e27f6358cb59beb18f743f889a467115ea04"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/README.md": {
-      "bytes": 12234,
-      "sha256": "c42cfa55b57a603cbd2737efd6afdf645a5fe5494d11f1b0998fa0ae2a00c67f"
+      "bytes": 12772,
+      "sha256": "4c2e3c33d31357ca3e7f2fd85994666f004a9a8053778e097e42a2350715a7fc"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/clearance.py": {
       "bytes": 22032,
@@ -7314,24 +7438,24 @@
       "sha256": "aff19fc2379224fe08b33e37c6f401f8424c880e5e4432641786cf850bd7e5ce"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/mask_check.py": {
-      "bytes": 9149,
-      "sha256": "cfefaf89ce1c368dc02687e96d221c56e2341728e63d70bebb1260676a36cec7"
+      "bytes": 22033,
+      "sha256": "7ce924a99742bacd501fd24652cd34eb508c6f0c31a4a42d86da6b7a661e7bad"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/mesh3d.py": {
       "bytes": 15234,
       "sha256": "3bc4a382ecdc6d7f61e2047c189483024b5e099c9cce78e093ea92e7140f58d5"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/netlist_assert.py": {
-      "bytes": 15082,
-      "sha256": "af5c806f06976b9ef6ee75a319ba73edf3b63731bd77794cb2506adcf6e1f485"
+      "bytes": 15394,
+      "sha256": "9eedd4f273698fdbfcdb1426f3918591c562fbffe1f94c291c3a4ab5e2dbc650"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/outline_check.py": {
-      "bytes": 10787,
-      "sha256": "50be75534ae7035ffdfa8997bcabc983c7717bdb0cde95d9eb40a84f4ce88517"
+      "bytes": 15245,
+      "sha256": "92c02e6b307b3906716e2a42686d2149ec50cd4b03efae1af92b7e6f2385575b"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/pad_reconcile.py": {
-      "bytes": 9586,
-      "sha256": "6fcaaa2c53a943cafe8808d0056dc04ad952837300a455f22c2247866223a8fb"
+      "bytes": 11359,
+      "sha256": "b3fa5b8e8b5b7195d37d9aeff60e6750c1b51be7689e45f6e8c9c4e7defa0f6a"
     },
     "vendor/pcb-skill-toolkit/scripts/verify/raster.py": {
       "bytes": 23831,

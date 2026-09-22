@@ -49,6 +49,8 @@ Review the complete power-pin/capacitor/ground decoupling path, not only compone
 
 Treat autorouted traces as candidates requiring power-path, layer-transition, reference-ground, impedance, and assembly checks. Do not claim automatic routing when the available tool does not provide it.
 
+Before a complex routing attempt, use [the capability and constraint checklist](24-executable-constraints.md#routing-capability-and-recovery). Record supported net selection, critical-route preservation, layer/width/clearance rules, differential/timing requirements, observable completion and recovery capability. Missing required capability needs an alternative backend or reviewed manual operation, not repeated blind autorouting.
+
 ## Choosing native autorouting or explicit routing
 
 Prefer a mixed strategy for ordinary low-voltage boards when native autorouting is available:

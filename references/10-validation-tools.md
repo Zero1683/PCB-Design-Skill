@@ -10,14 +10,14 @@ These tools analyze explicit inputs and records. They do not parse arbitrary Eas
 ## Check records
 
 ```sh
-python scripts/check_evidence.py --root /path/to/project --baseline revA --through G5
+python scripts/check_evidence.py --root /path/to/project --baseline revA --through G5 --design-gates
 ```
 
 `--through G5` checks design/manufacturing records without demanding a physical board. For hardware work select the relevant stage and supply `--board <id>` and `--firmware <id>` when applicable. Exit 0 means selected records are complete; 1 means unresolved/invalid records; 2 means invalid input. The tool does not modify statuses.
 
 PASS needs method, conditions, acceptance criteria, actual result, baseline, timezone-qualified timestamp and a nonempty local evidence file. Use semicolon-separated project-relative evidence paths. Keep linked files inside the project; save an external measurement/export locally with provenance. N_A requires justification. ACCEPTED_LIMITATION requires a reason/source and decision-record file and remains separate from passing verification. Checks with `assess` applicability must be resolved to an applicable result or justified N_A; they are not silently skipped.
 
-Baseline mismatches require review; the tool cannot infer which design changes invalidate which results. For unaffected evidence, record a reviewed carry-forward justification rather than changing the baseline label without review. File existence is not validation of its contents. The tool cannot detect a check deliberately omitted from the table: derive required rows from PROJECT.md first and review coverage.
+Baseline mismatches require review; the tool cannot infer which design changes invalidate which results. For unaffected evidence, record a reviewed carry-forward justification rather than changing the baseline label without review. The design-gates mode now enforces the skill-owned registry, current design/source hashes and bound observations. It detects deleted registered checks; project-specific omissions still require requirement review. Read [current-design evidence](27-current-design-evidence.md) for binding and carry-forward. Without --design-gates, the command only lints supplied records.
 
 Split outcomes that can differ. LED, button, sensor identity/data, interrupt, and sleep tests must have separate rows when relevant. Existing projects migrate by adding new rows; retain old evidence and explain replaced aggregate rows.
 

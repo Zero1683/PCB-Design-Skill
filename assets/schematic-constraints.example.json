@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "revision": "schematic-A",
+  "domain": "schematic",
+  "projectId": "replace-with-project-id",
+  "documentId": "replace-with-page-id",
+  "units": "raw-0.01inch",
+  "axis": "y-up",
+  "source": "Replace with approved page layout requirements",
+  "bounds": [
+    20,
+    150,
+    1150,
+    805
+  ],
+  "rules": [
+    {
+      "type": "lock",
+      "ids": [
+        "replace-with-native-part-id"
+      ],
+      "source": "Replace with reviewed fixed placement requirement",
+      "anchor": [
+        300,
+        500
+      ],
+      "rotation": 0,
+      "side": "schematic"
+    }
+  ]
+}

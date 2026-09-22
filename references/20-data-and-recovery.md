@@ -71,8 +71,7 @@ Use summary first. Detailed query sections are components, tracks, vias, pours,
 footprints, rules, layers and outline. Component queries support exact reference and
 net filters; routed objects support exact net filtering. Pages contain at most 100
 records, a total and a next offset. Retain the digest while fetching subsequent pages;
-if it changes, restart the query on the intended snapshot. Page limits are record
-limits, not hard token limits: a large footprint can itself contain many primitives.
+if it changes, restart the query on the intended snapshot. Page limits are record limits. CLI summary/query/diff also enforce a UTF-8 byte budget; oversized records return explicit handles. See [bounded context](24-executable-constraints.md). This does not measure model tokens.
 
 Diffs use the same project/document identity. They return changed references and
 changed board sections with hashes, rather than dumping old/new geometry. Fetch the

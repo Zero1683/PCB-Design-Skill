@@ -12,11 +12,12 @@ WHAT THIS MEASURES
            islands  = sum over nets of that net's island count
            merges   = sum over nets of (islands - 1)   <-- the work still to do
        MERGES OUTSTANDING is the progress metric, not "percent routed" and not "unrouted
-       connections".  It is monotone, it is comparable between runs, and it goes to zero
-       exactly when the board is connected.  With `--baseline` the delta against a
+       connections". Compare runs only with the same net/physical-pad coverage and
+       geometry scope. Deleting copper or components can reduce this number without
+       completing a route; zero does not prove schematic intent or poured connectivity.  With `--baseline` the delta against a
        previous board state is printed, which is how two candidate routes get compared
        on the same ruler.
-    2. PROTECTED NETS.  Nets you told the router not to touch must still be one island.
+    2. PROTECTED NETS.  Require baseline geometry unchanged and one island.
        A router that "improved" a tuned differential pair has broken it.
     3. SOLID PLANES UNCUT.  Zero routed segments on any declared plane layer.
     4. DIFFERENT-NET CLEARANCE at the board's own rule, exact, outline to outline.
@@ -29,7 +30,7 @@ WHAT THIS CANNOT SEE
     * POUR COPPER.  This walks pads, tracks and vias only.  A net that is closed by a
       pour will keep reporting islands here forever, and that is the WRONG RULER for it.
       Declare such nets with `--plane-nets`: each island holding a via or a through-hole
-      pad is then treated as reaching the plane.  For the real answer on a poured net,
+      pad reaching a declared solid-plane layer is assumed to reach that plane.  For the real answer on a poured net,
       measure the manufactured artwork -- verify/clearance.py and the Gerber raster.
     * The schematic.  A net that is one island can still be the WRONG net.  That is
       verify/pad_reconcile.py and verify/netlist_assert.py.
@@ -55,6 +56,7 @@ USAGE
 from __future__ import print_function
 
 import json
+import math
 import os
 import sys
 
@@ -84,16 +86,17 @@ def net_nodes(board, net):
         if t.get("net") == net:
             out.append(Node([(t["x1"], t["y1"]), (t["x2"], t["y2"])],
                             t["w"] / 2.0, (t["layer"],), "track", "T"))
-    cu = tuple(board.layers["copper"])
     for v in board.vias:
         if v.get("net") == net:
             out.append(Node([(v["x"], v["y"])],
                             float(v.get("pad") or board.rules["via_pad"]) / 2.0,
-                            cu, "via", "V"))
+                            board.via_layers(v), "via", "V"))
     for rec in board.all_pads():
         if rec["net"] == net:
-            out.append(Node(rec["poly"], 0.0, rec["layers"], "pad",
-                            "%s.%s" % (rec["des"], rec["num"])))
+            spans = [rec["layers"]] if rec["layer_bridge"] else [(l,) for l in rec["layers"]]
+            for span in spans:
+                out.append(Node(rec["poly"], 0.0, span, "pad",
+                                "%s.%s" % (rec["des"], rec["num"])))
     return out
 
 
@@ -124,13 +127,13 @@ def islands_of(board, net, plane=False, tol=1e-6):
                 union(i, j)
     if plane:
         # A declared plane net is closed by copper this model cannot see.  Any island
-        # that carries a via or a through-hole pad reaches the plane, so they are all
+        # that carries a plated bridge to a declared plane layer reaches it, so they are all
         # the same island.  Islands with NEITHER are still reported separately -- those
         # are the ones that genuinely have no way down.
         anchor = None
         cu = set(board.layers["copper"])
         for i, nd in enumerate(ns):
-            if nd.kind == "via" or len(set(nd.layers) & cu) > 1:
+            if len(set(nd.layers) & cu) > 1 and set(nd.layers) & set(board.layers.get("solid_planes", [])):
                 if anchor is None:
                     anchor = i
                 else:
@@ -150,7 +153,7 @@ def connectivity(board, plane_nets=()):
     out = {}
     for net in sorted(nets):
         g = islands_of(board, net, plane=(net in plane_nets))
-        npads = sum(1 for x in g for n in x if n.kind == "pad")
+        npads = sum(1 for rec in board.all_pads() if rec["net"] == net)
         ntr = sum(1 for x in g for n in x if n.kind == "track")
         out[net] = (len(g), npads, ntr)
     return out
@@ -168,7 +171,7 @@ def clearance_violations(board, limit=None, report=12):
                      t.get("net", "")))
     for v in board.vias:
         objs.append((Node([(v["x"], v["y"])],
-                          float(v.get("pad") or board.rules["via_pad"]) / 2.0, cu,
+                          float(v.get("pad") or board.rules["via_pad"]) / 2.0, board.via_layers(v),
                           "via", "V:%s" % v.get("net", "")), v.get("net", "")))
     for rec in board.all_pads():
         objs.append((Node(rec["poly"], 0.0, rec["layers"], "pad",
@@ -206,11 +209,103 @@ def clearance_violations(board, limit=None, report=12):
     return viol, worst[:report], len(seen)
 
 
+def protected_geometry(board, net):
+    """Canonical straight copper geometry, within 1e-9 mm rounding tolerance.
+
+    Merge collinear touching/overlapping segments of the same layer and width;
+    endpoint direction, record order and equivalent segmentation do not matter.
+    Pours cannot be proven unchanged by this simplified model.
+    """
+    if any(p.get("net") == net for p in board.pours):
+        raise BM.BoardError("protected pour geometry is unsupported: %s" % net)
+    q = lambda n: round(float(n), 9)
+    lines, points = {}, []
+    for t in board.tracks:
+        if t.get("net") != net: continue
+        x, y, xx, yy = (t[k] for k in ("x1", "y1", "x2", "y2"))
+        dx, dy = xx - x, yy - y
+        length = math.hypot(dx, dy)
+        if length == 0:
+            points.append((t["layer"], q(t["w"]), q(x), q(y)))
+            continue
+        ux, uy = dx / length, dy / length
+        if ux < -1e-12 or (abs(ux) <= 1e-12 and uy < 0): ux, uy = -ux, -uy
+        key = (t["layer"], q(t["w"]), q(ux), q(uy), q(-uy*x + ux*y))
+        lo, hi = sorted((q(ux*x + uy*y), q(ux*xx + uy*yy)))
+        lines.setdefault(key, []).append((lo, hi))
+    merged = []
+    for key, intervals in sorted(lines.items()):
+        current = None
+        for lo, hi in sorted(intervals):
+            if current is None: current = [lo, hi]
+            elif lo <= current[1] + 1e-9: current[1] = max(current[1], hi)
+            else:
+                merged.append((key, tuple(current)))
+                current = [lo, hi]
+        merged.append((key, tuple(current)))
+    def ring(points):
+        pts = [(q(x), q(y)) for x, y in points]
+        if len(pts) > 1 and pts[0] == pts[-1]: pts.pop()
+        # Preserve edge topology. Only cyclic origin and traversal direction are arbitrary.
+        cycles = [tuple(seq[i:] + seq[:i]) for seq in (pts, list(reversed(pts)))
+                  for i in range(len(seq))]
+        return min(cycles) if cycles else ()
+    pads = []
+    for r in board.all_pads():
+        if r["net"] != net: continue
+        h = r["hole"] or {}
+        pads.append((ring(r["poly"]),
+                     tuple(sorted(r["layers"])), r["layer_bridge"],
+                     q(h.get("w", 0)), q(h.get("h", h.get("w", 0))), h.get("plated")))
+    vias = [(q(v["x"]), q(v["y"]), q(v.get("pad", board.rules["via_pad"])),
+             q(v.get("drill", board.rules["via_drill"])), board.via_layers(v))
+            for v in board.vias if v.get("net") == net]
+    return (merged, sorted(points), sorted(pads, key=repr), sorted(vias))
+
+
+def coverage(board):
+    return {"pads": sum(1 for _ in board.all_pads()),
+            "netted_pads": sum(1 for r in board.all_pads() if r["net"]),
+            "nets": len(connectivity(board)), "tracks": len(board.tracks), "vias": len(board.vias),
+            "scope": "pads, straight tracks and plated vias; excludes pours and drill void subtraction; "
+                     "legacy unqualified neutral vias mean through; explicit contiguous via spans supported; "
+                     "plane nets are assumptions, not measured pour connectivity"}
+
+
+def not_checked(reason, out=None, board=None):
+    res = {"state": "NOT_CHECKED", "failed_gates": 1, "reason": str(reason),
+           "coverage": coverage(board) if board is not None else {"scope": "input rejected before geometry evaluation"}}
+    print("NOT_CHECKED: %s" % reason)
+    if out:
+        with open(out, "w", encoding="utf-8") as fh: json.dump(res, fh, indent=1)
+    return 1
+
+
 def run(board, baseline=None, protected=(), plane_nets=(), expect_open=(),
         limit=None, top=12, out=None):
     fail = 0
     rep = connectivity(board, plane_nets)
     expect_open = set(expect_open)
+    if not rep or not any(r["net"] for r in board.all_pads()):
+        return not_checked("no netted physical pad coverage", out, board)
+    for label, names in (("protected", protected), ("plane-nets", plane_nets), ("expect-open", expect_open)):
+        missing = set(names) - set(rep)
+        if missing:
+            return not_checked("unknown %s nets: %s" % (label, sorted(missing)), out, board)
+    if plane_nets and not board.layers.get("solid_planes"):
+        return not_checked("plane-nets requires declared solid plane layers", out, board)
+    if protected and baseline is None:
+        return not_checked("protected geometry requires --baseline; unchanged copper was not checked", out, board)
+    lim = board.rules["clearance"] if limit is None else limit
+    if type(lim) not in (int, float) or not math.isfinite(lim) or lim < board.rules["clearance"] or lim < 0:
+        return not_checked("clearance must be finite and cannot weaken board.rules.clearance", out, board)
+    if type(top) is not int or top < 0:
+        return not_checked("top must be a nonnegative integer", out, board)
+    changed = []
+    for net in protected:
+        if net not in connectivity(baseline):
+            return not_checked("protected net missing from baseline: %s" % net, out, board)
+        if protected_geometry(board, net) != protected_geometry(baseline, net): changed.append(net)
     split = {n: v for n, v in rep.items() if v[0] > 1 and n not in expect_open}
     islands = sum(v[0] for v in rep.values())
     merges = sum(v[0] - 1 for n, v in rep.items() if n not in expect_open)
@@ -241,6 +336,9 @@ def run(board, baseline=None, protected=(), plane_nets=(), expect_open=(),
     print("GATE protected nets still one island        : %s"
           % ("PASS (%d nets)" % len(protected) if not bad else "FAIL %s" % bad))
     fail += 1 if bad else 0
+    print("GATE protected copper unchanged             : %s" %
+          ("FAIL %s" % changed if changed else "PASS (%d nets)" % len(protected)))
+    fail += 1 if changed else 0
 
     planes = [l for l in board.layers.get("solid_planes", [])]
     on_plane = [t for t in board.tracks if t.get("layer") in planes]
@@ -281,7 +379,8 @@ def run(board, baseline=None, protected=(), plane_nets=(), expect_open=(),
 
     print("-" * 74)
     print("failed gates: %d" % fail)
-    res = {"islands": islands, "merges": merges, "nets": len(rep),
+    res = {"state": "FAIL" if fail else "PASS", "coverage": coverage(board),
+           "protected_changed": changed, "islands": islands, "merges": merges, "nets": len(rep),
            "split": {n: v[0] for n, v in split.items()},
            "clearance_violations": len(viol), "plane_segments": len(on_plane),
            "protected_broken": bad, "failed_gates": fail}
@@ -365,16 +464,21 @@ def main(argv):
     if len(argv) < 2:
         print(__doc__)
         return 2
-    board = BM.load(argv[1])
-    base = BM.load(argv[argv.index("--baseline") + 1]) if "--baseline" in argv else None
-    lim = float(argv[argv.index("--clearance") + 1]) if "--clearance" in argv else None
-    top = int(argv[argv.index("--top") + 1]) if "--top" in argv else 12
     out = argv[argv.index("--json") + 1] if "--json" in argv else None
-    n = run(board, baseline=base, protected=_names(argv, "--protected"),
-            plane_nets=_names(argv, "--plane-nets"),
-            expect_open=_names(argv, "--expect-open"),
-            limit=lim, top=top, out=out)
-    return 1 if n else 0
+    try:
+        board = BM.load(argv[1])
+        base = BM.load(argv[argv.index("--baseline") + 1]) if "--baseline" in argv else None
+        lim = float(argv[argv.index("--clearance") + 1]) if "--clearance" in argv else None
+        top = int(argv[argv.index("--top") + 1]) if "--top" in argv else 12
+        n = run(board, baseline=base, protected=_names(argv, "--protected"),
+                plane_nets=_names(argv, "--plane-nets"),
+                expect_open=_names(argv, "--expect-open"),
+                limit=lim, top=top, out=out)
+        return 1 if n else 0
+    except (BM.BoardError, ValueError, TypeError, KeyError, OSError, IndexError) as exc:
+        not_checked(exc, out)
+        return 2
+
 
 
 if __name__ == "__main__":

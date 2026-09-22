@@ -15,6 +15,9 @@ WHAT THIS MEASURES
     document may live in separate files.
 
 WHAT THIS CANNOT SEE
+    * Drilled array PAD and array VIA records are rejected: plating/type/span slots
+      have not been verified. Record VIA requires NORMAL/SUTURE with no unresolved
+      layer rule; BLIND and per-layer land removal are explicitly unsupported.
     * Schematic nets.  `pad_nets` comes from the PCB's own PAD_NET records, i.e. what
       the board holds.  To get `nets` (what the schematic INTENDS) export the netlist
       separately and merge it with --netlist; `verify/pad_reconcile.py` then compares
@@ -267,6 +270,8 @@ def _fp_from_record(head, recs, layers, arc_segments):
             hole = b.get("hole") or {}
             hw = float(hole.get("width") or 0.0)
             hh = float(hole.get("height") or 0.0)
+            if any(not math.isfinite(v) or v < 0 for v in (hw, hh)):
+                raise ValueError("invalid finite/nonnegative native hole geometry")
             num = str(b.get("num", ""))
             rec = {
                 "num": num,
@@ -279,9 +284,15 @@ def _fp_from_record(head, recs, layers, arc_segments):
                 "corner_radius": float(dp.get("cornerRadius") or 0.0) * MIL,
                 "layer": lid,
             }
+            if b.get("specialPad") or b.get("unusedInnerLayers"):
+                raise ValueError("unsupported layer-specific pad geometry; cannot discard copper layers")
             if hw > 0.0 or hh > 0.0:
+                if hole.get("holeType", "ROUND") not in ("ROUND", "SLOT"):
+                    raise ValueError("unsupported native hole shape")
+                if type(b.get("plated")) is not bool:
+                    raise ValueError("drilled record PAD requires explicit boolean plated")
                 rec["hole"] = {"w": hw * MIL, "h": max(hh, hw) * MIL,
-                               "plated": bool(b.get("plated", True))}
+                               "plated": b["plated"]}
             # trap 1: several lands may share one pad NUMBER; keep them all, keyed by elem
             key = (num, h.get("id"))
             if key not in seen:
@@ -346,8 +357,10 @@ def _fp_from_array(head, rows, layers, arc_segments):
             if hole and hole[0] in ("ROUND", "SLOT"):
                 hw = float(hole[1] or 0.0) * MIL
                 hl = float(hole[2] or 0.0) * MIL if len(hole) > 2 and hole[2] else hw
+                if any(not math.isfinite(v) or v < 0 for v in (hw, hl)):
+                    raise ValueError("invalid finite/nonnegative native hole geometry")
                 if hw > 0.0:
-                    rec["hole"] = {"w": hw, "h": max(hl, hw), "plated": True}
+                    raise ValueError("unsupported drilled array PAD: plating slot is not verified; use record export")
             pads.append(rec)
             continue
         if len(r) > 4 and r[0] in ("POLY", "FILL", "LINE", "ARC", "CIRCLE", "RECT"):
@@ -424,9 +437,16 @@ def _pcb_from_record(recs, layers, arc_segments):
                            "x2": b["endX"] * MIL, "y2": b["endY"] * MIL,
                            "w": b["width"] * MIL})
         elif t == "VIA" and b:
+            if b.get("viaType") not in ("NORMAL", "SUTURE") or b.get("ruleName"):
+                raise ValueError("unsupported record VIA span/type: blind-via rule resolution is required")
+            if b.get("unusedInnerLayers"):
+                raise ValueError("unsupported VIA with removed inner copper lands")
+            if any(k in b for k in ("startLayer", "endLayer", "startLayerId", "endLayerId", "layers")):
+                raise ValueError("unsupported native VIA span fields; cannot discard layer evidence")
             vias.append({"net": b.get("netName", ""),
                          "x": b["centerX"] * MIL, "y": b["centerY"] * MIL,
-                         "drill": b["holeDiameter"] * MIL, "pad": b["viaDiameter"] * MIL})
+                         "drill": b["holeDiameter"] * MIL, "pad": b["viaDiameter"] * MIL,
+                         "viaType": b["viaType"], "layers": list(layers["copper"])})
         elif t == "POLY" and b and b.get("layerId") == layers["board_outline"]:
             pts = _geom_points(b, arc_segments)
             if len(pts) >= 3:
@@ -457,10 +477,8 @@ def _pcb_from_array(rows, layers, arc_segments):
                            "x1": float(r[5]) * MIL, "y1": float(r[6]) * MIL,
                            "x2": float(r[7]) * MIL, "y2": float(r[8]) * MIL,
                            "w": float(r[9]) * MIL})
-        elif t == "VIA" and len(r) > 8:
-            vias.append({"net": r[3] or "", "x": float(r[5]) * MIL,
-                         "y": float(r[6]) * MIL, "drill": float(r[7]) * MIL,
-                         "pad": float(r[8]) * MIL})
+        elif t == "VIA":
+            raise ValueError("unsupported array VIA: layer span/type slots are not verified; use record export")
         elif t == "POLY" and len(r) > 6 and r[4] == layers["board_outline"]:
             pts = flatten_path(r[6], arc_segments)
             if len(pts) >= 3:
@@ -599,10 +617,10 @@ def main(argv):
         else:
             paths.append(a); i += 1
     doc = convert(paths, rules, layers, netlist, arcs)
-    with open(out, "w", encoding="utf-8") as fh:
-        json.dump(doc, fh, indent=1)
     import boardmodel as BM
     b = BM.Board(doc, source=out)
+    with open(out, "w", encoding="utf-8") as fh:
+        json.dump(doc, fh, indent=1)
     print("wrote %s" % out)
     for k, v in sorted(b.summary().items()):
         print("  %-16s %s" % (k, v))
@@ -681,7 +699,6 @@ def _selftest():
         '["ATTR","a2",0,"c1",0,0,0,"Footprint","FPA"]',
         '["PAD_NET","c1","1","GND","e1",0]',
         '["LINE","t1",0,"GND",1,0,0,100,0,7.874]',
-        '["VIA","v1",0,"GND",0,50,50,11.811,19.685]',
         '["POLY","ol",0,0,11,0,[0,0,"L",787.4016,0,"L",787.4016,787.4016,"L",'
         '0,787.4016]]',
     ]))
@@ -697,7 +714,7 @@ def _selftest():
     print("  array  dialect: 90 deg courtyard %.3f x %.3f  %s"
           % (w, h, "OK" if good else "FAIL"))
     ok &= good
-    good = len(b.tracks) == 1 and len(b.vias) == 1 and p.pads[0]["net"] == "GND"
+    good = len(b.tracks) == 1 and len(b.vias) == 0 and p.pads[0]["net"] == "GND"
     print("  array  dialect: %d track, %d via, pad1 net %r  %s"
           % (len(b.tracks), len(b.vias), p.pads[0]["net"], "OK" if good else "FAIL"))
     ok &= good
@@ -708,4 +725,9 @@ def _selftest():
 
 if __name__ == "__main__":
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    sys.exit(main(sys.argv))
+    from boardmodel import BoardError
+    try:
+        sys.exit(main(sys.argv))
+    except (BoardError, ValueError, KeyError, TypeError, OSError) as exc:
+        print("NOT_CHECKED: %s" % exc, file=sys.stderr)
+        sys.exit(2)

@@ -5,6 +5,8 @@ import csv
 import json
 from datetime import datetime
 from pathlib import Path
+import workflow_io as io
+import evidence_binding as binding
 
 STATES = {'NOT_RUN', 'PASS', 'FAIL', 'BLOCKED', 'N_A', 'ACCEPTED_LIMITATION', 'STALE'}
 FIELDS = {'id', 'stage', 'check', 'applicability', 'status', 'baseline_id', 'board_id',
@@ -13,14 +15,14 @@ FIELDS = {'id', 'stage', 'check', 'applicability', 'status', 'baseline_id', 'boa
 
 
 def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=False):
-    root = Path(root).resolve(strict=True)
+    root = io.no_link(root).resolve(strict=True)
     if not baseline.strip() or through not in {f'G{i}' for i in range(10)}:
         raise ValueError('Provide a nonempty baseline and a stage G0-G9')
-    with (root / 'CHECKS.csv').open(encoding='utf-8-sig', newline='') as stream:
+    with io.no_link(root / 'CHECKS.csv').open(encoding='utf-8-sig', newline='') as stream:
         reader = csv.DictReader(stream)
         if not reader.fieldnames or len(reader.fieldnames) != len(set(reader.fieldnames)) or set(reader.fieldnames) != FIELDS:
             raise ValueError('CHECKS.csv must have the documented unique columns')
-        rows = list(reader)
+        rows = [{k: v.strip() if isinstance(v,str) else v for k,v in row.items()} for row in reader]
     errors, pending, seen, selected = [], [], set(), 0
     for index, row in enumerate(rows, 2):
         if None in row or any(v is None for v in row.values()):
@@ -57,26 +59,53 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
             errors.append(f'{label}: accepted limitation needs a local decision record')
         if state not in {'PASS', 'N_A'}:
             pending.append({'id': label, 'status': state, 'next_action': row['next_action']})
-        for name in filter(None, (p.strip() for p in row['evidence_path'].split(';'))):
-            path = (root / name).resolve()
+        evidence_names = [p.strip() for p in row['evidence_path'].split(';') if p.strip()]
+        if state in {'PASS', 'ACCEPTED_LIMITATION'} and not evidence_names:
+            errors.append(f'{label}: evidence list must contain a local file')
+        for name in evidence_names:
+            path = io.no_link(root / name).resolve()
             if Path(name).is_absolute() or not path.is_relative_to(root) or not path.is_file() or path.stat().st_size == 0:
                 errors.append(f'{label}: evidence must be a nonempty project-local file: {name}')
     if design_gates:
-        gates = {'PART-IDENTITY': 'G2', 'ROUTING-READY': 'G3', 'RELEASE-FREEZE': 'G5', 'SCH-FORMAT': 'G2', 'SCH-PAGE-BOUNDS': 'G2', 'SCH-BLOCKS': 'G2',
-                 'SCH-TEXT': 'G2', 'PCB-PAD-GAP': 'G3', 'PCB-SILK-GAP': 'G3', 'PCB-SILK-MASK': 'G3'}
-        by_id = {r.get('id', '').strip(): r for r in rows if isinstance(r.get('id'), str)}
-        for ident, stage in gates.items():
-            if int(stage[1:]) > int(through[1:]): continue
-            row = by_id.get(ident)
+        registry=io.read(Path(__file__).resolve().parents[1]/'assets/design-check-registry.json')
+        by_id={r.get('id','').strip():r for r in rows if isinstance(r.get('id'),str)}
+        for gate in registry['checks']:
+            ident,stage=gate['id'],gate['stage']
+            if int(stage[1:])>int(through[1:]):continue
+            row=by_id.get(ident)
             if row is None:
-                errors.append(f'{ident}: required design gate missing'); continue
-            if row.get('stage') != stage or row.get('status') != 'PASS' or row.get('applicability') != 'required':
-                errors.append(f'{ident}: design gate must be required PASS at {stage}')
-            if ident == 'SCH-FORMAT' and row.get('actual') not in {'free-layout', 'framed-layout'}:
+                errors.append(f'{ident}: required registry item missing');continue
+            if row.get('stage')!=stage or row.get('applicability')!=gate['applicability']:
+                errors.append(f'{ident}: registry stage/applicability changed')
+            allowed={'PASS'} if gate['applicability']=='required' else {'PASS','N_A'}
+            if row.get('status') not in allowed:errors.append(f'{ident}: unresolved registry check')
+            if row.get('status')=='N_A' and (not row.get('limitation','').strip() or not row.get('evidence_path','').strip()):
+                errors.append(f'{ident}: N_A requires a scoped decision and evidence')
+            if ident=='SCH-FORMAT' and row.get('actual') not in {'free-layout','framed-layout'}:
                 errors.append('SCH-FORMAT: only free-layout or framed-layout is allowed')
+    coverage = None
+    provenance = None
+    if design_gates and int(through[1:]) >= 2:
+        try:provenance=binding.evaluate(root,baseline,rows,through)
+        except (ValueError,KeyError,TypeError,OSError) as exc:errors.append("Design binding: "+str(exc))
+    if design_gates and int(through[1:]) >= 5:
+        try:
+            import requirement_coverage as rc
+            coverage=rc.evaluate(root,io.read(binding.local(root,'requirements.json')),io.read(binding.local(root,'requirement-checks.json')),baseline)
+            reqs=io.read(binding.local(root,'requirements.json'));mapped=io.read(binding.local(root,'requirement-checks.json'))
+            if provenance and reqs['project_id']!=provenance['project_id']:raise ValueError('Coverage belongs to another project')
+            selected_rows={r.get('id'):r for r in rows if r.get('stage') in {f'G{i}' for i in range(int(through[1:])+1)}}
+            for record in mapped['checks']:
+                if record.get('status')=='PASS':
+                    row=selected_rows.get(record['id'])
+                    if row is None or row.get('status')!='PASS' or record['evidence']['path'] not in {p.strip() for p in row['evidence_path'].split(';')}:raise ValueError('Coverage check lacks corresponding current PASS row: '+record['id'])
+            if coverage['state']!='COVERED_WITH_CURRENT_EVIDENCE':errors.append('Requirement coverage incomplete')
+        except (ValueError,KeyError,TypeError,OSError) as exc:
+            errors.append('Requirement coverage: '+str(exc))
     if selected == 0: errors.append('No check rows in selected stage range')
     return {'scope': 'record-completeness-only', 'through': through, 'selected_checks': selected,
             'record_errors': errors, 'pending': pending,
+            'requirement_coverage': coverage,'design_binding':provenance,
             'records_complete': not errors and not pending,
             'engineering_correctness': 'NOT_ASSESSED'}
 
@@ -87,7 +116,7 @@ def main():
     p.add_argument('--baseline', required=True)
     p.add_argument('--through', default='G5', choices=[f'G{i}' for i in range(10)])
     p.add_argument('--board'); p.add_argument('--firmware')
-    p.add_argument('--design-gates', action='store_true', help='Require schematic format/visual and PCB spacing gate records')
+    p.add_argument('--design-gates', action='store_true', help='Require registered stage checks, current design bindings and G5 requirement coverage')
     args = p.parse_args()
     try: result = audit(args.root, args.baseline, args.through, args.board, args.firmware, args.design_gates)
     except (OSError, ValueError) as exc: p.exit(2, f'ERROR: {exc}\n')

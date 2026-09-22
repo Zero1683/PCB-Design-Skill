@@ -96,3 +96,11 @@ For mask/dam geometry, hole rings, drill-file interpretation and item-specific
 DFM findings, follow [engineering constraints](19-engineering-constraints.md).
 Complete MFG-APERTURES against final exports. Report unverified CAM changes as pending;
 a warning's color never establishes whether it is safe to ignore.
+
+## G5 coverage prerequisite
+
+The design-gates audit also requires project-local `requirements.json` and `requirement-checks.json` with current source/report hashes. Follow [requirement coverage](25-requirement-coverage.md); check-record completeness does not certify engineering correctness.
+
+## Final component estimate
+
+Reconcile selected parts, quantities, packages and DNP status with the exported BOM; refresh 立创商城 price tiers, MOQ and stock for the actual build quantity. Deliver the revised component-only table and both cost totals according to [reference 26](26-component-cost-planning.md). Label unresolved quotes and stock explicitly; do not treat a known subtotal as the full cost.

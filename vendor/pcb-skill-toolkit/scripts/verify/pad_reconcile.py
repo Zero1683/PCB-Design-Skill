@@ -67,38 +67,60 @@ def reconcile(board, netlist=None):
             "no schematic netlist.  This script exists to compare TWO sources; with\n"
             "only one it has nothing to say.  Export the netlist and pass --netlist.")
 
-    want = {}                       # "DES.PAD" -> net, from the schematic
+    if not isinstance(nets, dict):
+        raise BM.BoardError("schematic netlist must be an object")
+    want = {}                       # logical schematic pins: DES.NUM -> net
     for net, members in nets.items():
-        for des, pad in members:
-            want["%s.%s" % (des, str(pad))] = net
+        if not isinstance(net, str) or not net.strip() or not isinstance(members, list):
+            raise BM.BoardError("invalid schematic net or member list: %r" % (net,))
+        for member in members:
+            if (not isinstance(member, (list, tuple)) or len(member) != 2
+                    or any(not isinstance(v, (str, int)) or isinstance(v, bool)
+                           or not str(v).strip() for v in member)):
+                raise BM.BoardError("invalid schematic pin member: %r" % (member,))
+            des, pad = member
+            key = "%s.%s" % (des, pad)
+            if key in want and want[key] != net:
+                raise BM.BoardError("schematic pin %s belongs to conflicting nets %s and %s"
+                                    % (key, want[key], net))
+            want[key] = net
 
-    have = {}                       # "DES.PAD" -> net, from the PCB
-    fp_pads = {}
+    # Keep every physical land. DES.NUM is only a grouping key, never an
+    # overwrite destination for observations from different physical pads.
+    groups, physical = {}, {}
     for rec in board.all_pads():
         key = "%s.%s" % (rec["des"], rec["num"])
-        fp_pads.setdefault(key, 0)
-        fp_pads[key] += 1
-        # a footprint may carry several lands under one pad number; the pad is
-        # "netted" if ANY of its lands is
-        if rec["net"] or key not in have:
-            have[key] = rec["net"]
-
+        groups.setdefault(key, []).append(rec)
     differ, extra, missing = [], [], []
+    for key, records in sorted(groups.items()):
+        for rec in records:
+            identity = ("%s#%s" % (rec["des"], rec["elem"])
+                        if rec.get("elem") is not None else key)
+            if identity in physical:
+                raise BM.BoardError("duplicate physical pad identity: %s" % identity)
+            physical[identity] = rec["net"]
+            # Keep historical single-pad diagnostic labels, disambiguate repeats.
+            label = identity if len(records) > 1 else key
+            if key in want and rec["net"] != want[key]:
+                differ.append((label, want[key], rec["net"]))
+            elif key not in want and rec["net"]:
+                extra.append((label, rec["net"]))
     for key, net in sorted(want.items()):
-        if key not in fp_pads:
+        if key not in groups:
             missing.append((key, net))
-        elif have.get(key, "") != net:
-            differ.append((key, net, have.get(key, "")))
-    for key, net in sorted(have.items()):
-        if net and key not in want:
-            extra.append((key, net))
 
-    multi = {k: v for k, v in fp_pads.items() if v > 1}
-    nets_pcb = {n for n in have.values() if n}
+    multi = {k: len(v) for k, v in groups.items() if len(v) > 1}
+    # The compatibility summary is scalar only where every land agrees;
+    # conflicting observations are retained as a list, never last-write-wins.
+    have = {}
+    for key, records in groups.items():
+        observed = sorted({rec["net"] for rec in records})
+        have[key] = observed[0] if len(observed) == 1 else observed
+    nets_pcb = {n for n in physical.values() if n}
     nets_sch = set(nets)
-    return {"want": want, "have": have, "differ": differ, "extra": extra,
-            "missing": missing, "multi_land_pads": multi,
-            "nets_pcb": nets_pcb, "nets_sch": nets_sch,
+    return {"want": want, "have": have, "physical_have": physical,
+            "differ": differ, "extra": extra, "missing": missing,
+            "multi_land_pads": multi, "nets_pcb": nets_pcb, "nets_sch": nets_sch,
             "net_diff": sorted(nets_pcb ^ nets_sch)}
 
 
@@ -115,8 +137,7 @@ def run(board, netlist=None, top=20, out=None):
         print("pads with SEVERAL lands    : %d %s"
               % (len(r["multi_land_pads"]),
                  sorted(r["multi_land_pads"])[:6]))
-        print("   (these are where net-by-pad-NUMBER binding goes wrong -- see the")
-        print("    module docstring; check them against the element-keyed values)")
+        print("   (every physical land was checked using its element identity)")
     print()
     print("pads whose net DIFFERS                     : %d" % len(r["differ"]))
     for k, wnt, hv in r["differ"][:top]:
@@ -133,7 +154,8 @@ def run(board, netlist=None, top=20, out=None):
 
     per = {}
     for k, _w, _h in r["differ"]:
-        per[k.split(".")[0]] = per.get(k.split(".")[0], 0) + 1
+        des = k.split("#")[0].split(".")[0]
+        per[des] = per.get(des, 0) + 1
     if per:
         print()
         print("differences by component (a block here is usually ONE bad mapping):")
@@ -147,7 +169,8 @@ def run(board, netlist=None, top=20, out=None):
         with open(out, "w", encoding="utf-8") as fh:
             json.dump({"differ": r["differ"], "extra": r["extra"],
                        "missing": r["missing"], "net_diff": r["net_diff"],
-                       "multi_land_pads": r["multi_land_pads"]}, fh, indent=1)
+                       "multi_land_pads": r["multi_land_pads"],
+                       "physical_have": r["physical_have"]}, fh, indent=1)
         print("wrote %s" % out)
     return fails
 
@@ -207,11 +230,15 @@ def main(argv):
     netlist = None
     if "--netlist" in argv:
         with open(argv[argv.index("--netlist") + 1], encoding="utf-8") as fh:
-            netlist = json.load(fh)
+            netlist = json.load(fh, object_pairs_hook=BM.unique_json_object)
     top = int(argv[argv.index("--top") + 1]) if "--top" in argv else 20
     out = argv[argv.index("--json") + 1] if "--json" in argv else None
     return 1 if run(board, netlist=netlist, top=top, out=out) else 0
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        sys.exit(main(sys.argv))
+    except (BM.BoardError, ValueError, OSError) as exc:
+        print("INPUT ERROR: %s" % exc, file=sys.stderr)
+        sys.exit(2)

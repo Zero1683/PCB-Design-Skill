@@ -1,11 +1,12 @@
 import { get } from 'node:http';
 import { spawn } from 'node:child_process';
-import { mkdirSync, openSync, closeSync } from 'node:fs';
+import { mkdirSync, openSync, closeSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const vendor = path.join(root, 'vendor', 'easyeda-api');
+const bundledApiVersion = JSON.parse(readFileSync(path.join(vendor, 'package.json'), 'utf8')).version;
 const mode = process.argv[2] || 'start';
 if (!['start', 'status', 'doctor'].includes(mode)) {
   console.error('Usage: node scripts/easyeda_bridge.mjs [start|status|doctor]');
@@ -66,7 +67,7 @@ const connected = bridges.some(b => b.health.edaConnected);
 const expectedBridgeRevision = 'pcb-design-skill-1.2.0';
 const bridgeUpdateRecommended = bridges.some(b => b.health.integrationRevision !== expectedBridgeRevision);
 const status = !bridges.length ? 'BRIDGE_NOT_FOUND' : connected ? 'EDA_CONNECTED' : 'WAITING_FOR_EDA';
-console.log(JSON.stringify({ status, node: process.versions.node, bundledApiVersion: '1.1.28',
+console.log(JSON.stringify({ status, node: process.versions.node, bundledApiVersion,
   expectedBridgeRevision, bridgeUpdateRecommended,
   upgradeNote: bridgeUpdateRecommended ? 'An existing bridge predates this integration patch. It was not terminated. After saving work and finishing active operations, restart that bridge from this package to load the update; do not terminate unrelated services.' : null,
   startedPid, logPath, bridges,

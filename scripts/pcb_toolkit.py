@@ -39,8 +39,46 @@ def value(args, flag):
     return args[index]
 
 
+def inspection_arguments(tool, args):
+    """Reject ignored/misspelled manual-argv switches before launching a checker."""
+    configs = {
+        'route-accept': (1, {'--baseline', '--protected', '--plane-nets', '--expect-open', '--clearance', '--top', '--json'}, set()),
+        'mask': (2, {'--tol', '--top', '--json'}, {'--assume-all-pads', '--allow-partial-openings'}),
+        'nets': (2, {'--plane-nets', '--json'}, set()),
+    }
+    if tool not in configs: return
+    count, values, switches = configs[tool]
+    seen, positional, i = set(), [], 0
+    while i < len(args):
+        arg = args[i]
+        if arg.startswith('-'):
+            if len(positional) != count: raise ValueError('Input files must precede options')
+            if arg not in values | switches: raise ValueError('Unknown option: ' + arg)
+            if arg in seen: raise ValueError('Duplicate option: ' + arg)
+            seen.add(arg)
+            if arg in values:
+                if i + 1 == len(args) or args[i+1].startswith('--'): raise ValueError('Missing value: ' + arg)
+                raw = args[i+1]
+                if arg == '--top':
+                    if not raw.isdecimal() or int(raw) < 1: raise ValueError('--top must be a positive integer')
+                elif arg in ('--tol', '--clearance'):
+                    number = float(raw)
+                    if not math.isfinite(number) or number < 0 or (arg == '--clearance' and number == 0):
+                        raise ValueError(arg + ' must be finite and nonnegative (clearance positive)')
+                elif arg in ('--protected', '--plane-nets', '--expect-open'):
+                    names = raw.split(',')
+                    if any(not name.strip() for name in names) or len({name.strip() for name in names}) != len(names):
+                        raise ValueError(arg + ' requires unique nonempty names')
+                elif not raw.strip(): raise ValueError('Empty option value: ' + arg)
+                i += 1
+        else: positional.append(arg)
+        i += 1
+    if len(positional) != count: raise ValueError('Expected %d input files for %s' % (count, tool))
+
+
 def preflight(tool, args):
     if args == ['--selftest']: return
+    inspection_arguments(tool, args)
     if tool == 'import':
         rules = json.loads(Path(value(args, '--rules')).read_text(encoding='utf-8'))
         layers = json.loads(Path(value(args, '--layers')).read_text(encoding='utf-8'))
@@ -84,7 +122,7 @@ def main(argv=None):
         print(f'INPUT ERROR: {error}',file=sys.stderr)
         return 2
     # Argument list, never a shell string. Child errors and coverage messages survive.
-    return subprocess.run([sys.executable,str(ROOT/TOOLS[opts.tool]),*opts.args]).returncode
+    return subprocess.run([sys.executable,'-B','-X','utf8',str(ROOT/TOOLS[opts.tool]),*opts.args]).returncode
 
 
 if __name__=='__main__': raise SystemExit(main())

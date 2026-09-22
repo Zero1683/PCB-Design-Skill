@@ -72,3 +72,7 @@ A Type-C connector does not establish power input, charging, USB Host, PD, or hi
 Provide a functional block diagram, preliminary power and pin tables, part-selection direction, mechanical sketch, stage order, and unknowns. Define measurable power, response, accuracy, and temperature-rise requirements before testing; do not redefine acceptance to match the result afterward.
 
 A request to design directly authorizes producing these intermediate artifacts within scope without waiting for approval of every table.
+
+## New ideas and the first cost estimate
+
+Before detailed schematics, map the functional brief to a preliminary component BOM and provide current 立创商城 quotes using [component cost planning](26-component-cost-planning.md). State build-quantity assumptions and separate single-board consumption from the actual component purchase amount. Preserve confirmed functions during cost reduction. Keep unresolved architecture options in separate estimates.

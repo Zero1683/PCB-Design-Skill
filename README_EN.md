@@ -22,6 +22,33 @@
 
 Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, schematic methods, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client. The API layer supplies operation interfaces; the methods library covers functional blocks, batch placement, selective net fanout, and revision cleanup.
 
+## In development: complete gates and substitution review
+
+Added an independent check registry, source-file hash bindings and bounded checker execution records with before/after input verification. Changed designs invalidate previous bindings; resume, replay and save/reopen use the same actual-clearance checks. Substitution review covers every declared requirement, BOM quantity/spare changes and retained quote observations. See [current-design evidence](references/27-current-design-evidence.md) and [fresh-session testing](references/28-fresh-session-benchmark.md). This is a local development update; the whole-board benchmark remains unperformed.
+
+This round fixes disconnected-outline acceptance, unenforced edge clearances,
+overwritten repeated-pad nets and stale report reuse. Regressions cover concave
+notches, slots, duplicate physical identities, empty checks and changed report inputs.
+Unsupported outlines remain unchecked. Imported and newly executed reports share
+baseline and actual-input hash checks. See [validation records](VALIDATION.md).
+
+Geometry acceptance now distinguishes unplated holes from plated barrels and
+checks actual via spans. Connectivity assertions retain every same-number land.
+Protected routing compares before/after geometry; mask coverage uses the union
+of actual openings. Empty or unsupported geometry is NOT_CHECKED; misspelled
+options and weakened clearance overrides are rejected. See the
+[inspection guide](references/18-pcb-inspection-toolkit.md) for supported scope.
+
+## In development: executable constraints and bounded output
+
+Add placement locks, regions, keepouts and height checks. Live schematic moves require a bound constraint file, read-only resume rereads native state, and data queries enforce UTF-8 byte budgets. PCB checks consume exported geometry; native PCB mutation/rollback is not implemented. See the [guide](references/24-executable-constraints.md).
+
+Final readback, intermediate clearance and stale replay are checked. Hollow frames permit contained moves; scoped repair preserves final acceptance requirements. G5 now checks requirement mappings and source/report hashes. Native test1 movement, repair, persistence and restoration passed; whole-board and native PCB writing remain unqualified. See [coverage and capabilities](references/25-requirement-coverage.md).
+
+## From an idea to a component estimate
+
+The Agent organizes functions and requirements, derives a preliminary BOM, and checks current prices at 立创商城. Component-only estimates separate per-board consumption from actual purchases after MOQ and order increments. Cost reduction prioritizes verified compatible alternatives; feature or performance reductions need explicit agreement. Reconcile the final BOM and refresh price/stock observations before handoff. See [cost planning](references/26-component-cost-planning.md).
+
 ## v1.6.0: guarded live EDA writes
 
 Move existing parts on unwired schematic pages through the native API, with preflight interception, property-preserving writes, per-step readback and guarded compensation. Live testing on test1 covered collision/bounds rejection, movement, save/reopen and rollback. See the [live writer guide](references/23-live-eda.md). This does not provide global interception or PCB routing rollback.

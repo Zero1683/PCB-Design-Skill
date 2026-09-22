@@ -42,3 +42,21 @@ on those original files or a physical board. Native-client acceptance is separat
 Additional local adaptation: native PCB import retains each component's native_id
 for the first-party reconciliation adapter. Existing board fields remain available.
 This additive field does not establish full primitive-ID or native restore coverage.
+
+2026-09-22 local acceptance fixes:
+- outline_check.py reconstructs one simple ring from actual endpoints, rejects unsupported
+  topology, enforces full-edge copper/drill margins and records empty/omitted scope.
+- boardmodel.py retains physical element nets and rejects ambiguous repeated lands;
+  pad_reconcile.py compares every physical land and rejects contradictory pin membership.
+These changes have synthetic/public-CLI regression evidence; they do not extend
+native-client or physical-board qualification.
+
+2026-09-22 physical inspection corrections:
+- boardmodel/import_easyeda preserve supported plating and layer spans; unsupported
+  native encodings fail explicitly instead of becoming through-vias.
+- route_accept compares protected copper geometry with a baseline and records
+  PASS/FAIL/NOT_CHECKED with coverage. Equivalent straight segmentation is retained.
+- netlist_assert checks all physical lands per logical pin and actual plane reach.
+- mask_check computes supported circle/polygon opening unions, explicitly scopes
+  partial openings and untagged pads, and rejects unsupported raw Gerber semantics.
+- Public wrapper validates inspection arguments before vendor dispatch.

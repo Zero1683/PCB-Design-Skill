@@ -25,6 +25,10 @@ For EasyEDA, load the **bundled** API skill before choosing an interaction metho
 
 Use native autorouting for suitable ordinary nets after critical placement, power, and sensitive routes are planned. Preserve completed routes and verify the result. This can reduce per-segment agent work; it does not remove engineering checks or guarantee a particular token saving. Follow [routing strategy](references/03-layout-routing.md).
 
+## Idea-to-cost planning
+
+For a new idea, first organize functions and requirements, derive a preliminary component BOM, and query current 立创商城 prices before detailed schematic work. Follow [component cost planning](references/26-component-cost-planning.md): show component-only consumption and actual purchase totals using build quantity, MOQ, order increments and applicable tiers. If quantity is unknown, state a one-board estimate. Cost reduction preserves confirmed functions and performance unless the user explicitly accepts a downgrade. Refresh the BOM and quotes at G5. This is read-only price research, not purchasing, and does not add a routine approval pause.
+
 ## EasyEDA backend selection
 
 Read [operation backends](references/16-easyeda-operation-backends.md) when selecting or changing an EDA integration. Official API and native-format references are bundled, alongside the schematic methods. Community easyeda-agent is an optional typed CLI/Connector backend; easyeda-mcp-pro is an optional external MCP backend with its own license. Neither is required or installed automatically. Keep one selected writer for an operation scope and retain this skill's full design sequence and acceptance gates.
@@ -65,6 +69,10 @@ Gerber/drill/mask checks, mesh envelopes and optional DSN/SES routing. Invoke th
 `scripts/pcb_toolkit.py`; supply actual rule/layer inputs and verify extraction
 coverage before trusting geometry. Unsupported formats and missing objects fail
 explicitly. Toolkit board JSON is not the normalized schema in reference 10.
+Require nonempty measured coverage. Distinguish FAIL from NOT_CHECKED; unsupported
+geometry cannot establish acceptance. Protected routing needs a prior geometric
+baseline. Confirm pad plating, actual layer spans and mask-opening policy before
+using their results; details are in reference 18.
 These tools supplement existing stage gates; script success is not board acceptance.
 
 ## Measured schematic placement
@@ -117,7 +125,7 @@ Apply stages relevant to the authorized scope. These are engineering criteria, n
 | Stage | Required outcome | Reference |
 |---|---|---|
 | G0 Requirements and baseline | Functions, power, mechanics, assembly, manufacturing constraints, unknowns, and authoritative revision identified | [01](references/01-intake-and-recovery.md) |
-| G1 Architecture and parts | Power states, budgets, pin assignment, procurable parts, and datasheet sources | [02](references/02-circuit-and-library.md) |
+| G1 Architecture and parts | Functional baseline, power/pin plan, procurable preliminary BOM, component-only cost estimate with MOQ and actual tiers, and datasheet sources | [02](references/02-circuit-and-library.md), [26](references/26-component-cost-planning.md) |
 | G2 Schematics and footprints | G2-A component inventory and unwired placement review; G2-B wiring, readable drawing, pin/footprint checks, ERC disposition, and consistent BOM | [02](references/02-circuit-and-library.md), [12](references/12-schematic-drafting.md) |
 | G3 Placement | Mechanical and physical envelopes clear, critical routes feasible, manual assembly unambiguous | [03](references/03-layout-routing.md) |
 | G4 Routing and ground | Appropriate power paths, critical interfaces, and returns; final copper readback and complete connectivity evidence | [03](references/03-layout-routing.md) |
@@ -146,6 +154,16 @@ Read [instructions, actions, and failure modes](references/07-case-lessons.md) f
 
 At G1/G2, calculate supply/load budgets and component operating margins. At G4, update calculations from actual geometry: DC path drop/loss, load-step budget, relevant signal impedance and return paths. Use [electrical analysis](references/09-electrical-analysis.md) and its reproducible calculator. Do arithmetic with available tools; ask the user only for unavailable inputs, inaccessible calculators, or physical measurements, with exact fields and units. Do not ask a beginner to invent stackup values or interpret an unexplained impedance number.
 
+## Persistent constraints
+
+Before placement changes and after task resumption, reload the current constraint revision, native state and open items. Use [executable constraints and bounded context](references/24-executable-constraints.md): bind mechanical rules to actual IDs/units, require them for guarded live batches, and use output-budgeted data queries. This does not provide native PCB mutation or full 3D checking.
+
+## Requirement coverage
+
+At stage acceptance, use [current-design evidence](references/27-current-design-evidence.md) and `check_evidence.py --design-gates`. Enforce every registered check through that stage, bind observations to current saved source hashes, and review carry-forward rather than refreshing stale hashes. G2 completion includes both placement and wiring; retain G2-A as its own historical observation. For a new-session whole-board test, follow [benchmark evidence](references/28-fresh-session-benchmark.md).
+
+At intake and before G5, use [requirement coverage](references/25-requirement-coverage.md) to map each sourced requirement to checks and current hashed evidence. Unmapped requirements and stale evidence block release-record acceptance. Inspect the capability matrix before claiming support for a native operation.
+
 ## Guarded native writes
 
 For G2-A moves of existing parts on an unwired EasyEDA page, use [the guarded live writer](references/23-live-eda.md). It captures native state, preflights the batch, preserves writable properties, verifies actual writes and performs guarded compensation. Use its explicit save/reopen check before claiming persistence. Other native operations retain their selected backend and normal gates; this wrapper does not intercept external calls.
@@ -156,6 +174,7 @@ For G2-A moves of existing parts on an unwired EasyEDA page, use [the guarded li
 - `python scripts/release_manifest.py create --root <frozen-release-directory> --revision <revision> --baseline <baseline-id>` generates byte counts and SHA-256 hashes for a prepared release package without modifying the PCB.
 - `python scripts/release_manifest.py verify --root <frozen-release-directory>` checks missing, added, and changed files and rejects path traversal and symbolic links. It verifies package integrity, not schematics, impedance, or hardware acceptance.
 - `python scripts/check_evidence.py --root <project-directory> --baseline <baseline-id> --through G5 --design-gates` enforces required design-gate rows and checks record completeness, evidence files, and baseline identity. It does not certify the circuit.
+- `python scripts/component_cost.py --input <component-quotes.json>` calculates component-only per-board consumption and MOQ/tier-aware purchase amounts from observed quotes. See [26](references/26-component-cost-planning.md); it does not query prices or purchase parts.
 - `python scripts/electrical_calcs.py --input <calculations.json>` calculates sourced first-order power, loss, DC path, and transient budgets; see [09](references/09-electrical-analysis.md).
 - `python scripts/audit_design.py compare <schematic.json> <pcb.json>` compares normalized records; `geometry <pcb.json> --clearance-mm <value>` screens body envelopes. See [data contracts](references/10-validation-tools.md); these are not native EDA parsers.
 - `python scripts/check_connectivity.py <snapshot.json> <circuit-checks.json>` checks declared pin relationships against a normalized native export. `python scripts/audit_design.py diff <before.json> <after.json>` reports component/pin changes between revisions. See [13](references/13-circuit-intent-and-reuse.md); neither result certifies electrical or physical correctness.

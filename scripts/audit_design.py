@@ -3,6 +3,7 @@
 import argparse
 import json
 import math
+from report_provenance import read_source
 from pathlib import Path
 
 
@@ -95,8 +96,9 @@ def geometry(data, clearance):
             gap=math.hypot(dx,dy)
             if overlap or gap < clearance:
                 pairs.append({'refs':[ref,other],'aabb_overlap':overlap,'aabb_gap_mm':gap})
+    if not boxes and not missing: raise ValueError('No fitted components to screen')
     return {'scope':'conservative-body-envelope-screen-only','baseline_id':data['baseline_id'],
-            'suspect_pairs':pairs,'missing_geometry':missing,
+            'suspect_pairs':pairs,'missing_geometry':missing,'checked_components':len(boxes),
             'geometry_acceptance':'NOT_ASSESSED',
             'limitations':'Board-coordinate transformed AABBs may over-report rotated bodies. No pad/copper, outline, mating-space, height or opposite-side validation.'}
 
@@ -120,9 +122,15 @@ def main():
     g=sub.add_parser('geometry');g.add_argument('pcb',type=Path);g.add_argument('--clearance-mm',type=float,required=True)
     args=p.parse_args()
     try:
-        if args.mode=='compare':result=compare(read_json(args.left),read_json(args.right))
-        elif args.mode=='diff':result=revision_diff(read_json(args.before),read_json(args.after))
-        else:result=geometry(read_json(args.pcb),args.clearance_mm)
+        if args.mode in ('compare', 'diff'):
+            left, lp = read_source(args.left if args.mode == 'compare' else args.before, 'left')
+            right, rp = read_source(args.right if args.mode == 'compare' else args.after, 'right')
+            result = compare(left, right) if args.mode == 'compare' else revision_diff(left, right)
+            result['source_inputs'] = [lp, rp]
+        else:
+            data, source = read_source(args.pcb, 'snapshot')
+            result=geometry(data,args.clearance_mm)
+            result['source_inputs'] = [source]
     except (OSError,ValueError,KeyError,TypeError) as exc:p.exit(2,f'ERROR: {exc}\n')
     print(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False))
     return int(not result['records_match']) if args.mode in {'compare','diff'} else int(bool(result['suspect_pairs'] or result['missing_geometry']))

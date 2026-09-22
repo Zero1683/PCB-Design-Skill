@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from audit_design import load_snapshot, read_json
+from report_provenance import read_source
 
 
 def check(snapshot, contract):
@@ -95,7 +96,10 @@ def main():
     parser.add_argument('contract', type=Path)
     args = parser.parse_args()
     try:
-        result = check(read_json(args.snapshot), read_json(args.contract))
+        snapshot, sp = read_source(args.snapshot, 'snapshot')
+        contract, cp = read_source(args.contract, 'contract')
+        result = check(snapshot, contract)
+        result['source_inputs'] = [sp, cp]
     except (OSError, ValueError, KeyError, TypeError) as error:
         parser.exit(2, f'ERROR: {error}\n')
     print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))

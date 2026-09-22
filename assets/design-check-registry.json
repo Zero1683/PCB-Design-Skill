@@ -1,0 +1,257 @@
+{
+  "schema": 1,
+  "revision": "1",
+  "scope": "standard PCB design and bring-up checks; project-specific checks are additive",
+  "checks": [
+    {
+      "id": "REQ-BASELINE",
+      "stage": "G0",
+      "applicability": "required"
+    },
+    {
+      "id": "POWER-STATES",
+      "stage": "G1",
+      "applicability": "required"
+    },
+    {
+      "id": "PARTS-SOURCES",
+      "stage": "G1",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-FORMAT",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "PIN-FOOTPRINT",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-INVENTORY",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-PLACEMENT",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-UNWIRED",
+      "stage": "G2",
+      "applicability": "assess"
+    },
+    {
+      "id": "SCH-WIRING",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-VISUAL",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-ERC",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "NET-BOM",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "POWER-MARGINS",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "LOGIC-BOOT",
+      "stage": "G2",
+      "applicability": "assess"
+    },
+    {
+      "id": "SCH-PAGE-BOUNDS",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-BLOCKS",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "SCH-TEXT",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "PART-IDENTITY",
+      "stage": "G2",
+      "applicability": "required"
+    },
+    {
+      "id": "MECHANICAL",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "LAYOUT-VISUAL",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "PCB-PAD-GAP",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "PCB-SILK-GAP",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "PCB-SILK-MASK",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "ROUTING-READY",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "STACKUP-RULES",
+      "stage": "G3",
+      "applicability": "required"
+    },
+    {
+      "id": "DENSE-ESCAPE",
+      "stage": "G3",
+      "applicability": "assess"
+    },
+    {
+      "id": "POWER-ROUTING",
+      "stage": "G4",
+      "applicability": "required"
+    },
+    {
+      "id": "GROUND-RETURN",
+      "stage": "G4",
+      "applicability": "required"
+    },
+    {
+      "id": "IMPEDANCE",
+      "stage": "G4",
+      "applicability": "assess"
+    },
+    {
+      "id": "PCB-DRC",
+      "stage": "G4",
+      "applicability": "required"
+    },
+    {
+      "id": "POWER-DC",
+      "stage": "G4",
+      "applicability": "required"
+    },
+    {
+      "id": "POWER-PDN",
+      "stage": "G4",
+      "applicability": "assess"
+    },
+    {
+      "id": "THERMAL-PATH",
+      "stage": "G4",
+      "applicability": "assess"
+    },
+    {
+      "id": "MFG-PREVIEW",
+      "stage": "G5",
+      "applicability": "required"
+    },
+    {
+      "id": "ASSEMBLY-DOC",
+      "stage": "G5",
+      "applicability": "required"
+    },
+    {
+      "id": "RELEASE-FREEZE",
+      "stage": "G5",
+      "applicability": "required"
+    },
+    {
+      "id": "MFG-APERTURES",
+      "stage": "G5",
+      "applicability": "required"
+    },
+    {
+      "id": "ASSEMBLY-COLD",
+      "stage": "G6",
+      "applicability": "required"
+    },
+    {
+      "id": "POWER-ON",
+      "stage": "G7",
+      "applicability": "required"
+    },
+    {
+      "id": "RECOVERY-FLASH",
+      "stage": "G7",
+      "applicability": "assess"
+    },
+    {
+      "id": "GPIO-LED",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "GPIO-BUTTON",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "SENSOR-DATA",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "SENSOR-IRQ",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "SLEEP-WAKE",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "LINK-DATA",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "POWER-CORNERS",
+      "stage": "G8",
+      "applicability": "required"
+    },
+    {
+      "id": "POWER-TRANSIENT",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "STANDALONE",
+      "stage": "G8",
+      "applicability": "assess"
+    },
+    {
+      "id": "HANDOFF",
+      "stage": "G9",
+      "applicability": "required"
+    }
+  ]
+}

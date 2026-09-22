@@ -1,3 +1,36 @@
+# Unreleased · 约束执行与上下文读取 / Executable constraints and bounded output
+
+- Add sourced, revisioned placement locks, allowed regions, keepouts and height checks; unknown height blocks applicable acceptance.
+- Require constraint files for new guarded native schematic batches; verify source, target and intermediate states. Bind rule contents and local file hashes to journals.
+- Add read-only resume with fresh native state inspection; changed rules or lost sessions require reconciliation.
+- Bound summary/query/diff by actual UTF-8 output bytes. Preserve oversized records on disk and return explicit digest handles with correct pagination.
+- Add offline PCB geometry checks and document routing capability review. No native PCB writer/rollback or complex-board qualification is claimed.
+
+- Recheck actual final geometry and ordered intermediate clearance; detect stale operation replays before returning success.
+- Support native empty rectangle interiors and explicitly scoped repair of invalid contract baselines; preserve final rules and expose restored baseline defects.
+- Add requirement/check/evidence mapping with file hashes to G5 design gates; reject separator-only evidence paths.
+- Record native test1 frame/move/repair/persistence/restoration evidence and an explicit capability matrix. Whole-board benchmarking and native PCB mutation remain pending.
+
+- Add idea-to-function-to-BOM component costing with current 立创商城 quote sources, MOQ/order increments and separate consumption/purchase totals.
+- Add decimal quote arithmetic with explicit missing-price/stock handling; preserve functional requirements during cost reduction and reconcile final BOM costs at G5.
+
+- Enforce the independent G0-G9 minimum check registry, current saved-design hashes, explicit manual/composite gate decisions and mapped-check reconciliation.
+- Add fixed read-only checker execution recording with input/tool drift detection; preserve raw failed/blocked observations without promoting them to PASS.
+- Unify actual geometry validation for apply, replay, resume and save/reopen; derive bridge diagnostic version from the bundled package.
+- Add requirement-by-requirement substitution review, complete quote observation coverage, explicit BOM quantity/spare changes and retained source captures.
+- Document a fresh-session G0-G5 benchmark; software regressions do not replace native whole-board testing.
+
+- Reconstruct one actual outline ring; reject gaps, branches, overlapping/self-intersecting and unsupported multi-ring outlines without bounding-box fallback.
+- Enforce copper/drill edge clearances along full geometry, including concave notches and slot centrelines; distinguish omitted/empty coverage.
+- Preserve per-element physical pad nets and reconcile every repeated-number land; reject ambiguous identities and conflicting net memberships.
+- Bind imported and freshly executed reports to the same baseline and actual parsed input hashes; reject vacuous fitted-body checks and contradictory quote-row outcomes.
+
+- Separate unplated layer copper from plated barrels, preserve explicit via spans and reject unsupported native hole/span encodings.
+- Evaluate every physical land in logical-pin assertions; require actual plane reach for modeled plane assumptions.
+- Compare protected route geometry to its baseline, preserving equivalent collinear segmentation and polygon ring ordering.
+- Replace mask bounding-box/centre matching with supported opening-union coverage; expose partial-opening policy and reject empty/unsupported scopes.
+- Reject misspelled, duplicate and invalid inspection options, weakened clearances and malformed physical geometry.
+
 # v1.6.0 · 真实 EDA 受控写入 / Guarded live EDA writes
 
 - 新增原生无连线原理图元件移动入口，支持写前碰撞、越界、源状态和字段检查。

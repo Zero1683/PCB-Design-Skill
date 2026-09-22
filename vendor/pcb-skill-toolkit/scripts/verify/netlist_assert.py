@@ -69,11 +69,12 @@ import boardmodel as BM                                               # noqa: E4
 
 
 class Obj(object):
-    __slots__ = ("pts", "r", "layers", "kind", "ref", "bb")
+    __slots__ = ("pts", "r", "layers", "kind", "ref", "bb", "net")
 
-    def __init__(self, pts, r, layers, kind, ref):
+    def __init__(self, pts, r, layers, kind, ref, net=""):
         self.pts, self.r, self.kind, self.ref = pts, r, kind, ref
         self.layers = tuple(layers)
+        self.net = net
         bb = G.bbox_of(pts)
         self.bb = (bb[0] - r, bb[1] - r, bb[2] + r, bb[3] + r)
 
@@ -87,10 +88,12 @@ def copper_objects(board):
     for v in board.vias:
         out.append(Obj([(v["x"], v["y"])],
                        float(v.get("pad") or board.rules["via_pad"]) / 2.0,
-                       cu, "via", None))
+                       board.via_layers(v), "via", None, v.get("net", "")))
     for rec in board.all_pads():
-        out.append(Obj(rec["poly"], 0.0, rec["layers"], "pad",
-                       "%s.%s" % (rec["des"], rec["num"])))
+        layer_groups = [rec["layers"]] if rec.get("layer_bridge") else [(layer,) for layer in rec["layers"]]
+        for layers in layer_groups:
+            out.append(Obj(rec["poly"], 0.0, layers, "pad",
+                           "%s.%s" % (rec["des"], rec["num"]), rec["net"]))
     return out
 
 
@@ -138,26 +141,14 @@ def groups(board, plane_nets=(), tol=1e-6):
         # or a through-hole pad) is treated as touching that net's plane.  This is a
         # MODEL of copper this geometry cannot see, and it is applied per declared net
         # so that two different plane nets are never merged with each other.
-        pad_net = {}
-        for rec in board.all_pads():
-            pad_net["%s.%s" % (rec["des"], rec["num"])] = rec["net"]
-        via_net = {}
-        vi = 0
-        for k, o in enumerate(objs):
-            if o.kind == "via":
-                via_net[k] = board.vias[vi].get("net", "")
-                vi += 1
         anchors = {}
         for k, o in enumerate(objs):
-            if o.kind == "pad":
-                net = pad_net.get(o.ref, "")
-            elif o.kind == "via":
-                net = via_net.get(k, "")
-            else:
+            if o.kind not in ("pad", "via"):
                 continue
+            net = o.net
             if net not in plane_nets:
                 continue
-            if len(o.layers) < 2:
+            if len(o.layers) < 2 or not set(o.layers) & set(board.layers.get("solid_planes", [])):
                 continue                    # single-layer: no way down to the plane
             if net in anchors:
                 union(k, anchors[net])
@@ -199,18 +190,19 @@ def evaluate(board, assertions, plane_nets=()):
                 raise ValueError("Connection rules need at least two distinct references")
     if not total:
         raise ValueError("An empty assertion set cannot establish connectivity")
+    if plane_nets and not board.layers.get("solid_planes"):
+        raise ValueError("Plane net assumptions require declared solid plane layers")
     if any(not resolve(board, n) for n in plane_nets):
         raise ValueError("Declared plane net does not resolve to any pad")
     objs, gid = groups(board, plane_nets)
     by_ref = {}
     for i, o in enumerate(objs):
         if o.ref:
-            by_ref[o.ref] = i
+            by_ref.setdefault(o.ref, []).append(i)
     results = []
 
     def gof(ref):
-        i = by_ref.get(ref)
-        return None if i is None else gid[i]
+        return {gid[i] for i in by_ref.get(ref, [])}
 
     def unresolved(members):
         return [m for m in members if not resolve(board, m)
@@ -226,13 +218,13 @@ def evaluate(board, assertions, plane_nets=()):
             refs += resolve(board, m)
         missing = [r for r in refs if r not in by_ref]
         gs = {r: gof(r) for r in refs if r in by_ref}
-        distinct = set(gs.values())
+        distinct = set().union(*gs.values()) if gs else set()
         okk = (not missing) and len(distinct) <= 1 and bool(gs)
         results.append(("must_connect", grp, okk,
                         "missing pads %s" % missing if missing else
                         ("%d distinct copper groups: %s"
                          % (len(distinct),
-                            {r: g for r, g in list(gs.items())[:8]}) if not okk
+                            {r: sorted(g) for r, g in list(gs.items())[:8]}) if not okk
                          else "all %d pad(s) on one piece of copper" % len(gs))))
 
     for grp in assertions.get("must_not_connect", []):
@@ -246,8 +238,8 @@ def evaluate(board, assertions, plane_nets=()):
         pairs_bad = []
         for a in range(len(refs)):
             for b in range(a + 1, len(refs)):
-                ga = {gof(r) for r in refs[a][1] if r in by_ref}
-                gb = {gof(r) for r in refs[b][1] if r in by_ref}
+                ga = set().union(*(gof(r) for r in refs[a][1]))
+                gb = set().union(*(gof(r) for r in refs[b][1]))
                 shared = ga & gb
                 if shared:
                     pairs_bad.append((refs[a][0], refs[b][0], sorted(shared)[:3]))
@@ -263,16 +255,16 @@ def evaluate(board, assertions, plane_nets=()):
         refs = resolve(board, m)
         bad = []
         for r in refs:
-            i = by_ref.get(r)
-            if i is None:
+            indices = by_ref.get(r, [])
+            if not indices:
                 bad.append((r, "no such pad"))
                 continue
-            g = gid[i]
-            others = [objs[k] for k in range(len(objs)) if gid[k] == g and k != i]
+            copper_groups = {gid[i] for i in indices}
+            others = [objs[k] for k in range(len(objs))
+                      if gid[k] in copper_groups and objs[k].ref != r]
             if others:
                 bad.append((r, "touches %d other object(s): %s"
-                            % (len(others),
-                               [o.ref or o.kind for o in others[:5]])))
+                            % (len(others), [o.ref or o.kind for o in others[:5]])))
         results.append(("must_be_open", m, not bad,
                         "floats" if not bad else str(bad)))
     return results
@@ -365,7 +357,7 @@ def main(argv):
         return 2
     board = BM.load(argv[1])
     with open(argv[2], encoding="utf-8") as fh:
-        assertions = json.load(fh)
+        assertions = json.load(fh, object_pairs_hook=BM.unique_json_object)
     pn = []
     if "--plane-nets" in argv:
         pn = [s.strip() for s in argv[argv.index("--plane-nets") + 1].split(",") if s.strip()]
@@ -374,4 +366,8 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        sys.exit(main(sys.argv))
+    except (ValueError, OSError, KeyError, IndexError) as error:
+        print("INPUT ERROR: %s" % error, file=sys.stderr)
+        sys.exit(2)

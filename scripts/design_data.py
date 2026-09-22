@@ -135,6 +135,34 @@ def delta(before, after, offset=0, limit=25):
             'scope':'component-records-and-preserved-board-sections; not native geometry acceptance'}
 
 
+def bounded_output(result, max_bytes=16384, items_key=None, offset=0):
+    """Limit complete UTF-8 JSON + newline; oversized records become explicit digest handles."""
+    if type(max_bytes) is not int or not 1024 <= max_bytes <= 1048576:
+        raise ValueError('max-bytes must be 1024..1048576')
+    def size(v): return len(io.encoded(v)) + 1
+    if items_key is None:
+        if size(result) > max_bytes: raise ValueError('Metadata exceeds output budget; use an offline export')
+        return result
+    page=copy.deepcopy({k:v for k,v in result.items() if k!=items_key})
+    page[items_key]=[]
+    page['budget']={'max_bytes':max_bytes,'oversized_records':0,'size_unit':'UTF-8 bytes including newline'}
+    page['next_offset']=offset if offset < page['total'] else None
+    if size(page)>max_bytes: raise ValueError('Page metadata exceeds output budget; use an offline export')
+    consumed=0
+    for record in result[items_key]:
+        candidate=copy.deepcopy(page);candidate[items_key].append(record)
+        candidate['next_offset']=offset+consumed+1 if offset+consumed+1<page['total'] else None
+        if size(candidate)>max_bytes:
+            if consumed: break
+            handle={'oversized':True,'record_offset':offset,'record_digest':io.digest(record),
+                    'record_bytes':len(io.encoded(record)),
+                    'retrieve':'export full board/normalized data to a local file; inspect this record offline'}
+            candidate[items_key]=[handle];candidate['budget']['oversized_records']=1
+            if size(candidate)>max_bytes: raise ValueError('Output budget cannot hold record handle')
+        page=candidate;consumed+=1
+    return page
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__); sub=p.add_subparsers(dest='action',required=True)
     b=sub.add_parser('build');b.add_argument('--snapshot',type=Path,required=True);b.add_argument('--board',type=Path,required=True)
@@ -142,6 +170,7 @@ def main():
     h=sub.add_parser('hash');h.add_argument('input',type=Path)
     for command in ('summary','query','diff','export'):
         q=sub.add_parser(command);q.add_argument('input',type=Path)
+        if command in ('summary','query','diff'):q.add_argument('--max-bytes',type=int,default=16384)
         if command=='diff':q.add_argument('after',type=Path)
         if command in ('query','diff'):
             q.add_argument('--offset',type=int,default=0);q.add_argument('--limit',type=int,default=25)
@@ -161,7 +190,9 @@ def main():
             elif args.action=='diff':result=delta(data,validate(io.read(args.after)),args.offset,args.limit)
             else:
                 io.save(args.output,data[args.format],exclusive=True);result={'file':str(args.output.resolve()),'format':args.format}
-        print(io.encoded(result).decode())
+        if args.action in ('summary','query','diff'):
+            result=bounded_output(result,args.max_bytes,{'query':'items','diff':'changes'}.get(args.action),getattr(args,'offset',0))
+        sys.stdout.buffer.write(io.encoded(result)+b'\n')
     except (ValueError,KeyError,TypeError,OSError) as error: p.exit(2,'ERROR: '+str(error)+'\n')
 
 

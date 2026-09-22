@@ -186,7 +186,7 @@ connections". It is monotone, comparable between runs, and goes to zero exactly 
 board is connected — which is what makes two candidate sessions comparable on one ruler.
 `--baseline` prints the delta.
 
-Gates: protected nets still one island · solid planes uncut · different-net clearance at
+Gates: protected nets remain one island and preserve baseline geometry · solid planes uncut · different-net clearance at
 the rule · merges == 0. `--expect-open` moves deliberately-withheld nets out of the
 failure count **and lists them every time**, so "we meant to do that" stays a decision
 somebody made rather than a silence.
@@ -240,3 +240,9 @@ the watcher uses its own start time. Always use a fresh per-run directory/log an
 record input hashes. Exit 0 only identifies a fresh stable candidate; parse and
 verify the route before accepting it. Windows PID checks use non-destructive
 process handles. Access failure is unknown, not proof of process exit.
+
+Local acceptance scope: `--protected` requires `--baseline`; equivalent collinear
+segmentation is accepted, while changed copper geometry fails. Empty netted-pad
+coverage and unsupported geometry return NOT_CHECKED. NPTH never bridges layers;
+explicit via spans are respected. Plane-net connectivity remains an assumption.
+Compare island deltas only when the intended object/net inventory is unchanged.

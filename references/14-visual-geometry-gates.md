@@ -47,3 +47,7 @@ Save a full-page/whole-board view and readable detail views. For PCB delivery in
 ## Required design profile
 
 For new designs and full design release, run `python scripts/check_evidence.py --root <project-directory> --baseline <id> --through G5 --design-gates`. Required G2 rows: PART-IDENTITY, SCH-FORMAT, SCH-PAGE-BOUNDS, SCH-BLOCKS, SCH-TEXT. Required G3 rows: ROUTING-READY, PCB-PAD-GAP, PCB-SILK-GAP, PCB-SILK-MASK. Required G5 row: RELEASE-FREEZE. Each must be PASS on the current baseline with evidence. SCH-FORMAT actual must be exactly free-layout or framed-layout. At intermediate --through G2 only G2 rows are enforced. Keep earlier stage IDs for final rechecks and update the evidence baseline. Do not claim this metadata check automatically verifies native geometry.
+
+## G5 coverage prerequisite
+
+The design-gates audit also requires project-local `requirements.json` and `requirement-checks.json` with current source/report hashes. Follow [requirement coverage](25-requirement-coverage.md); check-record completeness does not certify engineering correctness.
