@@ -15,49 +15,50 @@
   <img src="https://img.shields.io/badge/EasyEDA-bundled-333333?style=flat-square" alt="EasyEDA tools bundled">
 </p>
 
-<p align="center"><a href="#近期更新">近期更新</a> · <a href="#安装">安装</a> · <a href="#核心能力">核心能力</a> · <a href="#使用示例">使用示例</a> · <a href="#文档索引">文档索引</a></p>
+<p align="center"><a href="#近期更新">近期更新</a> · <a href="#内置第三方工具">第三方工具</a> · <a href="#安装">安装</a> · <a href="#核心能力">核心能力</a> · <a href="#使用示例">使用示例</a> · <a href="#文档索引">文档索引</a></p>
 <p align="center"><strong>简体中文</strong> · <a href="README_EN.md">English</a></p>
 
 ---
 
 将硬件需求转化为电路设计、PCB 工程与制造文件，提供封装核验、布局布线检查和首板调试流程。内置 EasyEDA API、原理图辅助方法库、本地桥接服务及运行依赖，支持在嘉立创EDA中执行工程操作。API 负责接口调用，辅助方法库提供功能分区、批量摆放、网络引出和修改清理流程。
 
-## 开发中：验收防遗漏与替代料对账
-
-已加入独立必检清单、设计源文件哈希绑定，以及带输入前后核验的检查器执行记录。旧报告不能直接沿用到改过的工程；恢复、重放与保存重开统一核对实际间距。替代料按需求逐项审查，列出 BOM 数量和备料变化，保留原始报价。见[验收记录](references/27-current-design-evidence.md)和[新窗口实测](references/28-fresh-session-benchmark.md)。本次为本地开发更新，整板实测尚未完成。
-
-本轮修复板框断线漏检、板边间距未执行、同号焊盘网络被覆盖和旧报告误用。补测凹口、槽孔、重复焊盘身份、空检查及报告输入变化；无法解析的轮廓明确标为未检查。导入报告和现场运行统一核对基线及实际输入哈希。详情见[验证记录](VALIDATION.md)。
-
-继续补齐几何验收：区分非金属化孔和导通孔，核对过孔实际跨层范围；同号焊盘逐个做连通与隔离检查。保护走线按修改前后的形状比较，阻焊按实际开窗并集计算。空数据和不支持的几何标为 `NOT_CHECKED`，参数拼错或规则被放宽会被拒绝。测试与适用范围见[检查工具说明](references/18-pcb-inspection-toolkit.md)。
-
-## 开发中：约束执行与上下文读取
-
-新增固定位置、允许区域、禁布区和限高检查。实时原理图移动必须绑定约束文件，恢复任务时重新读取现场；数据查询增加 UTF-8 字节预算。PCB 几何检查目前通过导出数据执行，不代表已支持 PCB 自动写入或回滚。详见[使用说明](references/24-executable-constraints.md)。
-
-完成最终回读、逐步间距和过期成功状态检查；空心分区框支持框内移动，定向修复保留原有验收要求。G5 增加需求、检查项与证据哈希的对应核验。test1 已实测移动、修复、保存重开和原状态恢复；整板流程与 PCB 原生写入仍待验证。见[覆盖范围](references/25-requirement-coverage.md)。
-
-## 从想法到元件预算
-
-输入一个硬件想法，Agent 会先梳理功能和需求，再整理初步 BOM、查询立创商城价格。报价表只包含元件，分别列出单板用量成本和计入起订量、包装倍数后的实际采购金额。要求降本时优先寻找兼容替代料；功能或性能削减需要明确同意。设计定稿后重新核对 BOM、库存和价格。见[成本规划](references/26-component-cost-planning.md)。
-
 ## 近期更新
 
-最近几轮更新覆盖绘图规范、EDA 操作、独立检查和失败恢复。**v1.6.0 接入真实 EDA 受控写入：无连线原理图支持元件移动、写前拦截、保存重开核对和批次回滚。** 可下载完整发布包，或克隆仓库使用。
+`main` 已包含 v1.6.0 之后的验收、几何检查和成本规划更新。**本轮软件回归 356 项通过，另完成 17 个工具自检。** 测试范围见[验证记录](VALIDATION.md)，逐版变化见[更新日志](CHANGELOG.md)。测试当前改进请下载 `main`；已发布的 Release 保留各自版本内容。
 
-| 方向 | 已加入的内容 |
+| 方向 | 当前能力 |
 |---|---|
-| 原理图绘制 | 限定自由分区和图框内分区两种格式；先检查无连线的元件摆放，再完成连线。补充边界、文字间距和常见排版问题的处理方法；新增实测功能块规划及写入后对账 |
-| EDA 操作 | 内置官方 API、原理图辅助方法、原生格式文档与校验依赖；支持批量摆放、网络引出和明确的操作后端选择 |
-| PCB 与制造检查 | 增加受支持原生数据提取、器件间距与逃线空间筛查、Gerber／钻孔／阻焊检查，以及 DSN／SES 布线辅助 |
-| 电气与工艺计算 | 将原厂依据、计算条件、EDA 规则和导出复核绑定到同一版本；补充供电、回流、热设计、扇出通道、阻焊桥与孔环余量检查 |
-| 数据读取 | 核对两套 PCB 数据中的器件与逐脚网络；提供摘要、分页查询和版本差异，保留完整原始输入，拒绝缺失或冲突记录 |
-| 操作恢复 | 为关闭后的完整文件工程创建隔离副本和检查点；失败时保留现场并恢复候选副本。验收后文件或证据发生变化，状态标记为 `STALE` |
+| 需求与元件预算 | 先梳理功能、接口和装配条件，再整理 BOM、查询立创商城报价；分别计算用量成本和计入起订量、包装倍数的实际采购金额 |
+| 兼容替代料 | 按确认的需求逐项核对替代料，记录规格、数量、备料和报价变化；未经明确同意保留原有功能与性能 |
+| 原理图绘制 | 限定自由分区、图框内分区两种格式；先检查无连线摆放，再连线；核对图纸边界、文字、引脚和功能分区 |
+| 受控 EDA 操作 | 无连线原理图支持元件移动、写前拦截、逐步读回、保存重开和受控回滚；固定位置、允许区域、禁布区及限高可绑定到操作 |
+| PCB 几何检查 | 检查板框闭合、凹口与槽孔边距、器件间距、同号多焊盘、镀孔属性和过孔层跨度；按修改前后的几何比较保护走线 |
+| 制造文件检查 | 按支持的 Gerber 几何计算阻焊开窗并集，补查偏心开窗、组合开窗和宏定义；空数据及不支持的语义标为 `NOT_CHECKED` |
+| 验收与证据 | 必检清单覆盖 G0–G9，检查项绑定需求、工程基线、实际输入与报告哈希；旧报告不能直接用于改动后的设计 |
+| 数据读取与恢复 | 支持摘要、分页、差异和输出字节预算；保留完整源数据，阻止无变化的重复尝试，按已验证范围恢复检查点 |
 
-数据与恢复工具的入口、示例和适用范围见[操作指南](references/20-data-and-recovery.md)。完整变更见[更新记录](CHANGELOG.md)，测试结果见[验证记录](VALIDATION.md)。[实时写入指南](references/23-live-eda.md)说明受支持的操作范围。已在 test1 工程完成移动、碰撞与越界拦截、保存重开和回滚验证；任意原生操作的全局拦截、PCB 布线回滚与 Token 节省比例尚未验证。
+项目报价属于只读查询。设计任务默认交付经过审查的 PCB 与制造文件，由用户自行下单。整板 G0–G5 流程、PCB 原生写入及布线回滚的验证范围见[新窗口实测指南](references/28-fresh-session-benchmark.md)。
+
+## 内置第三方工具
+
+完整目录随包提供以下 **4 套工具或方法库**。本项目负责设计流程和验收要求，工具负责相应的 EDA 操作、格式处理和独立检查。
+
+| 项目 | 随包版本 / 快照 | 在本项目中的用途 |
+|---|---|---|
+| [easyeda-api-skill](https://github.com/easyeda/easyeda-api-skill) | 1.1.36 · `ccfaf28` | 官方 API 文档与经过本地修正的桥接运行时，默认通过 Run API Gateway 操作嘉立创EDA |
+| [easyeda-enhanced-schematic-skill](https://github.com/easyeda/easyeda-enhanced-schematic-skill) | 1.2.0 · `0c4b9a0` | 官方原理图辅助方法：功能分区、批量摆放、选择性网络引出；目录名为 `easyeda-schematic-net-fanout` |
+| [easyeda-pro-format-skill](https://github.com/easyeda/easyeda-pro-format-skill) | 1.0.0 · `bee647f` | 官方原生格式定义、示例及类型校验器；格式通过仍需核对原生导入和电气连接 |
+| [pcb-skill](https://github.com/daishuge/pcb-skill) 的适配子集 | `6e939b6` | 社区 PCB 数据提取、布局和物理连接检查、制造文件检查及 DSN／SES 辅助；本地修复记录见 `vendor/pcb-skill-toolkit/UPSTREAM.md` |
+
+桥接与格式校验所需的 **7 个运行依赖**也已附带：`ws 8.21.3`、`ajv 8.20.0`、`ajv-formats 2.1.1`、`fast-deep-equal 3.1.3`、`fast-uri 3.1.7`、`json-schema-traverse 1.0.0`、`require-from-string 2.0.2`。使用这些已打包的工具无需再执行 `npm install`。
+
+**外部接入：** [easyeda-agent](https://github.com/zhoushoujianwork/easyeda-agent) 和 [easyeda-mcp-pro](https://github.com/oaslananka/easyeda-mcp-pro) 提供可选后端接入说明，源码、Connector 和服务未打包，也不会自动安装。它们属于社区项目。Node.js、Python、嘉立创EDA客户端、Run API Gateway、NumPy 和外部自动布线器均需按需另行准备。
+
+版本、原始许可、实际文件位置及本地修改见[第三方组件清单](THIRD_PARTY_NOTICES.md)。表中列出的是本仓库保留的固定版本。
 
 ## 安装
 
-下载 [最新发布包](https://github.com/Zero1683/PCB-Design-Skill/releases)，或克隆仓库：
+测试当前改进可下载 [main 完整 ZIP](https://github.com/Zero1683/PCB-Design-Skill/archive/refs/heads/main.zip)，或克隆仓库：
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
@@ -66,6 +67,8 @@ git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
 将完整目录放入客户端的 Skill 目录，或让 Agent 直接读取 [SKILL.md](SKILL.md)。目录中的 `references/`、`assets/` 和 `vendor/` 需一并保留。
 
 **调用名称：** `$pcb-design-to-bringup`
+
+已有 Git 副本可在保存本地改动后执行 `git pull --ff-only`。使用 ZIP 安装时，解压到新目录并将 Skill 指向完整新副本，再新开对话；不要只覆盖 `SKILL.md`。已发布版本可在 [Releases](https://github.com/Zero1683/PCB-Design-Skill/releases) 获取。正在运行的桥接进程按[更新指南](START_HERE.md#updating-an-existing-installation)处理。
 
 ### 连接嘉立创EDA
 
@@ -135,7 +138,7 @@ Node.js、EDA 客户端和 Gateway 扩展需单独安装。Python 3.10+ 用于�
 
 ## 数据核对与操作恢复
 
-提供两套 PCB 数据的器件与逐脚网络核对、摘要、分页查询和变更返回，完整原始数据保存在本地。完整文件工程可在隔离副本中执行分阶段操作；失败时核对版本、保留失败副本并恢复检查点。在线 EDA 自动回滚仍需单独联调。见[使用说明](references/20-data-and-recovery.md)。
+提供两套 PCB 数据的器件与逐脚网络核对、摘要、分页查询和变更返回，完整原始数据保存在本地。完整文件工程可在隔离副本中执行分阶段操作；失败时核对版本、保留失败副本并恢复检查点。在线恢复已在 test1 的无连线原理图移动范围实测，其他操作需另行验证。见[使用说明](references/20-data-and-recovery.md)。
 
 ## 批次预检与修复反馈
 
@@ -197,6 +200,20 @@ USB-C 供电，元件全部放在顶层，采用钢网和加热台装配。
 | [电气计算](references/09-electrical-analysis.md) | 电源、压降、瞬态预算与阻抗复核 |
 | [校验工具](references/10-validation-tools.md) | 证据与规范化导出数据格式 |
 | [验证场景](references/11-validation-scenarios.md) | 行为评估与实际 EDA 操作验收 |
+| [操作后端](references/16-easyeda-operation-backends.md) | 官方 API 与可选社区后端的选择和切换 |
+| [原生格式](references/17-easyeda-native-format.md) | 原生格式输入、类型校验与导入边界 |
+| [PCB 检查工具](references/18-pcb-inspection-toolkit.md) | 检查命令、覆盖范围与未支持的几何 |
+| [工程约束](references/19-engineering-constraints.md) | 原厂依据、电气及工艺计算 |
+| [数据与恢复](references/20-data-and-recovery.md) | 模型对账、分页读取与检查点恢复 |
+| [布局执行](references/21-layout-execution.md) | 实测功能块规划与写入后核对 |
+| [批次预检](references/22-batch-repair.md) | 批次预检、差异反馈与重试限制 |
+| [实时写入](references/23-live-eda.md) | 原生移动、回读、保存重开和受控恢复 |
+| [可执行约束](references/24-executable-constraints.md) | 位置、区域、禁布及高度约束 |
+| [需求覆盖](references/25-requirement-coverage.md) | 需求与检查项、证据的对应关系 |
+| [元件成本规划](references/26-component-cost-planning.md) | 元件报价、起订量及兼容替代料 |
+| [当前设计证据](references/27-current-design-evidence.md) | 工程基线、源文件哈希与报告绑定 |
+| [新窗口实测](references/28-fresh-session-benchmark.md) | 新任务整板实测与结果记录 |
+| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | 来源、许可、版本与本地修改 |
 
 核心 Skill 和工程参考采用英文，项目记录提供中英文模板；回复跟随用户语言。上游文档的集成勘误见第三方声明。
 
@@ -236,17 +253,17 @@ python -X utf8 scripts/release_manifest.py verify --root /path/to/pcb-design-to-
 
 ## 验证状态
 
-v1.5.2 新增 11 项批次与修复测试通过，并复测 27 项数据恢复、14 项布局测试，共 52 项通过。均为离线合成数据与本地文件测试。
+2026-09-22 的最新软件回归共 **356 项通过**，另有 **17 个工具自检通过，无跳过项**。其中包含 40 项路由物理测试、45 项阻焊几何测试、17 项连通性断言与入口测试；阻焊测试内部使用 1,000 组生成数据与独立数学结果对照。独立 CLI 审查发现的 4 个额外漏检已修复并复验关闭。
 
-布局规划工具新增 14 项合成数据测试全部通过，覆盖边界、障碍物、旧计划和读回变化；尚未进行真实 EDA 保存重载联调。
+| 验证层级 | 当前证据 |
+|---|---|
+| 脚本与合成数据 | 几何、报告绑定、验收清单、成本、替代料和恢复回归通过；包含原生运行时模拟测试 |
+| 原生 EDA 联调 | test1 已完成无连线原理图移动、碰撞及越界拦截、保存重开、定向修复与恢复验证 |
+| 尚待实测 | 新窗口整板 G0–G5、macOS 全流程、外部布线器互操作及本轮改进后的实板制造验证 |
 
-v1.5.0 发布前复测 81 项 Python 测试：80 项通过，1 项因 Windows 符号链接权限跳过。8 项 Node 格式校验测试及隔离的模拟桥接测试通过。集成时完成的 21 个工具自测另见[验证记录](VALIDATION.md)。
+PCB 原生写入及布线回滚尚未实现。铺铜实体、钻孔空洞扣除、部分原生孔型编码和参数化 Gerber 宏等存在明确检查边界；详细限制见[检查工具说明](references/18-pcb-inspection-toolkit.md)。脚本通过只说明其已检查的范围，整板交付仍需原生检查与工程验收。
 
-测试覆盖脚本和合成数据。新工具链的真实 EDA 工程全流程、macOS、外部布线器互操作及实板制造尚未验证。原生数据提取有格式边界；工具库板级模型与规范化快照可通过新适配器进行同一基线下的器件与逐脚核对；该适配器仍需真实工程验证。辅助检查不替代阻抗求解或实板验收。
-
-v1.5.1 新增的 27 项数据与恢复测试全部通过；复测 21 项 PCB 工具测试及导入器自检通过。这些结果不计入上述 v1.5.0 测试数量。
-
-完整更新内容见[更新记录](CHANGELOG.md)。
+完整测试记录和历史版本结果见 [VALIDATION.md](VALIDATION.md)。
 
 ## 贡献
 

@@ -15,62 +15,50 @@
   <img src="https://img.shields.io/badge/EasyEDA-bundled-333333?style=flat-square" alt="EasyEDA tools bundled">
 </p>
 
-<p align="center"><a href="#recent-updates">Recent updates</a> · <a href="#installation">Installation</a> · <a href="#capabilities">Capabilities</a> · <a href="#usage">Usage</a> · <a href="#documentation">Documentation</a></p>
+<p align="center"><a href="#recent-updates">Recent updates</a> · <a href="#bundled-third-party-tools">Third-party tools</a> · <a href="#installation">Installation</a> · <a href="#capabilities">Capabilities</a> · <a href="#usage">Usage</a> · <a href="#documentation">Documentation</a></p>
 <p align="center"><a href="README.md">简体中文</a> · <strong>English</strong></p>
 
 ---
 
 Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, schematic methods, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client. The API layer supplies operation interfaces; the methods library covers functional blocks, batch placement, selective net fanout, and revision cleanup.
 
-## In development: complete gates and substitution review
-
-Added an independent check registry, source-file hash bindings and bounded checker execution records with before/after input verification. Changed designs invalidate previous bindings; resume, replay and save/reopen use the same actual-clearance checks. Substitution review covers every declared requirement, BOM quantity/spare changes and retained quote observations. See [current-design evidence](references/27-current-design-evidence.md) and [fresh-session testing](references/28-fresh-session-benchmark.md). This is a local development update; the whole-board benchmark remains unperformed.
-
-This round fixes disconnected-outline acceptance, unenforced edge clearances,
-overwritten repeated-pad nets and stale report reuse. Regressions cover concave
-notches, slots, duplicate physical identities, empty checks and changed report inputs.
-Unsupported outlines remain unchecked. Imported and newly executed reports share
-baseline and actual-input hash checks. See [validation records](VALIDATION.md).
-
-Geometry acceptance now distinguishes unplated holes from plated barrels and
-checks actual via spans. Connectivity assertions retain every same-number land.
-Protected routing compares before/after geometry; mask coverage uses the union
-of actual openings. Empty or unsupported geometry is NOT_CHECKED; misspelled
-options and weakened clearance overrides are rejected. See the
-[inspection guide](references/18-pcb-inspection-toolkit.md) for supported scope.
-
-## In development: executable constraints and bounded output
-
-Add placement locks, regions, keepouts and height checks. Live schematic moves require a bound constraint file, read-only resume rereads native state, and data queries enforce UTF-8 byte budgets. PCB checks consume exported geometry; native PCB mutation/rollback is not implemented. See the [guide](references/24-executable-constraints.md).
-
-Final readback, intermediate clearance and stale replay are checked. Hollow frames permit contained moves; scoped repair preserves final acceptance requirements. G5 now checks requirement mappings and source/report hashes. Native test1 movement, repair, persistence and restoration passed; whole-board and native PCB writing remain unqualified. See [coverage and capabilities](references/25-requirement-coverage.md).
-
-## From an idea to a component estimate
-
-The Agent organizes functions and requirements, derives a preliminary BOM, and checks current prices at 立创商城. Component-only estimates separate per-board consumption from actual purchases after MOQ and order increments. Cost reduction prioritizes verified compatible alternatives; feature or performance reductions need explicit agreement. Reconcile the final BOM and refresh price/stock observations before handoff. See [cost planning](references/26-component-cost-planning.md).
-
-## v1.6.0: guarded live EDA writes
-
-Move existing parts on unwired schematic pages through the native API, with preflight interception, property-preserving writes, per-step readback and guarded compensation. Live testing on test1 covered collision/bounds rejection, movement, save/reopen and rollback. See the [live writer guide](references/23-live-eda.md). This does not provide global interception or PCB routing rollback.
-
 ## Recent updates
 
-Recent work covers schematic drafting, EDA operations, independent inspection and recovery. **v1.6.0 adds guarded native movement, prewrite checks, persistence verification and batch rollback for unwired schematic pages.** Download the complete release package or clone the repository.
+`main` includes acceptance, geometry and component-cost improvements after v1.6.0. **The latest software run passed 356 regression cases and 17 additional toolkit self-test commands.** See [validation records](VALIDATION.md) for scope and the [changelog](CHANGELOG.md) for version history. Use `main` to test these changes; published Releases retain their versioned contents.
 
-| Area | Additions |
+| Area | Current capability |
 |---|---|
-| Schematic drafting | Two supported formats: freeform functional sections or sections within a sheet frame. Review unwired placement before connecting components; apply boundary, text-spacing and common layout fixes; add measured block planning and post-apply comparison |
-| EDA operations | Bundled official API, schematic methods, native-format documentation and validation dependencies; batch placement, net fanout and explicit backend selection |
-| PCB and manufacturing inspection | Supported native extraction, component-clearance and escape-space screening, Gerber/drill/mask checks, and DSN/SES routing helpers |
-| Electrical and fabrication calculations | Associate manufacturer sources, calculation conditions, native rules and export checks with one revision; expand power, return-path, thermal, escape-channel, mask-web and annular-ring checks |
-| Data access | Reconcile components and pin nets across two PCB models; provide summaries, paged queries and revision deltas while retaining full inputs and rejecting missing or conflicting records |
-| Operation recovery | Checkpoints and isolated candidates for complete closed-file projects; preserve failed work and restore the candidate. Changed accepted files or evidence produce a `STALE` status |
+| Requirements and component estimates | Organize functions, interfaces and assembly constraints, derive the BOM and query 立创商城 prices; separate consumption cost from actual purchases after MOQ and order increments |
+| Compatible substitutions | Review each confirmed requirement, specifications, quantities, spares and quote changes; preserve functions and performance unless a reduction is explicitly accepted |
+| Schematic drafting | Use freeform functional sections or sections within a sheet frame; inspect unwired placement before wiring, including bounds, text, pins and section layout |
+| Guarded EDA operations | Move components on unwired pages with preflight, stepwise readback, save/reopen and guarded rollback; bind placement locks, allowed regions, keepouts and height rules |
+| PCB geometry | Check outline closure, concave and slot edge clearances, spacing, repeated-number lands, plating and via spans; compare protected routing against baseline geometry |
+| Manufacturing artwork | Inspect supported Gerber opening unions, offset and combined openings, and actual macro definitions; empty or unsupported scopes remain NOT_CHECKED |
+| Acceptance evidence | Use the G0–G9 minimum check registry and bind checks to requirements, design baselines, actual input hashes and report hashes; changed designs invalidate old evidence |
+| Data and recovery | Read summaries, pages and differences within output byte budgets; retain full source data, block unchanged retries and restore checkpoints within verified scope |
 
-See the [operation guide](references/20-data-and-recovery.md) for commands, examples and scope, the [changelog](CHANGELOG.md) for changes, and [validation records](VALIDATION.md) for test results. Guarded movement and rollback were tested on a native unwired page; arbitrary EDA operations and PCB routing are outside this writer. Token savings have not been benchmarked.
+Price research is read-only. Design requests normally deliver reviewed PCB and manufacturing files for the user to order. Whole-board G0–G5 testing and the limits of native PCB writing/routing rollback are documented in the [fresh-session benchmark](references/28-fresh-session-benchmark.md).
+
+## Bundled third-party tools
+
+The complete package contains **four tool or methods packages**. This project owns design sequencing and acceptance criteria; these components provide EDA operations, format handling and independent inspection.
+
+| Project | Bundled version / snapshot | Integration role |
+|---|---|---|
+| [easyeda-api-skill](https://github.com/easyeda/easyeda-api-skill) | 1.1.36 · `ccfaf28` | Official API documentation and a locally patched bridge runtime; default EasyEDA operations through Run API Gateway |
+| [easyeda-enhanced-schematic-skill](https://github.com/easyeda/easyeda-enhanced-schematic-skill) | 1.2.0 · `0c4b9a0` | Official schematic recipes for functional sections, batch placement and selective net fanout; stored as `easyeda-schematic-net-fanout` |
+| [easyeda-pro-format-skill](https://github.com/easyeda/easyeda-pro-format-skill) | 1.0.0 · `bee647f` | Official native-format definitions, examples and typed validation; native import and electrical connectivity remain separate checks |
+| Adapted subset of [pcb-skill](https://github.com/daishuge/pcb-skill) | `6e939b6` | Community extraction, placement, physical connectivity, manufacturing and DSN/SES helpers; local fixes are recorded in `vendor/pcb-skill-toolkit/UPSTREAM.md` |
+
+**Seven runtime dependencies** are also bundled: `ws 8.21.3`, `ajv 8.20.0`, `ajv-formats 2.1.1`, `fast-deep-equal 3.1.3`, `fast-uri 3.1.7`, `json-schema-traverse 1.0.0`, and `require-from-string 2.0.2`. The shipped bridge and format validator do not require `npm install`.
+
+**External integrations:** [easyeda-agent](https://github.com/zhoushoujianwork/easyeda-agent) and [easyeda-mcp-pro](https://github.com/oaslananka/easyeda-mcp-pro) are optional community backends. Their source, connectors and services are not bundled or installed automatically. Node.js, Python, the EasyEDA desktop client, Run API Gateway, NumPy and external autorouters must be supplied separately when needed.
+
+See the [third-party inventory](THIRD_PARTY_NOTICES.md) for licenses, file locations, full source pins and local modifications. Versions above identify the snapshots retained in this repository.
 
 ## Installation
 
-Download the [latest release](https://github.com/Zero1683/PCB-Design-Skill/releases), or clone the repository:
+To test current changes, download the [complete main ZIP](https://github.com/Zero1683/PCB-Design-Skill/archive/refs/heads/main.zip), or clone the repository:
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
@@ -79,6 +67,8 @@ git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
 Place the complete folder in your client's skill directory, or ask your agent to read [SKILL.md](SKILL.md). Keep `references/`, `assets/`, and `vendor/` with the entry file.
 
 **Skill name:** `$pcb-design-to-bringup`
+
+For an existing Git checkout, preserve local work and run `git pull --ff-only`. For ZIP installs, extract a fresh complete copy, point the skill installation to it and start a new conversation. Do not replace only `SKILL.md`. Versioned packages remain available under [Releases](https://github.com/Zero1683/PCB-Design-Skill/releases). Follow the [update guide](START_HERE.md#updating-an-existing-installation) for a running bridge.
 
 ### Connect EasyEDA
 
@@ -149,7 +139,7 @@ Pack locally arranged functional blocks into a defined sheet using measured comp
 
 ## Reconciled data and operation recovery
 
-Reconcile component/pin data across PCB models, query bounded summaries/pages and inspect deltas while retaining raw inputs locally. Complete closed-file projects can use isolated candidates with phase results and hash-guarded recovery that preserves the failed copy. Live EDA rollback needs separate validation. See [usage](references/20-data-and-recovery.md).
+Reconcile component/pin data across PCB models, query bounded summaries/pages and inspect deltas while retaining raw inputs locally. Complete closed-file projects can use isolated candidates with phase results and hash-guarded recovery that preserves the failed copy. Live recovery was tested for unwired schematic movement on test1; other operations require separate validation. See [usage](references/20-data-and-recovery.md).
 
 ## Batch preflight and repair feedback
 
@@ -211,6 +201,20 @@ Record conditions, results, and open items at each stage. Verify footprints agai
 | [Electrical analysis](references/09-electrical-analysis.md) | Power, voltage drop, transient budgets, and impedance handoff |
 | [Validation tools](references/10-validation-tools.md) | Evidence and normalized export contracts |
 | [Validation scenarios](references/11-validation-scenarios.md) | Behavioral evaluation and live EDA acceptance |
+| [Operation backends](references/16-easyeda-operation-backends.md) | Official API and optional backend selection and handoff |
+| [Native formats](references/17-easyeda-native-format.md) | Native input, typed validation and import limits |
+| [PCB inspection](references/18-pcb-inspection-toolkit.md) | Inspection commands, coverage and unsupported geometry |
+| [Engineering constraints](references/19-engineering-constraints.md) | Manufacturer sources and electrical/fabrication calculations |
+| [Data and recovery](references/20-data-and-recovery.md) | Model reconciliation, paged reads and checkpoint recovery |
+| [Layout execution](references/21-layout-execution.md) | Measured block planning and post-write comparison |
+| [Batch preflight](references/22-batch-repair.md) | Batch checks, differences and bounded retries |
+| [Live writes](references/23-live-eda.md) | Native movement, readback, persistence and guarded recovery |
+| [Executable constraints](references/24-executable-constraints.md) | Placement, region, keepout and height rules |
+| [Requirement coverage](references/25-requirement-coverage.md) | Requirement, check and evidence mappings |
+| [Component cost planning](references/26-component-cost-planning.md) | Component quotes, MOQ and compatible substitutions |
+| [Current-design evidence](references/27-current-design-evidence.md) | Design baselines, source hashes and report bindings |
+| [Fresh-session benchmark](references/28-fresh-session-benchmark.md) | Whole-board testing in a fresh task and result records |
+| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Sources, licenses, pins and local modifications |
 
 The core skill and engineering references are in English. Project records have English and Chinese templates; replies follow the user’s language. Integration corrections to upstream material are listed in the third-party notices.
 
@@ -250,17 +254,17 @@ Verification checks SHA-256 hashes, missing files, and extra files. Use a separa
 
 ## Validation status
 
-For v1.5.2, all 11 new batch/repair cases and reruns of 27 data/recovery plus 14 layout cases passed: 52 total. These use offline synthetic data and local files.
+The latest software run on 2026-09-22 passed **356 regression cases**, plus **17 toolkit self-test commands with no skips**. The total includes 40 routing-physics, 45 mask-geometry and 17 physical-assertion/entry cases. Mask tests contain 1,000 generated comparisons against independent mathematical oracles. Four additional defects found by independent CLI review were corrected and independently rechecked.
 
-All 14 new synthetic layout tests passed, covering bounds, obstacles, stale plans and readback changes. Live EDA save/reload integration has not been tested.
+| Evidence level | Current status |
+|---|---|
+| Scripts and synthetic data | Geometry, report binding, gates, costing, substitution and recovery regressions passed; native-runtime mock tests are included |
+| Native EDA integration | test1 covered unwired schematic movement, collision/bounds rejection, save/reopen, scoped repair and restoration |
+| Pending benchmarks | A fresh-session whole-board G0–G5 run, the full macOS workflow, external-router interoperability and physical manufacturing after these changes |
 
-The v1.5.0 release rerun includes 81 Python cases: 80 passed and one was skipped because Windows denied symbolic-link creation. All 8 Node format cases and isolated simulated bridge checks passed. Integration-time results for 21 toolkit self-tests are listed in [validation records](VALIDATION.md).
+Native PCB writing and routing rollback are not implemented. Actual pours, drill-void subtraction, some native hole encodings and parameterized Gerber macros remain outside supported inspection scope. See the [inspection guide](references/18-pcb-inspection-toolkit.md). Script success applies only to measured coverage; whole-board handoff still requires native checks and engineering acceptance.
 
-These tests cover scripts and synthetic data. The new toolchain has not completed live EDA end-to-end, macOS, external-router interoperability or physical manufacturing validation. Native extraction has format limits; the new adapter reconciles toolkit board data and normalized snapshots under one baseline, with real-project validation still pending. Helpers do not replace an impedance solver or physical acceptance.
-
-In v1.5.1, all 27 new data/recovery tests passed, along with a rerun of 21 PCB toolkit tests and the importer self-test. These results are separate from the v1.5.0 counts above.
-
-See the [changelog](CHANGELOG.md) for the complete update.
+Detailed evidence and historical results are retained in [VALIDATION.md](VALIDATION.md).
 
 ## Contributing
 

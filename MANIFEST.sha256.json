@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "unreleased-physical-inspection-fixes",
+  "revision": "main-2026-09-22-documentation",
   "baseline_id": "2026-09-22-physical-inspection-fixes",
-  "generated_utc": "2026-09-22T10:15:56+00:00",
+  "generated_utc": "2026-09-22T10:25:28+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,36 +10,36 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 13189,
-      "sha256": "5027ba1c7023b8d4d60ce03613049df5deae5477e4284b9bec656bacf01a8918"
+      "bytes": 13553,
+      "sha256": "bb3ec1f79d282e4d1bd4c250c5c2bbc6980a0b9f21eab907ddf26fbd039018ee"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 18239,
-      "sha256": "db53025595d5e707ea7385a129cf618e013ec22b5c9bcc051ee7f12c5a1598b1"
+      "bytes": 19945,
+      "sha256": "e18acc88eca73116b2c4a03977ae407a96d751174203308d021cf0a2fd24913d"
     },
     "README_EN.md": {
-      "bytes": 20408,
-      "sha256": "b57f40162895472a61ae44cf46f636bd2241269542adbed7766fcd42133fc13a"
+      "bytes": 21943,
+      "sha256": "2097ca0936dc2d691d38295a307c00cc423d78edf8040ad0c44fe23549d83ef9"
     },
     "SKILL.md": {
-      "bytes": 23279,
-      "sha256": "84088fde3c3fcfb63b09556696eb94d8e4790dbd38a063a6bf476604f1b858c6"
+      "bytes": 23501,
+      "sha256": "aff66ccbf2eb20b1c3c862bc40df26fd27561d3cce1ba943a7ca62310a02c38b"
     },
     "START_HERE.md": {
-      "bytes": 6156,
-      "sha256": "f059fdb8ecc4d3c553ff62db209c88199d7120ad1f434b61f739bcc0e0ebaa24"
+      "bytes": 7222,
+      "sha256": "f65a27595828719df9a828f990c5a8fe76fb4b087ceda2fb58468f95bd31fecf"
     },
     "THIRD_PARTY_NOTICES.md": {
-      "bytes": 7417,
-      "sha256": "7b74942df7529b45dd68a818a0c1633440d71bd134fcf10caeb46d7c33bd7303"
+      "bytes": 8199,
+      "sha256": "607f23ca14c98d82fb0cac9652c94cbf479a09b02527644a668bfa021945d893"
     },
     "VALIDATION.md": {
-      "bytes": 35951,
-      "sha256": "e0678e292a2b607a8ab4475ca2164aa6022a594eeb321964aa4e34f23fe4002d"
+      "bytes": 36536,
+      "sha256": "a6fee515cdc2e4e9cfaad8fb9048977a9b6aca0de66ddba0c7df84411ee19d51"
     },
     "agents/openai.yaml": {
       "bytes": 365,

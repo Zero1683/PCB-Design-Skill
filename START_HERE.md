@@ -1,10 +1,24 @@
 # Getting Started
 
-This package includes the PCB workflow skill, the complete documentation for EasyEDA API Skill 1.1.36, the bridge service, and its ws runtime dependency. The schematic enhancement methods and upstream recipes are also bundled. No separate prerequisite skill installation, npm install, or documentation generation is required.
+This package includes the PCB workflow skill, the complete documentation for EasyEDA API Skill 1.1.36, the bridge service, and its ws runtime dependency. The schematic enhancement methods, native-format validator and adapted PCB inspection toolkit are also bundled. Their versions, runtime packages and original notices are listed in [the third-party inventory](THIRD_PARTY_NOTICES.md). No separate prerequisite skill installation, npm install, or documentation generation is required.
+
+## Updating an existing installation
+
+For current development changes use the repository's `main` branch or its complete
+ZIP. Release downloads remain tied to their tags. In a Git checkout, preserve
+local modifications and run `git pull --ff-only`. For a ZIP installation, extract
+into a fresh directory and register that complete folder; do not replace only
+SKILL.md or mix files from different package revisions. Preserve project work and
+local runtime configuration outside the replacement folder.
+
+Verify a fresh extraction with `python -X utf8 scripts/release_manifest.py verify --root <extracted-folder>` before generating runtime files. Start a new agent
+conversation using the updated skill. If a bridge is already running, finish
+active operations and follow the bridge-specific update instructions below.
+A new conversation alone does not reload the bridge process.
 
 ## First Use
 
-1. Install the full package as **one skill**, including `vendor/easyeda-api/`, `vendor/easyeda-schematic-net-fanout/` and `vendor/easyeda-pro-format-skill/`. No second prerequisite skill is required. Extract the entire folder to your working drive and preserve its directory structure. On Windows, D: is recommended; paths may contain Chinese characters and spaces.
+1. Install the full package as **one skill**, including `vendor/easyeda-api/`, `vendor/easyeda-schematic-net-fanout/`, `vendor/easyeda-pro-format-skill/` and `vendor/pcb-skill-toolkit/`. No second prerequisite skill is required. Extract the entire folder to your working drive and preserve its directory structure. On Windows, D: is recommended; paths may contain Chinese characters and spaces.
 2. Install Node.js 18 or later and an EasyEDA desktop client that supports extensions if they are not already available. This package does not include a Node.js installer or the EDA client.
 3. Install and enable the **Run API Gateway** extension in EasyEDA. The upstream package does not include an `.eext` file, and this package does not supply a fabricated substitute. Search for the extension by name in the client's extension marketplace. The upstream URL is https://jlc-ext.com/item/oshwhub/run-api-gateway .
 4. On Windows, double-click `start-easyeda.cmd`. On other systems or in an agent terminal, run `node scripts/easyeda_bridge.mjs start` with this folder as the working directory.

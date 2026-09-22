@@ -31,6 +31,8 @@ For a new idea, first organize functions and requirements, derive a preliminary 
 
 ## EasyEDA backend selection
 
+The [third-party inventory](THIRD_PARTY_NOTICES.md) identifies bundled tools, pinned versions, runtime packages and external-only backends. Preserve vendor notices; a reference to a backend does not mean it is installed.
+
 Read [operation backends](references/16-easyeda-operation-backends.md) when selecting or changing an EDA integration. Official API and native-format references are bundled, alongside the schematic methods. Community easyeda-agent is an optional typed CLI/Connector backend; easyeda-mcp-pro is an optional external MCP backend with its own license. Neither is required or installed automatically. Keep one selected writer for an operation scope and retain this skill's full design sequence and acceptance gates.
 
 For native source inspection, generation or repair, read [native format operations](references/17-easyeda-native-format.md) and the bundled official format reference. Use explicit document types and the file-input schema adapter; do not equate schema validation with an importable project or a working circuit.

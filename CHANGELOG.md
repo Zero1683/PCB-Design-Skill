@@ -1,4 +1,10 @@
-# Unreleased · 约束执行与上下文读取 / Executable constraints and bounded output
+# Unreleased (main) · 验收、几何与成本规划 / Acceptance, geometry and cost planning
+
+Current changes are published on `main`; the latest tagged Release remains v1.6.0.
+Documentation now consolidates the current capabilities, 356-case regression status,
+upgrade path, four bundled third-party packages and seven runtime dependencies.
+Optional external backends are listed separately. No dependency versions changed
+in this documentation update.
 
 - Add sourced, revisioned placement locks, allowed regions, keepouts and height checks; unknown height blocks applicable acceptance.
 - Require constraint files for new guarded native schematic batches; verify source, target and intermediate states. Bind rule contents and local file hashes to journals.

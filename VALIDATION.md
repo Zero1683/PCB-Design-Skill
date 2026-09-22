@@ -1,3 +1,13 @@
+# Documentation refresh on main
+
+2026-09-22. Updated both READMEs, setup/update instructions, third-party notices
+and the change summary against the checked-in package. Verified four bundled
+source packages and seven runtime package versions, retained original notices,
+and separated external-only backends. All 186 local links checked before this
+entry resolved; skill frontmatter and whitespace checks passed. This is a
+documentation/package update; the 356-case software run below remains the latest
+code regression result. No runtime dependencies or engineering behavior changed.
+
 # Unreleased: physical connectivity and mask coverage
 
 2026-09-22, Windows, Python 3.12 and Node 22. **356 automated cases passed**:
