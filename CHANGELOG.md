@@ -1,3 +1,13 @@
+# v1.8.0 · 新手需求、自动计算与回归 / Intake, calculations and regression
+
+- Add a two-step beginner brief, sourced decisions, dimensioned proposals and baseline-bound acceptance. Preserve delegated choices and avoid repeating the interview for scoped repairs.
+- Enforce intake before guarded new-design movement; bind existing-page maintenance to exact source, plan, constraints and authorization evidence. Neither record authenticates user intent by itself.
+- Add verified-model I²C pull-up calculations, quasi-static finite-thickness isolated microstrip estimates and bounded width synthesis, with explicit geometry limits and independent numerical vectors.
+- Add calculator-observation integrity checks for exact displayed inputs, result units, model, baseline and captured evidence. Browser execution and physical model suitability remain separate checks.
+- Add actionable pin-net diagnostics and an output-equivalent body-envelope sweep, plus valid/invalid regression pairs and a unified test runner.
+- Review external workflow/diagnostic methods; retain the existing four bundled toolsets and seven runtime dependencies.
+- Revalidate real test1 schematic collision/bounds rejection, movement, save/reopen and restoration. Native PCB routing/rollback and whole-board hardware qualification are not added claims.
+
 # v1.7.0 · 验收、几何与成本规划 / Acceptance, geometry and cost planning
 
 Released as v1.7.0 on 2026-09-22, including the accumulated changes after v1.6.0.

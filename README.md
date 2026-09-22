@@ -24,7 +24,16 @@
 
 ## 近期更新
 
-**v1.7.0** 汇总了 v1.6.0 之后的验收、几何检查和成本规划更新。**本轮软件回归 356 项通过，另完成 17 个工具自检。** 测试范围见[验证记录](VALIDATION.md)，逐版变化见[更新日志](CHANGELOG.md)。可直接下载 [v1.7.0 完整安装包](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip)；`main` 用于后续开发。
+本轮 409 项 Python 测试、81 项 Node 测试及独立桥接冒烟检查通过，无跳过项；另完成 `test1` 原生移动、拦截、保存重开和回滚验证。
+
+**v1.8.0** 增加新手需求确认、自动计算和受控操作验证。详细结果见[验证记录](VALIDATION.md)，逐版变化见[更新日志](CHANGELOG.md)。
+
+- **先说清要做的东西。** 梳理用途、外壳或载体、板子尺寸、供电、按钮接口和装配方式，再展示带尺寸和元件预算的方案。已有答案不重复问；专业参数由 Agent 查资料、计算并说明关键取舍。
+- **计算由工具完成。** 新增 I²C 上拉、限定模型内的微带线阻抗和线宽反算；不支持的结构转到适用的厂商工具。网页结果须保留输入、单位和警告，不能套用不适用的公式。
+- **区分新设计和局部维修。** 新设计的受控移动检查方案记录；已授权的维修绑定具体批次，不要求重填产品问卷。两者仍检查实际位置、碰撞、边界和回滚条件。
+- **检查结果更具体。** 引脚连接错误带出相关对象和修复线索；器件外形检查减少无关配对，保留原判定结果。统一回归入口将跳过项明确列为未完成验证。
+
+本轮参考 `specs-to-pcb`、`circuit-synth` 和 `atopile` 的流程与诊断方法，未引入它们的运行依赖。四套内置工具保持不变。详见[参考项目取舍](references/32-adversarial-improvement.md)。
 
 | 方向 | 当前能力 |
 |---|---|
@@ -58,7 +67,7 @@
 
 ## 安装
 
-下载 [v1.7.0 完整安装包](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip)。需要跟进开发版本时，也可克隆仓库：
+下载 [v1.8.0 完整安装包](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.8.0/PCB-Design-Skill-v1.8.0.zip)。需要跟进开发版本时，也可克隆仓库：
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup

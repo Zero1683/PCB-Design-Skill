@@ -4,6 +4,7 @@ import argparse
 import json
 import math
 from pathlib import Path
+import workflow_io as io
 
 
 def number(data, key, zero=False):
@@ -14,6 +15,7 @@ def number(data, key, zero=False):
 
 
 def calculate(item):
+    if not isinstance(item, dict): raise ValueError('Calculation must be an object')
     kind = item['kind']
     n = lambda key, zero=False: number(item, key, zero)
     if kind == 'converter':
@@ -90,18 +92,37 @@ def calculate(item):
         result = {'nominal_ring_mm': nominal, 'offset_adjusted_ring_mm': minimum,
                   'ring_margin_mm': minimum-n('required_ring_mm')}
         limit = 'Circular pad/hole screening only. Use matching hole basis and dimensional corners; radial offset is explicit. No plating conversion, slots, inner-layer or fabrication verdict.'
+    elif kind in ('microstrip', 'microstrip_width'):
+        import line_models
+        result = line_models.calculate(item) if kind == 'microstrip' else line_models.synthesize(item)
+        limit = 'Quasi-static isolated uncoated microstrip only. No differential, coplanar, dispersion, loss, discontinuity, mask, process guarantee or PDN model. Corner samples are sensitivity estimates, not certified bounds.'
+    elif kind == 'i2c_pullup':
+        vmax, vol, sink = n('supply_max_V'), n('vol_max_V', True), n('sink_A')
+        cap, rise = n('bus_capacitance_F'), n('rise_time_max_s')
+        if vmax <= vol: raise ValueError('Supply must exceed VOL')
+        resistance, tolerance = n('resistance_ohm'), n('tolerance', True)
+        if tolerance >= 1: raise ValueError('Tolerance must be a fraction below 1')
+        minimum, maximum = (vmax-vol)/sink, rise/(.8473*cap)
+        result = {'r_min_ohm': minimum, 'r_max_ohm': maximum,
+                  'sink_margin_ohm': resistance*(1-tolerance)-minimum,
+                  'rise_margin_ohm': maximum-resistance*(1+tolerance),
+                  'feasible_interval': minimum <= maximum}
+        limit = '30%-70% RC rise model; sum parallel pull-ups first. Verify actual pin sink rating, bus capacitance and mode; no active rise accelerators or bus waveform validation.'
     else: raise ValueError(f'Unknown calculation kind: {kind}')
+    # Library callers must receive the same finite-result guarantee as CLI callers.
+    io.encoded(result)
     return {'id': item['id'], 'kind': kind, 'inputs': item, 'results': result,
             'limitations': limit, 'status': 'CALCULATED', 'hardware_validation': 'NOT_RUN'}
 
 
 def run(data):
-    if data.get('schema') != 1 or not isinstance(data.get('baseline_id'), str) or not data['baseline_id'].strip():
+    if not isinstance(data, dict) or type(data.get('schema')) is not int or data['schema'] != 1 or not isinstance(data.get('baseline_id'), str) or not data['baseline_id'].strip():
         raise ValueError('Provide schema=1 and baseline_id')
     items = data.get('calculations')
     if not isinstance(items, list) or not items: raise ValueError('Provide calculations')
     seen = set(); outputs = []
     for item in items:
+        if not isinstance(item, dict): raise ValueError('Calculation must be an object')
         for key in ('id', 'source', 'conditions'):
             if not isinstance(item.get(key), str) or not item[key].strip(): raise ValueError(f'Missing {key}')
         if item['id'] in seen: raise ValueError('Duplicate calculation ID')
@@ -112,7 +133,7 @@ def run(data):
 def main():
     p = argparse.ArgumentParser(description=__doc__); p.add_argument('--input', type=Path, required=True)
     args = p.parse_args()
-    try: result = run(json.loads(args.input.read_text(encoding='utf-8-sig')))
+    try: result = run(io.read(args.input))
     except (OSError, ValueError, KeyError, TypeError, OverflowError) as exc: p.exit(2, f'ERROR: {exc}\n')
     print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
 

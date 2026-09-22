@@ -4,12 +4,30 @@ from pathlib import Path
 import workflow_io as io
 import evidence_binding as eb
 import check_evidence as ce
+import intake_review as intake
+
+
+def prepare_intake(root, project='fixture', baseline='A', evidence='evidence.txt'):
+    data = intake.template(project, baseline)
+    ref = {'path': evidence, 'sha256': io.file_hash(root / evidence)}
+    for topic in data['topics'].values():
+        topic.update(state='confirmed', value='Synthetic user choice only', source=ref)
+    proposal = {'topics_digest': io.digest(data['topics']), 'document': ref,
+                'choices': {name: 'Synthetic proposed choice' for name in intake.TOPICS},
+                'assembly_envelope_mm': {'board_length': 50, 'board_width': 30, 'assembled_height': 12},
+                'created_at': '2026-09-22T00:00:00Z'}
+    data['proposal'] = proposal
+    data['decision'] = {'proposal_digest': io.digest(proposal), 'status': 'accepted',
+                        'source': ref, 'recorded_at': '2026-09-22T00:01:00Z'}
+    io.save(root/'intake.json', data)
+    return data
 
 
 def prepare(root, project='fixture', baseline='A', evidence='evidence.txt'):
     root=Path(root)
     (root/evidence).write_text('Synthetic audit evidence only.',encoding='utf8')
     (root/'native.json').write_text('{"synthetic":true}',encoding='utf8')
+    prepare_intake(root, project, baseline, evidence)
     ref=lambda name:{'path':name,'sha256':io.file_hash(root/name)}
     state=eb.snapshot(root,project,['synthetic-document'],baseline,['native.json'])
     io.save(root/'design-baseline.json',state)

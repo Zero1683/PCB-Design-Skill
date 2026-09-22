@@ -17,11 +17,15 @@ Node.js 18+ is required. Substitute actual IDs and local files. All journal file
 
 ```sh
 node scripts/eda_live.mjs capture --port 49620 --window WINDOW --project PROJECT --document PAGE --journal capture.json
-node scripts/eda_live.mjs apply --port 49620 --window WINDOW --project PROJECT --document PAGE --source capture.json --moves moves.json --constraints constraints.json --journal operation.json
+node scripts/eda_live.mjs apply --port 49620 --window WINDOW --project PROJECT --document PAGE --source capture.json --moves moves.json --constraints constraints.json --intake-root /project --baseline RevA --python python --journal operation.json
 node scripts/eda_live.mjs status --journal operation.json
 node scripts/eda_live.mjs reopen --journal operation.json
 node scripts/eda_live.mjs rollback --journal operation.json
 ```
+
+For new designs, the intake checker must report `PLAN_RECORDED` for this project and baseline before apply. Its digest is checked again immediately before dispatch. Capture and recovery remain available without new-design intake.
+
+For a narrowly authorized existing-page repair or test, use `--maintenance-scope scope.json` instead of the three intake arguments. The record has exact fields: `schema: 1`, `kind: scoped-schematic-maintenance`, `project_id`, `document_id`, SHA-256 values `source_sha256`, `moves_sha256`, `constraints_sha256`, nonempty `purpose`, and `authorization: {path, sha256}` pointing to actual user authorization within the scope file's directory. It binds only these exact files and cannot grant a design gate or authorize adding parts/nets. Hashes do not establish who authored authorization; verify the conversation. Both modes still require fresh native identity, unchanged source, geometry preflight and readback. A maintenance record is not a shortcut for an unconfirmed new product.
 
 `moves.json` contains only existing native IDs and target anchors:
 

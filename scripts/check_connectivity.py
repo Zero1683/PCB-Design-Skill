@@ -83,6 +83,17 @@ def check(snapshot, contract):
             result['observed_members'] = [list(pin) for pin in sorted(members)]
             result['unexpected_members'] = [list(pin) for pin in sorted(members - set(pins))]
         result['status'] = 'PASS' if passed else 'FAIL'
+        if not passed:
+            messages = {
+                'same_net': ('EXPECTED_SHARED_NET', 'Locate the broken or wrong connection using these observed endpoints.'),
+                'different_nets': ('EXPECTED_SEPARATE_NETS', 'Inspect the shared net or unconnected endpoint; preserve the independent power/pin intent.'),
+                'no_connect': ('UNEXPECTED_CONNECTION', 'Inspect the unintended connection; confirm the exact-part NC requirement before repair.'),
+                'exact_net': ('NET_MEMBERSHIP_MISMATCH', 'Inspect missing connections and unexpected members; do not edit the contract to match the faulty export.'),
+            }
+            code, hint = messages[kind]
+            result['repair'] = {'code': code, 'subjects': [list(pin) for pin in pins],
+                                'hint': hint, 'requires_fresh_readback': True,
+                                'automatic_mutation_authorized': False}
         results.append(result)
     return {'scope': 'declared-pin-net-expectations-only', 'baseline_id': snapshot['baseline_id'],
             'sources': [contract['source'], snapshot['source']], 'rules': results,

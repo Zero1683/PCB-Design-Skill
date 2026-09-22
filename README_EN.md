@@ -24,7 +24,16 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Recent updates
 
-**v1.7.0** includes the accumulated acceptance, geometry and component-cost improvements after v1.6.0. **The latest software run passed 356 regression cases and 17 additional toolkit self-test commands.** See [validation records](VALIDATION.md) for scope and the [changelog](CHANGELOG.md) for version history. Download the [complete v1.7.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip); `main` tracks subsequent development.
+This run passed 409 Python tests, 81 Node tests and an isolated bridge smoke check without skips; real test1 checks covered native movement, rejection, save/reopen and rollback.
+
+**v1.8.0** adds beginner-facing requirements, automated calculations and guarded-operation validation. See [validation](VALIDATION.md) for evidence and [changelog](CHANGELOG.md) for version history.
+
+- **Define the object first.** Recover purpose, carrier/enclosure, board dimensions, power, accessible controls/connectors and assembly preferences; show a dimensioned plan and component estimate. Reuse existing answers and delegation. The agent researches engineering parameters.
+- **Automate applicable calculations.** Add I²C pull-up checks and bounded microstrip impedance/width synthesis. Unsupported geometry requires an applicable manufacturer tool. Browser results retain displayed inputs, units and warnings.
+- **Separate new design from scoped maintenance.** New-design moves require the plan record; authorized maintenance binds its exact batch without a fresh product interview. Native identity, geometry, collision and recovery checks still apply.
+- **Make failures actionable.** Pin-net errors identify affected objects and repair hints. Body-envelope screening prunes irrelevant pairs while retaining the prior predicate. The unified runner treats skipped checks as incomplete validation.
+
+This update reviewed workflow and diagnostic methods in `specs-to-pcb`, `circuit-synth` and `atopile` without adding their runtimes. The four bundled toolsets are unchanged. See [review decisions](references/32-adversarial-improvement.md).
 
 | Area | Current capability |
 |---|---|
@@ -58,7 +67,7 @@ See the [third-party inventory](THIRD_PARTY_NOTICES.md) for licenses, file locat
 
 ## Installation
 
-Download the [complete v1.7.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip). To track development, clone the repository:
+Download the [complete v1.8.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.8.0/PCB-Design-Skill-v1.8.0.zip). To track development, clone the repository:
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup

@@ -1,5 +1,7 @@
 # Idea, functional requirements and component cost
 
+For a new product, follow [beginner decisions](30-beginner-experience.md) before fixing the outline or assembly method. Collect ordinary product preferences, research specialist parameters, then show a concrete plan and component-only cost. After acceptance or explicit delegation, routine sourcing and design proceed without repeated approval requests. For stackup or impedance-related cost choices, use [calculation automation](31-calculation-automation.md); a nominal calculation cannot replace a required fabrication tolerance.
+
 Use for new hardware ideas before detailed schematic drawing, and when a user requests a lower-cost BOM. Resume existing designs without repeating accepted intake. This workflow covers components only and does not authorize ordering.
 
 ## From an idea to an initial BOM

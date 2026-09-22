@@ -1,14 +1,26 @@
 // Typed Gateway client. Does not expose arbitrary JavaScript execution.
 import {readFileSync,writeFileSync,renameSync,existsSync,lstatSync,unlinkSync} from 'node:fs';
-import {resolve,dirname} from 'node:path';
+import {resolve,dirname,relative,isAbsolute} from 'node:path';
 import {randomUUID,createHash} from 'node:crypto';
 import {checkConstraints} from './design_constraints.mjs';
 import {liveRuntime} from './eda_live_runtime.mjs';
+import {checkIntake,checkMaintenance} from './intake_guard.mjs';
 
 let lockPath;
 const [action,...rest]=process.argv.slice(2),args={};
 function noLink(p) {for(let cur=resolve(p);;cur=dirname(cur)){if(existsSync(cur)&&lstatSync(cur).isSymbolicLink())throw Error('Link path refused');if(dirname(cur)===cur)break;}return resolve(p);}
 function read(p){return JSON.parse(readFileSync(noLink(p),'utf8'));}
+const shaFile=p=>createHash('sha256').update(readFileSync(noLink(p))).digest('hex');
+function scopeReview() {
+  if(!args['maintenance-scope'])return checkIntake({root:args['intake-root'],baseline:args.baseline,project:args.project,python:args.python});
+  if(args['intake-root']||args.baseline||args.python)throw Error('Choose new-design intake or scoped maintenance, not both');
+  const file=noLink(args['maintenance-scope']),record=read(file),name=record?.authorization?.path;
+  if(typeof name!=='string'||isAbsolute(name)||name.includes(':'))throw Error('Expected local authorization reference');
+  const auth=resolve(dirname(file),name),rel=relative(dirname(file),auth);
+  if(rel.startsWith('..')||isAbsolute(rel))throw Error('Authorization outside scope directory');
+  return checkMaintenance(record,{project_id:args.project,document_id:args.document,
+    source_sha256:shaFile(args.source),moves_sha256:shaFile(args.moves),constraints_sha256:shaFile(args.constraints)},readFileSync(noLink(auth)));
+}
 function save(p,data,exclusive=false) {
   p=noLink(p);const bytes=JSON.stringify(data,null,2)+'\n';
   if(exclusive){writeFileSync(p,bytes,{flag:'wx'});return;}
@@ -24,9 +36,9 @@ try {
   if(!['capture','apply','status','rollback','reopen','resume'].includes(action))throw Error('Use capture|apply|status|rollback|reopen|resume; see reference 23');
   for(let i=0;i<rest.length;i+=2){if(!rest[i]?.startsWith('--')||!rest[i+1]||args[rest[i].slice(2)])throw Error('Expected unique --key value arguments');args[rest[i].slice(2)]=rest[i+1];}
   if(!args.journal)throw Error('--journal file required');
-  for(const key of Object.keys(args))if(!['journal','port','window','project','document','source','moves','constraints'].includes(key))throw Error('Unknown argument: '+key);
+  for(const key of Object.keys(args))if(!['journal','port','window','project','document','source','moves','constraints','intake-root','baseline','python','maintenance-scope'].includes(key))throw Error('Unknown argument: '+key);
   const candidate=noLink(args.journal)+'.lock';writeFileSync(candidate,String(process.pid),{flag:'wx'});lockPath=candidate;
-  let journal,request,target,constraintFile;
+  let journal,request,target,constraintFile,intakeReport;
   if(['status','rollback','reopen','resume'].includes(action)) {
     journal=read(args.journal);target=journal.target;
 
@@ -38,6 +50,7 @@ try {
     target={port:Number(args.port),windowId:args.window,projectId:args.project,documentId:args.document};
     request={action,projectId:args.project,documentId:args.document};
     if(action==='apply') {
+      intakeReport=scopeReview();
       if(!args.constraints)throw Error('--constraints required for every new live batch');
       const captured=read(args.source),plan=read(args.moves),rawConstraints=readFileSync(noLink(args.constraints));
       const constraints=JSON.parse(rawConstraints.toString('utf8').replace(/^\uFEFF/,''));
@@ -47,6 +60,7 @@ try {
     }
     journal={schema:1,target,request,state:'PENDING',requestSha256:createHash('sha256').update(JSON.stringify(request)).digest('hex')};
     if(action==='apply')journal.constraintFile=constraintFile;
+    if(action==='apply')journal.intakeReview=intakeReport;
     save(args.journal,journal,true);
   }
   if(!Number.isInteger(target.port)||target.port<49620||target.port>49629)throw Error('Invalid local bridge port');
@@ -61,6 +75,10 @@ try {
     if(action==='resume')request.constraintsChanged=changed;
   }
   const body={windowId:target.windowId,code:`return await (${liveRuntime.toString()})(eda,${JSON.stringify(request)},(${checkConstraints.toString()}));`};
+  if(action==='apply') {
+    const fresh=scopeReview();
+    if(fresh.intake_digest!==intakeReport.intake_digest)throw Error('Intake changed during preflight; no live write sent');
+  }
   try {
     const reply=await call(target.port,'/execute',body);
     if(reply.success!==true||reply.windowId!==target.windowId)throw Error(reply.error??'Gateway rejected request or window identity');

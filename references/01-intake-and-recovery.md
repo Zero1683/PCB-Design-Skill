@@ -1,5 +1,7 @@
 # G0: Requirements, scope, and context recovery
 
+For new designs, apply [the two-step beginner brief](30-beginner-experience.md) before committing dimensions or interfaces. Existing confirmed choices and explicit delegation persist. Keep technical calculations with the agent using [calculation automation](31-calculation-automation.md).
+
 ## Extract confirmed requirements before asking questions
 
 Read the conversation, attachments, and project files. Record parameters as `confirmed / proposed / unknown / superseded`. Do not fill important unknowns with values from a previous case.

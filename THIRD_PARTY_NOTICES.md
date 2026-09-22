@@ -1,5 +1,13 @@
 # Third-party components / 第三方组件
 
+## v1.8.0 research and numerical references / 本轮参考资料
+
+The four bundled toolsets and seven runtime packages below are unchanged. Newly reviewed `specs-to-pcb`, `circuit-synth` and `atopile` supplied workflow/diagnostic ideas only; no source code or runtime from those projects is included. Pinned commits and inspected files are recorded in [external-method review](references/32-adversarial-improvement.md). JITX Skills was excluded from derivative reuse after its inspected license reserved rights.
+
+`assets/microstrip-reference.json` contains numerical results generated with scikit-rf 1.8.0 as an independent cross-check of the project-authored Hammerstad–Jensen implementation. scikit-rf and its dependencies are not shipped or required at runtime. Agreement tests validate implementation against that reference model, not a fabricator's impedance tolerance.
+
+新增参考项目没有作为依赖打包。微带线参考数据用于交叉核对计算结果，不代表实板测量或生产公差承诺。
+
 This inventory describes files actually shipped in this repository. Versions are
 pinned source snapshots, not claims about the latest upstream release. Original
 workflow, templates and integration scripts use the root [MIT License](LICENSE).

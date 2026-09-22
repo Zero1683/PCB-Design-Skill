@@ -77,7 +77,7 @@ def revision_diff(before, after):
 
 def geometry(data, clearance):
     parts = load_snapshot(data)
-    if data['kind'] != 'pcb' or not math.isfinite(clearance) or clearance < 0:
+    if data['kind'] != 'pcb' or type(clearance) not in (int, float) or not math.isfinite(clearance) or clearance < 0:
         raise ValueError('Geometry needs a PCB snapshot and nonnegative clearance in mm')
     boxes, missing, pairs = [], [], []
     for ref, part in parts.items():
@@ -85,20 +85,35 @@ def geometry(data, clearance):
         box = part.get('body_aabb_mm')
         if box is None or not part.get('geometry_source'):
             missing.append(ref); continue
-        if part.get('side') not in {'top','bottom'} or len(box) != 4 or any(type(v) not in (int,float) or not math.isfinite(v) for v in box) or box[2] <= box[0] or box[3] <= box[1]:
+        if part.get('side') not in {'top','bottom'} or not isinstance(box, (list, tuple)) or len(box) != 4 or any(type(v) not in (int,float) or not math.isfinite(v) for v in box) or box[2] <= box[0] or box[3] <= box[1]:
             raise ValueError(f'{ref}: invalid board-coordinate body AABB or side')
         boxes.append((ref,part['side'],box))
-    for i,(ref,side,a) in enumerate(boxes):
-        for other,other_side,b in boxes[i+1:]:
-            if side != other_side: continue
-            dx=max(b[0]-a[2],a[0]-b[2],0);dy=max(b[1]-a[3],a[1]-b[3],0)
-            overlap=a[0]<b[2] and b[0]<a[2] and a[1]<b[3] and b[1]<a[3]
-            gap=math.hypot(dx,dy)
-            if overlap or gap < clearance:
-                pairs.append({'refs':[ref,other],'aabb_overlap':overlap,'aabb_gap_mm':gap})
+    # Sweep X separately by side. Prune only pairs that cannot meet the exact
+    # Euclidean predicate below; retain original input ordering in the report.
+    candidates = 0
+    indexed_results = []
+    for side in ('top', 'bottom'):
+        active = []
+        ordered = sorted((i for i in range(len(boxes)) if boxes[i][1] == side), key=lambda i: (boxes[i][2][0], i))
+        for j in ordered:
+            b = boxes[j][2]
+            active = [i for i in active if boxes[i][2][2] + clearance >= b[0]]
+            for i in active:
+                a = boxes[i][2]
+                if a[3] + clearance < b[1] or b[3] + clearance < a[1]: continue
+                candidates += 1
+                left, right = sorted((i, j))
+                dx=max(b[0]-a[2],a[0]-b[2],0);dy=max(b[1]-a[3],a[1]-b[3],0)
+                overlap=a[0]<b[2] and b[0]<a[2] and a[1]<b[3] and b[1]<a[3]
+                gap=math.hypot(dx,dy)
+                if overlap or gap < clearance:
+                    indexed_results.append((left,right,{'refs':[boxes[left][0],boxes[right][0]],'aabb_overlap':overlap,'aabb_gap_mm':gap}))
+            active.append(j)
+    pairs = [record for _,_,record in sorted(indexed_results)]
     if not boxes and not missing: raise ValueError('No fitted components to screen')
     return {'scope':'conservative-body-envelope-screen-only','baseline_id':data['baseline_id'],
             'suspect_pairs':pairs,'missing_geometry':missing,'checked_components':len(boxes),
+            'candidate_pairs':candidates, 'algorithm':'side-separated-x-sweep',
             'geometry_acceptance':'NOT_ASSESSED',
             'limitations':'Board-coordinate transformed AABBs may over-report rotated bodies. No pad/copper, outline, mating-space, height or opposite-side validation.'}
 

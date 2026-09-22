@@ -1,3 +1,38 @@
+# v1.8.0 validation
+
+2026-09-22, Windows, Python 3.12, Node 22.23.2. Unified regression completed:
+**409 Python tests and 81 Node tests passed, with no skips**, followed by the
+isolated bridge smoke test with simulated clients. Earlier runner attempts exposed
+legacy test working-directory/CLI requirements; those were fixed in the unified
+entrypoint rather than excluding the tests.
+
+The microstrip implementation matches 48 independently generated scikit-rf 1.8.0
+quasi-static reference vectors (absolute Z tolerance 1e-6 ohm, effective permittivity
+1e-8). I2C tests include TI's published example and invalid inputs. These checks
+establish model implementation agreement, not physical impedance tolerances.
+Seeded geometry comparisons cover 80 boards at three clearance values, plus
+boundary/nested/side cases. A 5,000-component sparse fixture avoids irrelevant
+pair checks. A separate 1,500-component timing run is recorded without generalizing
+its speedup to complete PCB design.
+
+Real EasyEDA test1, client 3.2.149.88089769: 12 existing parts plus a frame on an
+unwired schematic. Preserved the pre-test document source. Collision and boundary
+violations returned REJECTED before mutation. A 5-unit C3 move returned APPLIED;
+save/close/reopen returned RELOADED_MATCH; rollback returned ROLLED_BACK. A new
+capture exactly matched original captured component/pin/property/geometry facts.
+The page was saved by the authorized persistence test. The maintenance authorization
+record binds only this batch and grants no new-design gate.
+
+See [machine-readable scope and evidence hashes](assets/validation-v180/summary.json).
+Raw native captures remain with the local test records; hashes alone are not an
+independently replayable native project. Synthetic suites also cover changed
+decisions, wrong project/baseline, stale calculator observations, unit mismatches,
+out-of-domain models, changed maintenance plans and source evidence.
+
+Whole-board G0-G5 novice-session acceptance, native PCB writes/routing rollback,
+browser-calculator end-to-end operation and manufactured-board performance remain
+outside this run. No such capability is inferred from the software tests.
+
 # v1.7.0 release packaging
 
 2026-09-22. This release packages the previously validated software and refreshed

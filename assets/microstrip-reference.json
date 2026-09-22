@@ -1,0 +1,391 @@
+{
+  "oracle": "scikit-rf 1.8.0 MLine.analyse_quasi_static / hammerstadjensen",
+  "source": "https://github.com/scikit-rf/scikit-rf/blob/v1.8.0/skrf/media/mline.py",
+  "scope": "independent implementation agreement; no fabrication or field-solver validation",
+  "vectors": [
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 1,
+      "impedance_ohm": 221.25436283770506,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 1,
+      "impedance_ohm": 215.2960300048834,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 1,
+      "impedance_ohm": 166.69979862110324,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 1,
+      "impedance_ohm": 164.1682983426411,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 1,
+      "impedance_ohm": 126.42386511841555,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 1,
+      "impedance_ohm": 125.18130737017813,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 1,
+      "impedance_ohm": 89.0289301994009,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 1,
+      "impedance_ohm": 88.47272380322322,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 1,
+      "impedance_ohm": 49.367906729391926,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 1,
+      "impedance_ohm": 49.21069817275822,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 1,
+      "impedance_ohm": 29.02073548956521,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 1,
+      "impedance_ohm": 28.968428992314415,
+      "effective_er": 1.0
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 2.2,
+      "impedance_ohm": 169.8591026776903,
+      "effective_er": 1.6967038110633024
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 2.2,
+      "impedance_ohm": 166.04801986209026,
+      "effective_er": 1.6811429409051237
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 2.2,
+      "impedance_ohm": 126.73369068746575,
+      "effective_er": 1.7301588778811774
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 2.2,
+      "impedance_ohm": 125.126025521958,
+      "effective_er": 1.7214059245165352
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 2.2,
+      "impedance_ohm": 94.96306399668491,
+      "effective_er": 1.7723467368934263
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 2.2,
+      "impedance_ohm": 94.17807824346806,
+      "effective_er": 1.76676715737172
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 2.2,
+      "impedance_ohm": 65.72732029780833,
+      "effective_er": 1.834722794507649
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 2.2,
+      "impedance_ohm": 65.38192324771138,
+      "effective_er": 1.8310635321612037
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 2.2,
+      "impedance_ohm": 35.470021284210304,
+      "effective_er": 1.9371646158271196
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 2.2,
+      "impedance_ohm": 35.3757038943537,
+      "effective_er": 1.935124328970405
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 2.2,
+      "impedance_ohm": 20.43921552095505,
+      "effective_er": 2.015990046075876
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 2.2,
+      "impedance_ohm": 20.408746345784166,
+      "effective_er": 2.0147317505385707
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 4.5,
+      "impedance_ohm": 127.43342824272327,
+      "effective_er": 3.0145115542971226
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 4.5,
+      "impedance_ohm": 125.05269824681041,
+      "effective_er": 2.9640526214544987
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 4.5,
+      "impedance_ohm": 94.5304187722819,
+      "effective_er": 3.1097608138413166
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 4.5,
+      "impedance_ohm": 93.53164041189838,
+      "effective_er": 3.080785705742643
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 4.5,
+      "impedance_ohm": 70.33218165430179,
+      "effective_er": 3.23109665161501
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 4.5,
+      "impedance_ohm": 69.84645435785872,
+      "effective_er": 3.2121087197599123
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 4.5,
+      "impedance_ohm": 48.195090442658014,
+      "effective_er": 3.412374676493385
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 4.5,
+      "impedance_ohm": 47.98366425107641,
+      "effective_er": 3.399632535644992
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 4.5,
+      "impedance_ohm": 25.617909817776642,
+      "effective_er": 3.7136591530708736
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 4.5,
+      "impedance_ohm": 25.56133469278806,
+      "effective_er": 3.7063975438653367
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 4.5,
+      "impedance_ohm": 14.606037069760154,
+      "effective_er": 3.9477717285277563
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 4.5,
+      "impedance_ohm": 14.588055474240923,
+      "effective_er": 3.943256921752702
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 10,
+      "impedance_ohm": 89.18427040625392,
+      "effective_er": 6.1547038238095135
+    },
+    {
+      "width_mm": 0.1,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 10,
+      "impedance_ohm": 87.75364411318988,
+      "effective_er": 6.01924086972023
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 10,
+      "impedance_ohm": 65.91444128064687,
+      "effective_er": 6.396008026033976
+    },
+    {
+      "width_mm": 0.25,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 10,
+      "impedance_ohm": 65.31654106977922,
+      "effective_er": 6.317310702912404
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 10,
+      "impedance_ohm": 48.822649549871414,
+      "effective_er": 6.705257162285873
+    },
+    {
+      "width_mm": 0.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 10,
+      "impedance_ohm": 48.53269970693452,
+      "effective_er": 6.652885748533731
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 10,
+      "impedance_ohm": 33.24811070094062,
+      "effective_er": 7.170152056711817
+    },
+    {
+      "width_mm": 1.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 10,
+      "impedance_ohm": 33.12278480381121,
+      "effective_er": 7.134525755280525
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 10,
+      "impedance_ohm": 17.5108662328,
+      "effective_er": 7.948298430066309
+    },
+    {
+      "width_mm": 2.5,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 10,
+      "impedance_ohm": 17.477753376660946,
+      "effective_er": 7.927711541452642
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0,
+      "er": 10,
+      "impedance_ohm": 9.921118750068167,
+      "effective_er": 8.556487767380354
+    },
+    {
+      "width_mm": 5.0,
+      "height_mm": 0.5,
+      "copper_mm": 0.005,
+      "er": 10,
+      "impedance_ohm": 9.910697105247827,
+      "effective_er": 8.543611272890896
+    }
+  ]
+}

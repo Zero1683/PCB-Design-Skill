@@ -4,6 +4,8 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 import sys
+import json
+import intake_review
 
 
 def create_project(output: Path, name: str, lang: str = 'en') -> Path:
@@ -21,6 +23,7 @@ def create_project(output: Path, name: str, lang: str = 'en') -> Path:
                'CHECKS.template.csv': 'CHECKS.csv'}
     now = datetime.now(timezone.utc).isoformat(timespec='seconds')
     prepared = {}
+    prepared['intake.json'] = json.dumps(intake_review.template(name.strip(), 'UNSET'), ensure_ascii=False, indent=2) + '\n'
     for source, target in mapping.items():
         content = (templates / source).read_text(encoding='utf-8')
         prepared[target] = content.replace('{{PROJECT_NAME}}', name.strip()).replace('{{CREATED_UTC}}', now)

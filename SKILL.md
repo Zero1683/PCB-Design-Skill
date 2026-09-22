@@ -2,7 +2,7 @@
 name: pcb-design-to-bringup
 description: Design manufacturable, assembleable, and testable PCBs from hardware requirements. Covers component selection, schematics, footprint verification, placement and routing, manufacturing handoff, and hardware acceptance. Use for new designs, board reviews and rework, fabrication preparation, and first-board bring-up. Includes staged verification records and project handoff templates. Supports EasyEDA and workflows in other EDA tools. Not for firmware-only changes or enclosure modeling.
 metadata:
-  version: "1.7.0"
+  version: "1.8.0"
 ---
 
 # PCB Design to Bring-up
@@ -29,7 +29,13 @@ Use native autorouting for suitable ordinary nets after critical placement, powe
 
 ## Idea-to-cost planning
 
-For a new idea, first organize functions and requirements, derive a preliminary component BOM, and query current 立创商城 prices before detailed schematic work. Follow [component cost planning](references/26-component-cost-planning.md): show component-only consumption and actual purchase totals using build quantity, MOQ, order increments and applicable tiers. If quantity is unknown, state a one-board estimate. Cost reduction preserves confirmed functions and performance unless the user explicitly accepts a downgrade. Refresh the BOM and quotes at G5. This is read-only price research, not purchasing, and does not add a routine approval pause.
+For a new idea, use the [two-step beginner brief](references/30-beginner-experience.md): recover or ask about purpose, carrier, board size, power, accessible controls/connectors and assembly, then show one dimensioned plan and component estimate for acceptance or changes. Explicit prior delegation covers its stated choices; silence does not. Do not repeat this interview for a narrowly authorized repair or read-only review.
+
+Derive a preliminary BOM and query current 立创商城 prices before detailed schematic work. Follow [component cost planning](references/26-component-cost-planning.md): show component-only consumption and actual purchase totals using build quantity, MOQ, order increments and applicable tiers. If quantity is unknown, state a one-board estimate. Cost reduction preserves confirmed functions and performance unless the user explicitly accepts a downgrade. Refresh the BOM and quotes at G5. After plan acceptance or delegation, continue authorized design without per-operation approval pauses. Price research does not authorize purchasing.
+
+Use [calculation automation](references/31-calculation-automation.md) to distinguish DC voltage drop, PDN response and transmission-line impedance. Calculate locally within a verified model's domain; otherwise use applicable manufacturer tools or browser control. Preserve actual inputs, units, stackup and warnings. Never remove required impedance/process controls solely to reduce cost; compare actual process capability and current quotations.
+
+Use [regression and external-method admission](references/32-adversarial-improvement.md) when changing this skill. Reproduce a failure and a valid neighboring case, fix the cause, and rerun affected checks. Required unsupported or untested coverage remains open; successful scripts cannot guarantee a flawless physical board.
 
 ## EasyEDA backend selection
 

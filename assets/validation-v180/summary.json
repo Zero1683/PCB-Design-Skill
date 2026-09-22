@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-22",
+  "python": "3.12",
+  "node": "22.23.2",
+  "easyeda": "3.2.149.88089769",
+  "regression": {
+    "python_tests": 409,
+    "node_tests": 81,
+    "failures": 0,
+    "skipped": 0,
+    "bridge_smoke": "PASS; simulated clients"
+  },
+  "numerical_reference": {
+    "model": "scikit-rf 1.8.0 Hammerstad-Jensen quasi-static",
+    "vectors": 48
+  },
+  "geometry": {
+    "fixture": "1500 separated synthetic component envelopes",
+    "brute_seconds": 0.5493422999279574,
+    "sweep_seconds": 0.004500300041399896,
+    "candidate_pairs": 0,
+    "same_suspect_pairs": true,
+    "limitation": "single local run, not a whole-board speed or token claim; dense overlap can remain quadratic"
+  },
+  "native": {
+    "scope": "test1 existing unwired schematic; 12 parts plus frame",
+    "collision": "REJECTED",
+    "bounds": "REJECTED",
+    "valid": "APPLIED",
+    "persistence": "RELOADED_MATCH",
+    "rollback": "ROLLED_BACK",
+    "restored_capture_equal": true,
+    "physical_board_acceptance": false,
+    "source_backup_sha256": "fe0863b67687c011c7cbe68197575acb4917cb7e24c238313a8425fc276521e7",
+    "observations": {
+      "native-after.json": "454e93859b3db55abc5175f538ae222c59fa98533360f27271441c6c72f3929f",
+      "native-bounds.json": "dfcee7113967489ac48fd893e05943b15be6fe20ec325ff03518e523e2f623c3",
+      "native-capture.json": "454e93859b3db55abc5175f538ae222c59fa98533360f27271441c6c72f3929f",
+      "native-collision.json": "c2e6bed01aa90811d033cf72a6ba36cd8443266b21e7fa743f3ec9d3f27b420f",
+      "native-constraints.json": "37e1e407600406976933287658d47e62399e873797f4981457db998cfddbd7dd",
+      "native-summary.json": "402eece9581a8fb0e7678ee38c6349225e22f82727759d17f4115fe6919af18e",
+      "native-valid.json": "3293af426db22baf605b807a8dd61abd842a9805bb577a046ed64692f2087556"
+    }
+  },
+  "not_claimed": [
+    "whole-board G0-G5 new-design benchmark",
+    "native PCB write/routing rollback",
+    "browser calculator end-to-end execution",
+    "fabricated-board electrical performance"
+  ]
+}

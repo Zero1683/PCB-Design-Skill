@@ -85,9 +85,20 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
                 errors.append('SCH-FORMAT: only free-layout or framed-layout is allowed')
     coverage = None
     provenance = None
+    intake = None
+    if design_gates and int(through[1:]) >= 2:
+        try:
+            import intake_review
+            intake = intake_review.evaluate(root, io.read(binding.local(root, 'intake.json')), baseline)
+            if not intake['detailed_design_allowed']:
+                errors.append('Beginner plan decision incomplete: ' + intake['state'])
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            errors.append('Intake review (legacy projects need explicit migration): ' + str(exc))
     if design_gates and int(through[1:]) >= 2:
         try:provenance=binding.evaluate(root,baseline,rows,through)
         except (ValueError,KeyError,TypeError,OSError) as exc:errors.append("Design binding: "+str(exc))
+        if intake and provenance and intake['project_id'] != provenance['project_id']:
+            errors.append('Intake belongs to another project')
     if design_gates and int(through[1:]) >= 5:
         try:
             import requirement_coverage as rc
@@ -105,7 +116,7 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
     if selected == 0: errors.append('No check rows in selected stage range')
     return {'scope': 'record-completeness-only', 'through': through, 'selected_checks': selected,
             'record_errors': errors, 'pending': pending,
-            'requirement_coverage': coverage,'design_binding':provenance,
+            'intake_review': intake, 'requirement_coverage': coverage,'design_binding':provenance,
             'records_complete': not errors and not pending,
             'engineering_correctness': 'NOT_ASSESSED'}
 
