@@ -1,6 +1,8 @@
 ---
 name: pcb-design-to-bringup
 description: Design manufacturable, assembleable, and testable PCBs from hardware requirements. Covers component selection, schematics, footprint verification, placement and routing, manufacturing handoff, and hardware acceptance. Use for new designs, board reviews and rework, fabrication preparation, and first-board bring-up. Includes staged verification records and project handoff templates. Supports EasyEDA and workflows in other EDA tools. Not for firmware-only changes or enclosure modeling.
+metadata:
+  version: "1.7.0"
 ---
 
 # PCB Design to Bring-up

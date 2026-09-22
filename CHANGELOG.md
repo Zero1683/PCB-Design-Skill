@@ -1,6 +1,6 @@
-# Unreleased (main) · 验收、几何与成本规划 / Acceptance, geometry and cost planning
+# v1.7.0 · 验收、几何与成本规划 / Acceptance, geometry and cost planning
 
-Current changes are published on `main`; the latest tagged Release remains v1.6.0.
+Released as v1.7.0 on 2026-09-22, including the accumulated changes after v1.6.0.
 Documentation now consolidates the current capabilities, 356-case regression status,
 upgrade path, four bundled third-party packages and seven runtime dependencies.
 Optional external backends are listed separately. No dependency versions changed

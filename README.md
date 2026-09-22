@@ -24,7 +24,7 @@
 
 ## 近期更新
 
-`main` 已包含 v1.6.0 之后的验收、几何检查和成本规划更新。**本轮软件回归 356 项通过，另完成 17 个工具自检。** 测试范围见[验证记录](VALIDATION.md)，逐版变化见[更新日志](CHANGELOG.md)。测试当前改进请下载 `main`；已发布的 Release 保留各自版本内容。
+**v1.7.0** 汇总了 v1.6.0 之后的验收、几何检查和成本规划更新。**本轮软件回归 356 项通过，另完成 17 个工具自检。** 测试范围见[验证记录](VALIDATION.md)，逐版变化见[更新日志](CHANGELOG.md)。可直接下载 [v1.7.0 完整安装包](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip)；`main` 用于后续开发。
 
 | 方向 | 当前能力 |
 |---|---|
@@ -58,7 +58,7 @@
 
 ## 安装
 
-测试当前改进可下载 [main 完整 ZIP](https://github.com/Zero1683/PCB-Design-Skill/archive/refs/heads/main.zip)，或克隆仓库：
+下载 [v1.7.0 完整安装包](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip)。需要跟进开发版本时，也可克隆仓库：
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup

@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "main-2026-09-22-documentation",
-  "baseline_id": "2026-09-22-physical-inspection-fixes",
-  "generated_utc": "2026-09-22T10:25:28+00:00",
+  "revision": "v1.7.0",
+  "baseline_id": "v1.7.0",
+  "generated_utc": "2026-09-22T10:29:48+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,36 +10,36 @@
       "sha256": "794c1f32f9d80642aa16ed24a366c1027f93b802b807852baec1080880a7ebc1"
     },
     "CHANGELOG.md": {
-      "bytes": 13553,
-      "sha256": "bb3ec1f79d282e4d1bd4c250c5c2bbc6980a0b9f21eab907ddf26fbd039018ee"
+      "bytes": 13541,
+      "sha256": "0657d086ebf9132238f7ab3a2246882af8a93ca2d95a6536dff8dc9062f588e4"
     },
     "LICENSE": {
       "bytes": 1065,
       "sha256": "49189ab764f77fbb8e18c313a625d2badf3882e2bca73e87487160dc21178d12"
     },
     "README.md": {
-      "bytes": 19945,
-      "sha256": "e18acc88eca73116b2c4a03977ae407a96d751174203308d021cf0a2fd24913d"
+      "bytes": 20078,
+      "sha256": "5ac341c9fc50e895177106f022076f902686067199682d8a349c8e27ce4ebf79"
     },
     "README_EN.md": {
-      "bytes": 21943,
-      "sha256": "2097ca0936dc2d691d38295a307c00cc423d78edf8040ad0c44fe23549d83ef9"
+      "bytes": 22079,
+      "sha256": "950a314b7e7c3ced3f1ef114dc50608167808a7b632ac92daf5e944510e66439"
     },
     "SKILL.md": {
-      "bytes": 23501,
-      "sha256": "aff66ccbf2eb20b1c3c862bc40df26fd27561d3cce1ba943a7ca62310a02c38b"
+      "bytes": 23530,
+      "sha256": "aaf20721508a9a0f5bfbe6be8f2602428ecb193c16bd55c203fd3c62c6340e03"
     },
     "START_HERE.md": {
-      "bytes": 7222,
-      "sha256": "f65a27595828719df9a828f990c5a8fe76fb4b087ceda2fb58468f95bd31fecf"
+      "bytes": 7304,
+      "sha256": "7b6491c0b1378406523900bf28304b0333bb3e6b6a92db8e8e6bf473c40c79f7"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 8199,
       "sha256": "607f23ca14c98d82fb0cac9652c94cbf479a09b02527644a668bfa021945d893"
     },
     "VALIDATION.md": {
-      "bytes": 36536,
-      "sha256": "a6fee515cdc2e4e9cfaad8fb9048977a9b6aca0de66ddba0c7df84411ee19d51"
+      "bytes": 36971,
+      "sha256": "8188c0d694fd004525c855e40e33fc4bf083ac1828ebf9e3235060dfe63bad56"
     },
     "agents/openai.yaml": {
       "bytes": 365,

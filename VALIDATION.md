@@ -1,3 +1,11 @@
+# v1.7.0 release packaging
+
+2026-09-22. This release packages the previously validated software and refreshed
+documentation. The complete ZIP and its SHA-256 sidecar are release assets.
+The staged payload and a fresh ZIP extraction are checked with release_manifest.py;
+all bundled files are bound to the v1.7.0 manifest. The latest engineering test
+results and their limits are retained below; packaging adds no new hardware claims.
+
 # Documentation refresh on main
 
 2026-09-22. Updated both READMEs, setup/update instructions, third-party notices

@@ -24,7 +24,7 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Recent updates
 
-`main` includes acceptance, geometry and component-cost improvements after v1.6.0. **The latest software run passed 356 regression cases and 17 additional toolkit self-test commands.** See [validation records](VALIDATION.md) for scope and the [changelog](CHANGELOG.md) for version history. Use `main` to test these changes; published Releases retain their versioned contents.
+**v1.7.0** includes the accumulated acceptance, geometry and component-cost improvements after v1.6.0. **The latest software run passed 356 regression cases and 17 additional toolkit self-test commands.** See [validation records](VALIDATION.md) for scope and the [changelog](CHANGELOG.md) for version history. Download the [complete v1.7.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip); `main` tracks subsequent development.
 
 | Area | Current capability |
 |---|---|
@@ -58,7 +58,7 @@ See the [third-party inventory](THIRD_PARTY_NOTICES.md) for licenses, file locat
 
 ## Installation
 
-To test current changes, download the [complete main ZIP](https://github.com/Zero1683/PCB-Design-Skill/archive/refs/heads/main.zip), or clone the repository:
+Download the [complete v1.7.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.7.0/PCB-Design-Skill-v1.7.0.zip). To track development, clone the repository:
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
