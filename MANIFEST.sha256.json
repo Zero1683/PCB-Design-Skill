@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "revision": "v1.8.2-dev",
-  "baseline_id": "d03acc6f34ae8d75802e88755805cd575d4667db",
-  "generated_utc": "2026-09-23T05:08:29+00:00",
+  "baseline_id": "f4001103eb3b0970765b26306bc7b108f3eec1b9",
+  "generated_utc": "2026-09-23T05:39:31+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,8 +10,8 @@
       "sha256": "912c2d13acb32ce7601d7aef178be78582f5bbc372debfde105021a6fe4dc05e"
     },
     "CHANGELOG.md": {
-      "bytes": 16955,
-      "sha256": "cf94608df49f5197dad050df776cadcd8ea5372551c901aea5b1a562232ce345"
+      "bytes": 17176,
+      "sha256": "763c016b0af7f36d3d0ddcd7a664ec2dd5cedf4aef6c40b92fff3d94b523103f"
     },
     "LICENSE": {
       "bytes": 1086,
@@ -38,8 +38,8 @@
       "sha256": "fe194f1b605d82b04795667f3b024b5caaf2c745f27898603a59249b022dbd7e"
     },
     "VALIDATION.md": {
-      "bytes": 42749,
-      "sha256": "04648b17c5bc9b021561b796c90e587bb7937c4e12bbe6ca0b8509d04a1941c0"
+      "bytes": 43600,
+      "sha256": "8f60ea9360570a7a4a19a6874f5e01316492ecee12b4a0e062319bcd19beb023"
     },
     "agents/openai.yaml": {
       "bytes": 369,
@@ -254,8 +254,8 @@
       "sha256": "d228e5c6dc9b2ceb71a69d4d0707f753504b367119098529363eec07bd5066bb"
     },
     "references/33-local-execution.md": {
-      "bytes": 5133,
-      "sha256": "d499d0f6793c0111e14161510cf4e8ca5994ad8c824cb3e798ad1fa815c4c2af"
+      "bytes": 5468,
+      "sha256": "57fb7c40bb12b9b30f2ea8124f1fda94d5b94d450a7961946cc765d450a0e62d"
     },
     "references/34-mechanical-envelope.md": {
       "bytes": 3412,
@@ -346,8 +346,8 @@
       "sha256": "a31c7a7a3b034020e5b2080a7b074bf01a707341e1695810bf04eda9b446496f"
     },
     "scripts/local_checks.py": {
-      "bytes": 9479,
-      "sha256": "ece577f4fa5e1e45b420c06b907f34482e3301f81fb8099863f8da0c6db36a60"
+      "bytes": 10630,
+      "sha256": "1ba3289b1a77f417a633ce15207dafd5dfef606d1502c2ff564c233a63bd881c"
     },
     "scripts/mechanical_envelope.py": {
       "bytes": 7482,
@@ -478,8 +478,8 @@
       "sha256": "df62b5f1918d9a93182c80feff765b0558e2035567e7bdd96077cd40b72d2592"
     },
     "scripts/test_local_checks.py": {
-      "bytes": 4194,
-      "sha256": "ab5a86e6abf36f1a12c2f9d494ba43b626d84a16c6b537eec30b3d0ea1fbdec4"
+      "bytes": 5364,
+      "sha256": "af2f293ffbc09ae2107ca892ed470e52c09cc54e4c7b93eac9463bd2b482c4f8"
     },
     "scripts/test_mask_geometry.py": {
       "bytes": 11499,
