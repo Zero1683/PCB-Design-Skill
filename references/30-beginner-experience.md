@@ -50,4 +50,56 @@ Legacy projects remain readable. Missing records produce an explicit migration i
 
 ## Communication during design
 
+The user should be able to start with "I want a small keyboard for coding" without
+knowing a processor, bus or CAD file format. Translate that idea into a useful
+device proposal. Do not require the user to write an engineering specification or
+learn the internal gate system to get help.
+
+At a meaningful milestone or blocker, explain briefly: what is now complete,
+what will happen next, and what the user needs to do, if anything. Examples:
+"The USB and buttons are connected in the schematic. I am checking their pin
+assignments before arranging the board. Nothing is needed from you right now."
+"The case is too narrow for this connector. I can move it to the short edge;
+please confirm that a cable can plug in there." Do not repeat status templates
+when nothing has changed, invent progress percentages, or expose raw tracebacks
+as the only explanation of a failure.
+
+When a check fails, investigate and repair within the accepted scope. Explain a
+blocker by its effect on the device and offer a concrete next step. Ask the user
+only for inaccessible information or a choice that changes the product. Do not
+ask a beginner to calculate an impedance or interpret DRC output. Keep the full
+diagnostic and any unresolved limitation in the project record.
+
+## A usable handoff
+
+Lead with what the user can do now. Use the existing handoff record to provide:
+
+- Exact links to the source project and the package intended for fabrication,
+  identifying its revision. Explain which file goes where.
+- The component list, quantities, current quote/unknown items, assembly method,
+  and necessary external items such as cables or a programmer. Separate parts
+  from fabrication, assembly and shipping costs; never imply a parts estimate
+  is the complete cost.
+- A short next-step sequence matched to the user's situation: order the board,
+  assemble it, inspect it, perform limited-power first startup, load the correct
+  firmware where available, and test the requested functions. Link detailed
+  instructions instead of showing every stage at once. The user places orders
+  unless purchasing was explicitly authorized.
+- What is verified, what awaits the physical board, and any unfinished firmware
+  or enclosure work. When hardware is absent, finish the authorized engineering
+  package and give a restart point for later bring-up.
+
+If the request is for a working object, maintain a short completion list for
+hardware, firmware, enclosure and assembly as applicable. Work on authorized
+items within available tools; explicitly hand off unavailable work. Do not silently
+expand a PCB-only task into those areas. A recipient should know what to do next
+without reading the whole engineering log.
+
+For a later change such as "add a screen", recover the existing project and
+review the affected power, interfaces, space and cost before proposing the change.
+Preserve earlier answers and working functions. At project completion, record
+the actual revision, choices, verified conditions, remaining issues and file
+locations in the existing handoff. Record cost or time only when known; never
+label an unbuilt circuit as a proven recipe.
+
 Tell the user what changed and what they need to decide. Keep internal check IDs, hash reports and detailed failure logs in project records. Group defects into one repair pass. At handoff, provide source/manufacturing files, assembly orientation, connection instructions and measured versus unmeasured scope. Do not describe synthetic checks or successful API calls as a proven physical board.

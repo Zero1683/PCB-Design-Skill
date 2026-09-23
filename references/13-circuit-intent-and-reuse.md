@@ -54,6 +54,28 @@ Exit 0 means the declared relationships match the supplied data, 1 means at leas
 
 ## Reusable circuit blocks
 
+Before designing a functional block from scratch, look for an applicable exact-part
+manufacturer reference design, evaluation board or documented open hardware
+implementation. Reuse can improve reliability and save effort; popularity and
+an attractive schematic are not validation. Prefer the simplest suitable circuit
+that preserves the accepted functions. Do not require a custom PCB if an available
+module meets the user's goal more practically; explain the size, cost and assembly
+tradeoff, and honor an explicit custom-board request.
+
+In the existing project record, cite the source URL and revision, the reused
+block, its supported operating conditions and any reported test evidence. Record
+what changes in this project and which checks those changes require. Preserve
+layout requirements for RF, switching supplies, clocks and other sensitive
+circuits; copying only the schematic can lose essential behavior.
+
+Before copying or redistributing third-party files or circuit artwork, inspect
+the license for those particular artifacts. Repository code, board files and
+documentation may have different terms. Preserve required attribution, notices
+and sharing obligations; do not relabel third-party work under the project's MIT
+license. Missing or unclear permission is unresolved, not an implied grant.
+Use an alternative with suitable terms or limit use to permitted reference.
+Report references honestly without presenting this process as a legal certification.
+
 For shared-driver operating modes, generator-selected variants or derivative
 boards, also use [sourced project reviews](36-project-reviews.md). Preserve
 actual source observations; a declaration is not a native extraction.

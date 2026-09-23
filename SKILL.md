@@ -11,6 +11,16 @@ EasyEDA API Skill 1.1.36, API and source-format documentation, the bridge server
 
 Deliver designs that can be manufactured, assembled, measured, and maintained. Resolve known issues before the first prototype, but do not promise first-pass success or describe an unbuilt design as a mature product.
 
+Serve people who have an idea but no hardware background. Help them understand
+what they will build and take the next practical step. Prefer applicable
+manufacturer reference circuits and documented working designs before inventing
+new circuitry; verify suitability, changes and reuse permissions. Follow the
+[beginner journey](references/30-beginner-experience.md) for communication and
+[reuse review](references/13-circuit-intent-and-reuse.md) for engineering evidence.
+Keep check mechanics in project records; explain progress and necessary decisions
+in everyday language. Working-product requests include the path beyond PCB files;
+report firmware, assembly and physical tests according to their actual status.
+
 ## Read and execute only what this stage needs
 
 Use the user's language. Do not load every reference, full API index or raw export into the conversation. Start with the current stage's rows below; retrieve exact API classes and object records when needed. Run deterministic checks locally, keep full reports on disk, and return bounded summaries. Follow [local execution and cache rules](references/33-local-execution.md). No checks are waived to save quota.

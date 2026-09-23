@@ -1,5 +1,15 @@
 # Getting Started
 
+## Start with your idea
+
+After installing the skill, describe what you want to make in your own words.
+You do not need to choose a processor or prepare a schematic. For example:
+"Help me make a small keyboard for coding. I have never designed a board."
+The agent will recover any known requirements, ask about missing practical choices,
+and show a proposed device and component estimate before detailed design.
+Installation steps below are also usable by the agent; ask it to help with setup
+and follow the specific actions that require your local interaction.
+
 This package includes the PCB workflow skill, the complete documentation for EasyEDA API Skill 1.1.36, the bridge service, and its ws runtime dependency. The schematic enhancement methods, native-format validator and adapted PCB inspection toolkit are also bundled. Their versions, runtime packages and original notices are listed in [the third-party inventory](THIRD_PARTY_NOTICES.md). No separate prerequisite skill installation, npm install, or documentation generation is required.
 
 ## Updating an existing installation

@@ -20,7 +20,13 @@
 
 ---
 
-Turn hardware requirements into circuit designs, PCB projects, and manufacturing files, with procedures for footprint verification, layout review, and board bring-up. Bundled EasyEDA API documentation, schematic methods, a local bridge, and runtime dependencies support live operations in the EasyEDA desktop client. The API layer supplies operation interfaces; the methods library covers functional blocks, batch placement, selective net fanout, and revision cleanup.
+**Tell AI what you want to make, then build it yourself.**
+
+Start with an idea such as "I want a small keyboard for coding." The agent helps define functions, dimensions and power, finds suitable established circuits, estimates component costs, and prepares the schematic, PCB and manufacturing files. At each milestone it explains what is complete, what happens next and whether it needs your help. Engineering calculations and checks run behind the scenes; important choices are explained in everyday language.
+
+The handoff tells you which files to send for fabrication, which parts you need, and how to begin assembly and testing. Reused circuits retain their sources, operating conditions and recorded changes. Unfinished firmware, enclosure work and physical tests are stated explicitly. This open-source project aims to help people without a hardware background start building and leave useful experience for others.
+
+Bundled EasyEDA API documentation, schematic methods, a local bridge and runtime dependencies support operations in EasyEDA. Detailed engineering records and check reports remain in the project for review and continued work.
 
 ## Recent updates
 

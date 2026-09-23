@@ -1,5 +1,7 @@
 # v1.8.2-dev · Sourced project reviews (unreleased)
 
+- Clarify the beginner journey from idea to practical handoff, milestone communication, established-circuit reuse and artifact-specific licensing. Preserve engineering gates and purchasing boundaries; no new runtime features.
+
 - Preserve independent results when a batch job cannot read its evidence; report the failed job and recovery path without approving the batch. Explain concurrent-run locks and reject unreadable dependency directories.
 
 - Add source- and baseline-bound assembly, operating-state, active-variant, derivative-change and release-role checks with no new runtime dependencies.
