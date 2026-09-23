@@ -2,6 +2,13 @@
 
 Updated: {{CREATED_UTC}}
 
+## What You Can Do Now
+
+- What is available now and its design revision:
+- Who takes the next action, and what is it?
+- Which of ordering, assembly, power-up and programming are evidenced or pending?
+- If user help is needed, state only the current action:
+
 ## Current Status
 
 - Current authorized scope:

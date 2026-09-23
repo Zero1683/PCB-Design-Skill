@@ -4,6 +4,13 @@ Created: {{CREATED_UTC}}
 
 Blank fields are unresolved, not implicitly passed. Complete the applicable rows and remove inapplicable rows according to the project scope. Give units and sources for every numeric value.
 
+## Intended Product Outcome
+
+- In one sentence, what should the user be able to do with the finished object?
+- User-visible functions and how each will be checked:
+- Scope of this request: PCB only, or also firmware, enclosure, assembly and physical tests?
+- Missing pieces and the next practical step:
+
 ## 1. Scope and Authorization
 
 - Current task mode:

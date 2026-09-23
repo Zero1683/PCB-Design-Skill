@@ -14,7 +14,7 @@ This package includes the PCB workflow skill, the complete documentation for Eas
 
 ## Updating an existing installation
 
-Use the [v1.8.0 Release](https://github.com/Zero1683/PCB-Design-Skill/releases/tag/v1.8.0)
+Use the [v2.0.0 Release](https://github.com/Zero1683/PCB-Design-Skill/releases/tag/v2.0.0)
 for this update. The repository's `main` branch tracks subsequent development.
 Release downloads remain tied to their tags. In a Git checkout, preserve
 local modifications and run `git pull --ff-only`. For a ZIP installation, extract

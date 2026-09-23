@@ -30,13 +30,13 @@ Bundled EasyEDA API documentation, schematic methods, a local bridge and runtime
 
 ## Recent updates
 
-**v1.8.2-dev (local development build)** integrates sourced reviews for populated references, BOM and submitted/imported placement, declared operating states, active generator variants, allowed derivative-board changes, and release artifact roles/revisions/hashes. The local batch runner returns bounded summaries. Methods were reviewed from Keitark/pcba-design-skills and implemented locally without adding vendor runtimes. See [schemas and scope](references/36-project-reviews.md).
+**v2.0.0** makes the path from an idea to fabrication easier to follow. The agent still checks requirements, circuit design, schematic, placement, routing and manufacturing files in stages. It can now derive a short next step from project records, separating a product decision for the user from missing evidence the agent must fix. This read-only guide never turns empty records into passing checks.
 
-For a new design, the agent can search GitHub, OSHWHub and manufacturer reference projects for editable base boards, verify each artifact's license, obtain a specific revision, and adapt it. The skill includes candidate links but no external board files. Restrictions on reposting or commercial use are evaluated separately from permission to make a local working copy. See [finding and adapting open hardware](references/37-open-hardware-sourcing.md).
+For open-hardware reuse, the agent searches for a suitable editable design, pins its source revision, preserves an untouched snapshot, and verifies the schematic, PCB, license evidence and file hashes. The listed MIT projects are discovery leads. Artifact permissions, native import, pin connectivity and suitability still need review. Changes to a base board pass the same electrical, geometry and fabrication checks. See [finding and adapting open hardware](references/37-open-hardware-sourcing.md).
 
-Actual source exports and adapter evidence are required. These checks do not inspect supplier web previews, prove physical assembly or startup transients, or replace ERC/DRC, fabrication parsing and visual review.
+This release also includes the development branch's source-bound PCBA reviews: population/BOM/placement, declared operating states, generated variants, derivative changes, and manufacturing artifact revisions and hashes. Full reports remain in the project while routine updates return a short summary. See [review schemas](references/36-project-reviews.md) and [validation](VALIDATION.md).
 
-**v1.8.1-dev (local development build)** adds offline check batches and accepted-dimension checks. Full reports stay on disk; callers receive bounded summaries. Changed inputs, rules, checker code or referenced evidence invalidate reuse. Live EDA state, DRC and shop prices are not cached as current observations. The entrypoint loads operation-specific documentation on demand. See [local execution](references/33-local-execution.md) and [mechanical dimensions](references/34-mechanical-envelope.md).
+Offline checks can run in batches and reuse unchanged inputs; dimension checks relate the accepted size to the actual outline. Live EDA state, DRC and current shop prices are not reused from an offline cache. See [local execution](references/33-local-execution.md) and [mechanical dimensions](references/34-mechanical-envelope.md).
 
 A synthetic 150-component check produced a 19,572-byte full report and a 604-byte returned summary; an unchanged repeat reused the report. All detected failures remain in the full report. These measurements establish output size and cache reuse, not model-token or complete-board quota savings.
 
@@ -83,7 +83,7 @@ See the [third-party inventory](THIRD_PARTY_NOTICES.md) for licenses, file locat
 
 ## Installation
 
-Download the [complete v1.8.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v1.8.0/PCB-Design-Skill-v1.8.0.zip). To track development, clone the repository:
+Download the [complete v2.0.0 package](https://github.com/Zero1683/PCB-Design-Skill/releases/download/v2.0.0/PCB-Design-Skill-v2.0.0.zip). You can also clone the repository:
 
 ```sh
 git clone https://github.com/Zero1683/PCB-Design-Skill.git pcb-design-to-bringup
@@ -172,6 +172,8 @@ Check the complete layout target before writing, then turn readback differences 
 
 ## Usage
 
+You can begin with "I want a small keyboard that works; I have never designed a PCB." The agent asks a few practical questions, then shows a dimensioned plan and component estimate. It handles pin review, calculations, drafting and checks, while keeping product decisions visible. Existing projects resume from their recorded stage without repeating settled choices.
+
 ### Design a new PCB
 
 ```text
@@ -207,6 +209,8 @@ Review the outline, drilling, solder mask, and stencil, and list unresolved issu
 | Power-up and verification | Voltage, current, boot state, communication, and functional tests |
 
 Record conditions, results, and open items at each stage. Verify footprints against manufacturer drawings and calculate impedance from the actual stackup and routing geometry. Read back and review API edits. Keep design checks and hardware test results separately.
+
+For an existing project, the agent can run `python scripts/project_progress.py --root <project-dir> --baseline <revision> --lang en` to get a brief stage and next step; the evidence files remain authoritative. For an external base design, `python scripts/source_inventory.py --root <project-dir>` checks the downloaded snapshot. Permission and circuit suitability require separate review.
 
 ## Documentation
 

@@ -1,4 +1,11 @@
-# v1.8.2-dev · Sourced project reviews (unreleased)
+# v2.0.0 · Beginner workflow and traceable design reuse
+
+- Add a read-only project-progress view that reads the existing intake and check records, shows a bounded next action, and distinguishes a user's product choice from an agent's record repair. An unprepared or rejected plan cannot become an apparent approval. Only the existing full G5 gate can mark fabrication evidence complete; hardware correctness remains separate.
+- Add a project-local external-source inventory check for pinned revisions, native schematic/PCB coverage, license evidence and SHA-256 integrity. An inventoried source is not thereby licensed for every output, validated after EDA import, or proven on hardware.
+- Put the intended working-object outcome and the recipient's immediate next step at the front of project and handoff templates. Clarify one-idea onboarding, resumption and reuse boundaries in the bilingual README and stage references.
+- Include the v1.8.1 and v1.8.2 development improvements in the public release: bounded offline checks, accepted-dimension comparison, PCBA/variant/derivative reviews, and on-demand source discovery. The bundled third-party tools and runtime versions are unchanged.
+
+# v1.8.2-dev · Sourced project reviews (previously unreleased)
 
 - Add on-demand open-hardware sourcing guidance with three MIT GitHub board leads, editable-source and revision checks, artifact-specific license decisions, official-platform acquisition, and derivative-board verification. Leads are links only; no third-party board files or runtime are bundled.
 

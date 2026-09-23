@@ -2,7 +2,7 @@
 name: pcb-design-to-bringup
 description: Design manufacturable, assembleable, and testable PCBs from hardware requirements. Covers component selection, schematics, footprint verification, placement and routing, manufacturing handoff, and hardware acceptance. Use for new designs, board reviews and rework, fabrication preparation, and first-board bring-up. Includes staged verification records and project handoff templates. Supports EasyEDA and workflows in other EDA tools. Not for firmware-only changes or enclosure modeling.
 metadata:
-  version: "1.8.2-dev"
+  version: "2.0.0"
 ---
 
 # PCB Design to Bring-up
@@ -21,6 +21,12 @@ When a reusable board is useful, follow [open hardware sourcing](references/37-o
 Keep check mechanics in project records; explain progress and necessary decisions
 in everyday language. Working-product requests include the path beyond PCB files;
 report firmware, assembly and physical tests according to their actual status.
+For an existing project, use `scripts/project_progress.py --root ... --baseline ... --lang zh`
+to derive the next beginner-facing step from current records. Fix record errors as
+agent work; never present a missing evidence file as a user design choice. This
+is navigation, not a new release gate. For an external editable base, inventory
+the pinned source with `scripts/source_inventory.py` before modifying its copy;
+this verifies files, not license permission, native import, or the board itself.
 
 ## Read and execute only what this stage needs
 
@@ -72,6 +78,7 @@ Read [visual and geometry checks](references/14-visual-geometry-gates.md) before
 
 1. Identify the mode: new design, read-only review, local revision, manufacturing preparation, assembly guidance, or hardware troubleshooting. Resume existing projects at the relevant stage without repeating valid completed work.
 2. Read project rules and any `PROJECT.md`, `HANDOFF.md`, and `CHECKS.csv`. Verify the actual project, release revision, and physical board ID. Historical text, screenshots, and files sent to fabrication may describe different revisions.
+   For an existing writable project with these records, run `project_progress.py` once for a bounded next-step summary. Treat its user action as a prompt suggestion checked against actual conversation; never infer approval from the generated text.
 3. Read [requirements and context recovery](references/01-intake-and-recovery.md). Extract confirmed parameters first. Ask only for missing information that affects architecture, interfaces, or manufacturing outcomes; do not reconfirm settled requirements.
 4. For tasks permitting writes, save new work in the authorized directory and follow storage preferences. Use `scripts/init_project.py --lang zh` for Chinese records or `--lang en` for English to initialize templates without overwriting files, or copy them manually if Python is unavailable. For read-only reviews, report in the conversation by default; do not initialize or update project records, and use access methods that leave the original project unchanged.
 5. Load references for the relevant stage below. For live EasyEDA work, also read [EDA operations](references/06-easyeda-execution.md). Do not start unrelated services.

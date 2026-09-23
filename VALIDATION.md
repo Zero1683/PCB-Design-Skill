@@ -11,6 +11,31 @@ errors or skips; 81 Node tests passed and simulated bridge isolation passed.
 Added cases for mixed error/success batches, persisted summary, lock cleanup and
 unreadable dependency trees. No new live EDA, macOS or physical-board test was run.
 A fresh beginner project remains necessary to measure end-to-end usability.
+# v2.0.0 validation
+
+2026-09-23, Windows, Python 3.12 and Node 22.23.2. After the final code and
+documentation changes, the complete regression passed **464 Python tests and
+81 Node tests, zero failures, errors or skips**, followed by isolated simulated
+bridge-client checks. A restricted first run skipped the existing Windows
+symlink-creation test; the complete suite was rerun with the required OS
+privilege and all tests, including that case, passed. Full output is retained
+in the local release work area, not included as a claim of EDA or board testing.
+
+New journey checks cover a fresh blank project, a plan not yet written, a
+rejected plan, unfinished stages, stale evidence and stale source bindings.
+External-source checks cover pinned editable files, reference-only material,
+changed or absent files, missing license evidence, path escape and invalid
+source URLs. These are synthetic software fixtures. The progress helper is
+read-only; it does not authenticate conversation consent or approve hardware.
+The source inventory validates downloaded file identity and minimum editable
+coverage, not the license's applicability or the design's correctness.
+
+The four bundled toolsets and seven JavaScript runtime packages retain their
+previous pinned versions. No new live EDA drawing, full beginner G0-G5 board
+trial, macOS run, supplier upload, assembly or physical-board acceptance was
+performed for v2.0.0. Native PCB writing/routing rollback and full-board
+acceptance remain outside the verified scope.
+
 # v1.8.2-dev validation
 
 2026-09-23 open-hardware sourcing update: the source selection, artifact-specific

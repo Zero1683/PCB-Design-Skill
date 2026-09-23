@@ -50,6 +50,18 @@ Legacy projects remain readable. Missing records produce an explicit migration i
 
 ## Communication during design
 
+For a resumed project, run `python scripts/project_progress.py --root /project --baseline RevA --lang zh`
+after checking the actual baseline. It reads the existing intake and check
+records without changing them. The result names the first unfinished stage,
+summarizes at most three record errors and separates a user decision from an
+agent repair. Confirm any suggested question against the actual conversation:
+the data file cannot prove that the user said or accepted something. A fresh
+template has baseline `UNSET`; choose and record the design revision first.
+The `fabrication_evidence_complete` flag uses the full existing G5 gate when
+applicable. It does not mean that electrical correctness or a physical board
+has been established. Do not expose the JSON as the whole user update; turn
+its `next_step` into a concise progress message with a concrete result.
+
 The user should be able to start with "I want a small keyboard for coding" without
 knowing a processor, bus or CAD file format. Translate that idea into a useful
 device proposal. Do not require the user to write an engineering specification or
