@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "revision": "v1.8.2-dev",
-  "baseline_id": "f4001103eb3b0970765b26306bc7b108f3eec1b9",
-  "generated_utc": "2026-09-23T05:39:31+00:00",
+  "baseline_id": "6759c8f2a2335516deb3d438cf9067b6d669b221",
+  "generated_utc": "2026-09-23T05:49:58+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,28 +10,28 @@
       "sha256": "912c2d13acb32ce7601d7aef178be78582f5bbc372debfde105021a6fe4dc05e"
     },
     "CHANGELOG.md": {
-      "bytes": 17176,
-      "sha256": "763c016b0af7f36d3d0ddcd7a664ec2dd5cedf4aef6c40b92fff3d94b523103f"
+      "bytes": 17405,
+      "sha256": "2fe47a21f34ae0b764d615897862fe9906894f9199e2c1b97d6165dc4c12dc41"
     },
     "LICENSE": {
       "bytes": 1086,
       "sha256": "853d913b3a6d3ccf531d89574c5f4bb11100d0270cd1688359f5fbb5df1e9755"
     },
     "README.md": {
-      "bytes": 22850,
-      "sha256": "b6a3ca6e7d814cf0ad2eeadb04f955880ef6072e6f78c1267dc818e50ccb3b6d"
+      "bytes": 23454,
+      "sha256": "623f7028236659e23366c1a8ca7cb1c97026999bbf62b8b71ff8d5ec16e34bce"
     },
     "README_EN.md": {
-      "bytes": 25018,
-      "sha256": "fdb6570afa79886536d9d4c35de949623647c51c4cbaf2ce21c0e58660a29546"
+      "bytes": 25704,
+      "sha256": "5299ec6bc1aa15490b70332d45c722d8c11f0cc527e1ad6e5d5758131b81503a"
     },
     "SKILL.md": {
-      "bytes": 16537,
-      "sha256": "4f090bd47d5e21cb9e807a8cfee1282267eadb96c964bd28d12b63b18bc3d68e"
+      "bytes": 17263,
+      "sha256": "5619cae99d0f581af97a4afcbbc2c6fb0b913b48624b9be7a42053cdf81d4ae8"
     },
     "START_HERE.md": {
-      "bytes": 7389,
-      "sha256": "0a8c581044e9a4fd8bf324f1ec1a1757cfecf1627ee537702ef33eb6ac4dd709"
+      "bytes": 7961,
+      "sha256": "adf43d9f8cbc27d5bf77ad314492e197f6b02c5995aedc9816b65b86db88c6f5"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 9938,
@@ -178,8 +178,8 @@
       "sha256": "119eb5156b3d57e02adae982a3dadd6ccd7abefbc84450641df4c230a9373bd5"
     },
     "references/13-circuit-intent-and-reuse.md": {
-      "bytes": 8401,
-      "sha256": "9715a44e0ac17d8aa3248529f129eaf4dc673f7d09fa68d5363a68159fd74758"
+      "bytes": 9895,
+      "sha256": "afa492ea1b8d86ec091e20d627be3d9842019fef989d2e7af3b18c3ab94e0766"
     },
     "references/14-visual-geometry-gates.md": {
       "bytes": 5739,
@@ -242,8 +242,8 @@
       "sha256": "15fe68c52917c2ae98974e32c2221745417647e7bcbb0497b63543df273a3fcc"
     },
     "references/30-beginner-experience.md": {
-      "bytes": 7471,
-      "sha256": "4daf713932f32f31b9aea3ef9e8fb058669e80168ab73b209bf5b3d68046f989"
+      "bytes": 10659,
+      "sha256": "579a522df9805c80f20299fe6f957656d8eca7a44c2235ae82d54fddc9af630b"
     },
     "references/31-calculation-automation.md": {
       "bytes": 6368,
