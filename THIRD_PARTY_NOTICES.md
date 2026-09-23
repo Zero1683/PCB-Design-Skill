@@ -129,3 +129,12 @@ does not extend to this image.
 
 该图用于说明原理图页面组织，按用户要求收录；原作者和原始许可尚未独立确认，
 不纳入本仓库自有内容的 MIT 授权范围。
+
+## Reviewed PCBA methods / 参考的 PCBA 方法
+
+[Keitark/pcba-design-skills](https://github.com/Keitark/pcba-design-skills/tree/d41e9996f052016727403236cf0f7476f8f23a1b)
+was reviewed for operating-state, generated-variant, derivative-board, supplier
+placement and release-review methods. Our `project_reviews.py` is an original
+implementation using the existing local workflow. No upstream runtime/source code
+or CC BY-SA case-study images are bundled. See reference 36 for adaptations and
+explicit coverage limits. The four bundled third-party toolsets remain unchanged.

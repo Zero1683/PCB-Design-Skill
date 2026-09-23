@@ -54,6 +54,10 @@ Exit 0 means the declared relationships match the supplied data, 1 means at leas
 
 ## Reusable circuit blocks
 
+For shared-driver operating modes, generator-selected variants or derivative
+boards, also use [sourced project reviews](36-project-reviews.md). Preserve
+actual source observations; a declaration is not a native extraction.
+
 Reuse a reviewed block only when its assumptions match the new design. Keep a small module record with the following fields; add it to the project's existing design notes rather than building a parallel catalog by default.
 
 | Field | Record before reuse |

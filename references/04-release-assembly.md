@@ -7,6 +7,10 @@ to bind its board model to normalized PCB snapshots. Existing gates still apply.
 
 ## Freeze a traceable revision
 
+For factory assembly, apply [sourced project reviews](36-project-reviews.md) to
+fitted references, BOM, normalized submitted/imported placement, release roles
+and revisions. Machine consistency and fresh supplier visual approval are separate.
+
 Before fabrication, save the native project and required libraries, schematics, PCB, netlist, BOM, and check results with a revision/baseline ID. Changed record order with unchanged semantics is not necessarily a design change, but different bytes cannot have an assumed identical hash. Record semantic comparison separately from byte hashes.
 
 Select deliverables for the intended use:

@@ -85,6 +85,7 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
                 errors.append('SCH-FORMAT: only free-layout or framed-layout is allowed')
     coverage = None
     mechanical = None
+    project_reviews = None
     provenance = None
     intake = None
     if design_gates and int(through[1:]) >= 2:
@@ -106,6 +107,12 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
             mechanical=mechanical_envelope.evaluate(root,baseline,require_outline=int(through[1:])>=5)
             if mechanical['state']!='DIMENSIONS_MATCH':errors.append('Accepted dimensions differ from observed geometry')
         except (ValueError,KeyError,TypeError,OSError) as exc:errors.append('Mechanical envelope: '+str(exc))
+    if design_gates and int(through[1:]) >= 5 and (root/'project-reviews.json').exists():
+        try:
+            import project_reviews as pr
+            project_reviews=pr.check(root,'project-reviews.json',baseline)
+            if project_reviews['state']!='CHECK_OK':errors.append('Applicable project reviews have unresolved findings')
+        except (ValueError,KeyError,TypeError,OSError) as exc:errors.append('Project reviews: '+str(exc))
     if design_gates and int(through[1:]) >= 5:
         try:
             import requirement_coverage as rc
@@ -123,7 +130,7 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
     if selected == 0: errors.append('No check rows in selected stage range')
     return {'scope': 'record-completeness-only', 'through': through, 'selected_checks': selected,
             'record_errors': errors, 'pending': pending,
-            'intake_review': intake, 'mechanical_envelope':mechanical, 'requirement_coverage': coverage,'design_binding':provenance,
+            'intake_review': intake, 'mechanical_envelope':mechanical, 'project_reviews':project_reviews, 'requirement_coverage': coverage,'design_binding':provenance,
             'records_complete': not errors and not pending,
             'engineering_correctness': 'NOT_ASSESSED'}
 

@@ -2,7 +2,7 @@
 name: pcb-design-to-bringup
 description: Design manufacturable, assembleable, and testable PCBs from hardware requirements. Covers component selection, schematics, footprint verification, placement and routing, manufacturing handoff, and hardware acceptance. Use for new designs, board reviews and rework, fabrication preparation, and first-board bring-up. Includes staged verification records and project handoff templates. Supports EasyEDA and workflows in other EDA tools. Not for firmware-only changes or enclosure modeling.
 metadata:
-  version: "1.8.1-dev"
+  version: "1.8.2-dev"
 ---
 
 # PCB Design to Bring-up
@@ -23,6 +23,7 @@ Use the user's language. Do not load every reference, full API index or raw expo
 | Schematic blocks and connections | [Drafting](references/12-schematic-drafting.md), [methods](references/15-easyeda-schematic-methods.md), [intent](references/13-circuit-intent-and-reuse.md) |
 | Measured placement and bounded repairs | [Planning](references/21-layout-execution.md), [batch repair](references/22-batch-repair.md); [live writer](references/23-live-eda.md) only for existing parts on unwired schematic pages |
 | Mechanical constraints | [Constraint contracts](references/24-executable-constraints.md), [accepted dimensions vs final outline](references/34-mechanical-envelope.md) |
+| Operating states, generated variants, derivative boards or factory assembly | [Sourced project reviews](references/36-project-reviews.md); bind applicable reviews to existing requirements and run `project_reviews.py` |
 | Native/manufacturing data inspection | [Extraction/toolkit](references/18-pcb-inspection-toolkit.md), [normalized data](references/10-validation-tools.md), [format](references/17-easyeda-native-format.md) |
 | Large exports, context recovery or file rollback | [Data and recovery](references/20-data-and-recovery.md); file snapshots cannot roll back a live EDA session |
 | Additional command syntax and operation caveats | Relevant section of [operation details](references/35-operation-details.md); do not read all sections by default |

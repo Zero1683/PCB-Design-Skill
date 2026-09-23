@@ -32,3 +32,9 @@ These are reviewed candidates, not claims of market leadership, complete reposit
 ## Stop and preserve evidence
 
 Prioritize stable, accurate progress over token throughput. When repeated attempts do not improve a reproducible defect, change the method before retrying. When tools or hardware are unavailable, continue independent checks and record the gap. Before execution capacity ends, save a coherent candidate and handoff; do not mark the goal complete or publish a stable release with unmet required validation.
+
+## PCBA methods review, 2026-09-23
+
+Reviewed [Keitark/pcba-design-skills at d41e999](https://github.com/Keitark/pcba-design-skills/tree/d41e9996f052016727403236cf0f7476f8f23a1b): eight workflow entrypoints, sourcing/connectivity/CPL/state/release/recording scripts and tests. Its 25 tests passed in the local review. Adopted selected methods through original `project_reviews.py` and reference 36; no external runtime, script, case-study image or example-board parameter is bundled. Original upstream code/docs are MIT; its designated case assets have separate CC BY-SA terms.
+
+A local probe showed upstream program_state's nonempty evidence field can name a nonexistent file. Our integration instead verifies current baseline references and file hashes. Neither hash system proves authorship, authentic native extraction or real hardware function. Keep machine consistency, live supplier preview and physical acceptance separate. Preserve our existing source binding and EDA backend; do not replace them with document-only adapters.

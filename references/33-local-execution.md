@@ -42,3 +42,8 @@ Keep one runner per project. A stale lock requires checking that its recorded pr
 Record full report bytes versus returned summary bytes, checker executions versus cache hits, and the current stage. Byte savings and cache hits are not model-token measurements. A complete new-session benchmark must measure actual tool calls, context and time before claiming an end-to-end quota reduction. Do not promise a percentage from a synthetic board fixture.
 
 Project JSON inputs must not directly or indirectly reference `.pcb-local` files. The runner rejects such references before cache lookup because that directory is excluded from the project fingerprint. Keep input exports and evidence in separate project directories.
+
+For source-bound PCBA/state/variant/port/release reviews use job kind
+`project-reviews`, inputs `["project-reviews.json"]`, and options
+`{"baseline":"RevB"}`. See [review schemas and limits](36-project-reviews.md).
+The root and every indirect source remain covered by conservative cache hashing.

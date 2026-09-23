@@ -1,3 +1,12 @@
+# v1.8.2-dev · Sourced project reviews (unreleased)
+
+- Add source- and baseline-bound assembly, operating-state, active-variant, derivative-change and release-role checks with no new runtime dependencies.
+- Reject duplicate/missing/DNP assembly rows, differing physical poses/parts, unreconciled browser edits, conflicting declared drivers, inactive configurations, unapproved or unrealized port deltas, mixed revisions and stale source files.
+- Add type-sensitive JSON configuration diffs; bind generator source and release artifacts to current hashed inputs.
+- Integrate present project-review plans into G5 and the bounded local-check runner. Applicability stays in existing requirement records; no new approval manager or unconditional order flow.
+- Document actual-source adapters, visual inspection, physical-fit and transient-analysis boundaries, connector/stencil methods, and project-local retry/recording practices.
+- Preserve two schematic formats, component-only budgeting and the existing conservative cache dependency strategy.
+
 # v1.8.1-dev · Local checks and mechanical dimensions (unreleased)
 
 - Add an allowlisted offline runner with byte-bound summaries, full local reports, exact-input caching and concurrent-run locks. Never promote cache reuse into live EDA acceptance.

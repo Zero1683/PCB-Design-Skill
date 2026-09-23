@@ -24,6 +24,10 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Recent updates
 
+**v1.8.2-dev (local development build)** integrates sourced reviews for populated references, BOM and submitted/imported placement, declared operating states, active generator variants, allowed derivative-board changes, and release artifact roles/revisions/hashes. The local batch runner returns bounded summaries. Methods were reviewed from Keitark/pcba-design-skills and implemented locally without adding vendor runtimes. See [schemas and scope](references/36-project-reviews.md).
+
+Actual source exports and adapter evidence are required. These checks do not inspect supplier web previews, prove physical assembly or startup transients, or replace ERC/DRC, fabrication parsing and visual review.
+
 **v1.8.1-dev (local development build)** adds offline check batches and accepted-dimension checks. Full reports stay on disk; callers receive bounded summaries. Changed inputs, rules, checker code or referenced evidence invalidate reuse. Live EDA state, DRC and shop prices are not cached as current observations. The entrypoint loads operation-specific documentation on demand. See [local execution](references/33-local-execution.md) and [mechanical dimensions](references/34-mechanical-envelope.md).
 
 A synthetic 150-component check produced a 19,572-byte full report and a 604-byte returned summary; an unchanged repeat reused the report. All detected failures remain in the full report. These measurements establish output size and cache reuse, not model-token or complete-board quota savings.

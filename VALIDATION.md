@@ -1,3 +1,31 @@
+# v1.8.2-dev validation
+
+2026-09-23, Windows, Python 3.12 and Node 22.23.2. Full regression passed
+**451 Python tests and 81 Node tests, zero skips**, plus isolated bridge smoke.
+Afterward the assembly coordinate schema was tightened to explicit mm/origin/axes/
+angle-view/rotation/bottom fields; all 18 project-review tests and all 10 local
+runner tests passed again. No live supplier upload, physical assembly or new
+native EDA write was performed.
+
+The 18 new tests cover normal assembly data, missing/duplicate/unexpected/DNP
+references, wrong parts/poses, browser edits, units/nonfinite values/tolerances,
+state coverage and driver contention, variant selection and generator evidence,
+type-sensitive configuration changes, exact allowed port deltas, release roles,
+file drift, baseline/source binding, cache invalidation and G5 blocking.
+
+Independent forward evaluation reproduced and verified correction of a variant
+iteration defect and Python numeric/boolean equality in nested configuration
+comparisons. Normal four-review input, deliberately wrong data, cached reuse and
+changed-source rejection were exercised. Final coordinate-schema hardening was
+covered by targeted regression. Normalized observations still require genuine
+source extraction: hashes establish integrity, not origin or physical correctness.
+
+Existing native PCB routing/rollback and complete-board benchmark limitations
+remain. The new helper compares declared operating states and frozen data; it is
+not a transient solver, pad-overlap solver, supplier-browser adapter or full
+mechanical acceptance tool. Project applicability and coverage remain in existing
+requirements; optional absent plans are not automatically generated or certified.
+
 # v1.8.1-dev validation
 
 2026-09-23, Windows, Python 3.12 and Node 22.23.2. The unified run passed

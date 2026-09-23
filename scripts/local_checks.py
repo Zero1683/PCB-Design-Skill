@@ -6,12 +6,13 @@ from evidence_binding import local
 
 STATE_DIR='.pcb-local'
 SCRIPTS=Path(__file__).resolve().parent
-ROOT_TOOLS={'intake','mechanical','gates'}
+ROOT_TOOLS={'intake','mechanical','gates','project-reviews'}
 DEFINITIONS={'geometry':('audit_design.py',1,{'clearance_mm'}),
              'compare':('audit_design.py',2,set()),'connectivity':('check_connectivity.py',2,set()),
              'electrical':('electrical_calcs.py',1,set()),'intake':('intake_review.py',0,{'baseline'}),
              'mechanical':('mechanical_envelope.py',0,{'baseline'}),
-             'gates':('check_evidence.py',0,{'baseline','through'})}
+             'gates':('check_evidence.py',0,{'baseline','through'}),
+             'project-reviews':('project_reviews.py',1,{'baseline'})}
 
 def file_input(root,name):
     if not isinstance(name,str) or (Path(name).parts and Path(name).parts[0].casefold()==STATE_DIR):raise ValueError('Managed reports cannot be checker inputs')
@@ -39,6 +40,7 @@ def command(root,job):
         io.text(opt['baseline'],'baseline')
         if opt['baseline'].startswith('-'):raise ValueError('Invalid baseline argument')
         args=(['check'] if kind=='mechanical' else [])+['--root',str(root),'--baseline',opt['baseline']]
+        if kind=='project-reviews': args+=['--plan',job['inputs'][0]]
         if kind=='gates':
             if opt['through'] not in {f'G{i}' for i in range(10)}:raise ValueError('Invalid stage')
             args+=['--through',opt['through'],'--design-gates']
