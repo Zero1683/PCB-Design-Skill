@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.8.2-dev",
-  "baseline_id": "a294182a6d0ee034f9e63458e3c8b73fbb13b5c2",
-  "generated_utc": "2026-09-23T06:35:00+00:00",
+  "revision": "v2.0.0",
+  "baseline_id": "498003b1c50ddd52ed174ed770fa226dd426e385",
+  "generated_utc": "2026-09-23T07:18:01+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,36 +10,36 @@
       "sha256": "912c2d13acb32ce7601d7aef178be78582f5bbc372debfde105021a6fe4dc05e"
     },
     "CHANGELOG.md": {
-      "bytes": 17704,
-      "sha256": "ff99e35497feba6714dea451796ea5a31783e0f0688936c09d206ccc9f34a2ef"
+      "bytes": 18914,
+      "sha256": "df93949eb0f1b4f78c8547c205c564a2dc6456c9f48b76509524bf13a6e7d9d1"
     },
     "LICENSE": {
       "bytes": 1086,
       "sha256": "853d913b3a6d3ccf531d89574c5f4bb11100d0270cd1688359f5fbb5df1e9755"
     },
     "README.md": {
-      "bytes": 24078,
-      "sha256": "aa2f0dde5e19d40066025d80f8a95319c45bbedcffd58f6cda02283a81ed7b4b"
+      "bytes": 24621,
+      "sha256": "d272cb9889db1ed5064f6a957b583dd3cfeef0bd929f184fd624803e11e2e58d"
     },
     "README_EN.md": {
-      "bytes": 26337,
-      "sha256": "e5251a42b6743754293e9341ab1653e8e6f8544601e6ee4c27617dceb388cb97"
+      "bytes": 27062,
+      "sha256": "1ceaf47b9bf564cd2f0a6faacffe22d978e0ce41ec5485982e2e976f04d78466"
     },
     "SKILL.md": {
-      "bytes": 17792,
-      "sha256": "17e0e140402c35a104396deb500a9a908e2ce430f955e5933b8cfe463f5b69bb"
+      "bytes": 18542,
+      "sha256": "e725a67910aaa95b2876ecd087b18bdc6fedf1536dcc436bc1ddbde0b5a35763"
     },
     "START_HERE.md": {
       "bytes": 7961,
-      "sha256": "adf43d9f8cbc27d5bf77ad314492e197f6b02c5995aedc9816b65b86db88c6f5"
+      "sha256": "603b805846a5379c2e0eba8e038208b95d6c1a18db5393f0679ef853f60fdd69"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 10468,
       "sha256": "c03b966446382eb68b0b145cac75505287ef876e790fbd8454ddb6a0ad3490e5"
     },
     "VALIDATION.md": {
-      "bytes": 44012,
-      "sha256": "4fa9dfb11c51a083a36e889db4787f7c2f167b2946f9c7f544d0b8a54cf3ee6e"
+      "bytes": 45553,
+      "sha256": "1feb8aaa65c92458f0d733495e5fbc6183eed509092af0766a2327630dbb5e20"
     },
     "agents/openai.yaml": {
       "bytes": 369,
@@ -50,12 +50,12 @@
       "sha256": "dac9c0a951880ce49b0cb54afb39547831f004467af8f337dd17a84fe88363db"
     },
     "assets/HANDOFF.template.md": {
-      "bytes": 1618,
-      "sha256": "7d3f91ccc5ad30b57c241975bb7b3b096f3e4a6648b441a5591c6bc8cf5a319e"
+      "bytes": 1883,
+      "sha256": "c180384cfe19ec4eb78566273bfe7bceceb1ae9541307b727ba34f8af93253a1"
     },
     "assets/PROJECT.template.md": {
-      "bytes": 7281,
-      "sha256": "f0045e94180b8b70fea5dac6ebd6f0714f506ffc5ea74080823729153a81c927"
+      "bytes": 7592,
+      "sha256": "1fdaa2fab31f6ae0d6c8ad76bae3880b19a2ea78714893b4100de8eaf187affb"
     },
     "assets/data-binding.example.json": {
       "bytes": 517,
@@ -122,12 +122,12 @@
       "sha256": "2ac0f98c78447fb461738e50cf97cacefa2454a15a39d7d439e6bd552b64ced0"
     },
     "assets/zh/HANDOFF.template.md": {
-      "bytes": 1334,
-      "sha256": "1b11b393e608263760714867e7a3cfab93951230ee94cce4d11f987a9368f7fd"
+      "bytes": 1584,
+      "sha256": "01ddb56c900f0c2b5e0510f8cc3492e3cafdf37508f423c52a7e4ca8f22a529d"
     },
     "assets/zh/PROJECT.template.md": {
-      "bytes": 5880,
-      "sha256": "3e994a70caeefc30565edb87504d4bd91f9b60d85cb726e69379bfd4c98371f6"
+      "bytes": 6134,
+      "sha256": "fbcbbc303c534e6a1886ecf25fe1dcba5fb10802c069f82052b05e9cef91933c"
     },
     "references/01-intake-and-recovery.md": {
       "bytes": 6598,
@@ -242,8 +242,8 @@
       "sha256": "15fe68c52917c2ae98974e32c2221745417647e7bcbb0497b63543df273a3fcc"
     },
     "references/30-beginner-experience.md": {
-      "bytes": 10659,
-      "sha256": "579a522df9805c80f20299fe6f957656d8eca7a44c2235ae82d54fddc9af630b"
+      "bytes": 11539,
+      "sha256": "d1817db500658dcc23aa20aa8beba64bbb08bfa25f02f32103f86c6b064fafef"
     },
     "references/31-calculation-automation.md": {
       "bytes": 6368,
@@ -270,8 +270,8 @@
       "sha256": "626c8035ee849df6a97c4f6046e35b1200fb6d09c8ff0fe444189ac4483291ef"
     },
     "references/37-open-hardware-sourcing.md": {
-      "bytes": 8405,
-      "sha256": "5e08405b5c486040ef10b69eba55a110d85c9b37bf4d1d782f35a213ea950214"
+      "bytes": 9283,
+      "sha256": "e87a3c73385bc45060f2881384fc0ed365f19ba6765486134031fe88d67286f3"
     },
     "scripts/audit_design.py": {
       "bytes": 8485,
@@ -365,6 +365,10 @@
       "bytes": 6493,
       "sha256": "c6786108748abfd63cc30a865f9854351f6343c184488562626e6887d385cfbf"
     },
+    "scripts/project_progress.py": {
+      "bytes": 8537,
+      "sha256": "33fa48ba11c6f6108dc440b4819c7ac2577404232f571e4025edbffb5e2289c6"
+    },
     "scripts/project_reviews.py": {
       "bytes": 12692,
       "sha256": "d6f7ad2d3ac2a1e4c80322ad21d33f7fde6e32e02a8f4a7a03d02a74790262f8"
@@ -400,6 +404,10 @@
     "scripts/screen_visual_geometry.py": {
       "bytes": 5658,
       "sha256": "2bf6c8b8095f9e3f2cb8b947c77c61e8dc67cf285d90f9784b52f27a41819c84"
+    },
+    "scripts/source_inventory.py": {
+      "bytes": 4716,
+      "sha256": "c57bb3c9d7c1828015d187dfef3a46030fd77326087dd31f73e1ffe69c236bb4"
     },
     "scripts/test_assertion_physics.py": {
       "bytes": 6132,
@@ -509,6 +517,10 @@
       "bytes": 9598,
       "sha256": "108994cddca15d6d3b69aa70ff0ac5bbc60c6801ea5db849a5a0fe28f23fe1a2"
     },
+    "scripts/test_project_progress.py": {
+      "bytes": 3823,
+      "sha256": "66fd0f5a068776152bbdc4df108d7a2f8ef0a6f9101fe8d8939d6109c62e2c40"
+    },
     "scripts/test_project_reviews.py": {
       "bytes": 9569,
       "sha256": "c590f6c3c8f04a3d9cd34648bb59539c5272f328add6e5decf7b0152fc5cf552"
@@ -528,6 +540,10 @@
     "scripts/test_schematic_layout.py": {
       "bytes": 7381,
       "sha256": "d6710906c02bd8bac2e05e8533ed7ae96bf416264bd5c1981856013b5b989644"
+    },
+    "scripts/test_source_inventory.py": {
+      "bytes": 3389,
+      "sha256": "918c41ddf2b9e33efcd19efee8aecf782f1e8780d8f08d7c8ea34948914050f3"
     },
     "scripts/test_substitutions.py": {
       "bytes": 7141,
