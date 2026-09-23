@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": "v1.8.1-dev",
-  "baseline_id": "e56146e17de2c16368666f34d524403d6fe7bf9e",
-  "generated_utc": "2026-09-23T01:48:36+00:00",
+  "revision": "v1.8.2-dev",
+  "baseline_id": "d03acc6f34ae8d75802e88755805cd575d4667db",
+  "generated_utc": "2026-09-23T05:08:29+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,36 +10,36 @@
       "sha256": "912c2d13acb32ce7601d7aef178be78582f5bbc372debfde105021a6fe4dc05e"
     },
     "CHANGELOG.md": {
-      "bytes": 15902,
-      "sha256": "941c9b215e5c88b987b9f42f7d1ad69d2a2f6966f0e3bf8eb91396d64d686b2d"
+      "bytes": 16955,
+      "sha256": "cf94608df49f5197dad050df776cadcd8ea5372551c901aea5b1a562232ce345"
     },
     "LICENSE": {
       "bytes": 1086,
       "sha256": "853d913b3a6d3ccf531d89574c5f4bb11100d0270cd1688359f5fbb5df1e9755"
     },
     "README.md": {
-      "bytes": 22151,
-      "sha256": "6c33f7475568a0e9a2031da1edce7c808a320752b37fc9b8c8bc711fce56c9f5"
+      "bytes": 22850,
+      "sha256": "b6a3ca6e7d814cf0ad2eeadb04f955880ef6072e6f78c1267dc818e50ccb3b6d"
     },
     "README_EN.md": {
-      "bytes": 24314,
-      "sha256": "4e262c59574a49581a752975c0e82990867bb13e5114c4d036859e1316bd49e0"
+      "bytes": 25018,
+      "sha256": "fdb6570afa79886536d9d4c35de949623647c51c4cbaf2ce21c0e58660a29546"
     },
     "SKILL.md": {
-      "bytes": 16315,
-      "sha256": "d6ef0f952e2a7176f9d4f5896ca13a163bc8741417ad3eadd8b1f4a0c6fc2189"
+      "bytes": 16537,
+      "sha256": "4f090bd47d5e21cb9e807a8cfee1282267eadb96c964bd28d12b63b18bc3d68e"
     },
     "START_HERE.md": {
       "bytes": 7389,
       "sha256": "0a8c581044e9a4fd8bf324f1ec1a1757cfecf1627ee537702ef33eb6ac4dd709"
     },
     "THIRD_PARTY_NOTICES.md": {
-      "bytes": 9354,
-      "sha256": "c362a8e611e0646687a4437be6bab94e6da37feb2fec3669dd5e222a1712ca65"
+      "bytes": 9938,
+      "sha256": "fe194f1b605d82b04795667f3b024b5caaf2c745f27898603a59249b022dbd7e"
     },
     "VALIDATION.md": {
-      "bytes": 40997,
-      "sha256": "d580da1d8e5512608baf7958f41cf75cc1b558d4869803ab21e68ee555d6adf9"
+      "bytes": 42749,
+      "sha256": "04648b17c5bc9b021561b796c90e587bb7937c4e12bbe6ca0b8509d04a1941c0"
     },
     "agents/openai.yaml": {
       "bytes": 369,
@@ -142,8 +142,8 @@
       "sha256": "fbfd8f2f09807407a8aac2ac9355c84c7a89b0ae5745ab41e383efa688ca1ffb"
     },
     "references/04-release-assembly.md": {
-      "bytes": 11178,
-      "sha256": "0eab6687a5b8e1f2e769358bc585c29e1cd80731e339d3989112e839bacb8bda"
+      "bytes": 11426,
+      "sha256": "f48b4013569f6bf810457d7f8049401a01abcbfc2e5cfb3dd77726712f1f29c8"
     },
     "references/05-bringup-debug.md": {
       "bytes": 8318,
@@ -178,8 +178,8 @@
       "sha256": "119eb5156b3d57e02adae982a3dadd6ccd7abefbc84450641df4c230a9373bd5"
     },
     "references/13-circuit-intent-and-reuse.md": {
-      "bytes": 8173,
-      "sha256": "1575f5d0ceed2cc0657a4d94201ac47ed4ee684ebf62a4d0d969f2ad9b45321d"
+      "bytes": 8401,
+      "sha256": "9715a44e0ac17d8aa3248529f129eaf4dc673f7d09fa68d5363a68159fd74758"
     },
     "references/14-visual-geometry-gates.md": {
       "bytes": 5739,
@@ -250,12 +250,12 @@
       "sha256": "e5567970360479cf30c3c1f605739b60291754a734fc54bca99d94c5fb08a967"
     },
     "references/32-adversarial-improvement.md": {
-      "bytes": 4401,
-      "sha256": "ad8f652895e02291dc6d6d3a838785cfce8f9c231f6378f7e499f1222b2cd7e6"
+      "bytes": 5442,
+      "sha256": "d228e5c6dc9b2ceb71a69d4d0707f753504b367119098529363eec07bd5066bb"
     },
     "references/33-local-execution.md": {
-      "bytes": 4831,
-      "sha256": "989ee760e4b27332b48309bab0737e28abfcab324933959f2a92dd79d38a6cd8"
+      "bytes": 5133,
+      "sha256": "d499d0f6793c0111e14161510cf4e8ca5994ad8c824cb3e798ad1fa815c4c2af"
     },
     "references/34-mechanical-envelope.md": {
       "bytes": 3412,
@@ -264,6 +264,10 @@
     "references/35-operation-details.md": {
       "bytes": 11246,
       "sha256": "712479fc5aa08202ae3031de43a30ebf82948c2ded7c18ee7d1ba6a59af5e01a"
+    },
+    "references/36-project-reviews.md": {
+      "bytes": 11475,
+      "sha256": "626c8035ee849df6a97c4f6046e35b1200fb6d09c8ff0fe444189ac4483291ef"
     },
     "scripts/audit_design.py": {
       "bytes": 8485,
@@ -282,8 +286,8 @@
       "sha256": "87199c6121a4ab1649dc9350bee72abdad622471d190d115d56c8a0297482d5f"
     },
     "scripts/check_evidence.py": {
-      "bytes": 9597,
-      "sha256": "ee992826842c23fe4f3f36ac62fb6be0c0bbdb1de3c674dc7c5a4088b31453e2"
+      "bytes": 10112,
+      "sha256": "8f2ff84e79298ca6e8099305425f9c24ac0777892dfee928c60326bf2e26433f"
     },
     "scripts/component_cost.py": {
       "bytes": 6629,
@@ -342,8 +346,8 @@
       "sha256": "a31c7a7a3b034020e5b2080a7b074bf01a707341e1695810bf04eda9b446496f"
     },
     "scripts/local_checks.py": {
-      "bytes": 9319,
-      "sha256": "025d1b88fa781837ccfce4bdabd87aeb68d256ccae4aa3fb2981f37aa5b25c1b"
+      "bytes": 9479,
+      "sha256": "ece577f4fa5e1e45b420c06b907f34482e3301f81fb8099863f8da0c6db36a60"
     },
     "scripts/mechanical_envelope.py": {
       "bytes": 7482,
@@ -356,6 +360,10 @@
     "scripts/pcb_toolkit.py": {
       "bytes": 6493,
       "sha256": "c6786108748abfd63cc30a865f9854351f6343c184488562626e6887d385cfbf"
+    },
+    "scripts/project_reviews.py": {
+      "bytes": 12692,
+      "sha256": "d6f7ad2d3ac2a1e4c80322ad21d33f7fde6e32e02a8f4a7a03d02a74790262f8"
     },
     "scripts/release_manifest.py": {
       "bytes": 6499,
@@ -496,6 +504,10 @@
     "scripts/test_pcb_toolkit.py": {
       "bytes": 9598,
       "sha256": "108994cddca15d6d3b69aa70ff0ac5bbc60c6801ea5db849a5a0fe28f23fe1a2"
+    },
+    "scripts/test_project_reviews.py": {
+      "bytes": 9569,
+      "sha256": "c590f6c3c8f04a3d9cd34648bb59539c5272f328add6e5decf7b0152fc5cf552"
     },
     "scripts/test_report_provenance.py": {
       "bytes": 7303,
