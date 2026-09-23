@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "revision": "v1.8.2-dev",
-  "baseline_id": "6759c8f2a2335516deb3d438cf9067b6d669b221",
-  "generated_utc": "2026-09-23T05:49:58+00:00",
+  "baseline_id": "a294182a6d0ee034f9e63458e3c8b73fbb13b5c2",
+  "generated_utc": "2026-09-23T06:35:00+00:00",
   "scope": "file-byte-integrity-only",
   "files": {
     ".gitignore": {
@@ -10,36 +10,36 @@
       "sha256": "912c2d13acb32ce7601d7aef178be78582f5bbc372debfde105021a6fe4dc05e"
     },
     "CHANGELOG.md": {
-      "bytes": 17405,
-      "sha256": "2fe47a21f34ae0b764d615897862fe9906894f9199e2c1b97d6165dc4c12dc41"
+      "bytes": 17704,
+      "sha256": "ff99e35497feba6714dea451796ea5a31783e0f0688936c09d206ccc9f34a2ef"
     },
     "LICENSE": {
       "bytes": 1086,
       "sha256": "853d913b3a6d3ccf531d89574c5f4bb11100d0270cd1688359f5fbb5df1e9755"
     },
     "README.md": {
-      "bytes": 23454,
-      "sha256": "623f7028236659e23366c1a8ca7cb1c97026999bbf62b8b71ff8d5ec16e34bce"
+      "bytes": 24078,
+      "sha256": "aa2f0dde5e19d40066025d80f8a95319c45bbedcffd58f6cda02283a81ed7b4b"
     },
     "README_EN.md": {
-      "bytes": 25704,
-      "sha256": "5299ec6bc1aa15490b70332d45c722d8c11f0cc527e1ad6e5d5758131b81503a"
+      "bytes": 26337,
+      "sha256": "e5251a42b6743754293e9341ab1653e8e6f8544601e6ee4c27617dceb388cb97"
     },
     "SKILL.md": {
-      "bytes": 17263,
-      "sha256": "5619cae99d0f581af97a4afcbbc2c6fb0b913b48624b9be7a42053cdf81d4ae8"
+      "bytes": 17792,
+      "sha256": "17e0e140402c35a104396deb500a9a908e2ce430f955e5933b8cfe463f5b69bb"
     },
     "START_HERE.md": {
       "bytes": 7961,
       "sha256": "adf43d9f8cbc27d5bf77ad314492e197f6b02c5995aedc9816b65b86db88c6f5"
     },
     "THIRD_PARTY_NOTICES.md": {
-      "bytes": 9938,
-      "sha256": "fe194f1b605d82b04795667f3b024b5caaf2c745f27898603a59249b022dbd7e"
+      "bytes": 10468,
+      "sha256": "c03b966446382eb68b0b145cac75505287ef876e790fbd8454ddb6a0ad3490e5"
     },
     "VALIDATION.md": {
-      "bytes": 43600,
-      "sha256": "8f60ea9360570a7a4a19a6874f5e01316492ecee12b4a0e062319bcd19beb023"
+      "bytes": 44012,
+      "sha256": "4fa9dfb11c51a083a36e889db4787f7c2f167b2946f9c7f544d0b8a54cf3ee6e"
     },
     "agents/openai.yaml": {
       "bytes": 369,
@@ -178,8 +178,8 @@
       "sha256": "119eb5156b3d57e02adae982a3dadd6ccd7abefbc84450641df4c230a9373bd5"
     },
     "references/13-circuit-intent-and-reuse.md": {
-      "bytes": 9895,
-      "sha256": "afa492ea1b8d86ec091e20d627be3d9842019fef989d2e7af3b18c3ab94e0766"
+      "bytes": 10247,
+      "sha256": "24c0d4df30bd2fd27f187042da1e58fb311107362f593a3ecfd735f53924cbef"
     },
     "references/14-visual-geometry-gates.md": {
       "bytes": 5739,
@@ -268,6 +268,10 @@
     "references/36-project-reviews.md": {
       "bytes": 11475,
       "sha256": "626c8035ee849df6a97c4f6046e35b1200fb6d09c8ff0fe444189ac4483291ef"
+    },
+    "references/37-open-hardware-sourcing.md": {
+      "bytes": 8405,
+      "sha256": "5e08405b5c486040ef10b69eba55a110d85c9b37bf4d1d782f35a213ea950214"
     },
     "scripts/audit_design.py": {
       "bytes": 8485,
