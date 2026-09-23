@@ -84,6 +84,7 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
             if ident=='SCH-FORMAT' and row.get('actual') not in {'free-layout','framed-layout'}:
                 errors.append('SCH-FORMAT: only free-layout or framed-layout is allowed')
     coverage = None
+    mechanical = None
     provenance = None
     intake = None
     if design_gates and int(through[1:]) >= 2:
@@ -99,6 +100,12 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
         except (ValueError,KeyError,TypeError,OSError) as exc:errors.append("Design binding: "+str(exc))
         if intake and provenance and intake['project_id'] != provenance['project_id']:
             errors.append('Intake belongs to another project')
+    if design_gates and int(through[1:]) >= 3:
+        try:
+            import mechanical_envelope
+            mechanical=mechanical_envelope.evaluate(root,baseline,require_outline=int(through[1:])>=5)
+            if mechanical['state']!='DIMENSIONS_MATCH':errors.append('Accepted dimensions differ from observed geometry')
+        except (ValueError,KeyError,TypeError,OSError) as exc:errors.append('Mechanical envelope: '+str(exc))
     if design_gates and int(through[1:]) >= 5:
         try:
             import requirement_coverage as rc
@@ -116,7 +123,7 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
     if selected == 0: errors.append('No check rows in selected stage range')
     return {'scope': 'record-completeness-only', 'through': through, 'selected_checks': selected,
             'record_errors': errors, 'pending': pending,
-            'intake_review': intake, 'requirement_coverage': coverage,'design_binding':provenance,
+            'intake_review': intake, 'mechanical_envelope':mechanical, 'requirement_coverage': coverage,'design_binding':provenance,
             'records_complete': not errors and not pending,
             'engineering_correctness': 'NOT_ASSESSED'}
 

@@ -1,3 +1,11 @@
+# v1.8.1-dev · Local checks and mechanical dimensions (unreleased)
+
+- Add an allowlisted offline runner with byte-bound summaries, full local reports, exact-input caching and concurrent-run locks. Never promote cache reuse into live EDA acceptance.
+- Bind accepted dimensions and exact/maximum policies to final observations. G5 requires a hashed manufacturing outline and strict supported linear-Gerber parsing; unsupported geometry blocks acceptance.
+- Reject indirect references into the excluded managed cache directory, incomplete outline files and unsupported commands. Add valid/invalid regression pairs.
+- Move conditional operation details out of the skill entrypoint. Preserve mandatory schematic formats, staged reviews and manufacturing checks.
+- Measure report bytes and reuse on a synthetic fixture without claiming complete-board token savings.
+
 # v1.8.0 · 新手需求、自动计算与回归 / Intake, calculations and regression
 
 - Add a two-step beginner brief, sourced decisions, dimensioned proposals and baseline-bound acceptance. Preserve delegated choices and avoid repeating the interview for scoped repairs.

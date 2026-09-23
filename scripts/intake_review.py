@@ -66,6 +66,10 @@ def evaluate(root, data, baseline, through='design'):
         raise ValueError('Explicit board length/width and assembled height required')
     for name, value in size.items():
         if io.finite(value, name) <= 0: raise ValueError('Assembly dimensions must be positive')
+    if 'dimension_policy' in proposal:
+        policy=proposal['dimension_policy']
+        if not isinstance(policy,dict) or set(policy)!=set(size) or any(v not in ('exact','maximum') for v in policy.values()):
+            raise ValueError('Dimension policy must cover every axis with exact or maximum')
     created = stamp(proposal.get('created_at'))
     if decision.get('proposal_digest') != io.digest(proposal): raise ValueError('Proposal changed after decision')
     if decision.get('status') not in ('accepted', 'delegated', 'rejected'):

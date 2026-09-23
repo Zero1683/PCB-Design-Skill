@@ -1,3 +1,26 @@
+# v1.8.1-dev validation
+
+2026-09-23, Windows, Python 3.12 and Node 22.23.2. The unified run passed
+**433 Python tests and 81 Node tests with zero skips**, followed by the isolated
+bridge smoke test using simulated clients. No new live EDA or physical-board
+acceptance was performed in this update.
+
+New coverage includes accepted exact/maximum dimensions, stale contracts and source
+hashes, actual linear manufacturing-outline comparison, malformed/unsupported
+outline rejection, cache invalidation after input/rule/code changes, report tampering,
+error non-caching, indirect managed-directory references and existing locks.
+An independent adversarial review reproduced two false-acceptance paths before
+correction: an indirectly referenced cache-directory source and incomplete Gerber
+commands. Both now have regression cases; unsupported files cannot pass G5 by
+silently inheriting parser defaults.
+
+[Local measurement](assets/local-efficiency-measurement.json): a synthetic fixture
+of 150 bodies in 50 overlapping groups returned 604 bytes while retaining its
+19,572-byte full failure report. The unchanged repeat reused the result. The
+entrypoint changed from 24,719 to 16,317 file bytes. These are byte measurements,
+not tokenizer measurements or complete-board quota benchmarks. Assembly height
+remains a sourced observation; this update does not add a 3D collision solver.
+
 # v1.8.0 validation
 
 2026-09-22, Windows, Python 3.12, Node 22.23.2. Unified regression completed:

@@ -24,7 +24,11 @@ Turn hardware requirements into circuit designs, PCB projects, and manufacturing
 
 ## Recent updates
 
-This run passed 409 Python tests, 81 Node tests and an isolated bridge smoke check without skips; real test1 checks covered native movement, rejection, save/reopen and rollback.
+**v1.8.1-dev (local development build)** adds offline check batches and accepted-dimension checks. Full reports stay on disk; callers receive bounded summaries. Changed inputs, rules, checker code or referenced evidence invalidate reuse. Live EDA state, DRC and shop prices are not cached as current observations. The entrypoint loads operation-specific documentation on demand. See [local execution](references/33-local-execution.md) and [mechanical dimensions](references/34-mechanical-envelope.md).
+
+A synthetic 150-component check produced a 19,572-byte full report and a 604-byte returned summary; an unchanged repeat reused the report. All detected failures remain in the full report. These measurements establish output size and cache reuse, not model-token or complete-board quota savings.
+
+The v1.8.0 release passed 409 Python tests, 81 Node tests and an isolated bridge smoke check without skips; real test1 checks covered native movement, rejection, save/reopen and rollback.
 
 **v1.8.0** adds beginner-facing requirements, automated calculations and guarded-operation validation. See [validation](VALIDATION.md) for evidence and [changelog](CHANGELOG.md) for version history.
 

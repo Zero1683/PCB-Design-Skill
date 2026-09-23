@@ -27,10 +27,15 @@ def prepare(root, project='fixture', baseline='A', evidence='evidence.txt'):
     root=Path(root)
     (root/evidence).write_text('Synthetic audit evidence only.',encoding='utf8')
     (root/'native.json').write_text('{"synthetic":true}',encoding='utf8')
+    (root/'outline.GKO').write_text('%FSLAX26Y26*%\n%MOMM*%\n%ADD10C,0.2*%\nD10*\nX0Y0D02*\nX50000000Y0D01*\nX50000000Y30000000D01*\nX0Y30000000D01*\nX0Y0D01*\nM02*\n',encoding='utf8')
     prepare_intake(root, project, baseline, evidence)
     ref=lambda name:{'path':name,'sha256':io.file_hash(root/name)}
-    state=eb.snapshot(root,project,['synthetic-document'],baseline,['native.json'])
+    state=eb.snapshot(root,project,['synthetic-document'],baseline,['native.json','outline.GKO'])
     io.save(root/'design-baseline.json',state)
+    import mechanical_envelope
+    io.save(root/'mechanical-contract.json',mechanical_envelope.derive(root,baseline))
+    io.save(root/'mechanical-observation.json',{'schema':1,'project_id':project,'baseline_id':baseline,'units':'mm','coverage':'complete',
+        'source':ref('native.json'),'outline':ref('outline.GKO'),'board_bounds_mm':[0,0,50,30],'assembled_height_mm':12})
     req={'schema':1,'project_id':project,'baseline_id':baseline,'requirements':[{'id':'REQ-1','statement':'Synthetic requirement','source':ref(evidence)}]}
     io.save(root/'requirements.json',req)
     io.save(root/'requirement-checks.json',{'schema':1,'project_id':project,'baseline_id':baseline,'requirements_digest':io.digest(req),'checks':[{'id':'MECHANICAL','requirement_ids':['REQ-1'],'method':'fixture','subjects':['U1'],'status':'PASS','evidence':ref(evidence)}]})

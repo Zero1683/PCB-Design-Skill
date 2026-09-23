@@ -1,0 +1,20 @@
+{
+  "fixture": "150 synthetic bodies in 50 overlapping groups; all detected failures retained",
+  "runs": [
+    {
+      "seconds": 0.3783373999176547,
+      "stdout_bytes": 604,
+      "full_report_bytes": 19572,
+      "cached_jobs": 0
+    },
+    {
+      "seconds": 0.3157894999021664,
+      "stdout_bytes": 603,
+      "full_report_bytes": 19572,
+      "cached_jobs": 1
+    }
+  ],
+  "entrypoint_before_bytes": 24719,
+  "entrypoint_after_bytes": 16317,
+  "scope": "local output bytes and offline reuse only; not model-token or complete PCB cost measurement"
+}
