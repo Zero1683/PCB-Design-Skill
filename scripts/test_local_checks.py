@@ -58,6 +58,25 @@ class LocalChecksTests(unittest.TestCase):
         obs=io.read(self.root/'mechanical-observation.json')
         obs['source']['path']='.pcb-local/source.json'
         io.save(self.root/'mechanical-observation.json',obs)
-        with self.assertRaisesRegex(ValueError,'managed reports'):self.run_plan()
+        result=self.run_plan()['jobs'][0]
+        self.assertEqual(result['state'],'ERROR')
+        self.assertIn('managed reports',(self.root/result['stderr']).read_text())
+
+    def test_read_failure_preserves_other_jobs_and_releases_lock(self):
+        (self.root/'broken.json').write_text('{')
+        missing={'id':'missing','kind':'mechanical','inputs':[],'options':{'baseline':'A'}}
+        result=lc.run(self.root,{'schema':1,'jobs':[missing,self.job]})
+        self.assertEqual([j['state'] for j in result['jobs']],['ERROR','CHECK_OK'])
+        self.assertIn('next_action',result['jobs'][0])
+        self.assertIn('broken.json',(self.root/result['jobs'][0]['stderr']).read_text())
+        self.assertFalse((self.root/lc.STATE_DIR/'run.lock').exists())
+        self.assertEqual(io.read(self.root/lc.STATE_DIR/'latest.json')['counts'],{'ERROR':1,'CHECK_OK':1})
+
+    def test_directory_read_error_is_not_silently_skipped(self):
+        def walk(*args,**kwargs):
+            kwargs['onerror'](PermissionError('unreadable project directory'))
+            return iter(())
+        with patch.object(lc.os,'walk',side_effect=walk):
+            with self.assertRaises(PermissionError):lc.dependencies(self.root,{'kind':'mechanical'})
 
 if __name__=='__main__':unittest.main()

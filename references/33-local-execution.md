@@ -37,6 +37,11 @@ Default output includes up to eight job summaries and aggregate counts; `--offse
 
 Keep one runner per project. A stale lock requires checking that its recorded process has stopped before removal. Use `--force` for release revalidation or to deliberately rerun after diagnosis. Interrupted jobs are not proof of completed checks.
 
+An execution-time read or validation error is reported per job; independent jobs
+continue and the batch still exits unsuccessfully. Read that job's `stderr` or
+report, fix the named input, and rerun. Invalid plans are rejected before execution.
+Unreadable directories block dependency capture rather than being silently skipped.
+
 ## Measure savings honestly
 
 Record full report bytes versus returned summary bytes, checker executions versus cache hits, and the current stage. Byte savings and cache hits are not model-token measurements. A complete new-session benchmark must measure actual tool calls, context and time before claiming an end-to-end quota reduction. Do not promise a percentage from a synthetic board fixture.

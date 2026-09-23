@@ -1,5 +1,7 @@
 # v1.8.2-dev · Sourced project reviews (unreleased)
 
+- Preserve independent results when a batch job cannot read its evidence; report the failed job and recovery path without approving the batch. Explain concurrent-run locks and reject unreadable dependency directories.
+
 - Add source- and baseline-bound assembly, operating-state, active-variant, derivative-change and release-role checks with no new runtime dependencies.
 - Reject duplicate/missing/DNP assembly rows, differing physical poses/parts, unreconciled browser edits, conflicting declared drivers, inactive configurations, unapproved or unrealized port deltas, mixed revisions and stale source files.
 - Add type-sensitive JSON configuration diffs; bind generator source and release artifacts to current hashed inputs.

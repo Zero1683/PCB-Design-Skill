@@ -51,7 +51,8 @@ def dependencies(root,job):
     # Root-based checkers follow hashed references. Include their entire project,
     # excluding only our managed output directory; do not guess dependency closure.
     result={}
-    for base,dirs,files in os.walk(root,followlinks=False):
+    def unreadable(error):raise error
+    for base,dirs,files in os.walk(root,followlinks=False,onerror=unreadable):
         if Path(base)==root:dirs[:]=[d for d in dirs if d.casefold()!=STATE_DIR]
         for name in dirs+files:io.no_link(Path(base)/name)
         for name in files:
@@ -67,7 +68,8 @@ def dependencies(root,job):
                         for item in value.values():inspect(item)
                     elif isinstance(value,list):
                         for item in value:inspect(item)
-                inspect(io.read(path))
+                try:inspect(io.read(path))
+                except ValueError as exc:raise ValueError(f'{path.relative_to(root).as_posix()}: {exc}') from exc
     return result
 
 def tool_revision():
@@ -119,9 +121,23 @@ def run(root,plan,force=False):
     if len({j['id'] for j in jobs})!=len(jobs):raise ValueError('Duplicate job IDs')
     cache=io.no_link(root/STATE_DIR);cache.mkdir(exist_ok=True)
     lock=io.no_link(cache/'run.lock')
-    with lock.open('x') as f:f.write(str(os.getpid()))
     try:
-        revision=tool_revision();results=[execute(root,j,cache,revision,force) for j in jobs]
+        with lock.open('x') as f:f.write(str(os.getpid()))
+    except FileExistsError as exc:
+        raise FileExistsError('Another check run owns .pcb-local/run.lock. Wait for it to finish; if it crashed, confirm its process has stopped before removing this lock and retrying.') from exc
+    try:
+        revision=tool_revision();results=[]
+        for job in jobs:
+            try:result=execute(root,job,cache,revision,force)
+            except (ValueError,TypeError,KeyError,OSError) as exc:
+                # Preserve independent check results without ever accepting a failed job.
+                detail=io.no_link(cache/(job['id']+'.error.txt'))
+                detail.write_text(str(exc),encoding='utf-8')
+                result={'id':job['id'],'state':'ERROR','cached':False,'exit_code':2,
+                        'stderr':detail.relative_to(root).as_posix()}
+            if result['exit_code']!=0:
+                result['next_action']=('Read the report/stderr for this job, correct its inputs or reported issue, then rerun. Do not treat this batch as approved.')
+            results.append(result)
         summary={'scope':'offline checker execution; no live EDA, web prices or whole-board approval',
                  'jobs':results,'counts':dict(collections.Counter(r['state'] for r in results)),
                  'cached_jobs':sum(r['cached'] for r in results),'report_bytes':sum(r.get('report_bytes',0) for r in results)}

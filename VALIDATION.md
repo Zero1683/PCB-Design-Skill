@@ -1,3 +1,16 @@
+## Stability and usability pass, 2026-09-23
+
+No features added. Reviewed beginner intake and stage routing; repaired local batch
+error isolation, diagnostic file identification and lock recovery instructions.
+Dependency traversal now fails explicitly on unreadable directories. Invalid plans
+still fail before execution; individual runtime errors cannot approve a batch or
+hide independent results. Cache-source protections remain in place.
+
+Executed full regression after code changes: 453 Python tests, zero failures,
+errors or skips; 81 Node tests passed and simulated bridge isolation passed.
+Added cases for mixed error/success batches, persisted summary, lock cleanup and
+unreadable dependency trees. No new live EDA, macOS or physical-board test was run.
+A fresh beginner project remains necessary to measure end-to-end usability.
 # v1.8.2-dev validation
 
 2026-09-23, Windows, Python 3.12 and Node 22.23.2. Full regression passed
