@@ -32,6 +32,8 @@
 
 **v1.8.2-dev（本地开发版）** 将 PCBA 专项检查接入现有流程：核对拟装器件、BOM、提交/导入贴装坐标；检查已声明的工作状态、生成器实际板型配置、衍生板允许的变化，以及制造交付的文件角色、版本和哈希。检查可通过本地批处理返回摘要。参考了 Keitark/pcba-design-skills 的方法，采用自有实现，未增加第三方运行依赖。详见[检查方法与数据范围](references/36-project-reviews.md)。
 
+现可按项目需求检索 GitHub、立创开源广场和厂家参考工程，筛选有可编辑原理图与 PCB 的基础板，核对各文件许可后下载指定版本并修改。Skill 只收录候选链接，不附带这些工程；遇到“允许修改、限制转载”等条款，会区分本地工作副本与公开发布，优先选择授权清楚的来源。详见[开源硬件查找与改造](references/37-open-hardware-sourcing.md)。
+
 这些检查要求实际来源导出和适配记录。它们不自动识别厂家网页、不证明实物装配或启动瞬态，也不替代既有 ERC/DRC、制造文件解析和视觉复核。
 
 **v1.8.1-dev（本地开发版）** 增加离线检查批处理和尺寸核对，完整检查报告保存在本地，仅返回摘要。输入、规则、检查代码或关联证据变化后会重新计算；实时 EDA 状态、DRC 和商城报价不复用离线缓存。入口说明按操作拆分，避免每轮读取全部文档。见[本地执行](references/33-local-execution.md)及[尺寸核对](references/34-mechanical-envelope.md)。
@@ -214,6 +216,7 @@ USB-C 供电，元件全部放在顶层，采用钢网和加热台装配。
 | [电路与封装](references/02-circuit-and-library.md) | 器件选型、引脚和封装核验 |
 | [原理图绘制规范](references/12-schematic-drafting.md) | 功能分区、两阶段绘制、连线和标注、示例图与验收证据 |
 | [电路连接与复用](references/13-circuit-intent-and-reuse.md) | 引脚连接规则、模块复用条件、版本差异和原生工程回读 |
+| [开源硬件查找与改造](references/37-open-hardware-sourcing.md) | 按需求搜索可编辑基础工程、逐文件核对许可、获取版本和修改后复验 |
 | [布局布线](references/03-layout-routing.md) | 布局、关键网络与地铜检查 |
 | [制造与装配](references/04-release-assembly.md) | 制造发布、钢网与焊接 |
 | [实板调试](references/05-bringup-debug.md) | 上电验证、测量与故障定位 |

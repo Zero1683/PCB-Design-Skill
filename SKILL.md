@@ -17,6 +17,7 @@ manufacturer reference circuits and documented working designs before inventing
 new circuitry; verify suitability, changes and reuse permissions. Follow the
 [beginner journey](references/30-beginner-experience.md) for communication and
 [reuse review](references/13-circuit-intent-and-reuse.md) for engineering evidence.
+When a reusable board is useful, follow [open hardware sourcing](references/37-open-hardware-sourcing.md): search for editable source at the time of the project, check the license of the board files themselves, obtain a revisioned working copy, and verify every affected design gate. The linked examples are leads, not bundled or prequalified board designs.
 Keep check mechanics in project records; explain progress and necessary decisions
 in everyday language. Working-product requests include the path beyond PCB files;
 report firmware, assembly and physical tests according to their actual status.
@@ -28,6 +29,7 @@ Use the user's language. Do not load every reference, full API index or raw expo
 | Current work | Read when needed |
 |---|---|
 | New idea and component estimate | [Beginner brief](references/30-beginner-experience.md), [cost](references/26-component-cost-planning.md) |
+| Finding or adapting an existing board | [Open hardware sourcing](references/37-open-hardware-sourcing.md), [reuse checks](references/13-circuit-intent-and-reuse.md) |
 | Power, impedance and electrical calculations | [Analysis](references/09-electrical-analysis.md), [model limits and fallback](references/31-calculation-automation.md) |
 | EDA connection or backend choice | [Execution](references/06-easyeda-execution.md), [backends](references/16-easyeda-operation-backends.md); load bundled API skill before live calls |
 | Schematic blocks and connections | [Drafting](references/12-schematic-drafting.md), [methods](references/15-easyeda-schematic-methods.md), [intent](references/13-circuit-intent-and-reuse.md) |

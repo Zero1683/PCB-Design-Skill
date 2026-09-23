@@ -54,6 +54,12 @@ Exit 0 means the declared relationships match the supplied data, 1 means at leas
 
 ## Reusable circuit blocks
 
+For a new project that may start from an existing editable board, first use
+[open hardware sourcing](37-open-hardware-sourcing.md) to find a suitable
+revision, verify the license for each artifact, acquire a separate working copy,
+and plan the checks after changes. This section covers circuit and module reuse
+within that engineering workflow.
+
 Before designing a functional block from scratch, look for an applicable exact-part
 manufacturer reference design, evaluation board or documented open hardware
 implementation. Reuse can improve reliability and save effort; popularity and

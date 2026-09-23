@@ -13,6 +13,12 @@ unreadable dependency trees. No new live EDA, macOS or physical-board test was r
 A fresh beginner project remains necessary to measure end-to-end usability.
 # v1.8.2-dev validation
 
+2026-09-23 open-hardware sourcing update: the source selection, artifact-specific
+license, acquisition and derivative-verification procedure was reviewed against
+the linked GitHub/OSHWHub project pages. The three MIT GitHub entries are discovery
+leads only; no third-party board files were added. This documentation update
+does not establish physical acceptance of either board or a completed EDA import.
+
 2026-09-23, Windows, Python 3.12 and Node 22.23.2. Full regression passed
 **451 Python tests and 81 Node tests, zero skips**, plus isolated bridge smoke.
 Afterward the assembly coordinate schema was tightened to explicit mm/origin/axes/

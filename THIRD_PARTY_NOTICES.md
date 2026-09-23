@@ -1,5 +1,9 @@
 # Third-party components / 第三方组件
 
+## External board leads / 外部基础板线索
+
+[Open hardware sourcing](references/37-open-hardware-sourcing.md) links to example GitHub boards and OSHWHub projects for project-time review. Their EDA files, firmware, production files and artwork are **not bundled** with this skill. A future user's agent must recheck the license of the particular files and revision before copying or publishing a derivative; the root MIT license applies only to this repository's own materials and bundled components as documented below.
+
 ## v1.8.0 research and numerical references / 本轮参考资料
 
 The four bundled toolsets and seven runtime packages below are unchanged. Newly reviewed `specs-to-pcb`, `circuit-synth` and `atopile` supplied workflow/diagnostic ideas only; no source code or runtime from those projects is included. Pinned commits and inspected files are recorded in [external-method review](references/32-adversarial-improvement.md). JITX Skills was excluded from derivative reuse after its inspected license reserved rights.

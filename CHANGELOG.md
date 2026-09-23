@@ -1,5 +1,7 @@
 # v1.8.2-dev · Sourced project reviews (unreleased)
 
+- Add on-demand open-hardware sourcing guidance with three MIT GitHub board leads, editable-source and revision checks, artifact-specific license decisions, official-platform acquisition, and derivative-board verification. Leads are links only; no third-party board files or runtime are bundled.
+
 - Clarify the beginner journey from idea to practical handoff, milestone communication, established-circuit reuse and artifact-specific licensing. Preserve engineering gates and purchasing boundaries; no new runtime features.
 
 - Preserve independent results when a batch job cannot read its evidence; report the failed job and recovery path without approving the batch. Explain concurrent-run locks and reject unreadable dependency directories.
