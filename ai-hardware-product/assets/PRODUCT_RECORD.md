@@ -1,6 +1,6 @@
 # Product record
 
-> Copy into the authorized project. Replace bracketed prompts with observed facts or `unknown`; keep estimates and measurements distinct. Add rows as needed.
+> Copy into the authorized project. Replace bracketed prompts with observed facts or `unknown`; keep estimates and measurements distinct. Add rows as needed. Use only the inputs, transport and power features the product has. Omit irrelevant examples or record `N_A` with the scope reason; do not count them as passed tests.
 
 ## Outcome and version
 
@@ -23,7 +23,7 @@
 |---|---|---|---|---|
 | [device capture] | [part, board, firmware revision] | [sample or event] | [datasheet/test link] | planned |
 | [transfer and receiver] | [protocol, app and OS] | [frame/file] | [throughput/error result] | planned |
-| [AI and display] | [provider/model/app version] | [audio → transcript → result] | [usage/output record] | planned |
+| [AI and display] | [provider/model/app version] | [sensor/event/audio data → requested result; transcription only for speech] | [usage/output record] | planned |
 
 ## Product cost and effort
 
@@ -35,7 +35,7 @@
 |---|---:|---:|---:|---|
 | [ ] | [ ] | [ ] | [ ] | [ ] |
 
-| Date / recording ID | Service and model | Audio seconds/minutes | Input/output tokens if reported | Charge/currency | Usage source |
+| Date / sample, event or recording ID | Service and model | Usage quantity/unit (audio duration only when used) | Input/output tokens if reported | Charge/currency | Usage source |
 |---|---|---:|---:|---:|---|
 | [ ] | [ ] | [ ] | [ ] | [ ] |
 
