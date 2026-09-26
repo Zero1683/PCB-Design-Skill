@@ -1,7 +1,10 @@
 # Exact-part decisions and device-to-host acceptance
 
-Read this when a requested outcome extends beyond a bare PCB: a button, sensor or
-microphone on a battery device must produce a result in a computer application.
+Read the relevant sections for exact-part decisions and for outcomes beyond a bare
+PCB, such as a button, sensor or microphone producing a computer-visible result.
+Use audio/transcription, wireless and battery/charging sections only when the
+product has those features. An externally powered sensor needs its own input,
+data-path and supply checks, not microphone or battery tests.
 Use the project requirements and [existing requirement mapping](25-requirement-coverage.md)
 as the authority for functions and thresholds. This reference adds a compact
 engineering record and test sequence; it does not replace the G1/G2 part checks,
@@ -54,8 +57,14 @@ pin functions and battery-pack temperature monitoring](https://www.ti.com/lit/ds
 
 ## Define one complete data path
 
-Before selecting a radio or drawing its nets, choose a supported computer OS and
-the specific transfer method. “Bluetooth connects” does not tell whether audio
+Before selecting an interface or drawing its nets, choose a supported computer OS
+and the specific transfer method. Record `device input/event → capture → transfer
+→ host raw data → requested result`, with sample/event identity and units as
+appropriate. For a USB sensor, check known sensor values through the saved host
+data and result, plus startup, continuous acquisition and disconnect/recovery on
+the actual USB supply.
+
+For an audio product, “Bluetooth connects” does not tell whether audio
 is a host microphone, a file sent over a custom data link, or something else.
 Record the intended path in plain terms:
 
@@ -69,7 +78,8 @@ data format, the acceptance criterion and the recovery owner. If a ready-made
 development board is used first, bind the observed result to its exact board,
 firmware and host versions. It is prototype evidence, not proof for a later PCB.
 
-Define at least: button press/release and cancel behavior; recording indicator;
+For recording products, define at least: button press/release and cancel behavior;
+recording indicator;
 sample rate, channels, bit depth/codec and maximum duration; where bytes are
 kept before transfer; the transport and message boundaries; transfer completion
 acknowledgment; host file naming and duplicate policy; transcription language;
@@ -86,7 +96,10 @@ chosen device's actual usable memory/storage and **measured** end-to-end transfe
 rate with the maximum recording and acceptable wait time. Advertising, pairing
 or HID success is not evidence of audio transfer.
 
-## Accept the function in layers
+## Accept the function in layers (audio example)
+
+For sensor or event products, use the same applicable layers with their actual
+data and expected result; microphone capture and transcription are not required.
 
 | Layer | What to run | Pass evidence |
 |---|---|---|
@@ -94,9 +107,9 @@ or HID success is not evidence of audio transfer.
 | Software integration | Feed a known audio fixture through the host receiver/transcription/summary path | Input identity, saved audio, transcript and summary with versioned logs; mark hardware capture `NOT_RUN` |
 | Device capture | Press the physical control; save the device-origin raw audio on the host; play it independently | Board/firmware ID, event times, expected vs received sample count, no unexplained truncation, silence or clipping |
 | Full result | Transcribe and summarize that exact saved recording | Linked recording ID, preserved transcript, factual summary review against the recording |
-| Recovery | Interrupt transfer, close receiver, retry, restart and test low-battery behavior | Explicit failed/pending state; no silent loss or duplicate final record; user indication matches actual state |
+| Recovery | Interrupt transfer, close receiver, retry and restart; test low-battery behavior only for a battery product | Explicit failed/pending state; no silent loss or duplicate final record; user indication matches actual state |
 
-Choose repetitions, maximum wait, distance, acceptable dropped samples and
+Choose repetitions, maximum wait, wireless distance where used, acceptable dropped samples and
 audio quality before testing. A single successful file does not validate the
 maximum duration or repeated use. Use fixed speech fixtures that include
 numbers, negation and Chinese/English terms; review the transcript separately
@@ -104,7 +117,7 @@ from the summary so a fluent summary cannot conceal a missing or inverted fact.
 Preserve actual failed cases with their inputs and versions. Never mark an
 unavailable physical test `PASS` because its simulated path passed.
 
-## Charge and runtime are operating states
+## Charge and runtime are operating states (battery products only)
 
 Use the [power-state inventory](01-intake-and-recovery.md) and
 [bring-up method](05-bringup-debug.md). For the chosen battery and charger,
@@ -143,7 +156,10 @@ using the same script; record observed time separately from the estimate.
 Use existing `PROJECT.md`, `requirements.json`, `requirement-checks.json`,
 `CHECKS.csv` and `HANDOFF.md`. Add project-specific check IDs for the selected
 audio path and power states; link them to sourced requirements and current
-observations. The template is a compact working sheet, not a second release
+observations. For other inputs, use the actual data path and power states instead
+of the audio example. Omit irrelevant working-sheet examples or mark `N_A` with
+the scope reason; do not count them as passed or waive registered required checks.
+The template is a compact working sheet, not a second release
 gate or a way to bypass the registry. Each result states `NOT_RUN`, `BLOCKED`,
 `PASS` or `FAIL`, the tested conditions, actual number/file, acceptance range,
 board/firmware/host identity and evidence path. A changed board, firmware,

@@ -13,7 +13,7 @@ python3 scripts/component_cost.py --input /project/component-quotes.json > /proj
 python3 scripts/product_total_cost.py --input /project/product-cost.json --component-report /project/component-cost.json > /project/product-total.json
 ```
 
-Omit `--component-report` only when the target is bare boards without purchased components or when a bundle includes them. For bare boards that will later be assembled from separately bought components, supply the component report. The input is a JSON object:
+Omit `--component-report` only when the target is bare boards without purchased components or when a bundle includes them. Only `components: separate_purchase` uses that report in the calculation; in the other two modes, a supplied report does not add a component charge. A `bare_pcb` target cannot declare or charge for components or assembly; if the plan includes those steps, keep the board quote as `bare_pcb` and set `target_delivery` to `assembled_pcb` or `usable_device`. For bare boards that will later be assembled from separately bought components, supply the component report. The input is a JSON object:
 
 ```json
 {
