@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-26",
+  "platform": "macOS-26.5.1-arm64",
+  "python": "3.12.14",
+  "node": "24.19.0",
+  "implementation_commit": "c30fa9fd9601e01fa6eb88a7023c4432679dcba1",
+  "python_tests": 475,
+  "python_passed": 474,
+  "python_failed": 0,
+  "python_errors": 0,
+  "python_skipped": 1,
+  "skip_reason": "Windows junction regression",
+  "node_passed": 81,
+  "node_failed": 0,
+  "simulated_bridge": "PASS",
+  "command": "python3 scripts/run_regression.py --workdir <existing-real-directory> --allow-skips",
+  "runner_exit": 0,
+  "allow_skips_note": "Diagnostic macOS run; Windows-only coverage remains pending.",
+  "log_sha256": "8c0298a4d8facb2c94580acce296fc94905af1246cf50a6a45fce254467301d0",
+  "physical_or_live_EDA_tested": false,
+  "implementation_sha256": {
+    "scripts/check_evidence.py": "f6c715608da994e4da00ea3ea3191627e994cf60862bf1a5de3a824c0b39ac1b",
+    "scripts/project_progress.py": "d009fe093fc45926f051291d0a80af1b1cdf09289ed6a087ec3241195f7f67da",
+    "scripts/product_total_cost.py": "da704251d0584484ea731f4fc60ee7e2c3231384745906af91b321764aa0a9d1",
+    "scripts/test_evidence_binding.py": "18fa1b3ab55bd2d7af3ca3f66daae1f19174f818ac32111eaee063da5acb022e",
+    "scripts/test_project_progress.py": "da018dff06ce8f30343ad3cc1aa1c527022aa3d9407097b1bf13ce59ee8c808e",
+    "scripts/test_product_total_cost.py": "05dcb9a966b8e9f3ccb91bcaa73991134191b1225935e6679e7594f791260307"
+  }
+}
