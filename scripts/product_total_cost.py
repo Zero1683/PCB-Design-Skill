@@ -73,6 +73,8 @@ def calculate(plan, component_report=None):
     if target != 'bare_pcb' and components == 'not_in_delivery':
         raise ValueError('An assembled target must account for components')
     required = set(strings(plan.get('required_costs'), 'required_costs', COSTS)) | DELIVERY[target]
+    if target == 'bare_pcb' and required & {'components', 'assembly'}:
+        raise ValueError('A bare PCB target cannot require component or assembly costs; choose the intended assembled target')
     not_required = plan.get('not_required_costs')
     if not isinstance(not_required, dict) or any(key not in OPTIONAL for key in not_required):
         raise ValueError('not_required_costs must map optional categories to reasons')
@@ -97,6 +99,8 @@ def calculate(plan, component_report=None):
         covers = strings(item.get('covers'), 'covers', COSTS)
         if not covers:
             raise ValueError('Each line item needs at least one covered cost category')
+        if target == 'bare_pcb' and set(covers) & {'components', 'assembly'}:
+            raise ValueError('A bare PCB target cannot charge for components or assembly; choose the intended assembled target')
         repeated = exclusive_seen & set(covers)
         if repeated:
             raise ValueError('Quote coverage counted twice: ' + ', '.join(sorted(repeated)))

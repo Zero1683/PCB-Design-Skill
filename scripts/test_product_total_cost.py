@@ -89,7 +89,7 @@ class ProductTotalCostTests(unittest.TestCase):
         self.assertEqual(result['first_cash_outlay_total'], '20')
         self.assertIn('bare boards only', result['payment_gets'])
         p['line_items'][0]['covers'] = ['pcb_fabrication', 'assembly']
-        with self.assertRaisesRegex(ValueError, 'Bare PCB'):
+        with self.assertRaisesRegex(ValueError, '[Bb]are PCB'):
             calculate(p)
 
     def test_bare_board_quote_plus_separate_parts_and_soldering(self):
@@ -105,6 +105,27 @@ class ProductTotalCostTests(unittest.TestCase):
         self.assertEqual(result['first_cash_outlay_total'], '21.00')
         self.assertEqual(result['quoted_delivery'], 'bare_pcb')
         self.assertEqual(result['planned_delivery'], 'usable_device')
+
+    def test_bare_board_target_rejects_separate_component_or_assembly_costs(self):
+        p = plan()
+        p.update(target_delivery='bare_pcb', components='not_in_delivery',
+                 required_costs=[],
+                 not_required_costs={name: 'bare board only'
+                                     for name in ('stencil', 'battery', 'enclosure', 'tools', 'software_api')},
+                 line_items=[item('pcb', ['pcb_fabrication'], '12'),
+                             item('freight', ['shipping'], '8')])
+        self.assertEqual(calculate(p)['first_cash_outlay_total'], '20')
+        for cost in ('components', 'assembly'):
+            with self.subTest(cost=cost, source='line_items'):
+                altered = copy.deepcopy(p)
+                altered['line_items'].append(item(cost, [cost], '30'))
+                with self.assertRaisesRegex(ValueError, 'bare PCB target'):
+                    calculate(altered)
+            with self.subTest(cost=cost, source='required_costs'):
+                altered = copy.deepcopy(p)
+                altered['required_costs'] = [cost]
+                with self.assertRaisesRegex(ValueError, 'bare PCB target'):
+                    calculate(altered)
 
     def test_separate_assembly_charge_does_not_turn_bare_quote_into_pcba(self):
         p = plan()
