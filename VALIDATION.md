@@ -1,3 +1,11 @@
+## v2.0.1-dev local validation, 2026-09-26
+
+On macOS, the complete local software runner reported **475 Python tests, zero failures or errors, one Windows-junction-only skip**, **81 Node tests passed**, and the isolated bridge simulation passed. The command used `--allow-skips` solely because the Windows-only case cannot run on macOS; it is not a zero-skip release result. See the [full regression output](assets/validation-20260926/regression.log) and [machine-readable summary](assets/validation-20260926/summary.json).
+
+The required-`N_A` and G8-navigation defects had failing counterexamples before their corrections; the new normal and invalid cases now pass. Product-cost tests cover a bare-board quote plus separately bought parts and soldering, a bundled PCBA without double-counting components, unknown prices, first/repeat cash arithmetic and rejected conflicting inputs. These are synthetic records and declared quote arithmetic. No live EasyEDA connection, current supplier-price check, device microphone/BLE transfer, battery measurement, assembly or physical-board acceptance was performed in this development pass.
+
+`MANIFEST.sha256.json` is the frozen v2.0.0 release manifest. This development checkout is not a v2.0.0 release extraction; a new manifest belongs to a newly frozen release package.
+
 ## Stability and usability pass, 2026-09-23
 
 No features added. Reviewed beginner intake and stage routing; repaired local batch

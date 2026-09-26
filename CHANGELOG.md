@@ -1,3 +1,12 @@
+# v2.0.1-dev · Product cost and device acceptance (unreleased)
+
+- Reject `N_A` for every required check, including custom checks with current evidence bindings. Keep conditional `assess` checks eligible for a justified `N_A`.
+- Include absent G6–G8 checks in the progress view when navigating beyond G5. Preserve the independent G5 manufacturing-evidence result.
+- Add a declared whole-product cost calculator that combines component MOQ purchases with fabrication, assembly and other applicable charges. Separate the PCB/PCBA quote's deliverable from the target product, show first and repeat-lot cash estimates, and leave unknown totals unset. A bare-board order can be followed by separately purchased parts and soldering.
+- Add exact-part variant, device-to-computer audio, charging-state and runtime acceptance guidance with a Chinese working template. No real board, battery, supplier price or audio path is certified by these additions.
+- Add an optional [whole-product skill](ai-hardware-product/SKILL.md) for hardware, firmware, host software and reproducible tutorials, with separate installation instructions in both READMEs.
+- Publish the [software regression log](assets/validation-20260926/regression.log), [summary](assets/validation-20260926/summary.json) and [peer testing guide](HARDWARE_TESTING.md), including software rerun commands, remaining EDA and physical tests, and an Issue results template.
+
 # v2.0.0 · Beginner workflow and traceable design reuse
 
 - Add a read-only project-progress view that reads the existing intake and check records, shows a bounded next action, and distinguishes a user's product choice from an agent's record repair. An unprepared or rejected plan cannot become an apparent approval. Only the existing full G5 gate can mark fabrication evidence complete; hardware correctness remains separate.

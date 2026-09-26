@@ -30,6 +30,10 @@ Bundled EasyEDA API documentation, schematic methods, a local bridge and runtime
 
 ## Recent updates
 
+**Current development branch (unreleased)** fixes custom required checks passing as `N_A` and G6–G8 navigation overlooking missing physical-test records. A product cost ledger now separates what a bare-board or assembled-board quote actually delivers from separately purchased parts, assembly and the remaining cost of a usable device; unknown prices stay unknown. Guidance and a Chinese working template cover exact part variants, device audio reaching the computer, charging and runtime verification. Software and physical results remain distinct.
+
+Use the [peer testing guide](HARDWARE_TESTING.md) (Chinese) to rerun the software suite or contribute real EDA, recording, charging and runtime results; it includes steps and a copyable Issue report template. The optional [whole-product skill](ai-hardware-product/SKILL.md) coordinates hardware, firmware, host software and build tutorials. Copy the entire `ai-hardware-product/` subdirectory into its own `ai-hardware-product` skill directory; install the PCB repository root separately as `pcb-design-to-bringup`. Merely retaining the nested subdirectory does not establish a separate installation of the whole-product skill.
+
 **v2.0.0** makes the path from an idea to fabrication easier to follow. The agent still checks requirements, circuit design, schematic, placement, routing and manufacturing files in stages. It can now derive a short next step from project records, separating a product decision for the user from missing evidence the agent must fix. This read-only guide never turns empty records into passing checks.
 
 For open-hardware reuse, the agent searches for a suitable editable design, pins its source revision, preserves an untouched snapshot, and verifies the schematic, PCB, license evidence and file hashes. The listed MIT projects are discovery leads. Artifact permissions, native import, pin connectivity and suitability still need review. Changes to a base board pass the same electrical, geometry and fabrication checks. See [finding and adapting open hardware](references/37-open-hardware-sourcing.md).
@@ -242,6 +246,8 @@ For an existing project, the agent can run `python scripts/project_progress.py -
 | [Executable constraints](references/24-executable-constraints.md) | Placement, region, keepout and height rules |
 | [Requirement coverage](references/25-requirement-coverage.md) | Requirement, check and evidence mappings |
 | [Component cost planning](references/26-component-cost-planning.md) | Component quotes, MOQ and compatible substitutions |
+| [Product total cost](references/39-product-total-cost.md) | Quote deliverables, first cash outlay and repeat-build estimates |
+| [Part identity and device acceptance](references/38-part-identity-and-device-acceptance.md) | Part variants, audio path, charging and runtime verification |
 | [Current-design evidence](references/27-current-design-evidence.md) | Design baselines, source hashes and report bindings |
 | [Fresh-session benchmark](references/28-fresh-session-benchmark.md) | Whole-board testing in a fresh task and result records |
 | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Sources, licenses, pins and local modifications |

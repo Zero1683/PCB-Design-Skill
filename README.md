@@ -30,6 +30,10 @@
 
 ## 近期更新
 
+**当前开发分支（尚未发布）** 修复了自定义必检项被 `N_A` 跳过、G6–G8 缺记录却显示完成的进度问题。新增整机费用总账：区分裸板或焊板报价实际交付的内容、另购元件与装配，以及最终可用设备所需的其他费用；未知报价不会算作零。完整料号、设备录音到电脑摘要、充电和续航的核对方法及中文验收模板也已补齐。软件检查结果与实板结果仍分别记录。
+
+欢迎按[同伴测试入口](HARDWARE_TESTING.md)复跑软件，或补充真实 EDA、录音、充电与续航结果；入口提供执行步骤和可复制的 Issue 回传模板。需要统筹整机、固件、电脑软件与教程时，可选用[整机主 Skill](ai-hardware-product/SKILL.md)。安装时，将 `ai-hardware-product/` 子目录整份复制到独立的 `ai-hardware-product` Skill 目录；PCB 仓库根目录则作为独立的 `pcb-design-to-bringup` Skill 安装。仅保留嵌套子目录不代表整机主 Skill 已被独立安装。
+
 **v2.0.0** 把“想法到打板”整理成更容易跟进的路径。Agent 仍按需求、电路、原理图、摆放、布线和制造文件逐阶段检查；现在可以从工程记录生成一句可执行的下一步，区分用户需要回答的产品选择与 Agent 自己应修复的证据问题。新入口只读，不会把空白记录判成完成。
 
 复用开源板时，Agent 会按需求寻找可编辑工程，固定来源版本，保存原文件快照，并检查原理图、PCB、许可依据与文件哈希。查到的 MIT 候选工程是检索线索，仍需逐文件核对授权、导入后的引脚连接和实际适用性。改板后照常完成电气、几何和制造检查。详见[开源硬件查找与改造](references/37-open-hardware-sourcing.md)。
@@ -241,6 +245,8 @@ USB-C 供电，元件全部放在顶层，采用钢网和加热台装配。
 | [可执行约束](references/24-executable-constraints.md) | 位置、区域、禁布及高度约束 |
 | [需求覆盖](references/25-requirement-coverage.md) | 需求与检查项、证据的对应关系 |
 | [元件成本规划](references/26-component-cost-planning.md) | 元件报价、起订量及兼容替代料 |
+| [整机费用总账](references/39-product-total-cost.md) | 裸板/焊板报价交付内容、首次总投入与重复制作费用 |
+| [完整料号与整机验收](references/38-part-identity-and-device-acceptance.md) | 器件变体、录音链路、充电和续航核对 |
 | [当前设计证据](references/27-current-design-evidence.md) | 工程基线、源文件哈希与报告绑定 |
 | [新窗口实测](references/28-fresh-session-benchmark.md) | 新任务整板实测与结果记录 |
 | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | 来源、许可、版本与本地修改 |
