@@ -58,9 +58,18 @@ def snapshot(root, baseline, through='G5', lang='zh'):
     audit = check_evidence.audit(root, baseline, through=through)
     with io.no_link(root / 'CHECKS.csv').open(encoding='utf-8-sig', newline='') as stream:
         rows = list(csv.DictReader(stream))
-    selected = [r for r in rows if r['stage'] in {f'G{i}' for i in range(int(through[1:])+1)}]
+    stage_number = int(through[1:])
+    selected = [r for r in rows if r['stage'] in {f'G{i}' for i in range(stage_number+1)}]
     unfinished = [r for r in selected if r['status'] not in {'PASS', 'N_A'} or
                   (r['status'] == 'N_A' and r['applicability'] == 'required')]
+    if stage_number >= 6:
+        registry = io.read(Path(__file__).resolve().parents[1] / 'assets/design-check-registry.json')
+        recorded = {(r['id'], r['stage']) for r in selected}
+        unfinished.extend({'id': gate['id'], 'stage': gate['stage'], 'status': 'NOT_RUN'}
+                          for gate in registry['checks']
+                          if 6 <= int(gate['stage'][1:]) <= stage_number
+                          and (gate['id'], gate['stage']) not in recorded)
+    unfinished.sort(key=lambda row: int(row['stage'][1:]))
     names = STAGES_ZH if lang == 'zh' else STAGES_EN
     current = unfinished[0]['stage'] if unfinished else through
     stage_name = names[int(current[1:])]
@@ -95,10 +104,15 @@ def snapshot(root, baseline, through='G5', lang='zh'):
     # incomplete source/requirement bindings. Surface those gate errors too.
     fabrication_verified = False
     gate_errors = []
-    if int(through[1:]) >= 5 and not unfinished and not audit['record_errors'] and not intake_record_issue:
-        gate = check_evidence.audit(root, baseline, through='G5', design_gates=True)
-        fabrication_verified = gate['records_complete']
-        gate_errors = gate['record_errors']
+    if stage_number >= 5 and not intake_record_issue:
+        fabrication_records = audit if stage_number == 5 else check_evidence.audit(root, baseline, through='G5')
+        if fabrication_records['records_complete']:
+            gate = check_evidence.audit(root, baseline, through='G5', design_gates=True)
+            fabrication_verified = gate['records_complete']
+            gate_errors = gate['record_errors']
+        if stage_number > 5 and not unfinished and not audit['record_errors'] and not gate_errors:
+            gate = check_evidence.audit(root, baseline, through=through, design_gates=True)
+            gate_errors = gate['record_errors']
 
     if intake_issue:
         owner, step = 'user', intake_issue

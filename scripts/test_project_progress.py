@@ -81,6 +81,16 @@ class ProgressJourneyTests(unittest.TestCase):
         self.assertIn('原理图', result['next_step'])
         self.assertNotIn('synthetic', result['next_step'])
 
+    def test_g8_navigation_does_not_skip_missing_physical_stages(self):
+        self.root.mkdir()
+        prepare(self.root)  # Complete synthetic G0-G5 records, no G6-G8 observations.
+        result = progress.snapshot(self.root, 'A', through='G8')
+        self.assertEqual(result['state'], 'IN_PROGRESS')
+        self.assertEqual(result['stage'], 'G6')
+        self.assertIn('焊接', result['next_step'])
+        self.assertGreater(result['unfinished_checks'], 0)
+        self.assertTrue(result['fabrication_evidence_complete'])
+
 
 if __name__ == '__main__':
     unittest.main()
