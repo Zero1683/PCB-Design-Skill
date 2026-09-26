@@ -1,5 +1,7 @@
 # v2.0.1-dev · Product cost and device acceptance (unreleased)
 
+- Joint Codex/Claude Code recheck: reject component/assembly costs under a bare-board target, make generic device acceptance applicable to the actual input/power features, clarify PCM and component-report scope, and cover complete G8/G9 plus missing or stale later evidence. See [review decisions](JOINT_REVIEW.md) and [updated validation](assets/validation-20260926-joint/summary.json).
+
 - Reject `N_A` for every required check, including custom checks with current evidence bindings. Keep conditional `assess` checks eligible for a justified `N_A`.
 - Include absent G6–G8 checks in the progress view when navigating beyond G5. Preserve the independent G5 manufacturing-evidence result.
 - Add a declared whole-product cost calculator that combines component MOQ purchases with fabrication, assembly and other applicable charges. Separate the PCB/PCBA quote's deliverable from the target product, show first and repeat-lot cash estimates, and leave unknown totals unset. A bare-board order can be followed by separately purchased parts and soldering.

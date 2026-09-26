@@ -1,3 +1,9 @@
+## Codex and Claude Code joint recheck, 2026-09-26
+
+Two read-only Claude Code reviews and independent scenario checks confirmed the bare-target cost contradiction and the overly audio/battery-specific generic handoff. Corrections preserve bare-board quotes followed by separate assembly, and preserve the complete tests required by an actual voice/battery device. G8/G9 complete-record and later evidence-failure paths now have real-fixture coverage; no progress production change was necessary. See the [decision-by-decision review](JOINT_REVIEW.md), including findings rejected after counterchecks.
+
+The final local runner reported **481 Python tests: 480 passed, one Windows-junction-only skip, zero failures or errors; 81 Node tests passed; isolated simulated bridge passed**. The macOS command used `--allow-skips`. See the [new full output](assets/validation-20260926-joint/regression.log) and [summary with tested source hashes](assets/validation-20260926-joint/summary.json). Claude reviewed source and documents; Codex ran the tests. No new live EDA or physical-device result is claimed. Earlier runs below remain historical snapshots.
+
 ## v2.0.1-dev local validation, 2026-09-26
 
 On macOS, the complete local software runner reported **475 Python tests, zero failures or errors, one Windows-junction-only skip**, **81 Node tests passed**, and the isolated bridge simulation passed. The command used `--allow-skips` solely because the Windows-only case cannot run on macOS; it is not a zero-skip release result. See the [full regression output](assets/validation-20260926/regression.log) and [machine-readable summary](assets/validation-20260926/summary.json).
