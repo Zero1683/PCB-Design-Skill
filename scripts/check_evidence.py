@@ -55,6 +55,8 @@ def audit(root, baseline, through='G5', board=None, firmware=None, design_gates=
                 errors.append(f'{label}: checked_at must be an ISO timestamp with timezone')
         if state in {'N_A', 'ACCEPTED_LIMITATION'} and not row['limitation']:
             errors.append(f'{label}: {state} needs justification/source in limitation')
+        if state == 'N_A' and row['applicability'] == 'required':
+            errors.append(f'{label}: required check cannot be N_A')
         if state == 'ACCEPTED_LIMITATION' and not row['evidence_path']:
             errors.append(f'{label}: accepted limitation needs a local decision record')
         if state not in {'PASS', 'N_A'}:

@@ -23,7 +23,7 @@ Translate outcome language too: "a keyboard I can plug into my computer and use"
 
 ## Step 2: show the proposed device
 
-Before detailed drawing, show one compact plan: functions, dimensioned board sketch, total height, carrier/mounting, accessible connectors/buttons, power/charging behavior, assembly method and component-only cost. Show unknown prices as unknown. Explain only meaningful tradeoffs. Ask for acceptance or changes once; do not ask permission for each subsequent wire or check. Explicit delegation already covering those decisions permits proceeding after showing the chosen plan.
+Before detailed drawing, show one compact plan: functions, dimensioned board sketch, total height, carrier/mounting, accessible connectors/buttons, power/charging behavior, assembly method, component-only cost and [whole-product cash estimate](39-product-total-cost.md). State what the PCB/PCBA payment supplies, what the user is trying to finish after other purchases and work, and which charges remain unknown. Explain only meaningful tradeoffs. Ask for acceptance or changes once; do not ask permission for each subsequent wire or check. Explicit delegation already covering those decisions permits proceeding after showing the chosen plan.
 
 Include a short reason for the proposed size, not merely "50 x 30 mm". Record strict maxima separately from preferred sizes and free-design space. If it will not fit, propose changes before placing components outside the confirmed space. Do not silently enlarge a board, rotate its external interface or remove a function to achieve routing or cost targets.
 
@@ -89,9 +89,10 @@ Lead with what the user can do now. Use the existing handoff record to provide:
 - Exact links to the source project and the package intended for fabrication,
   identifying its revision. Explain which file goes where.
 - The component list, quantities, current quote/unknown items, assembly method,
-  and necessary external items such as cables or a programmer. Separate parts
-  from fabrication, assembly and shipping costs; never imply a parts estimate
-  is the complete cost.
+  and necessary external items such as cables or a programmer. State the first
+  cash outlay, repeat-lot estimate, missing charges, and what each order supplies
+  using [product total cost](39-product-total-cost.md); never imply a parts or
+  bare-board estimate is the complete cost.
 - A short next-step sequence matched to the user's situation: order the board,
   assemble it, inspect it, perform limited-power first startup, load the correct
   firmware where available, and test the requested functions. Link detailed

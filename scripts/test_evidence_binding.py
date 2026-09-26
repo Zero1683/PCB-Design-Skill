@@ -19,6 +19,14 @@ class BindingTests(unittest.TestCase):
   row=next(r for r in self.rows if r['id']=='PCB-DRC');row['status']='FAIL';write_rows(self.root,self.rows);self.assertFalse(self.audit()['records_complete']);write_rows(self.root,[r for r in self.rows if r['id']!='PCB-DRC']);self.assertFalse(self.audit()['records_complete'])
  def test_required_cannot_be_reclassified_or_na(self):
   row=next(r for r in self.rows if r['id']=='PCB-DRC');row.update(status='N_A',applicability='assess',limitation='skip');write_rows(self.root,self.rows);self.assertFalse(self.audit()['records_complete'])
+ def test_custom_required_na_fails_even_with_current_binding(self):
+  row=copy.deepcopy(self.rows[0]);row.update(id='CUSTOM-REQUIRED',status='N_A',limitation='Documented decision')
+  data=io.read(self.root/'check-bindings.json');bound=copy.deepcopy(data['checks'][0]);bound.update(id=row['id'],status='N_A')
+  data['checks'].append(bound);io.save(self.root/'check-bindings.json',data)
+  write_rows(self.root,self.rows+[row])
+  result=self.audit()
+  self.assertFalse(result['records_complete'])
+  self.assertTrue(any('CUSTOM-REQUIRED' in issue for issue in result['record_errors']))
  def test_conditional_na_needs_bound_decision(self):
   row=next(r for r in self.rows if r['id']=='DENSE-ESCAPE');row.update(status='N_A',limitation='No dense package');write_rows(self.root,self.rows);self.assertFalse(self.audit()['records_complete'])
   data=io.read(self.root/'check-bindings.json');next(b for b in data['checks'] if b['id']=='DENSE-ESCAPE')['status']='N_A';io.save(self.root/'check-bindings.json',data);self.assertTrue(self.audit()['records_complete'])

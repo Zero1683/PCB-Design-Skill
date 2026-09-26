@@ -2,7 +2,7 @@
 name: pcb-design-to-bringup
 description: Design manufacturable, assembleable, and testable PCBs from hardware requirements. Covers component selection, schematics, footprint verification, placement and routing, manufacturing handoff, and hardware acceptance. Use for new designs, board reviews and rework, fabrication preparation, and first-board bring-up. Includes staged verification records and project handoff templates. Supports EasyEDA and workflows in other EDA tools. Not for firmware-only changes or enclosure modeling.
 metadata:
-  version: "2.0.0"
+  version: "2.0.1-dev"
 ---
 
 # PCB Design to Bring-up
@@ -34,7 +34,7 @@ Use the user's language. Do not load every reference, full API index or raw expo
 
 | Current work | Read when needed |
 |---|---|
-| New idea and component estimate | [Beginner brief](references/30-beginner-experience.md), [cost](references/26-component-cost-planning.md) |
+| New idea and cost estimate | [Beginner brief](references/30-beginner-experience.md), [component cost](references/26-component-cost-planning.md), [product total](references/39-product-total-cost.md) |
 | Finding or adapting an existing board | [Open hardware sourcing](references/37-open-hardware-sourcing.md), [reuse checks](references/13-circuit-intent-and-reuse.md) |
 | Power, impedance and electrical calculations | [Analysis](references/09-electrical-analysis.md), [model limits and fallback](references/31-calculation-automation.md) |
 | EDA connection or backend choice | [Execution](references/06-easyeda-execution.md), [backends](references/16-easyeda-operation-backends.md); load bundled API skill before live calls |
@@ -42,6 +42,7 @@ Use the user's language. Do not load every reference, full API index or raw expo
 | Measured placement and bounded repairs | [Planning](references/21-layout-execution.md), [batch repair](references/22-batch-repair.md); [live writer](references/23-live-eda.md) only for existing parts on unwired schematic pages |
 | Mechanical constraints | [Constraint contracts](references/24-executable-constraints.md), [accepted dimensions vs final outline](references/34-mechanical-envelope.md) |
 | Operating states, generated variants, derivative boards or factory assembly | [Sourced project reviews](references/36-project-reviews.md); bind applicable reviews to existing requirements and run `project_reviews.py` |
+| Exact-part decisions, device-to-host function, charging or runtime | [Part identity and device acceptance](references/38-part-identity-and-device-acceptance.md) |
 | Native/manufacturing data inspection | [Extraction/toolkit](references/18-pcb-inspection-toolkit.md), [normalized data](references/10-validation-tools.md), [format](references/17-easyeda-native-format.md) |
 | Large exports, context recovery or file rollback | [Data and recovery](references/20-data-and-recovery.md); file snapshots cannot roll back a live EDA session |
 | Additional command syntax and operation caveats | Relevant section of [operation details](references/35-operation-details.md); do not read all sections by default |
@@ -62,7 +63,7 @@ Use native autorouting for suitable ordinary nets after critical placement, powe
 
 For a new idea, use the [two-step beginner brief](references/30-beginner-experience.md): recover or ask about purpose, carrier, board size, power, accessible controls/connectors and assembly, then show one dimensioned plan and component estimate for acceptance or changes. Explicit prior delegation covers its stated choices; silence does not. Do not repeat this interview for a narrowly authorized repair or read-only review.
 
-Derive a preliminary BOM and query current 立创商城 prices before detailed schematic work. Follow [component cost planning](references/26-component-cost-planning.md): show component-only consumption and actual purchase totals using build quantity, MOQ, order increments and applicable tiers. If quantity is unknown, state a one-board estimate. Cost reduction preserves confirmed functions and performance unless the user explicitly accepts a downgrade. Refresh the BOM and quotes at G5. After plan acceptance or delegation, continue authorized design without per-operation approval pauses. Price research does not authorize purchasing.
+Derive a preliminary BOM and query current 立创商城 prices before detailed schematic work. Follow [component cost planning](references/26-component-cost-planning.md): show component-only consumption and actual purchase totals using build quantity, MOQ, order increments and applicable tiers. Also show what the PCB/PCBA quote buys, the planned product after other purchases and work, its known first cash outlay, and costs still missing using [product total](references/39-product-total-cost.md). If quantity is unknown, state a one-board estimate. Cost reduction preserves confirmed functions and performance unless the user explicitly accepts a downgrade. Refresh the BOM and quotes at G5. After plan acceptance or delegation, continue authorized design without per-operation approval pauses. Price research does not authorize purchasing.
 
 Use [calculation automation](references/31-calculation-automation.md) to distinguish DC voltage drop, PDN response and transmission-line impedance. Calculate locally within a verified model's domain; otherwise use applicable manufacturer tools or browser control. Preserve actual inputs, units, stackup and warnings. Never remove required impedance/process controls solely to reduce cost; compare actual process capability and current quotations.
 
@@ -112,7 +113,7 @@ Apply stages relevant to the authorized scope. These are engineering criteria, n
 | G5 Manufacturing release | Frozen snapshot, independent manufacturing-file preview, consistent BOM/placement/stencil, disclosed limitations | [04](references/04-release-assembly.md) |
 | G6 Assembly and unpowered checks | Correct paste print, orientation, and checks after cooling; traceable board identity and unpowered measurements | [04](references/04-release-assembly.md) |
 | G7 Current-limited power-up and programming | Measured power, reset, boot, logic compatibility, and at least one recovery programming path | [05](references/05-bringup-debug.md) |
-| G8 Functional and boundary tests | Required sensor/interface/load/cold-start tests completed; failures and reduced functionality documented | [05](references/05-bringup-debug.md) |
+| G8 Functional and boundary tests | Required sensor/interface/load/cold-start tests completed; failures and reduced functionality documented | [05](references/05-bringup-debug.md), [38](references/38-part-identity-and-device-acceptance.md) when the product includes a device-to-host path or battery |
 | G9 Handoff | Files mapped to physical boards; tested scope, untested scope, and next steps recorded for continued work | [08](references/08-evidence-and-handoff.md) |
 
 When a tool or physical board is unavailable, continue independent work and deliver reviewable results with the exact blocker. Never invent DRC, simulation, connectivity, screenshot, or oscilloscope results.

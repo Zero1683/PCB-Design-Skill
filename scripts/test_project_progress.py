@@ -1,8 +1,10 @@
 """User journey checks: a fresh project, pending choice, stale record and completed fixture."""
+import copy
 import tempfile
 import unittest
 from pathlib import Path
 
+import check_evidence
 import init_project
 import project_progress as progress
 import workflow_io as io
@@ -14,6 +16,30 @@ class ProgressJourneyTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory(dir=Path.cwd())
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name) / 'project'
+
+    def prepare_through(self, through):
+        """Extend the real G5 fixture with synthetic, separately bound physical records."""
+        self.root.mkdir(exist_ok=True)
+        rows = prepare(self.root)
+        bindings = io.read(self.root / 'check-bindings.json')
+        registry = io.read(Path(check_evidence.__file__).resolve().parents[1]
+                           / 'assets/design-check-registry.json')
+        for gate in registry['checks']:
+            if not 6 <= int(gate['stage'][1:]) <= int(through[1:]):
+                continue
+            name = 'synthetic-' + gate['id'] + '.txt'
+            (self.root / name).write_text('Synthetic record only; no actual board tested.', encoding='utf-8')
+            row = dict(rows[0])
+            row.update(id=gate['id'], stage=gate['stage'], applicability=gate['applicability'],
+                       actual='synthetic observation', board_id='synthetic-board-A',
+                       firmware_id='synthetic-firmware-A', evidence_path=name)
+            rows.append(row)
+            binding = copy.deepcopy(bindings['checks'][0])
+            binding.update(id=gate['id'], evidence=[{'path': name, 'sha256': io.file_hash(self.root / name)}])
+            bindings['checks'].append(binding)
+        write_rows(self.root, rows)
+        io.save(self.root / 'check-bindings.json', bindings)
+        return rows
 
     def test_fresh_project_does_not_claim_completion_or_ask_for_a_baseline(self):
         init_project.create_project(self.root, 'Tiny keyboard', 'zh')
@@ -80,6 +106,85 @@ class ProgressJourneyTests(unittest.TestCase):
         self.assertEqual(result['next_owner'], 'agent')
         self.assertIn('原理图', result['next_step'])
         self.assertNotIn('synthetic', result['next_step'])
+
+    def test_g8_navigation_does_not_skip_missing_physical_stages(self):
+        self.root.mkdir()
+        prepare(self.root)  # Complete synthetic G0-G5 records, no G6-G8 observations.
+        result = progress.snapshot(self.root, 'A', through='G8')
+        self.assertEqual(result['state'], 'IN_PROGRESS')
+        self.assertEqual(result['stage'], 'G6')
+        self.assertIn('焊接', result['next_step'])
+        self.assertGreater(result['unfinished_checks'], 0)
+        self.assertTrue(result['fabrication_evidence_complete'])
+
+    def test_complete_g8_and_g9_records_keep_fabrication_separate_from_physical_claims(self):
+        for through in ('G8', 'G9'):
+            with self.subTest(through=through):
+                rows = self.prepare_through(through)
+                result = progress.snapshot(self.root, 'A', through=through)
+                self.assertEqual(result['state'], 'RECORDS_FILLED')
+                self.assertEqual(result['stage'], through)
+                self.assertEqual(result['selected_checks'], len(rows))
+                self.assertEqual(result['unfinished_checks'], 0)
+                self.assertEqual(result['record_issues'], 0)
+                self.assertEqual(result['first_record_issues'], [])
+                self.assertTrue(result['fabrication_evidence_complete'])
+                self.assertEqual(result['physical_board_test'], 'NOT_ASSESSED')
+
+    def test_filled_g8_rows_require_complete_physical_evidence_bindings(self):
+        for defect in ('missing_binding', 'empty_evidence', 'changed_evidence'):
+            with self.subTest(defect=defect):
+                self.prepare_through('G8')
+                bindings = io.read(self.root / 'check-bindings.json')
+                entry = next(b for b in bindings['checks'] if b['id'] == 'POWER-CORNERS')
+                if defect == 'missing_binding':
+                    bindings['checks'].remove(entry)
+                    expected = 'Missing design binding: POWER-CORNERS'
+                elif defect == 'empty_evidence':
+                    entry['evidence'] = []
+                    expected = 'Bound inputs and evidence required: POWER-CORNERS'
+                else:
+                    (self.root / entry['evidence'][0]['path']).write_text('Changed synthetic observation.', encoding='utf-8')
+                    expected = 'File changed: synthetic-POWER-CORNERS.txt'
+                io.save(self.root / 'check-bindings.json', bindings)
+                # A populated CSV and nonempty evidence files pass the shallow audit;
+                # the later-stage design-gate audit must still reject their binding.
+                self.assertTrue(check_evidence.audit(self.root, 'A', through='G8')['records_complete'])
+                result = progress.snapshot(self.root, 'A', through='G8')
+                self.assertEqual(result['state'], 'IN_PROGRESS')
+                self.assertEqual(result['unfinished_checks'], 0)
+                self.assertEqual(result['record_issues'], 1)
+                self.assertIn(expected, result['first_record_issues'][0])
+                self.assertTrue(result['fabrication_evidence_complete'])
+                self.assertEqual(result['next_owner'], 'agent')
+
+    def test_missing_or_empty_physical_evidence_does_not_invalidate_complete_fabrication(self):
+        for defect in ('missing', 'empty'):
+            with self.subTest(defect=defect):
+                self.prepare_through('G8')
+                evidence = self.root / 'synthetic-POWER-CORNERS.txt'
+                if defect == 'missing':
+                    evidence.unlink()
+                else:
+                    evidence.write_text('', encoding='utf-8')
+                result = progress.snapshot(self.root, 'A', through='G8')
+                self.assertEqual(result['state'], 'IN_PROGRESS')
+                self.assertEqual(result['unfinished_checks'], 0)
+                self.assertEqual(result['record_issues'], 1)
+                self.assertIn('evidence must be a nonempty project-local file', result['first_record_issues'][0])
+                self.assertIn(evidence.name, result['first_record_issues'][0])
+                self.assertTrue(result['fabrication_evidence_complete'])
+
+    def test_deleting_one_g8_registry_row_leaves_a_functional_test_pending(self):
+        rows = self.prepare_through('G8')
+        write_rows(self.root, [row for row in rows if row['id'] != 'POWER-CORNERS'])
+        result = progress.snapshot(self.root, 'A', through='G8')
+        self.assertEqual(result['state'], 'IN_PROGRESS')
+        self.assertEqual(result['stage'], 'G8')
+        self.assertEqual(result['unfinished_checks'], 1)
+        self.assertEqual(result['record_issues'], 0)
+        self.assertIn('功能', result['next_step'])
+        self.assertTrue(result['fabrication_evidence_complete'])
 
 
 if __name__ == '__main__':

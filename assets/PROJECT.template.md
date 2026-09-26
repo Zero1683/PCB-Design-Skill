@@ -140,3 +140,13 @@ exact source sections, units, tolerances and per-side/total dimension semantics.
 - Verified substitutes, compatibility sources, savings and affected design checks:
 - Explicit user decision for any functional/performance reduction:
 - Final exported BOM reconciliation and refreshed quotes:
+
+## Product Total and Payment Contents
+
+- PCB/PCBA quote delivers: bare PCB / fitted PCB / usable device; target after other purchases and work:
+- Quantity, design baseline, currency, tax basis, quote dates and sources:
+- Components purchased separately or included in a PCBA quote; exact PCB/assembly/parts coverage:
+- Needed costs and status: PCB, parts, assembly, stencil, shipping, battery, enclosure, tools, software/API; omitted or already-owned items and reasons:
+- `product-cost.json` and result; first cash outlay / first-lot unit / same-quantity repeat-lot unit:
+- Missing prices and known subtotal (do not present this as the full total):
+- Remaining firmware, assembly, physical testing work or costs and owner:
