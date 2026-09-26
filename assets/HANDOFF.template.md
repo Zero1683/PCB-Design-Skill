@@ -8,6 +8,8 @@ Updated: {{CREATED_UTC}}
 - Who takes the next action, and what is it?
 - Which of ordering, assembly, power-up and programming are evidenced or pending?
 - If user help is needed, state only the current action:
+- What does the PCB/PCBA payment buy; what is the target after other purchases and work, and what is still missing?
+- First cash outlay, same-quantity repeat unit and unpriced items (known subtotal only if incomplete):
 
 ## Current Status
 
